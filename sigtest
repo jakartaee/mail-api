@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License v. 2.0, which is available at
+# http://www.eclipse.org/legal/epl-2.0.
+#
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the
+# Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+# version 2 with the GNU Classpath Exception, which is available at
+# https://www.gnu.org/software/classpath/license.html.
+#
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+#
+
+#
+# Compare API against a signature file.
+#
+# Usage: sigtest javax.mail.jar mail.sig
+#
+SIGTEST=${SIGTEST:-/java/re/sigtest/4.0/promoted/fcs/latest/binaries/sigtest-4.0}
+# The apicheck program isn't working correctly, use sigtest instead.
+#APICHECK_JAR=$SIGTEST/lib/apicheck.jar
+SIGTEST_JAR=$SIGTEST/lib/sigtestdev.jar
+JAVA_HOME=${JAVA_HOME:-/opt/jdk1.8}
+USAGE="sigtest [-b] [-p package] javax.mail.jar mail.sig"
+PKG=javax.mail
+BACKWARD=
+PLATSIG=/tmp/$$.platform.sig
+
+while getopts bp: opt
+do
+	case $opt in
+	p)	PKG="$OPTARG";;
+	b)	BACKWARD=-backward;;
+	\?)	echo $USAGE; exit 1;;
+	esac
+done
+shift `expr $OPTIND - 1`
+
+JAR="$1"
+SIG="$2"
+shift 2
+
+ver=$($JAVA_HOME/bin/java -version 2>&1 | sed -e 's/.*"\(.*\)".*/\1/;q')
+case "$ver" in
+1.[0-9]*)	xjimage=;
+		cp="${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/jre/lib/jce.jar";;
+*)		xjimage="-xjimage ${JAVA_HOME}/bin/jimage";
+		cp="${JAVA_HOME}/lib/modules";;
+esac
+
+echo '*** Generate JDK signatures ***'
+${JAVA_HOME}/bin/java -jar $SIGTEST_JAR setup \
+	-classpath "$cp" $xjimage \
+	-filename "$PLATSIG" -package java -package javax -keepfile \
+	-verbose nowarn
+echo
+echo '*** Check JavaMail signatures ***'
+${JAVA_HOME}/bin/java -jar $SIGTEST_JAR test -static \
+	-classpath "$PLATSIG:$JAR" \
+	-filename "$SIG" -package "$PKG" -out /dev/stdout \
+	-nomerge -checkvalue -mode src $BACKWARD "$@"
+
+rm "$PLATSIG"

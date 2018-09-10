@@ -1,0 +1,107 @@
+#
+# Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License v. 2.0, which is available at
+# http://www.eclipse.org/legal/epl-2.0.
+#
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the
+# Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+# version 2 with the GNU Classpath Exception, which is available at
+# https://www.gnu.org/software/classpath/license.html.
+#
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+#
+
+#
+# Test data used by InternetAddressFoldTest.java to test folding of
+# addresses using the InternetAddress.toString(Address[], int) method.
+#
+# Data format is:
+#
+# FOLD N
+# address1$
+# ...
+# addressN$
+# EXPECT
+# address1, ..., addressN$
+#
+# That is, the FOLD line says how many addresses follow,
+# each address is terminated by a dollar sign, allowing embedded CR and LF.
+# EXPECT is followed by one string terminated by a dollar sign.
+#
+
+#
+# First, test some simple non-folding and folding cases.
+#
+FOLD 2
+a@example.com$
+b@example.com$
+EXPECT
+a@example.com, b@example.com$
+FOLD 2
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.com$
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb@example.com$
+EXPECT
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.com,
+	bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb@example.com$
+FOLD 1
+a
+b
+c <abc@example.com>$
+EXPECT
+a
+ b
+ c <abc@example.com>$
+FOLD 1
+a
+b
+c <abc@example.com>$
+EXPECT
+a
+ b
+ c <abc@example.com>$
+FOLD 1
+abc <abc@example.com>$
+EXPECT
+a
+ b
+ c <abc@example.com>$
+#
+# Test that personal name is wrapped, preserving whitespace.
+#
+FOLD 1
+a
+  b
+  c <abc@example.com>$
+EXPECT
+a
+  b
+  c <abc@example.com>$
+FOLD 1
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ccccccccccccccccccccccccccccccccccccccc <abc@example.com>$
+EXPECT
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+ ccccccccccccccccccccccccccccccccccccccc <abc@example.com>$
+FOLD 1
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb  ccccccccccccccccccccccccccccccccccccccc <abc@example.com>$
+EXPECT
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  ccccccccccccccccccccccccccccccccccccccc <abc@example.com>$
+#
+# Test a mix; note different indentation, which is weird,
+# but Thunderbird does this too.
+#
+FOLD 2
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.com$
+a
+b
+c <abc@example.com>$
+EXPECT
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.com,
+	a
+ b
+ c <abc@example.com>$

@@ -1,0 +1,197 @@
+#
+# Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License v. 2.0, which is available at
+# http://www.eclipse.org/legal/epl-2.0.
+#
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the
+# Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+# version 2 with the GNU Classpath Exception, which is available at
+# https://www.gnu.org/software/classpath/license.html.
+#
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+#
+
+#
+# Data to test uudecoder.
+#
+# Mostly tests error cases and ability to ignore errors.
+#
+
+TEST a simple decode test
+DATA
+begin 644 encoder.buf
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST no begin
+DATA
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+EXCEPTION com.sun.mail.util.DecodingException
+END
+
+TEST no end
+DATA
+begin 644 encoder.buf
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+EXPECT
+EXCEPTION com.sun.mail.util.DecodingException
+END
+
+TEST no end, no empty line
+DATA
+begin 644 encoder.buf
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+EXPECT
+EXCEPTION com.sun.mail.util.DecodingException
+END
+
+TEST no begin, ignore errors
+DATA ignoreMissingBeginEnd
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST no end, ignore errors
+DATA ignoreMissingBeginEnd
+begin 644 encoder.buf
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST no begin, no end, ignore errors
+DATA ignoreMissingBeginEnd
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST empty line, ignore errors
+DATA ignoreMissingBeginEnd
+
+begin 644 encoder.buf
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST empty line, no begin, ignore errors
+DATA ignoreMissingBeginEnd
+
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST bad mode
+DATA
+begin xxx encoder.buf
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+EXCEPTION com.sun.mail.util.DecodingException
+END
+
+TEST bad mode, ignore errors
+DATA ignoreErrors
+begin xxx encoder.buf
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST bad filename
+DATA
+begin 644
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+EXCEPTION com.sun.mail.util.DecodingException
+END
+
+TEST bad filename, ignore errors
+DATA ignoreErrors
+begin 644
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST garbage data
+DATA
+begin 644 encoder.buf
+XXX
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+EXCEPTION com.sun.mail.util.DecodingException
+END
+
+TEST garbage data (tab)
+DATA
+begin 644 encoder.buf
+	
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+EXCEPTION com.sun.mail.util.DecodingException
+END
+
+TEST garbage data, ignore errors
+DATA ignoreErrors
+begin 644 encoder.buf
+XXX
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+ 
+end
+EXPECT
+this is a very very very very very long line to test the decoder
+END
+
+TEST ignore both kinds of errors
+DATA ignoreErrors ignoreMissingBeginEnd
+XXX
+M=&AI<R!I<R!A('9E<GD@=F5R>2!V97)Y('9E<GD@=F5R>2!L;VYG(&QI;F4@
+4=&\@=&5S="!T:&4@9&5C;V1E<@H!
+EXPECT
+this is a very very very very very long line to test the decoder
+END

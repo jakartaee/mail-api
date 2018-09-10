@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License v. 2.0, which is available at
+# http://www.eclipse.org/legal/epl-2.0.
+#
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the
+# Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+# version 2 with the GNU Classpath Exception, which is available at
+# https://www.gnu.org/software/classpath/license.html.
+#
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+#
+
+#
+# update version number in pom files, e.g., to change to release
+# version number in preparation for release, or to change back to
+# snapshot version number after release.
+#
+# Usage:	update_version new-version
+#
+new=$1
+# find the second version string in pom.xml, which is the old version
+# this is almost the same as "mvn versions:set -DnewVersion=$1"
+# except that misses mbox/native/pom.xml and oldmail/pom.xml
+old=`grep '<version>.*</version>' pom.xml | sed -n 2p | \
+	sed -e 's:.*<version>\(.*\)</version>.*:\1:'`
+for file in `find . -name 'pom.xml' `
+do
+	ed - "$file" <<-EOF
+	g:<version>$old</version>:s::<version>$new</version>:
+	w
+	q
+	EOF
+done
+zipold=`echo "$old" | sed -e 's/\\./_/g'`
+zipnew=`echo "$new" | sed -e 's/\\./_/g'`
+ed - pom.xml <<-EOF
+g:<mail.version>$old</mail.version>:s::<mail.version>$new</mail.version>:
+g:<mail.zipversion>$zipold</mail.zipversion>:s::<mail.zipversion>$zipnew</mail.zipversion>:
+w
+q
+EOF

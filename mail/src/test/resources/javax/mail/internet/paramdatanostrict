@@ -1,0 +1,70 @@
+Comment:
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+Comment:
+
+        A set of test headers to test parameter list parsing
+	with mail.mime.parameters.strict=false.
+        Use with:
+	java -Dmail.mime.parameters.strict=false paramtest -p <paramdatanostrict
+
+        CAREFUL: a blank line in this file causes everything following it
+                 to be ignored until a line starting with "From " (so that
+                 paramtest -p can be pointed at a real mailbox).
+
+From start here
+Content-Type: text/plain;
+ creation-date=Tue, 22 Jul 2008 10:03:09 GMT;
+ filename="test1kb.file";
+ modification-date=Tue, 22 Jul 2008 10:03:24 GMT
+Expect: 3
+	creation-date=Tue, 22 Jul 2008 10:03:09 GMT
+	filename=test1kb.file
+	modification-date=Tue, 22 Jul 2008 10:03:24 GMT
+Comment: embedded whitespace
+Content-Type: text/plain; name=file name.txt
+Expect: 1
+	name=file name.txt
+Comment: trailing whitespace
+Content-Type: text/plain; name=file name.txt 
+Expect: 1
+	name=file name.txt
+Comment: leading and trailing whitespace
+Content-Type: text/plain; name= file name.txt 
+Expect: 1
+	name=file name.txt
+Comment: trailing newline
+Content-Type: text/plain; name=file name.txt
+	;
+Expect: 1
+	name=file name.txt
+Content-Type: text/plain; name=file name.txt ; time= now
+Expect: 2
+	name=file name.txt
+	time=now
+Content-Type: text/plain; name=file name.txt ; 
+	time= now
+Expect: 2
+	name=file name.txt
+	time=now
+Content-Type: text/plain; name=file name.txt 
+	; time = now 
+Expect: 2
+	name=file name.txt
+	time=now
+Content-Type: text/plain; filename==?Windows-1251?B?8OXq4ujn6PL7IMjPLmRvYw?=
+Expect: 1
+	filename==?Windows-1251?B?8OXq4ujn6PL7IMjPLmRvYw?=

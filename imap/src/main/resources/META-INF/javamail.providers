@@ -1,0 +1,3 @@
+# JavaMail IMAP provider Oracle
+protocol=imap; type=store; class=com.sun.mail.imap.IMAPStore; vendor=Oracle;
+protocol=imaps; type=store; class=com.sun.mail.imap.IMAPSSLStore; vendor=Oracle;
