@@ -8,19 +8,9 @@ contribute, and we can better coordinate contributions with other
 planned or ongoing work on JavaMail.
 
 Contributions to JavaMail follow the same rules and process as
-contributions to GlassFish, which is described
-[here](https://glassfish.java.net/public/GovernancePolicy.html#OCA_Policy)
-and excerpted below:
+contributions to other Eclipse projects.
 
-## Contribution Policy
-
-The first step to contributing code or submitting a patch is to sign
-and return [Contributor Agreement](http://oss.oracle.com/oca.pdf).
-Please print this form out, fill in all the necessary detail, scan it,
-and return it via e-mail: <oracle-ca_us@oracle.com> You may also want
-to read the [Contributor agreement FAQ](http://oss.oracle.com/oca-faq.pdf).
-
-See [CONTRIBUTING](CONTRIBUTING) for the legal details.
+See [CONTRIBUTING](CONTRIBUTING.md) for the legal details.
 
 ## Coding Style
 

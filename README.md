@@ -25,7 +25,7 @@ The JavaMail project is now hosted at the Eclipse Foundation as part of
 the [EE4J project](https://projects.eclipse.org/projects/ee4j).
 
 By contributing to this project, you agree to these additional terms of
-use, described in [CONTRIBUTING](CONTRIBUTING).
+use, described in [CONTRIBUTING](CONTRIBUTING.md).
 
 ## August 29, 2018 - JavaMail 1.6.2 Final Release ##
 
