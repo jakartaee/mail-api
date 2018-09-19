@@ -34,8 +34,8 @@
 	<version>1.6.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>javax.mail</groupId>
-    <artifactId>javax.mail-api</artifactId>
+    <groupId>jakarta.mail</groupId>
+    <artifactId>jakarta.mail-api</artifactId>
     <packaging>jar</packaging>
     <name>JavaMail API jar</name>
 
