@@ -126,7 +126,7 @@
 			    <artifactItems>
 				<artifactItem>
 				    <groupId>com.sun.mail</groupId>
-				    <artifactId>javax.mail</artifactId>
+				    <artifactId>jakarta.mail</artifactId>
 				    <version>${mail.version}</version>
 				    <classifier>sources</classifier>
 				    <outputDirectory>
@@ -141,7 +141,7 @@
 		    <artifactItems>
 			<artifactItem>
 			    <groupId>com.sun.mail</groupId>
-			    <artifactId>javax.mail</artifactId>
+			    <artifactId>jakarta.mail</artifactId>
 			    <version>${mail.version}</version>
 			</artifactItem>
 		    </artifactItems>

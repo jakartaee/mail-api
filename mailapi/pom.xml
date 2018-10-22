@@ -48,7 +48,7 @@
 	    com.sun.mail.handlers; version=${mail.osgiversion}
 	</mail.packages.export>
 	<mail.bundle.symbolicName>
-	    javax.mail.api
+	    jakarta.mail.api
 	</mail.bundle.symbolicName>
     </properties>
 
@@ -176,7 +176,7 @@
 			    <artifactItems>
 				<artifactItem>
 				    <groupId>com.sun.mail</groupId>
-				    <artifactId>javax.mail</artifactId>
+				    <artifactId>jakarta.mail</artifactId>
 				    <version>${mail.version}</version>
 				    <classifier>sources</classifier>
 				    <outputDirectory>
@@ -191,7 +191,7 @@
 		    <artifactItems>
 			<artifactItem>
 			    <groupId>com.sun.mail</groupId>
-			    <artifactId>javax.mail</artifactId>
+			    <artifactId>jakarta.mail</artifactId>
 			    <version>${mail.version}</version>
 			</artifactItem>
 		    </artifactItems>

@@ -74,7 +74,7 @@
 	<!-- like mail.version, but with underscores instead of dots -->
 	<mail.zipversion>1_6_3-SNAPSHOT</mail.zipversion>
 	<mail.spec.version>1.6</mail.spec.version>
-	<activation-api.version>1.1</activation-api.version>
+	<activation.version>1.2.1-SNAPSHOT</activation.version>
 	<!-- defaults that are overridden in mail module -->
 	<mail.extensionName>
 	    ${project.groupId}.${project.artifactId}
@@ -786,7 +786,7 @@
 			<additionalDependencies>
 			    <additionalDependency>
 				<groupId>com.sun.mail</groupId>
-				<artifactId>javax.mail</artifactId>
+				<artifactId>jakarta.mail</artifactId>
 				<version>${mail.version}</version>
 			    </additionalDependency>
 			    <additionalDependency>
@@ -824,6 +824,15 @@
 			</excludeFile>
 		    </configuration>
 		</plugin>
+		<plugin>
+		    <groupId>org.sonatype.plugins</groupId>
+		    <artifactId>nexus-staging-maven-plugin</artifactId>
+		    <extensions>true</extensions>
+		    <configuration>
+			<serverId>ossrh</serverId>
+			<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+		    </configuration>
+		</plugin>
 	    </plugins>
 	</pluginManagement>
     </build>
@@ -831,13 +840,13 @@
     <dependencyManagement>
 	<dependencies>
 	    <dependency>
-		<groupId>javax.activation</groupId>
-		<artifactId>activation</artifactId>
-		<version>${activation-api.version}</version>
+		<groupId>com.sun.activation</groupId>
+		<artifactId>jakarta.activation</artifactId>
+		<version>${activation.version}</version>
 	    </dependency>
 	    <dependency>
 		<groupId>com.sun.mail</groupId>
-		<artifactId>javax.mail</artifactId>
+		<artifactId>jakarta.mail</artifactId>
 		<version>${mail.version}</version>
 	    </dependency>
 	    <dependency>
@@ -880,8 +889,8 @@
 
     <dependencies>
 	<dependency>
-	    <groupId>javax.activation</groupId>
-	    <artifactId>activation</artifactId>
+	    <groupId>jakarta.activation</groupId>
+	    <artifactId>activation-api</artifactId>
 	</dependency>
     </dependencies>
     -->

@@ -28,16 +28,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.mail</groupId>
-    <artifactId>javax.mail</artifactId>
+    <artifactId>jakarta.mail</artifactId>
     <packaging>jar</packaging>
     <name>JavaMail API</name>
 
     <properties>
 	<mail.extensionName>
-	    javax.mail
+	    jakarta.mail
 	</mail.extensionName>
 	<mail.moduleName>
-	    java.mail
+	    jakarta.mail
 	</mail.moduleName>
 	<mail.specificationTitle>
 	    JavaMail(TM) API Design Specification
@@ -200,8 +200,8 @@
 
     <dependencies>
 	<dependency>
-	    <groupId>javax.activation</groupId>
-	    <artifactId>activation</artifactId>
+	    <groupId>com.sun.activation</groupId>
+	    <artifactId>jakarta.activation</artifactId>
 	</dependency>
 	<dependency>
 	    <groupId>junit</groupId>

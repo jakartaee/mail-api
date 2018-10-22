@@ -41,13 +41,13 @@
 
     <properties>
 	<mail.extensionName>
-	    javax.mail
+	    jakarta.mail
 	</mail.extensionName>
 	<mail.packages.export>
 	    javax.mail.*; version=${mail.spec.version}
 	</mail.packages.export>
 	<mail.bundle.symbolicName>
-	    javax.mail-api
+	    jakarta.mail-api
 	</mail.bundle.symbolicName>
     </properties>
 
@@ -75,7 +75,7 @@
 			    <artifactItems>
 				<artifactItem>
 				    <groupId>com.sun.mail</groupId>
-				    <artifactId>javax.mail</artifactId>
+				    <artifactId>jakarta.mail</artifactId>
 				    <version>${mail.version}</version>
 				    <classifier>sources</classifier>
 				    <outputDirectory>
@@ -90,7 +90,7 @@
 		    <artifactItems>
 			<artifactItem>
 			    <groupId>com.sun.mail</groupId>
-			    <artifactId>javax.mail</artifactId>
+			    <artifactId>jakarta.mail</artifactId>
 			    <version>${mail.version}</version>
 			</artifactItem>
 		    </artifactItems>
