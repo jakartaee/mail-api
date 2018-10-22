@@ -39,7 +39,7 @@
     <properties>
 	<activation.spec.version>1.2</activation.spec.version>
 	<activation.extensionName>
-	    javax.activation
+	    jakarta.activation.android
 	</activation.extensionName>
 	<activation.specificationTitle>
 	    JavaBeans(TM) Activation Framework Specification
