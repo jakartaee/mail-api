@@ -9,18 +9,19 @@ versions of the JavaMail API implementation, IMAP, SMTP, and POP3
 service providers, some examples, and documentation for the JavaMail
 API.
 
-Please see the FAQ at https://javaee.github.io/javamail/FAQ
+Please see the FAQ at https://eclipse-ee4j.github.io/javamail/FAQ
 
 JDK Version notes
 -----------------
 
-The JavaMail API supports JDK 1.5 or higher.  Note that we have
-currently tested this implementation with JDK 1.5, 1.6, 1.7, and 1.8.
+The JavaMail API supports JDK 1.7 or higher.  Note that we have
+currently tested this implementation with JDK 1.7 and 1.8.
 
 While JavaMail will work with JAF 1.0.2, we recommend the use of JAF 1.1
-or newer.  JAF 1.1.1 is currently the newest version.  Note that JAF 1.1
+or newer.  JAF 1.2.1 is currently the newest version.  Note that JAF 1.1
 is included in JDK 1.6 and JAF 1.1.1 is included in JDK 1.6.0_10 and
-later.
+later.  JAF 1.2.0 is included but hidden in JDK 9 and has been removed
+from JDK 11.  JAF 1.2.1 is available separately (see below).
 
 
 Protocols supported
@@ -46,7 +47,7 @@ in the JavaMail API) and their capabilities:
 	smtp		Transport	No	Yes
 	smtps		Transport	Yes	N/A
 
-See our web page at http://www.oracle.com/technetwork/java/javamail/
+See our web page at https://eclipse-ee4j.github.io/javamail/
 for the latest information on third party protocol providers.
 
 
@@ -55,17 +56,18 @@ Download
 
 See the JavaMail project page to download this release.
 
-	https://javaee.github.io/javamail/
+	https://eclipse-ee4j.github.io/javamail/
 
 
 Requirements
 ------------
 
 Note that the JavaMail API requires the JavaBeans(TM) Activation
-Framework package to be installed as well if you're using JDK 1.5.
+Framework package to be installed as well if you're using or JDK 11 or later.
+
 Download the latest version of the JavaBeans Activation Framework from
 
-	http://www.oracle.com/technetwork/java/javase/index-jsp-136939.html
+	https://github.com/eclipse-ee4j/jaf/releases
 
 and install it in a suitable location.
 
@@ -76,16 +78,16 @@ Installation
   UNIX/Linux
   ----------
 
-  1. Download the javax.mail.jar file from the JavaMail project website.
-     https://github.com/javaee/javamail/releases
+  1. Download the jakarta.mail.jar file from the JavaMail project website.
+     https://github.com/eclipse-ee4j/javamail/releases
 
-  2. Set your CLASSPATH to include the "javax.mail.jar" file obtained from
+  2. Set your CLASSPATH to include the "jakarta.mail.jar" file obtained from
      the download, as well as the current directory.
 
-     Assuming you have downloaded javax.mail.jar to the /u/me/download/
+     Assuming you have downloaded jakarta.mail.jar to the /u/me/download/
      directory, the following would work:
 
-      export CLASSPATH=$CLASSPATH:/u/me/download/javax.mail.jar:.
+      export CLASSPATH=$CLASSPATH:/u/me/download/jakarta.mail.jar:.
 
     (Don't forget the trailing "." for the current directory.)
     Also, if you're using JDK 1.5, include the "activation.jar" file that you
@@ -94,7 +96,7 @@ Installation
       export CLASSPATH=$CLASSPATH:/u/me/download/activation/activation.jar
 
   3. Download the javamail-samples.zip file from the project website.
-     https://github.com/javaee/javamail/releases
+     https://github.com/eclipse-ee4j/javamail/releases
 
   4. Compile any sample program using your Java compiler. For example:
 
@@ -119,16 +121,16 @@ Installation
   Windows
   -------
 
-  1. Download the javax.mail.jar file from the JavaMail project website.
-     https://github.com/javaee/javamail/releases
+  1. Download the jakarta.mail.jar file from the JavaMail project website.
+     https://github.com/eclipse-ee4j/javamail/releases
 
-  2. Set your CLASSPATH to include the "javax.mail.jar" file obtained from
+  2. Set your CLASSPATH to include the "jakarta.mail.jar" file obtained from
      the download, as well as the current directory.
 
-     Assuming you have downloaded javax.mail.jar to the /u/me/download/
+     Assuming you have downloaded jakarta.mail.jar to the /u/me/download/
      directory, the following would work:
 
-      set CLASSPATH=%CLASSPATH%;c:\download\javax.mail.jar;.
+      set CLASSPATH=%CLASSPATH%;c:\download\jakarta.mail.jar;.
 
     (Don't forget the trailing "." for the current directory.)
     Also, if you're using JDK 1.5, include the "activation.jar" file that you
@@ -137,7 +139,7 @@ Installation
       set CLASSPATH=%CLASSPATH%;c:\download\activation\activation.jar
 
   3. Download the javamail-samples.zip file from the project website.
-     https://github.com/javaee/javamail/releases
+     https://github.com/eclipse-ee4j/javamail/releases
 
   4. Compile any sample program using your Java compiler. For example:
 
@@ -162,7 +164,7 @@ Installation
 Problems?
 ---------
 
-The JavaMail FAQ at https://javaee.github.io/javamail/FAQ
+The JavaMail FAQ at https://eclipse-ee4j.github.io/javamail/FAQ
 includes information on protocols supported, installation problems,
 debugging tips, etc.
 
