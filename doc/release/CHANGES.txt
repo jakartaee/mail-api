@@ -1,6 +1,11 @@
 You can find more information about each bug number by visiting the
 Issue Tracker and looking up each bug you're interested in.
 
+Bug IDs that start with "E" can be found in the GitHub Issue Tracker
+for the Eclipse EE4J JavaMail project (after removing the "E"):
+
+	https://github.com/eclipse-ee4j/javamail/issues/<bug-number>
+
 Bug IDs that start with "GH" can be found in the GitHub Issue Tracker
 (after removing the "GH"):
 
@@ -13,6 +18,13 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
+
+
+		  CHANGES IN THE 1.6.3 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 1.6.3 release.
+
+E  348	Change Maven coordinates to match EE4J and Jakarta EE conventions
 
 
 		  CHANGES IN THE 1.6.2 RELEASE
