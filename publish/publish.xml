@@ -24,15 +24,15 @@
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
-	<!-- include the main javax.mail.jar file -->
+	<!-- include the main jakarta.mail.jar file -->
 	<dependencySet>
 	    <includes>
-		<include>com.sun.mail:javax.mail</include>
+		<include>com.sun.mail:jakarta.mail</include>
 	    </includes>
 	    <useTransitiveDependencies>false</useTransitiveDependencies>
 	    <unpack>false</unpack>
 	    <outputFileNameMapping>
-		javax.mail.jar
+		jakarta.mail.jar
 	    </outputFileNameMapping>
 	</dependencySet>
     </dependencySets>
