@@ -14,6 +14,44 @@ implementation.  This note summarizes potential compatibility issues
 with this release of the JavaMail API.
 
 
+-- JavaMail 1.6.3 --
+
+- Maven coordinates for JavaMail changed.
+
+	JavaMail has moved to the Eclipse Foundation as part of the EE4J
+	project, and will be included in the Jakarta EE specification.
+	The Maven coordinates for JavaMail are now:
+
+	- com.sun.mail:jakarta.mail	- complete JavaMail jar file
+	- jakarta.mail:jakarta.mail-api	- API jar file for compiling only
+
+	When updating dependencies to use JavaMail 1.6.3 or newer, the
+	artifactId will need to be changed as above.  The APIs are
+	otherwise compatible.
+
+- Java module system name changed.
+
+	Experimental support for the Java platform module system was
+	added in the previous release using the name "java.mail" for the
+	API module (mailapi.jar).  In this release the name of that
+	module is changed to "jakarta.mail".
+
+
+-- JavaMail 1.6.2 --
+
+- Protocol providers now loaded using the java.util.ServiceLoader mechanism.
+
+	All the protocol providers included with JavaMail, as well as
+	third party providers, can use the Service Loader mechanism to
+	configure the provider, instead of using the
+	META-INF/javamail.default.providers or META-INF/javamail.providers
+	file.  These JavaMail provider configuration files are only read
+	if the ServiceLoader fails to find a provider that supports the
+	requested protocol.  This may have the effect of changing the order
+	in which providers are loaded, which should only be an issue if
+	multiple providers support the same protocol name.
+
+
 -- JavaMail 1.6.1 --
 
 - com.sun.mail.util.logging no longer included in mailapi.jar.

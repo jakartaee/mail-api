@@ -21,7 +21,7 @@ module com.sun.mail.imap {
     provides javax.mail.Provider with
 	com.sun.mail.imap.IMAPProvider, com.sun.mail.imap.IMAPSSLProvider;
 
-    requires java.mail;
+    requires jakarta.mail;
     requires java.logging;
     requires java.security.sasl;
 }

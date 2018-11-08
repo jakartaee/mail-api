@@ -17,6 +17,6 @@
 module com.sun.mail.util.logging {
     exports com.sun.mail.util.logging;
 
-    requires java.mail;
+    requires jakarta.mail;
     requires java.logging;
 }
