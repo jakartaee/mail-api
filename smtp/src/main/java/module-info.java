@@ -19,7 +19,7 @@ module com.sun.mail.smtp {
     provides javax.mail.Provider with
 	com.sun.mail.smtp.SMTPProvider, com.sun.mail.smtp.SMTPSSLProvider;
 
-    requires java.mail;
+    requires jakarta.mail;
     requires java.logging;
     requires java.security.sasl;
 }
