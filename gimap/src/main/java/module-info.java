@@ -20,7 +20,7 @@ module com.sun.mail.gimap {
     provides javax.mail.Provider with
 	com.sun.mail.gimap.GmailProvider, com.sun.mail.gimap.GmailSSLProvider;
 
-    requires java.mail;
+    requires jakarta.mail;
     requires java.logging;
     requires java.security.sasl;
     requires com.sun.mail.imap;
