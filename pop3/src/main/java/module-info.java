@@ -19,7 +19,7 @@ module com.sun.mail.pop3 {
     provides javax.mail.Provider with
 	com.sun.mail.pop3.POP3Provider, com.sun.mail.pop3.POP3SSLProvider;
 
-    requires java.mail;
+    requires jakarta.mail;
     requires java.logging;
     requires java.security.sasl;
 }

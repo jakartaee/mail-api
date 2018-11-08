@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-module java.mail {
+module jakarta.mail {
     exports javax.mail;
     exports javax.mail.event;
     exports javax.mail.internet;
@@ -24,7 +24,7 @@ module java.mail {
     exports com.sun.mail.auth;
     exports com.sun.mail.handlers;
 
-    requires transitive java.activation;
+    requires transitive jakarta.activation;
     requires java.logging;
     requires java.xml;		// for text/xml handler
     requires java.desktop;	// for image/jpeg handler
