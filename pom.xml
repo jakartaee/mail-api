@@ -92,6 +92,7 @@
 	    javax.mail.*; version=${mail.spec.version}
 	</mail.packages.export>
 	<mail.packages.import>
+	    javax.activation;version=!,
 	    javax.security.sasl;resolution:=optional,
 	    sun.security.util;resolution:=optional,
 	    *
