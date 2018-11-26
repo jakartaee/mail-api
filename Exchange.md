@@ -24,7 +24,7 @@ Instead, use a HeaderTerm to search for the email address.
 
 Exchange 2010 has a bug where it returns NIL instead of "" for empty
 parameter values, causing a NullPointerException.  A
-[workaround](https://github.com/javaee/javamail/issues/203)
+[workaround](https://github.com/eclipse-ee4j/javamail/issues/203)
 was added to JavaMail 1.5.5.
 
 Searching for an address in Exchange 2010 matches only the "personal
@@ -34,7 +34,7 @@ name" field of the address, not the email address itself.  (Reported
 Exchange 365 returns an incorrect BODYSTRUCTURE response for single
 part messages, failing to include the message disposition value in
 parentheses as required by the IMAP spec. See
-[this bug report](https://github.com/javaee/javamail/issues/31).
+[this bug report](https://github.com/eclipse-ee4j/javamail/issues/31).
 This causes a MessagingException with the message "Unable to load
 BODYSTRUCTURE". Use the workaround described in the
 [JavaMail FAQ](FAQ.html#imapserverbug).
@@ -68,7 +68,7 @@ authentication types and falling back to IMAP LOGIN support seemed to
 work.
 
 Exchange 2007 through SP3 has a
-[bug](https://github.com/javaee/javamail/issues/86)
+[bug](https://github.com/eclipse-ee4j/javamail/issues/86)
 where, at least in some circumstances, it will report a message as a
 result of an IMAP SEARCH command that it had not previously notified
 the client of via an EXISTS response, causing an exception such as

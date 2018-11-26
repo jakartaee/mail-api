@@ -19,6 +19,13 @@ and is also included in the
 
 # <a name="Latest_News"></a>Latest News
 
+## November 26, 2018 - JavaMail 1.6.3 Final Release ##
+
+The 1.6.3 release is the first release of the Eclipse project for JavaMail
+and includes no bug fixes or enhancements. It does include changes
+to the Maven coordinates. The main jar file is now located at
+[com.sun.mail:jakarta.mail](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/1.6.3/jakarta.mail-1.6.3.jar).
+
 ## September 14, 2018 - JavaMail project moves to the Eclipse Foundation! ##
 
 The JavaMail project is now hosted at the Eclipse Foundation as part of
@@ -27,31 +34,17 @@ the [EE4J project](https://projects.eclipse.org/projects/ee4j).
 By contributing to this project, you agree to these additional terms of
 use, described in [CONTRIBUTING](CONTRIBUTING.md).
 
-## August 29, 2018 - JavaMail 1.6.2 Final Release ##
-
-The 1.6.2 release contains bug fixes and enhancements,
-including the following significant changes:
-
-- Support loading protocol providers using ServiceLoader
-- http proxy support should support authenticating to the proxy server
-
-Note that the JavaMail project will be moving to the Eclipse Foundation
-as part of the
-[Eclipse Enterprise for Java](https://projects.eclipse.org/projects/ee4j)
-project over the next several weeks.
-Future releases will be done as part of the Eclipse project for JavaMail.
-
 # <a name="Download_JavaMail_Release"></a>Download JavaMail Release
 
-The latest release of JavaMail is 1.6.2.
+The latest release of JavaMail is 1.6.3.
 
 The following table provides easy access to the latest release. Most
-people will only need the main JavaMail reference implementation in the
-javax.mail.jar file.
+people will only need the main JavaMail implementation in the
+jakarta.mail.jar file.
 
 |Item|Description|
 |:---|:----------|
-|[javax.mail.jar](https://github.com/javaee/javamail/releases/download/JAVAMAIL-1_6_2/javax.mail.jar)|The JavaMail reference implementation, including the SMTP, IMAP, and POP3 protocol providers|
+|[jakarta.mail.jar](https://github.com/eclipse-ee4j/javamail/releases/download/1.6.3/jakarta.mail.jar)|The JavaMail implementation, including the SMTP, IMAP, and POP3 protocol providers|
 |[README.txt](docs/README.txt)|Overview of the release|
 |[NOTES.txt](docs/NOTES.txt)|Additional notes about using JavaMail|
 |[SSLNOTES.txt](docs/SSLNOTES.txt)|Notes on using SSL/TLS with JavaMail|
@@ -67,35 +60,34 @@ can be included using this Maven dependency:
         <dependencies>
             <dependency>
                 <groupId>com.sun.mail</groupId>
-                <artifactId>javax.mail</artifactId>
-                <version>1.6.2</version>
+                <artifactId>jakarta.mail</artifactId>
+                <version>1.6.3</version>
             </dependency>
         </dependencies>
 ```
-You can find all of the JavaMail jar files in both the
-[java.net Maven repository](http://maven.java.net), and in
+You can find all of the JavaMail jar files in
 [Maven Central](http://search.maven.org).
 
 
 |jar file|groupId|artifactId|Description|
 |:-------|:------|:---------|:----------|
-|[javax.mail.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar)|com.sun.mail|javax.mail|The JavaMail reference implementation jar file, including the SMTP, IMAP, and POP3 protocol providers|
-|[javax.mail-api.jar](https://maven.java.net/content/repositories/releases/javax/mail/javax.mail-api/1.6.2/javax.mail-api-1.6.2.jar)|javax.mail|javax.mail-api|The JavaMail API definitions only, suitable for compiling against; use only with a Maven "provided" dependency scope|
-|[mailapi.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/mailapi/1.6.2/mailapi-1.6.2.jar)|com.sun.mail|mailapi|The JavaMail reference implementation with no protocol providers; use with one of the following providers|
-|[smtp.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/smtp/1.6.2/smtp-1.6.2.jar)|com.sun.mail|smtp|The SMTP protocol provider|
-|[imap.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/imap/1.6.2/imap-1.6.2.jar)|com.sun.mail|imap|The IMAP protocol provider|
-|[pop3.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/pop3/1.6.2/pop3-1.6.2.jar)|com.sun.mail|pop3|The POP3 protocol provider|
-|[gimap.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/gimap/1.6.2/gimap-1.6.2.jar)|com.sun.mail|gimap|An EXPERIMENTAL Gmail IMAP protocol provider that supports Gmail-specific features|
-|[dsn.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/dsn/1.6.2/dsn-1.6.2.jar)|com.sun.mail|dsn|Support for parsing and creating messages containing Delivery Status Notifications|
-|[logging-mailhandler.jar](https://maven.java.net/content/repositories/releases/com/sun/mail/logging-mailhandler/1.6.2/logging-mailhandler-1.6.2.jar)|com.sun.mail|logging-mailhandler|A java.util.logging handler that uses JavaMail, suitable for use in Google App Engine.|
+|[jakarta.mail.jar](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/1.6.3/jakarta.mail-1.6.3.jar)|com.sun.mail|jakarta.mail|The JavaMail implementation jar file, including the SMTP, IMAP, and POP3 protocol providers|
+|[jakarta.mail-api.jar](https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/1.6.3/jakarta.mail-api-1.6.3.jar)|jakarta.mail|jakarta.mail-api|The JavaMail API definitions only, suitable for compiling against; use only with a Maven "provided" dependency scope|
+|[mailapi.jar](https://repo1.maven.org/maven2/com/sun/mail/mailapi/1.6.3/mailapi-1.6.3.jar)|com.sun.mail|mailapi|The JavaMail implementation with no protocol providers; use with one of the following providers|
+|[smtp.jar](https://repo1.maven.org/maven2/com/sun/mail/smtp/1.6.3/smtp-1.6.3.jar)|com.sun.mail|smtp|The SMTP protocol provider|
+|[imap.jar](https://repo1.maven.org/maven2/com/sun/mail/imap/1.6.3/imap-1.6.3.jar)|com.sun.mail|imap|The IMAP protocol provider|
+|[pop3.jar](https://repo1.maven.org/maven2/com/sun/mail/pop3/1.6.3/pop3-1.6.3.jar)|com.sun.mail|pop3|The POP3 protocol provider|
+|[gimap.jar](https://repo1.maven.org/maven2/com/sun/mail/gimap/1.6.3/gimap-1.6.3.jar)|com.sun.mail|gimap|An EXPERIMENTAL Gmail IMAP protocol provider that supports Gmail-specific features|
+|[dsn.jar](https://repo1.maven.org/maven2/com/sun/mail/dsn/1.6.3/dsn-1.6.3.jar)|com.sun.mail|dsn|Support for parsing and creating messages containing Delivery Status Notifications|
+|[logging-mailhandler.jar](https://repo1.maven.org/maven2/com/sun/mail/logging-mailhandler/1.6.3/logging-mailhandler-1.6.3.jar)|com.sun.mail|logging-mailhandler|A java.util.logging handler that uses JavaMail, suitable for use in Google App Engine.|
 
 # <a name="API_Documentation"></a>API Documentation
 
-The JavaMail API is defined through the Java Community Process as
+The JavaMail 1.6 and earlier API is defined through the Java Community Process as
 [JSR 919](http://jcp.org/en/jsr/detail?id=919).
 
 The JavaMail API documentation is available
-[here](https://javaee.github.io/javamail/docs/api/)
+[here](https://eclipse-ee4j.github.io/javamail/docs/api/)
 and the JavaMail specification is available
 [here](https://javaee.github.io/javamail/docs/JavaMail-1.6.pdf).
 
@@ -112,7 +104,7 @@ the JavaMail API specification:
 # <a name="Samples"></a>Samples
 
 Some sample programs showing how to use the JavaMail APIs are available
-[here](https://github.com/javaee/javamail/releases/download/JAVAMAIL-1_6_2/javamail-samples.zip).
+[here](https://github.com/eclipse-ee4j/javamail/releases/download/1.6.3/javamail-samples.zip).
 
 # <a name="Help"></a>Help
 
@@ -126,7 +118,7 @@ You can post questions to the
 Or, post a question on [Stack Overflow](http://stackoverflow.com/) using the
 [javamail](http://stackoverflow.com/questions/tagged/javamail) tag.
 
-Finally, you can send mail directly to the JavaMail team at
+Finally, you can send mail directly to the JavaMail team at Oracle at
 <javamail_ww@oracle.com>.
 
 # <a name="Bugs"></a>Bugs
@@ -138,13 +130,13 @@ JavaMail bugs are tracked in the
 
 From time to time snapshot releases of the next version of JavaMail
 under development are published to the
-[java.net Maven repository](http://maven.java.net).
+[Sonatype OSSRH repository](http://oss.sonatype.org).
 These snapshot releases have received only minimal testing, but may
 provide previews of bug fixes or new features under development.
 
-For example, you can download the javax.mail.jar file from the JavaMail
-1.6.3-SNAPSHOT release
-[here](https://maven.java.net/content/repositories/snapshots/com/sun/mail/javax.mail/1.6.3-SNAPSHOT/).
+For example, you can download the jakarta.mail.jar file from the JavaMail
+1.6.4-SNAPSHOT release
+[here](https://oss.sonatype.org/content/repositories/snapshots/com/sun/mail/jakarta.mail/1.6.4-SNAPSHOT/).
 Be sure to scroll to the bottom and choose the jar file with the most
 recent time stamp.
 
@@ -188,7 +180,7 @@ particular operating systems or environments:
 See [Build Instructions](Build-Instructions) for instructions on how to
 download and build the most recent JavaMail source code. You can also
 find a bundle of the source code for the most recent JavaMail release
-in the [Releases](https://github.com/javaee/javamail/releases) area of
+in the [Releases](https://github.com/eclipse-ee4j/javamail/releases) area of
 this project.
 
 If you're interested in contributing to JavaMail, see the

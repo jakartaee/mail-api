@@ -41,12 +41,12 @@
   <body>
     <header>
       <div class="inner">
-        <a href="https://javaee.github.io/javamail/">
+        <a href="https://eclipse-ee4j.github.io/javamail/">
           <h1>JavaMail</h1>
         </a>
         <h2>JavaMail API Implementation</h2>
  
-        <a href="https://javaee.github.io/javamail/" class="button"></a>
+        <a href="https://eclipse-ee4j.github.io/javamail/" class="button"></a>
  
       </div>
     </header>
@@ -140,7 +140,7 @@ web application?
 </A>
 <BR>
     <LI><A HREF="#servletcp">When using JavaMail in my servlet, it is unable to find any of
-the JavaMail classes.  I've added javax.mail.jar to the server's CLASSPATH.
+the JavaMail classes.  I've added jakarta.mail.jar to the server's CLASSPATH.
 </A>
 <BR>
     <LI><A HREF="#dupcp">I'm sure I've set my CLASSPATH correctly, but I'm still getting
@@ -512,7 +512,7 @@ implementation, in binary form, that developers may use and ship.
 The reference implementation 
 includes the core JavaMail packages and IMAP, POP3, and SMTP service providers. 
 The reference implementation may be downloaded
-<A href="https://javaee.github.io/javamail">here</A>.
+<A href="https://eclipse-ee4j.github.io/javamail">here</A>.
 </P>
 
 <P>
@@ -526,10 +526,10 @@ javamail_ww@oracle.com</A>.
 <P>
 <A NAME="JAF">
 <strong>Q:</strong> Where is <code>javax.activation</code>?</A><BR>
-<strong>A:</strong> <code>javax.activation</code> is part of the JavaBeans
-Activation Framework (JAF).  JAF is part of the
-<A href="http://www.oracle.com/technetwork/java/javase/index-jsp-136939.html">JavaBeans "Glasgow" specification</A>
-and is included in Java SE 6.
+<strong>A:</strong> <code>javax.activation</code> is part of the
+<A HREF="https://github.com/eclipse-ee4j/jaf">
+JavaBeans Activation Framework (JAF)</A>
+and is included in Java SE 6 through Java SE 10.
 The JavaMail API uses JAF for data content handling.
 </P>
 
@@ -632,7 +632,7 @@ providers. However, the architecture of the JavaMail APIs provides
 for being able to easily plug-in third-party service providers. It is
 our hope that third-parties will embrace the JavaMail APIs by writing
 providers for other standard and proprietary protocols.
-See our <A HREF="http://www.oracle.com/technetwork/java/javamail/third-party-136965.html">Third Party Products</A> page
+See our <A HREF="https://eclipse-ee4j.github.io/javamail/docs/ThirdPartyProducts">Third Party Products</A> page
 for the latest list of such providers.
 </P>
 
@@ -644,11 +644,11 @@ for the latest list of such providers.
 on a local disk.  The JavaMail API download does not include such a provider
 but a provider that supports the Unix mbox format is available in the JavaMail
 source repository that you can build yourself.  See
-<A HREF="https://javaee.github.io/javamail/Mbox-Store">this page</A>
+<A HREF="https://eclipse-ee4j.github.io/javamail/Mbox-Store">this page</A>
 for details.
 In addition, several local store providers are available from third parties
 for different local store formats such as MH and Mbox.
-See our <A HREF="http://www.oracle.com/technetwork/java/javamail/third-party-136965.html">Third Party Products</A> page
+See our <A HREF="https://eclipse-ee4j.github.io/javamail/docs/ThirdPartyProducts">Third Party Products</A> page
 for the latest list of such providers.
 </P>
 
@@ -667,9 +667,9 @@ provider-specific features.  Note that use of these properties,
 classes, and methods renders a program <b>non-portable</b>; it may
 only work with Oracle's implementation of the JavaMail API.
 See the
-<A HREF="https://javaee.github.io/javamail/docs/api//com/sun/mail/imap/package-summary.html">IMAP</A>,
-<A HREF="https://javaee.github.io/javamail/docs/api//com/sun/mail/pop3/package-summary.html">POP3</A>, and
-<A HREF="https://javaee.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">SMTP</A> package
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/imap/package-summary.html">IMAP</A>,
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/pop3/package-summary.html">POP3</A>, and
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">SMTP</A> package
 javadocs for details.
 </P>
 
@@ -682,7 +682,7 @@ is completely free and open source and you can include it in your product.
 This release includes IMAP, POP3, and SMTP providers as well. Please do
 read the license and ensure that you understand it.
 The JavaMail license is described
-<A HREF="https://javaee.github.io/javamail/License">here</A>.
+<A HREF="https://eclipse-ee4j.github.io/javamail/License">here</A>.
 </P>
 
 <P>
@@ -693,14 +693,14 @@ implementation?</A>
 <strong>A:</strong> Starting with JavaMail 1.4.2, the source code for the
 JavaMail API
 Reference Implementation is available under the CDDL or GPL open source licenses
-in the <A HREF="https://javaee.github.io/javamail">JavaMail project</A>.
+in the <A HREF="https://eclipse-ee4j.github.io/javamail">JavaMail project</A>.
 </P>
 
 <P>
 <A NAME="y2k">
 <strong>Q:</strong> Is JavaMail Y2K compliant?</A><BR>
 <strong>A:</strong> Yes. Oracle's JavaMail implementation is Option-3 Y2K compliant. Please
-see the <A HREF="https://javaee.github.io/javamail/docs/NOTES.txt">NOTES.txt</A>
+see the <A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A>
 file in the JavaMail package for more information.
 </P>
 
@@ -711,10 +711,10 @@ file in the JavaMail package for more information.
 <BR>
 <strong>A:</strong> In addition to the JavaMail API spec and javadocs
 (available from
-<A HREF="https://javaee.github.io/javamail"">our main web page</A>),
+<A HREF="https://eclipse-ee4j.github.io/javamail"">our main web page</A>),
 don't forget to check the
-<A HREF="https://javaee.github.io/javamail/docs/README.txt">README.txt</A> and
-<A HREF="https://javaee.github.io/javamail/docs/NOTES.txt">NOTES.txt</A> files
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/README.txt">README.txt</A> and
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A> files
 for additional important information.
 </P>
 <P>
@@ -722,7 +722,7 @@ You can reach the JavaMail team directly at
 <A HREF="mailto:javamail_ww@oracle.com">javamail_ww@oracle.com</A>.
 You can use this address to report bugs.
 Bugs can also be reported using the Issue Tracker at the
-<A HREF="https://javaee.github.io/javamail">JavaMail project</A>.
+<A HREF="https://eclipse-ee4j.github.io/javamail">JavaMail project</A>.
 </P>
 <P>
 The Oracle Technology Network maintains a JavaMail forum, see the
@@ -747,12 +747,12 @@ although it hasn't been updated in several years.
 <strong>Q:</strong> How do I install the JavaMail API implementation?</A>
 <BR>
 <strong>A:</strong> Download the
-[JavaMail jar file](https://github.com/javaee/javamail/releases/download/JAVAMAIL-1_6_0/javax.mail.jar)
-and edit your CLASSPATH environment variable to include the javax.mail.jar file.
+[JavaMail jar file](https://github.com/eclipse-ee4j/javamail/releases/download/1.6.3/jakarta.mail.jar)
+and edit your CLASSPATH environment variable to include the jakarta.mail.jar file.
 You will also need an implementation of the 
 JavaBeans Activation Framework (see below) unless you're using JDK 1.6
-or newer (which includes JAF).
-See the <A HREF="https://javaee.github.io/javamail/docs/README.txt">README.txt</A> file
+through JDK 10 (which includes JAF).
+See the <A HREF="https://eclipse-ee4j.github.io/javamail/docs/README.txt">README.txt</A> file
 for additional details and examples,
 as well as the following <A HREF="#classpath">FAQ entry</A>.
 </P>
@@ -780,14 +780,17 @@ for more information.
 <P>
 <A NAME="jdk9-jaf">
 <strong>Q:</strong> I get a ClassNotFoundException for a javax.activation class
-when I run my program on JDK 9.</A>
+when I run my program on JDK 9 or 10.</A>
 <IMG SRC="assets/images/new.gif" ALT="[new!]" TITLE="New 7/31/2017">
 <BR>
-<strong>A:</strong> JDK 9 hides many of the javax.* classes by default.
+<strong>A:</strong> JDK 9 and 10 hide many of the javax.* classes by default.
 You need to use the java command line option
 <code>--add-modules java.activation</code>
 to enable access the the javax.activation (JAF) classes.
 (Note that there's no "x" in the module name.)
+Or, you need to include the
+<A HREF="https://repo1.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar">jakarta.activation.jar</A>
+file in your CLASSPATH.
 </P>
 
 <P>
@@ -816,7 +819,7 @@ to your project.
 <LI>Make sure the new library is selected under "Libraries" on the left.</LI>
 <LI>Select the "Classpath" tab on the right and choose
     &lt;Add Jar/Folder...&gt;</LI>
-<LI>Using the file browser, select the javax.mail.jar that you downloaded,
+<LI>Using the file browser, select the jakarta.mail.jar that you downloaded,
     and hit &lt;Add Jar/Folder&gt; to accept.</LI>
 <LI>Select the "Javadoc" tab and choose &lt;Add ZIP/Folder...&gt;</LI>
 <LI>Using the file browser, select the folder where the JavaMail javadoc
@@ -829,7 +832,7 @@ to your project.
 </P>
 <P>
 Note: If you are using JDK 1.5.0 or earlier you will need to add the
-<A href="http://www.oracle.com/technetwork/java/javase/index-jsp-136939.html">
+<A HREF="https://github.com/eclipse-ee4j/jaf">
 JavaBeans Activation Framework</A>
 library as well.  You can create a separate library in a manner similar to
 the above, or just add activation.jar (and javadoc/source references
@@ -868,20 +871,20 @@ your project.
 <LI>In the new library dialog, enter a user library name, e.g. "JavaMail",
     and hit &lt;OK&gt;.  Do not check system library.</LI>
 <LI>Make sure the new library is selected and choose &lt;Add Jars...&gt;</LI>
-<LI>Browse to where JavaMail is installed and select javax.mail.jar</LI>
+<LI>Browse to where JavaMail is installed and select jakarta.mail.jar</LI>
 <LI>Select &lt;Javadoc location: (None)&gt; and hit &lt;Edit...&gt; to
     add a reference to the javadoc location.  This can be found at docs/javadocs
     under the same folder where you installed JavaMail.</LI>
 <LI>You can also set the source code reference here if you downloaded the
     <A href="#source">JavaMail source code</A>. Use
-    ".../javamail-1.6.0/mail/src/main/java" as the source root for 1.6.0.</LI>
+    ".../javamail-1.6.3/mail/src/main/java" as the source root for 1.6.3.</LI>
 <LI>Choose &lt;OK&gt; to close the Preferences dialog.  JavaMail is now
     installed as a Library in Eclipse.</LI>
 </OL>
 </P>
 <P>
 Note: If you are using JDK 1.5.0 or earlier you will need to add the
-<A href="http://www.oracle.com/technetwork/java/javase/index-jsp-136939.html">
+<A HREF="https://github.com/eclipse-ee4j/jaf">
 JavaBeans Activation Framework</A>
 library as well.  You can create a separate library in a manner similar to
 the above, or just add activation.jar (and javadoc/source references
@@ -970,7 +973,7 @@ and allows anonymous connections, and
 you're using JDK 1.5 or newer and JavaMail 1.4.5 or newer, you can
 configure a SOCKS proxy on a per-session, per-protocol basis by setting the
 "mail.smtp.socks.host" property as described in the javadocs for the
-<A HREF="https://javaee.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">
 com.sun.mail.smtp package</A>.
 Similar properties exist for the "imap" and "pop3" protocols.
 </P>
@@ -1015,7 +1018,7 @@ Your server is probably using a test certificate or self-signed
 certificate instead of a certificate signed by a commercial Certificate
 Authority.
 You'll need to install the server's certificate into your trust store.
-The <A HREF="https://javaee.github.io/javamail/InstallCert">
+The <A HREF="https://eclipse-ee4j.github.io/javamail/InstallCert">
 InstallCert</A> program will help.
 A
 <A HREF="http://s-n-ushakov.blogspot.com/2013/11/yet-another-installcert-for-java-now.html">
@@ -1054,7 +1057,7 @@ Illegal use of nonvirtual function call
 <P>
 The problem is due to a buggy version of the unzip command used to unzip
 the JavaMail download package on Linux.  The unzip command corrupts the
-javax.mail.jar file.  Get a newer version of the unzip command, or use the
+jakarta.mail.jar file.  Get a newer version of the unzip command, or use the
 JDK's jar command to unzip the package.
 </P>
 
@@ -1066,8 +1069,8 @@ what permissions must I grant to the application and to JavaMail?
 <BR>
 <strong>A:</strong> When using JavaMail in an environment with a
 SecurityManager, JavaMail will sometimes fail to read the configuration
-files in the javax.mail.jar file.  The JavaBeans Activation Framework may
-have the same problem reading configuration files from the javax.activation.jar
+files in the jakarta.mail.jar file.  The JavaBeans Activation Framework may
+have the same problem reading configuration files from the jakarta.activation.jar
 file.  These default configuration files are stored as "resource" files
 in the META-INF directory in the jar file.
 </P>
@@ -1112,7 +1115,7 @@ grant {
     // following two permissions allow
     // access to default config files
     permission java.io.FilePermission
-		"/path/to/javax.mail.jar", "read";
+		"/path/to/jakarta.mail.jar", "read";
     permission java.io.FilePermission
 		"/path/to/activation.jar", "read";
     // following to use SMTP
@@ -1158,8 +1161,10 @@ web application?
 <BR>
 <strong>A:</strong> 
 To run a web application using JavaMail, you can add the JavaMail
-javax.mail.jar file and, if you're not using JDK 1.6 or newer, the JavaBeans
-Activation Framework javax.activation.jar file to the lib directory under the
+jakarta.mail.jar file and, if you're not using JDK 1.6 or newer, the JavaBeans
+Activation Framework
+<A HREF="https://repo1.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar">jakarta.activation.jar</A>
+file to the lib directory under the
 directory in which you installed Tomcat.  This will cause Tomcat to
 include these jar files in its classpath automatically.
 For details, see
@@ -1167,14 +1172,14 @@ For details, see
 JNDI Resources HOW-TO</A> in the Tomcat documentation.
 </P>
 <P>
-Alternatively, you can package the javax.mail.jar file and javax.activation.jar
+Alternatively, you can package the jakarta.mail.jar file and jakarta.activation.jar
 files in the lib directory of your web application package (war file).
 </P>
 
 <P>
 <A NAME="servletcp">
 <strong>Q:</strong> When using JavaMail in my servlet, it is unable to find any of
-the JavaMail classes.  I've added javax.mail.jar to the server's CLASSPATH.
+the JavaMail classes.  I've added jakarta.mail.jar to the server's CLASSPATH.
 </A>
 <BR>
 <strong>A:</strong> It is often necessary to completely restart the web server
@@ -1189,12 +1194,12 @@ classes.
 </A>
 <BR>
 <strong>A:</strong> The most common cause of problems like this is having more than
-one copy of javax.mail.jar in your CLASSPATH or available to your application.
+one copy of jakarta.mail.jar in your CLASSPATH or available to your application.
 In addition to checking your CLASSPATH setting, also look for copies in
 the <code>jre/lib/ext</code> directory of your JDK installation.
 If you're running in a web server or application server, it may be
-providing its own version of javax.mail.jar in one of its directories.
-You should only have one version of javax.mail.jar available to your
+providing its own version of jakarta.mail.jar in one of its directories.
+You should only have one version of jakarta.mail.jar available to your
 application.
 </P>
 
@@ -1206,10 +1211,10 @@ type "rfc822".
 </A>
 <BR>
 <strong>A:</strong> Usually this is because JavaMail can't access the configuration
-files in javax.mail.jar, possibly because of a security permission problem;
+files in jakarta.mail.jar, possibly because of a security permission problem;
 see <A HREF="#securityManager">this item</A> for more details.
-Also, make sure that you haven't extracted the javax.mail.jar contents;
-you should include the unmodified javax.mail.jar file in the server's CLASSPATH.
+Also, make sure that you haven't extracted the jakarta.mail.jar contents;
+you should include the unmodified jakarta.mail.jar file in the server's CLASSPATH.
 </P>
 
 <P>
@@ -1232,7 +1237,7 @@ the bug is in your code or is elsewhere.
 Note that you'll need to configure your Gmail account to
 <A HREF="https://www.google.com/settings/security/lesssecureapps">
 enable less secure apps</A>, or you'll need to use
-<A HREF="https://javaee.github.io/javamail/OAuth2">
+<A HREF="https://eclipse-ee4j.github.io/javamail/OAuth2">
 OAuth2 authentication</A>
 (which is somewhat more complex).
 </P>
@@ -1609,7 +1614,7 @@ SMTP, IMAP, POP3, etc.
 <BR>
 <strong>A:</strong> There are many example programs available for download
 on the
-<A HREF="https://javaee.github.io/javamail/">JavaMail project page</A>,
+<A HREF="https://eclipse-ee4j.github.io/javamail/">JavaMail project page</A>,
 including simple command line programs illustrating various aspects of
 the JavaMail API, a Swing-based GUI application, a simple servlet-based
 application, and a complete web application using JSP pages and a tag
@@ -1886,12 +1891,12 @@ of a MimeMultipart object? </A>
 <BR>
 <strong>A:</strong> This usually happens because the JavaBeans Activation
 Framework (JAF) can't find the mailcap configuration file included in the
-javax.mail.jar file.
+jakarta.mail.jar file.
 JAF uses the thread's context class loader to look for the configuration file.
 If the context class loader is not set properly, this can fail.
 Most application servers should set the context class loader properly, but
 at least some versions of Tomcat do not.
-One workaround is to put the javax.mail.jar file in Tomcat's lib directory
+One workaround is to put the jakarta.mail.jar file in Tomcat's lib directory
 instead of including it in the war file.
 Another workaround is to add code such as the following to the beginning of
 your application:
@@ -2095,7 +2100,7 @@ security standards (S/MIME and PGP) can be found at
 <A href="http://www.imc.org/smime-pgpmime.html">
 http://www.imc.org/smime-pgpmime.html</A>.
 Please browse our
-<A HREF="http://www.oracle.com/technetwork/java/javamail/third-party-136965.html">Third Party Products</A>
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/ThirdPartyProducts">Third Party Products</A>
 page for solutions from other vendors.
 The most popular third party solution is the
 <A HREF="https://www.bouncycastle.org/java.html">Bouncy Castle library</A>.
@@ -2113,10 +2118,10 @@ FilterOutputStream to hand to <code>writeTo()</code>.  The
 FilterOutputStream will need to accept lines with any of the common
 line terminators and write out lines with only the desired line
 terminator.  The following are examples of such filters.
-<A href="https://github.com/javaee/javamail/blob/master/demo/src/main/java/NewlineOutputStream.java"><code>NewlineOutputStream</code></A>
+<A href="https://github.com/eclipse-ee4j/javamail/blob/master/demo/src/main/java/NewlineOutputStream.java"><code>NewlineOutputStream</code></A>
 converts to the local platform's line terminator and is useful when
 writing a message to a file.
-<A href="https://github.com/javaee/javamail/blob/master/demo/src/main/java/CRLFOutputStream.java"><code>CRLFOutputStream</code></A>
+<A href="https://github.com/eclipse-ee4j/javamail/blob/master/demo/src/main/java/CRLFOutputStream.java"><code>CRLFOutputStream</code></A>
 converts to the MIME canonical CRLF line terminator and is useful
 when the canonical MIME format is needed (e.g., to compute a digital
 signature).
@@ -2439,7 +2444,7 @@ server that will indicate the real source of the problem.
 <BR>
 <strong>A:</strong> Debugging SSL problems, and in particular certificate problems,
 can be difficult.  The file
-<A HREF="https://javaee.github.io/javamail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
 includes some useful information.  JavaMail uses the JDK's JSSE
 API to provide SSL support.  You can find information about debugging
 JSSE problems in the
@@ -2561,7 +2566,7 @@ attachments.</A><BR>
 <strong>A:</strong> This is due to bugs in the partial fetch implementation of your
 IMAP server.  To workaround this server bug, set the
 "mail.imap.partialfetch" property to "false".
-Refer to <A HREF="https://javaee.github.io/javamail/docs/NOTES.txt">NOTES.txt</A> from
+Refer to <A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A> from
 the JavaMail package for more information.
 </P>
 
@@ -2998,7 +3003,7 @@ authentication information.
 <BR>
 <strong>A:</strong> You need to authenticate to your SMTP server.  The package
 javadocs for the
-<A HREF="https://javaee.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">
 com.sun.mail.smtp package</A> describe several methods to do this.
 The easiest is to replace the call <code>Transport.send(msg);</code> with
 <code>Transport.send(msg, username, password);</code>.
@@ -3097,7 +3102,7 @@ new message that I created?</A><BR>
 <code>setContent(Object o, String type)</code> method. For this to work, there
 must be a JAF <code>DataContentHandler</code> registered for the given "type".
 If not, you will get the UnsupportedDataTypeException. See the
-<A href="http://www.oracle.com/technetwork/java/javase/index-jsp-136939.html">
+<A HREF="https://github.com/eclipse-ee4j/jaf">
 JAF documents </A>
 for more information.
 In most cases the simplest workaround is to use a
@@ -3175,10 +3180,10 @@ You can enable use of this command by setting the Session property
 This will cause the SMTP protocol provider to issue the STARTTLS
 command after connecting to the server.
 See the file
-<A HREF="https://javaee.github.io/javamail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
 for additional information.
 Also, the javadocs for the
-<A HREF="https://javaee.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">com.sun.mail.smtp</A>
+<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">com.sun.mail.smtp</A>
 package has more information on the properties that can be set.
 </P>
 <P>
@@ -3226,7 +3231,7 @@ it very difficult to correlate a "bounced" message with the original message
 that caused the problem.  (Note that this problem is completely independent
 of JavaMail.)
 JavaMail now includes support for parsing Delivery Status Notifications;
-see the <A HREF="https://javaee.github.io/javamail/docs/NOTES.txt">NOTES.txt</A>
+see the <A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A>
 file in the JavaMail package for details.
 </P>
 <P>
@@ -3390,7 +3395,7 @@ header, but this is not very reliable.
 </A>
 <BR>
 <strong>A:</strong> Most likely you
-have more than one version of pop3.jar or javax.mail.jar in your CLASSPATH.
+have more than one version of pop3.jar or jakarta.mail.jar in your CLASSPATH.
 Check the setting of CLASSPATH and
 check the "jre/lib/ext" directory in the JDK.
 </P>
@@ -3411,8 +3416,8 @@ com.sun.mail.pop3.POP3Message.getContentStream(POP3Message.java:115)
 </P>
 <P>
 As <A HREF="#pop3111">above</A>, you've mixed versions of the POP3
-provider and javax.mail.jar.  You probably have an older version of
-javax.mail.jar in your CLASSPATH before the newer version that includes
+provider and jakarta.mail.jar.  You probably have an older version of
+jakarta.mail.jar in your CLASSPATH before the newer version that includes
 the POP3 provider.
 </P>
 
