@@ -30,7 +30,7 @@
     <groupId>com.sun.mail</groupId>
     <artifactId>all</artifactId>
     <packaging>pom</packaging>
-    <version>1.6.3</version>
+    <version>1.6.4-SNAPSHOT</version>
     <name>JavaMail API distribution</name>
     <description>${project.name}</description>
     <url>http://eclipse-ee4j.github.io/javamail</url>
@@ -70,9 +70,9 @@
     </organization>
 
     <properties>
-	<mail.version>1.6.3</mail.version>
+	<mail.version>1.6.4-SNAPSHOT</mail.version>
 	<!-- like mail.version, but with underscores instead of dots -->
-	<mail.zipversion>1_6_3</mail.zipversion>
+	<mail.zipversion>1_6_4-SNAPSHOT</mail.zipversion>
 	<mail.spec.version>1.6</mail.spec.version>
 	<activation.version>1.2.1</activation.version>
 	<!-- defaults that are overridden in mail module -->
