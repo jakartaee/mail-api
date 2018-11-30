@@ -352,6 +352,9 @@
 	-->
 	<profile>
 	    <id>1.7</id>
+	    <activation>
+		<jdk>1.7</jdk>
+	    </activation>
 	    <build>
 		<plugins>
 		    <plugin>

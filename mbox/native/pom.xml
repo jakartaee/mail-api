@@ -65,10 +65,45 @@
 		Override the settings necessary to build with JDK 1.8.
 	    -->
 	    <id>1.8</id>
+	    <activation>
+		<jdk>1.8</jdk>
+	    </activation>
 	    <properties>
 		<m64>
 		    -m64
 		</m64>
+		<linker.arch>
+		    amd64
+		</linker.arch>
+	    </properties>
+	</profile>
+	<profile>
+	    <!--
+		Override the settings necessary to build on Linux.
+	    -->
+	    <id>linux</id>
+	    <activation>
+		<os>
+		    <family>Linux</family>
+		</os>
+	    </activation>
+	    <properties>
+		<m64>
+		    -m64
+		</m64>
+		<linker.arch>
+		    ${env.MACH}
+		</linker.arch>
+		<compiler.start.options>
+		    -fpic
+		    -I${env.JAVA_HOME}/include -I${env.JAVA_HOME}/include/linux
+		</compiler.start.options>
+		<linker.start.options>
+		    ${m64} -shared
+		</linker.start.options>
+		<linker.end.options>
+		    -L${env.JAVA_HOME}/jre/lib/${linker.arch} -ljava -lc
+		</linker.end.options>
 		<linker.arch>
 		    amd64
 		</linker.arch>

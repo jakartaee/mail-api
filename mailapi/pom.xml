@@ -230,4 +230,11 @@
 	    </plugin>
 	</plugins>
     </build>
+
+    <dependencies>
+	<dependency>
+	    <groupId>com.sun.activation</groupId>
+	    <artifactId>jakarta.activation</artifactId>
+	</dependency>
+    </dependencies>
 </project>
