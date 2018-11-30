@@ -24,14 +24,18 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.PrintStream;
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+import java.util.Random;
 import java.util.logging.Level;
 import javax.crypto.Cipher;
+import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import com.sun.mail.util.BASE64DecoderStream;
 import com.sun.mail.util.BASE64EncoderStream;
@@ -57,25 +61,46 @@ public class Ntlm {
     private String username;
     private String password;
 
+    private Mac hmac;
+
     private MailLogger logger;
 
+    // NTLM flags, as defined in Microsoft NTLM spec
+    // https://msdn.microsoft.com/en-us/library/cc236621.aspx
+    private static final int NTLMSSP_NEGOTIATE_UNICODE	= 0x00000001;
+    private static final int NTLMSSP_NEGOTIATE_OEM	= 0x00000002;
+    private static final int NTLMSSP_REQUEST_TARGET	= 0x00000004;
+    private static final int NTLMSSP_NEGOTIATE_SIGN	= 0x00000010;
+    private static final int NTLMSSP_NEGOTIATE_SEAL	= 0x00000020;
+    private static final int NTLMSSP_NEGOTIATE_DATAGRAM	= 0x00000040;
+    private static final int NTLMSSP_NEGOTIATE_LM_KEY	= 0x00000080;
+    private static final int NTLMSSP_NEGOTIATE_NTLM	= 0x00000200;
+    private static final int NTLMSSP_NEGOTIATE_OEM_DOMAIN_SUPPLIED	= 0x00001000;
+    private static final int NTLMSSP_NEGOTIATE_OEM_WORKSTATION_SUPPLIED	= 0x00002000;
+    private static final int NTLMSSP_NEGOTIATE_ALWAYS_SIGN	= 0x00008000;
+    private static final int NTLMSSP_TARGET_TYPE_DOMAIN	= 0x00010000;
+    private static final int NTLMSSP_TARGET_TYPE_SERVER	= 0x00020000;
+    private static final int NTLMSSP_NEGOTIATE_EXTENDED_SESSIONSECURITY	= 0x00080000;
+    private static final int NTLMSSP_NEGOTIATE_IDENTIFY	= 0x00100000;
+    private static final int NTLMSSP_REQUEST_NON_NT_SESSION_KEY	= 0x00400000;
+    private static final int NTLMSSP_NEGOTIATE_TARGET_INFO	= 0x00800000;
+    private static final int NTLMSSP_NEGOTIATE_VERSION	= 0x02000000;
+    private static final int NTLMSSP_NEGOTIATE_128	= 0x20000000;
+    private static final int NTLMSSP_NEGOTIATE_KEY_EXCH	= 0x40000000;
+    private static final int NTLMSSP_NEGOTIATE_56	= 0x80000000;
+
+    private static final byte RESPONSERVERSION = 1;
+    private static final byte HIRESPONSERVERSION = 1;
+    private static final byte[] Z6 = new byte[] { 0, 0, 0, 0, 0, 0 };
+    private static final byte[] Z4 = new byte[] { 0, 0, 0, 0 };
+
     private void init0() {
-        type1 = new byte[256];
-        type3 = new byte[256];
+        type1 = new byte[256];	// hopefully large enough
+        type3 = new byte[512];	// ditto
         System.arraycopy(new byte[] {'N','T','L','M','S','S','P',0,1}, 0,
 			    type1, 0, 9);
-        type1[12] = (byte) 3;
-        type1[13] = (byte) 0xb2;
-        type1[28] = (byte) 0x20;
         System.arraycopy(new byte[] {'N','T','L','M','S','S','P',0,3}, 0,
 			    type3, 0, 9);
-        type3[12] = (byte) 0x18;
-        type3[14] = (byte) 0x18;
-        type3[20] = (byte) 0x18;
-        type3[22] = (byte) 0x18;
-        type3[32] = (byte) 0x40;
-        type3[60] = (byte) 1;
-        type3[61] = (byte) 0x82;
 
         try {
             fac = SecretKeyFactory.getInstance("DES");
@@ -130,26 +155,36 @@ public class Ntlm {
         }
     }
 
+    // for compatibility, just in case
     public String generateType1Msg(int flags) {
-	// XXX - should set "flags" in generated message
+	return generateType1Msg(flags, false);
+    }
+
+    public String generateType1Msg(int flags, boolean v2) {
         int dlen = ntdomain.length();
-        type1[16]= (byte) (dlen % 256);
-        type1[17]= (byte) (dlen / 256);
-        type1[18] = type1[16];
-        type1[19] = type1[17];
-	if (dlen == 0)
-	    type1[13] &= ~0x10;
+	int type1flags = 
+		NTLMSSP_NEGOTIATE_UNICODE |
+		NTLMSSP_NEGOTIATE_OEM |
+		NTLMSSP_NEGOTIATE_NTLM |
+		NTLMSSP_NEGOTIATE_OEM_WORKSTATION_SUPPLIED |
+		NTLMSSP_NEGOTIATE_ALWAYS_SIGN |
+		flags;
+	if (dlen != 0)
+	    type1flags |= NTLMSSP_NEGOTIATE_OEM_DOMAIN_SUPPLIED;
+	if (v2)
+	    type1flags |= NTLMSSP_NEGOTIATE_EXTENDED_SESSIONSECURITY;
+	writeInt(type1, 12, type1flags);
+        type1[28] = (byte) 0x20;	// host name offset
+	writeShort(type1, 16, dlen);
+	writeShort(type1, 18, dlen);
 
         int hlen = hostname.length();
-        type1[24]= (byte) (hlen % 256);
-        type1[25]= (byte) (hlen / 256);
-        type1[26] = type1[24];
-        type1[27] = type1[25];
+	writeShort(type1, 24, hlen);
+	writeShort(type1, 26, hlen);
 
         copybytes(type1, 32, hostname, "iso-8859-1");
         copybytes(type1, hlen+32, ntdomain, "iso-8859-1");
-        type1[20] = (byte) ((hlen+32) % 256);
-        type1[21] = (byte) ((hlen+32) / 256);
+	writeInt(type1, 20, hlen+32);
 
         byte[] msg = new byte[32 + hlen + dlen];
         System.arraycopy(type1, 0, msg, 0, 32 + hlen + dlen);
@@ -184,6 +219,30 @@ public class Ntlm {
         out[6] = (byte)(((in[off+5] << 2) & 0xFF) | (in[off+6] >> 6));
         out[7] = (byte)((in[off+6] << 1) & 0xFF);
         return out;
+    }
+
+    /**
+     * Compute hash-based message authentication code for NTLMv2.
+     */
+    private byte[] hmacMD5(byte[] key, byte[] text) {
+	try {
+	    if (hmac == null)
+		hmac = Mac.getInstance("HmacMD5");
+	} catch (NoSuchAlgorithmException ex) {
+	    throw new AssertionError();
+	}
+	try {
+	    byte[] nk = new byte[16];
+	    System.arraycopy(key, 0, nk, 0, key.length > 16 ? 16 : key.length);
+	    SecretKeySpec skey = new SecretKeySpec(nk, "HmacMD5");
+	    hmac.init(skey);
+	    return hmac.doFinal(text);
+	} catch (InvalidKeyException ex) {
+	    assert false;
+	} catch (RuntimeException e) {
+	    assert false;
+	}
+	return null;
     }
 
     private byte[] calcLMHash() throws GeneralSecurityException {
@@ -257,62 +316,134 @@ public class Ntlm {
         return result;
     }
 
-    public String generateType3Msg(String challenge) {
+    /*
+     * Calculate the NTLMv2 response based on the nthash, additional data,
+     * and the original challenge.
+     */
+    private byte[] calcV2Response(byte[] nthash, byte[] blob, byte[] challenge)
+				throws GeneralSecurityException {
+        byte[] txt = null;
 	try {
-        /* First decode the type2 message to get the server nonce */
-        /* nonce is located at type2[24] for 8 bytes */
-
-        byte[] type2 = null;
-	try {
-	    type2 = BASE64DecoderStream.decode(challenge.getBytes("us-ascii"));
+	    txt = (username.toUpperCase(Locale.ENGLISH) + ntdomain).
+			    getBytes("UnicodeLittleUnmarked");
 	} catch (UnsupportedEncodingException ex) {
 	    // should never happen
 	    assert false;
 	}
-        byte[] nonce = new byte[8];
-        System.arraycopy(type2, 24, nonce, 0, 8);
+	byte[] ntlmv2hash = hmacMD5(nthash, txt);
+	byte[] cb = new byte[blob.length + 8];
+	System.arraycopy(challenge, 0, cb, 0, 8);
+	System.arraycopy(blob, 0, cb, 8, blob.length);
+	byte[] result = new byte[blob.length + 16];
+	System.arraycopy(hmacMD5(ntlmv2hash, cb), 0, result, 0, 16);
+	System.arraycopy(blob, 0, result, 16, blob.length);
+	return result;
+    }
+
+    public String generateType3Msg(String type2msg) {
+	try {
+
+	/* First decode the type2 message to get the server challenge */
+	/* challenge is located at type2[24] for 8 bytes */
+	byte[] type2 = null;
+	try {
+	    type2 = BASE64DecoderStream.decode(type2msg.getBytes("us-ascii"));
+	} catch (UnsupportedEncodingException ex) {
+	    // should never happen
+	    assert false;
+	}
+	if (logger.isLoggable(Level.FINE))
+	    logger.fine("type 2 message: " + toHex(type2));
+
+        byte[] challenge = new byte[8];
+        System.arraycopy(type2, 24, challenge, 0, 8);
+
+	int type3flags = 
+		NTLMSSP_NEGOTIATE_UNICODE |
+		NTLMSSP_NEGOTIATE_NTLM |
+		NTLMSSP_NEGOTIATE_ALWAYS_SIGN;
 
         int ulen = username.length()*2;
-        type3[36] = type3[38] = (byte) (ulen % 256);
-        type3[37] = type3[39] = (byte) (ulen / 256);
+	writeShort(type3, 36, ulen);
+	writeShort(type3, 38, ulen);
         int dlen = ntdomain.length()*2;
-        type3[28] = type3[30] = (byte) (dlen % 256);
-        type3[29] = type3[31] = (byte) (dlen / 256);
+	writeShort(type3, 28, dlen);
+	writeShort(type3, 30, dlen);
         int hlen = hostname.length()*2;
-        type3[44] = type3[46] = (byte) (hlen % 256);
-        type3[45] = type3[47] = (byte) (hlen / 256);
+	writeShort(type3, 44, hlen);
+	writeShort(type3, 46, hlen);
 
         int l = 64;
         copybytes(type3, l, ntdomain, "UnicodeLittleUnmarked");
-        type3[32] = (byte) (l % 256);
-        type3[33] = (byte) (l / 256);
+	writeInt(type3, 32, l);
         l += dlen;
         copybytes(type3, l, username, "UnicodeLittleUnmarked");
-        type3[40] = (byte) (l % 256);
-        type3[41] = (byte) (l / 256);
+	writeInt(type3, 40, l);
         l += ulen;
         copybytes(type3, l, hostname, "UnicodeLittleUnmarked");
-        type3[48] = (byte) (l % 256);
-        type3[49] = (byte) (l / 256);
+	writeInt(type3, 48, l);
         l += hlen;
 
-        byte[] lmhash = calcLMHash();
-        byte[] lmresponse = calcResponse(lmhash, nonce);
-        byte[] nthash = calcNTHash();
-        byte[] ntresponse = calcResponse(nthash, nonce);
-        System.arraycopy(lmresponse, 0, type3, l, 24);
-        type3[16] = (byte) (l % 256);
-        type3[17] = (byte) (l / 256);
-        l += 24;
-        System.arraycopy(ntresponse, 0, type3, l, 24);
-        type3[24] = (byte) (l % 256);
-        type3[25] = (byte) (l / 256);
-        l += 24;
-        type3[56] = (byte) (l % 256);
-        type3[57] = (byte) (l / 256);
+        byte[] msg = null;
+	byte[] lmresponse = null;
+	byte[] ntresponse = null;
+	int flags = readInt(type2, 20);
 
-        byte[] msg = new byte[l];
-        System.arraycopy(type3, 0, msg, 0, l);
+	// did the server agree to NTLMv2?
+	if ((flags & NTLMSSP_NEGOTIATE_EXTENDED_SESSIONSECURITY) != 0) {
+	    // yes, create an NTLMv2 response
+	    logger.fine("Using NTLMv2");
+	    type3flags |= NTLMSSP_NEGOTIATE_EXTENDED_SESSIONSECURITY;
+	    byte[] nonce = new byte[8];
+	    // XXX - allow user to specify Random instance via properties?
+	    (new Random()).nextBytes(nonce);
+	    byte[] nthash = calcNTHash();
+	    lmresponse = calcV2Response(nthash, nonce, challenge);
+	    byte[] targetInfo = new byte[0];
+	    if ((flags & NTLMSSP_NEGOTIATE_TARGET_INFO) != 0) {
+		int tlen = readShort(type2, 40);
+		int toff = readInt(type2, 44);
+		targetInfo = new byte[tlen];
+		System.arraycopy(type2, toff, targetInfo, 0, tlen);
+	    }
+	    byte[] blob = new byte[32 + targetInfo.length];
+	    blob[0] = RESPONSERVERSION;
+	    blob[1] = HIRESPONSERVERSION;
+	    System.arraycopy(Z6, 0, blob, 2, 6);
+	    // convert time to NT format
+	    long now = (System.currentTimeMillis() + 11644473600000L) * 10000L;
+	    for (int i = 0; i < 8; i++) {
+		blob[8 + i] = (byte)(now & 0xff);
+		now >>= 8;
+	    }
+	    System.arraycopy(nonce, 0, blob, 16, 8);
+	    System.arraycopy(Z4, 0, blob, 24, 4);
+	    System.arraycopy(targetInfo, 0, blob, 28, targetInfo.length);
+	    System.arraycopy(Z4, 0, blob, 28 + targetInfo.length, 4);
+	    ntresponse = calcV2Response(nthash, blob, challenge);
+	} else {
+	    byte[] lmhash = calcLMHash();
+	    lmresponse = calcResponse(lmhash, challenge);
+	    byte[] nthash = calcNTHash();
+	    ntresponse = calcResponse(nthash, challenge);
+	}
+	System.arraycopy(lmresponse, 0, type3, l, lmresponse.length);
+	writeShort(type3, 12, lmresponse.length);
+	writeShort(type3, 14, lmresponse.length);
+	writeInt(type3, 16, l);
+	l += 24;
+	System.arraycopy(ntresponse, 0, type3, l, ntresponse.length);
+	writeShort(type3, 20, ntresponse.length);
+	writeShort(type3, 22, ntresponse.length);
+	writeInt(type3, 24, l);
+	l += ntresponse.length;
+	writeShort(type3, 56, l);
+
+	msg = new byte[l];
+	System.arraycopy(type3, 0, msg, 0, l);
+
+	writeInt(type3, 60, type3flags);
+
 	if (logger.isLoggable(Level.FINE))
 	    logger.fine("type 3 message: " + toHex(msg));
 
@@ -329,6 +460,30 @@ public class Ntlm {
 	    logger.log(Level.FINE, "GeneralSecurityException", ex);
 	    return "";	// will fail later
 	}
+    }
+
+    private static int readShort(byte[] b, int off) {
+	return (((int)b[off]) & 0xff) |
+	    ((((int)b[off+1]) & 0xff) << 8);
+    }
+
+    private void writeShort(byte[] b, int off, int data) {
+        b[off] = (byte) (data & 0xff);
+        b[off+1] = (byte) ((data >> 8) & 0xff);
+    }
+
+    private static int readInt(byte[] b, int off) {
+	return (((int)b[off]) & 0xff) |
+	    ((((int)b[off+1]) & 0xff) << 8) |
+	    ((((int)b[off+2]) & 0xff) << 16) |
+	    ((((int)b[off+3]) & 0xff) << 24);
+    }
+
+    private void writeInt(byte[] b, int off, int data) {
+        b[off] = (byte) (data & 0xff);
+        b[off+1] = (byte) ((data >> 8) & 0xff);
+        b[off+2] = (byte) ((data >> 16) & 0xff);
+        b[off+3] = (byte) ((data >> 24) & 0xff);
     }
 
     private static char[] hex =

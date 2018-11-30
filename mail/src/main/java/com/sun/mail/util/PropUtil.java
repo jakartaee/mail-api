@@ -137,7 +137,11 @@ public class PropUtil {
 	    return def;
 	if (value instanceof String) {
 	    try {
-		return Integer.parseInt((String)value);
+		String s = (String)value;
+		if (s.startsWith("0x"))
+		    return Integer.parseInt(s.substring(2), 16);
+		else
+		    return Integer.parseInt(s);
 	    } catch (NumberFormatException nfex) { }
 	}
 	if (value instanceof Integer)

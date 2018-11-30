@@ -1056,7 +1056,6 @@ public class SMTPTransport extends Transport {
      */
     private class NtlmAuthenticator extends Authenticator {
 	private Ntlm ntlm;
-	private int flags;
 
 	NtlmAuthenticator() {
 	    super("NTLM");
@@ -1068,11 +1067,14 @@ public class SMTPTransport extends Transport {
 	    ntlm = new Ntlm(getNTLMDomain(), getLocalHost(),
 				user, passwd, logger);
 
-	    flags = PropUtil.getIntProperty(
+	    int flags = PropUtil.getIntProperty(
 		    session.getProperties(),
 		    "mail." + name + ".auth.ntlm.flags", 0);
+	    boolean v2 = PropUtil.getBooleanProperty(
+		    session.getProperties(),
+		    "mail." + name + ".auth.ntlm.v2", true);
 
-	    String type1 = ntlm.generateType1Msg(flags);
+	    String type1 = ntlm.generateType1Msg(flags, v2);
 	    return type1;
 	}
 

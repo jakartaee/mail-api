@@ -764,6 +764,8 @@ public class IMAPProtocol extends Protocol {
 	String type1Msg = null;
 	int flags = PropUtil.getIntProperty(props,
 	    "mail." + name + ".auth.ntlm.flags", 0);
+	boolean v2 = PropUtil.getBooleanProperty(props,
+	    "mail." + name + ".auth.ntlm.v2", true);
 	String domain = props.getProperty(
 	    "mail." + name + ".auth.ntlm.domain", "");
 	Ntlm ntlm = new Ntlm(domain, getLocalHost(), u, p, logger);
@@ -793,7 +795,7 @@ public class IMAPProtocol extends Protocol {
 		    // Server challenge ..
 		    String s;
 		    if (first) {
-			s = ntlm.generateType1Msg(flags);
+			s = ntlm.generateType1Msg(flags, v2);
 			first = false;
 		    } else {
 			s = ntlm.generateType3Msg(r.getRest());
