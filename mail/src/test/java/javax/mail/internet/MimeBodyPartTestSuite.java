@@ -29,6 +29,7 @@ import com.sun.mail.test.ClassLoaderSuite.TestClass;
 @TestClass(MimeBodyPart.class)
 @SuiteClasses( {
     NoEncodeFileName.class,
+    NoEncodeFileNameNoEncodeParameters.class,
     EncodeFileName.class,
     EncodeFileNameNoEncodeParameters.class
 })

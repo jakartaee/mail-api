@@ -29,6 +29,6 @@ public class EncodeFileNameNoEncodeParameters extends EncodeFileName {
 	System.out.println("EncodeFileNameNoEncodeParameters");
 	System.setProperty("mail.mime.charset", "utf-8");
 	System.setProperty("mail.mime.encodefilename", "true");
-	System.setProperty("mail.mime.encodeparamters", "false");
+	System.setProperty("mail.mime.encodeparameters", "false");
     }
 }
