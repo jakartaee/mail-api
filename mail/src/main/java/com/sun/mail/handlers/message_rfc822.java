@@ -73,18 +73,21 @@ public class message_rfc822 extends handler_base {
     @Override
     public void writeTo(Object obj, String mimeType, OutputStream os) 
 			throws IOException {
+	if (!(obj instanceof Message))
+	    throw new IOException("\"" + getDataFlavors()[0].getMimeType() +
+		"\" DataContentHandler requires Message object, " +
+		"was given object of type " + obj.getClass().toString() +
+		"; obj.cl " + obj.getClass().getClassLoader() +
+		", Message.cl " + Message.class.getClassLoader());
+
 	// if the object is a message, we know how to write that out
-	if (obj instanceof Message) {
-	    Message m = (Message)obj;
-	    try {
-		m.writeTo(os);
-	    } catch (MessagingException me) {
-		IOException ioex = new IOException("Exception writing message");
-		ioex.initCause(me);
-		throw ioex;
-	    }
-	} else {
-	    throw new IOException("unsupported object");
+	Message m = (Message)obj;
+	try {
+	    m.writeTo(os);
+	} catch (MessagingException me) {
+	    IOException ioex = new IOException("Exception writing message");
+	    ioex.initCause(me);
+	    throw ioex;
 	}
     }
 }
