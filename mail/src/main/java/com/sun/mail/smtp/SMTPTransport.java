@@ -1240,14 +1240,15 @@ public class SMTPTransport extends Transport {
 	    logger.fine("Can only send RFC822 msgs");
 	    throw new MessagingException("SMTP can only send RFC822 messages");
 	}
+    if (addresses == null || addresses.length == 0) {
+        throw new SendFailedException("No recipient addresses");
+    }
 	for (int i = 0; i < addresses.length; i++) {
 	    if (!(addresses[i] instanceof InternetAddress)) {
 		throw new MessagingException(addresses[i] +
 					     " is not an InternetAddress");
 	    }
 	}
-	if (addresses.length == 0)
-	    throw new SendFailedException("No recipient addresses");
 
 	this.message = (MimeMessage)message;
 	this.addresses = addresses;
@@ -2719,7 +2720,7 @@ public class SMTPTransport extends Transport {
 	    if (count >= buf.length)
 		flush();
 	}
-		
+
 	/**
 	 * Writes len bytes to this output stream starting at off.
 	 *

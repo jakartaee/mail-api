@@ -26,6 +26,7 @@ The following bugs have been fixed in the 1.6.4 release.
 
 E  361	Support the NTLMv2 authentication protocol
 E  363	Multipart message sent with headers but no body
+E  366  NPE when recipients not set
 
 
 		  CHANGES IN THE 1.6.3 RELEASE
