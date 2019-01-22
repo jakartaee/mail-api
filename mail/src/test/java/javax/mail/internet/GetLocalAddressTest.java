@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -36,6 +36,11 @@ public class GetLocalAddressTest {
     static {
 	try {
 	    localhost = InetAddress.getLocalHost().getCanonicalHostName();
+	    // if the host name and host address are the same, the name
+	    // is really an address and we need to convert it to an
+	    // internet address literal to use it in an email address
+	    if (localhost.equals(InetAddress.getLocalHost().getHostAddress()))
+		localhost = "[" + localhost + "]";
 	} catch (UnknownHostException ex) {
 	    localhost = "localhost";
 	}
