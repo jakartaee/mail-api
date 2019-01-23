@@ -1,3 +1,5 @@
+<br>
+
 The JavaMail API provides a platform-independent and
 protocol-independent framework to build mail and messaging
 applications.

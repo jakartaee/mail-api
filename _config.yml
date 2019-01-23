@@ -1,1 +1,11 @@
-theme: jekyll-theme-cayman
+remote_theme: jakartaee/jekyll-theme-jakarta-ee
+
+title: [JavaMail]
+description: [JavaMail Implementation]
+
+links:
+  source: https://github.com/eclipse-ee4j/javamail
+  javadocs: docs/api/
+  download: https://github.com/eclipse-ee4j/javamail/releases
+  mailinglist: https://accounts.eclipse.org/mailing-list/javamail-dev
+  faq: FAQ
