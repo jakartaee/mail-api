@@ -28,6 +28,7 @@ E  361	Support the NTLMv2 authentication protocol
 E  363	Multipart message sent with headers but no body
 E  366	NPE when recipients not set
 E  369	javax.mail.internet.GetLocalAddressTest fails when host has no name
+E  370	Exchange sometimes returns entire message for a partial fetch
 
 
 		  CHANGES IN THE 1.6.3 RELEASE

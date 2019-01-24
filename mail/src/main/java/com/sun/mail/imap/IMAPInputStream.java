@@ -158,10 +158,52 @@ public class IMAPInputStream extends InputStream {
 	bufpos = ba.getStart();
 	int n = ba.getCount();    // will be zero, if all data has been
 				  // consumed from the server.
-	// if we got less than we asked for, this is the last buffer of data
-	lastBuffer = n < cnt;
+
+	int origin = b.getOrigin();
+	if (origin < 0) {
+	    /*
+	     * Some versions of Exchange will return the entire message
+	     * body even though we only ask for a chunk, and the returned
+	     * data won't specify an "origin".  If this happens, and we
+	     * get more data than we asked for, assume it's the entire
+	     * message body.
+	     */
+	    if (pos == 0) {
+		/*
+		 * If we got more or less than we asked for,
+		 * this is the last buffer of data.
+		 */
+		lastBuffer = n != cnt;
+	    } else {
+		/*
+		 * We asked for data NOT starting at the beginning,
+		 * but we got back data starting at the beginning.
+		 * Possibly we could extract the needed data from
+		 * some part of the data we got back, but really this
+		 * should never happen so we just assume something is
+		 * broken and terminate the data here.
+		 */
+		n = 0;
+		lastBuffer = true;
+	    }
+	} else if (origin == pos) {
+	    /*
+	     * If we got less than we asked for,
+	     * this is the last buffer of data.
+	     */
+	    lastBuffer = n < cnt;
+	} else {
+	    /*
+	     * We got back data that doesn't match the request.
+	     * Just terminate the data here.
+	     */
+	    n = 0;
+	    lastBuffer = true;
+	}
+
 	bufcount = bufpos + n;
 	pos += n;
+
     }
 
     /**
