@@ -1986,9 +1986,9 @@ public class SMTPTransport extends Transport {
 	    validUnsentAddr = new Address[valid.size() + validUnsent.size()];
 	    int i = 0;
 	    for (int j = 0; j < valid.size(); j++)
-		validUnsentAddr[i++] = valid.get(j);
+		validUnsentAddr[i++] = (Address)valid.get(j);
 	    for (int j = 0; j < validUnsent.size(); j++)
-		validUnsentAddr[i++] = validUnsent.get(j);
+		validUnsentAddr[i++] = (Address)validUnsent.get(j);
 	} else if (reportSuccess || (sendPartial &&
 			(invalid.size() > 0 || validUnsent.size() > 0))) {
 	    // we'll go on to send the message, but after sending we'll
@@ -2646,7 +2646,7 @@ public class SMTPTransport extends Transport {
 	else
 	    bytes = ASCIIUtility.getBytes(s);
 	for (int i = 0; i < bytes.length; i++) {
-	    char c = (char)((bytes[i])&0xff);
+	    char c = (char)(((int)bytes[i])&0xff);
 	    if (!utf8 && c >= 128)	// not ASCII
 		throw new IllegalArgumentException(
 			    "Non-ASCII character in SMTP submitter: " + s);
@@ -2657,8 +2657,8 @@ public class SMTPTransport extends Transport {
 		    sb.append(s.substring(0, i));
 		}
 		sb.append('+');
-		sb.append(hexchar[((c)& 0xf0) >> 4]);
-		sb.append(hexchar[(c)& 0x0f]);
+		sb.append(hexchar[(((int)c)& 0xf0) >> 4]);
+		sb.append(hexchar[((int)c)& 0x0f]);
 	    } else {
 		if (sb != null)
 		    sb.append(c);
