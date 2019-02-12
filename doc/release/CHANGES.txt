@@ -29,7 +29,8 @@ E  363	Multipart message sent with headers but no body
 E  366	NPE when recipients not set
 E  369	javax.mail.internet.GetLocalAddressTest fails when host has no name
 E  370	Exchange sometimes returns entire message for a partial fetch
-E  372  Add QUIT support on session rejection
+E  371	Cannot allow UTF-8 headers in MimeMultipart
+E  372	Add QUIT support on session rejection
 
 		  CHANGES IN THE 1.6.3 RELEASE
 		  ----------------------------

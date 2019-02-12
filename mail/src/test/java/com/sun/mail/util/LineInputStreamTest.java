@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,8 +17,11 @@
 package com.sun.mail.util;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -88,12 +91,32 @@ public class LineInputStreamTest {
 	}
     }
 
+    @Test
+    public void testUtf8Fail() throws IOException {
+	LineInputStream is = createStream("a\u00A9b\n", StandardCharsets.UTF_8);
+	assertNotEquals("a\u00A9b", is.readLine());
+    }
+
+    @Test
+    public void testUtf8() throws IOException {
+	LineInputStream is = new LineInputStream(new ByteArrayInputStream(
+			"a\u00A9b\n".getBytes(StandardCharsets.UTF_8)), true);
+	assertEquals("a\u00A9b", is.readLine());
+    }
+
+    @Test
+    public void testIso() throws IOException {
+	LineInputStream is =
+	    createStream("a\251b\n", StandardCharsets.ISO_8859_1);
+	assertEquals("a\251b", is.readLine());
+    }
+
     private LineInputStream createStream(String s) {
-	try {
+	return createStream(s, StandardCharsets.US_ASCII);
+    }
+
+    private LineInputStream createStream(String s, Charset cs) {
 	return new LineInputStream(
-	    new ByteArrayInputStream(s.getBytes("us-ascii")));
-	} catch (UnsupportedEncodingException ex) {
-	    return null;	// should never happen
-	}
+	    new ByteArrayInputStream(s.getBytes(cs)));
     }
 }
