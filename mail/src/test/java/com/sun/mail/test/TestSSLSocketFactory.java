@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -22,8 +22,11 @@ import java.security.GeneralSecurityException;
 
 import javax.net.ssl.*;
 
+import com.sun.mail.util.MailSSLSocketFactory;
+
 /**
  * An SSL socket factory for testing that tracks whether it's being used.
+ * Always trusts the server "localhost".
  * <p>
  *
  * An instance of this factory can be set as the value of the
@@ -67,7 +70,9 @@ public class TestSSLSocketFactory extends SSLSocketFactory {
 				throws GeneralSecurityException {
 
 	// Get the default SSLSocketFactory to delegate all API-calls to.
-	defaultFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
+	// Use a MailSSLSocketFactory so that we can trust "localhost".
+	defaultFactory = new MailSSLSocketFactory();
+	((MailSSLSocketFactory)defaultFactory).setTrustedHosts("localhost");
     }
 
     /**

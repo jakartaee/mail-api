@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -123,7 +123,7 @@ public class MailSSLSocketFactory extends SSLSocketFactory {
      * @param keyManagers the keyManagers to set
      * @throws  GeneralSecurityException for security errors
      */
-    public synchronized void setKeyManagers(KeyManager[] keyManagers)
+    public synchronized void setKeyManagers(KeyManager... keyManagers)
 				throws GeneralSecurityException  {
 	this.keyManagers = keyManagers.clone();
 	newAdapteeFactory();
@@ -157,7 +157,7 @@ public class MailSSLSocketFactory extends SSLSocketFactory {
      * @param trustManagers the trustManagers to set
      * @throws  GeneralSecurityException for security errors
      */
-    public synchronized void setTrustManagers(TrustManager[] trustManagers)
+    public synchronized void setTrustManagers(TrustManager... trustManagers)
 				throws GeneralSecurityException {
 	this.trustManagers = trustManagers;
 	newAdapteeFactory();
@@ -190,7 +190,7 @@ public class MailSSLSocketFactory extends SSLSocketFactory {
     /**
      * @param	trustedHosts the hosts to trust
      */
-    public synchronized void setTrustedHosts(String[] trustedHosts) {
+    public synchronized void setTrustedHosts(String... trustedHosts) {
 	if (trustedHosts == null)
 	    this.trustedHosts = null;
 	else

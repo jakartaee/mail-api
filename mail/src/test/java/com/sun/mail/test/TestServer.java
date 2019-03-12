@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -22,12 +22,16 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetSocketAddress;
+import java.security.*;
 import javax.net.ssl.*;
 
 /**
  * A simple server for testing.
  *
  * Inspired by, and derived from, POP3Server by sbo.
+ *
+ * For SSL/TLS support, depends on a keystore with a single X509 certificate in
+ * mail/src/test/resources/com/sun/mail/test/keystore.jks.
  *
  * @author sbo
  * @author Bill Shannon
@@ -85,32 +89,48 @@ public final class TestServer extends Thread {
 		return;
 	    } catch (IOException ex) {
 		// ignore
+	    } catch (GeneralSecurityException ex) {
+		System.out.println(ex);
+		// ignore
 	    }
 	}
 	throw new RuntimeException("Can't find unused port");
     }
 
     private static ServerSocket createServerSocket(int port, boolean isSSL)
-				throws IOException {
+				throws IOException, GeneralSecurityException {
 	ServerSocket ss;
 	if (isSSL) {
-	    SSLServerSocketFactory sf =
-		(SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+	    SSLContext sslContext = createSSLContext();
+	    SSLServerSocketFactory sf = sslContext.getServerSocketFactory();
 	    ss = sf.createServerSocket(port);
-	    // enable only the anonymous cipher suites so we don't have to
-	    // create a server certificate
-	    List<String> anon = new ArrayList<>();
-	    String[] suites = sf.getSupportedCipherSuites();
-	    for (int i = 0; i < suites.length; i++) {
-		if (suites[i].indexOf("_anon_") >= 0) {
-		    anon.add(suites[i]);
-		}
-	    }
-	    ((SSLServerSocket)ss).setEnabledCipherSuites(
-				    anon.toArray(new String[anon.size()]));
 	} else
 	    ss = new ServerSocket(port);
 	return ss;
+    }
+
+    private static SSLContext createSSLContext()
+				throws IOException, GeneralSecurityException {
+	KeyStore keyStore = KeyStore.getInstance("JKS");
+	keyStore.load(
+	    TestServer.class.getResourceAsStream("keystore.jks"),
+	    "changeit".toCharArray());
+
+	// Create key manager
+	KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+	kmf.init(keyStore, "changeit".toCharArray());
+	KeyManager[] km = kmf.getKeyManagers();
+
+	// Create trust manager
+	TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+	tmf.init(keyStore);
+	TrustManager[] tm = tmf.getTrustManagers();
+
+	// Initialize SSLContext
+	SSLContext sslContext = SSLContext.getInstance("TLS");
+	sslContext.init(km,  tm, null);
+
+	return sslContext;
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -92,10 +92,7 @@ public final class WriteTimeoutSocketTest {
 	properties.setProperty("mail.imap.host", "localhost");
 	properties.setProperty("mail.imap.writetimeout", "" + TIMEOUT);
 	properties.setProperty("mail.imap.ssl.enable", "true");
-	// enable only the anonymous cipher suites since there's no
-	// server certificate
-	properties.setProperty("mail.imap.ssl.ciphersuites",
-						    getAnonCipherSuites());
+	properties.setProperty("mail.imap.ssl.trust", "localhost");
 	test(properties, true);
     }
 
@@ -108,15 +105,14 @@ public final class WriteTimeoutSocketTest {
 	properties.setProperty("mail.imap.host", "localhost");
 	properties.setProperty("mail.imap.writetimeout", "" + TIMEOUT);
 	properties.setProperty("mail.imap.ssl.enable", "true");
+	// TestSSLSocketFactory always trusts "localhost"; setting
+	// this property would cause MailSSLSocketFactory to be used instead
+	// of TestSSLSocketFactory, which we don't want.
+	//properties.setProperty("mail.imap.ssl.trust", "localhost");
 	TestSSLSocketFactory sf = new TestSSLSocketFactory();
-	sf.setDefaultCipherSuites(getAnonCipherSuitesArray());
 	properties.put("mail.imap.ssl.socketFactory", sf);
 	// don't fall back to non-SSL
 	properties.setProperty("mail.imap.socketFactory.fallback", "false");
-	// enable only the anonymous cipher suites since there's no
-	// server certificate
-	properties.setProperty("mail.imap.ssl.ciphersuites",
-						    getAnonCipherSuites());
 	test(properties, true);
 	// make sure our socket factory was actually used
 	assertTrue(sf.getSocketWrapped() || sf.getSocketCreated());
@@ -154,32 +150,6 @@ public final class WriteTimeoutSocketTest {
 	for (String s : socketMethods)
 	    System.out.println("WriteTimeoutSocket did not override: " + s);
 	assertTrue(socketMethods.isEmpty());
-    }
-
-    private static String[] getAnonCipherSuitesArray() {
-	SSLSocketFactory sf = (SSLSocketFactory)SSLSocketFactory.getDefault();
-	List<String> anon = new ArrayList<>();
-	String[] suites = sf.getSupportedCipherSuites();
-	for (int i = 0; i < suites.length; i++) {
-	    if (suites[i].indexOf("_anon_") >= 0) {
-		anon.add(suites[i]);
-	    }
-	}
-	return anon.toArray(new String[anon.size()]);
-    }
-
-    private static String getAnonCipherSuites() {
-	SSLSocketFactory sf = (SSLSocketFactory)SSLSocketFactory.getDefault();
-	StringBuilder anon = new StringBuilder();
-	String[] suites = sf.getSupportedCipherSuites();
-	for (int i = 0; i < suites.length; i++) {
-	    if (suites[i].indexOf("_anon_") >= 0) {
-		if (anon.length() > 0)
-		    anon.append(" ");
-		anon.append(suites[i]);
-	    }
-	}
-	return anon.toString();
     }
 
     private void test(Properties properties, boolean isSSL) {
