@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -34,6 +34,7 @@ import java.util.concurrent.Executor;
 
 import com.sun.mail.util.LineInputStream;
 import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.DefaultProvider;
 
 /**
  * The Session class represents a mail session and is not subclassed.
@@ -196,12 +197,11 @@ public final class Session {
     private boolean debug = false;
     private PrintStream out;			// debug output stream
     private MailLogger logger;
-    private List<Provider> providers;
+    private final List<Provider> providers = new ArrayList<>();
     private final Map<String, Provider> providersByProtocol = new HashMap<>();
     private final Map<String, Provider> providersByClassName = new HashMap<>();
     private final Properties addressMap = new Properties();
 						// maps type to protocol
-    private boolean loadedProviders;	// javamail.[default.]providers loaded?
     // the queue of events to be delivered, if mail.event.scope===session
     private final EventQueue q;
 
@@ -251,6 +251,7 @@ public final class Session {
 	else
 	    cl = this.getClass();
 	// load the resources
+	loadProviders(cl);
 	loadAddressMap(cl);
 	q = new EventQueue((Executor)props.get("mail.event.executor"));
     }
@@ -462,21 +463,8 @@ public final class Session {
      * @return Array of configured providers
      */
     public synchronized Provider[] getProviders() {
-	List<Provider> plist = new ArrayList<Provider>();
-	boolean needFallback = true;
-	// first, add all the services
-	ServiceLoader<Provider> loader = ServiceLoader.load(Provider.class);
-	for (Provider p : loader) {
-	    plist.add(p);
-	    needFallback = false;
-	}
-	// then, add all the providers from config files
-	if (!loadedProviders)
-	    loadProviders(needFallback);
-	if (providers != null)
-	    plist.addAll(providers);
-	Provider[] _providers = new Provider[plist.size()];
-	plist.toArray(_providers);
+	Provider[] _providers = new Provider[providers.size()];
+	providers.toArray(_providers);
 	return _providers;
     }
 
@@ -511,11 +499,15 @@ public final class Session {
 				   ".class property exists and points to " + 
 				   _className);
 	    }
-	    _provider = getProviderByClassName(_className);
+	    _provider = providersByClassName.get(_className);
 	} 
 
-	if (_provider == null)
-	    _provider = getProviderByProtocol(protocol);
+	if (_provider != null) {
+	    return _provider;
+	} else {
+	    // returning currently default protocol in providersByProtocol
+	    _provider = providersByProtocol.get(protocol);
+	}
 
 	if (_provider == null) {
 	    throw new NoSuchProviderException("No provider for " + protocol);
@@ -950,64 +942,9 @@ public final class Session {
     }
 
     /**
-     * Get the Provider that uses the specified class name.
-     *
-     * @param	className	the class name
-     * @return		the Provider
-     */
-    private Provider getProviderByClassName(String className) {
-	// first, try our local list of providers
-	Provider p = providersByClassName.get(className);
-	if (p != null)
-	    return p;
-
-	// now, try services
-	ServiceLoader<Provider> loader = ServiceLoader.load(Provider.class);
-	for (Provider pp : loader) {
-	    if (className.equals(pp.getClassName()))
-		return pp;
-	}
-
-	// finally, if we haven't loaded our config, load it and try again
-	if (!loadedProviders) {
-	    loadProviders(true);
-	    p = providersByClassName.get(className);
-	}
-	return p;
-    }
-
-    /**
-     * Get the Provider for the specified protocol.
-     *
-     * @param	protocol	the protocol
-     * @return		the Provider
-     */
-    private Provider getProviderByProtocol(String protocol) {
-	// first, try our local list of providers
-	Provider p = providersByProtocol.get(protocol);
-	if (p != null)
-	    return p;
-
-	// now, try services
-	ServiceLoader<Provider> loader = ServiceLoader.load(Provider.class);
-	for (Provider pp : loader) {
-	    if (protocol.equals(pp.getProtocol()))
-		return pp;
-	}
-
-	// finally, if we haven't loaded our config, load it and try again
-	if (!loadedProviders) {
-	    loadProviders(true);
-	    p = providersByProtocol.get(protocol);
-	}
-	return p;
-    }
-
-    /**
      * Load the protocol providers config files.
-     * If fallback is true, provide built in defaults if nothing is loaded.
      */
-    private void loadProviders(boolean fallback) {
+    private void loadProviders(Class<?> cl) {
 	StreamLoader loader = new StreamLoader() {
 	    @Override
 	    public void load(InputStream is) throws IOException {
@@ -1022,12 +959,12 @@ public final class Session {
 		loadFile(confDir + "javamail.providers", loader);
 	} catch (SecurityException ex) {}
 
-	// get the Class associated with the Authenticator
-	Class<?> cl;
-	if (authenticator != null)
-	    cl = authenticator.getClass();
-	else
-	    cl = this.getClass();
+	// next, add all the non-default services
+	ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class);
+	for (Provider p : sl) {
+	    if (!p.getClass().isAnnotationPresent(DefaultProvider.class))
+		addProvider(p);
+	}
 
 	// load the META-INF/javamail.providers file supplied by an application
 	loadAllResources("META-INF/javamail.providers", cl, loader);
@@ -1035,11 +972,17 @@ public final class Session {
 	// load default META-INF/javamail.default.providers from mail.jar file
 	loadResource("/META-INF/javamail.default.providers", cl, loader, false);
 
+	// finally, add all the default services
+	sl = ServiceLoader.load(Provider.class);
+	for (Provider p : sl) {
+	    if (p.getClass().isAnnotationPresent(DefaultProvider.class))
+		addProvider(p);
+	}
+
 	/*
-	 * If we haven't loaded any providers and the fallback configuration
-	 * is needed, fake it.
+	 * If we haven't loaded any providers, fake it.
 	 */
-	if ((providers == null || providers.size() == 0) && fallback) {
+	if (providers.size() == 0) {
 	    logger.config("failed to load any providers, using defaults");
 	    // failed to load any providers, initialize with our defaults
 	    addProvider(new Provider(Provider.Type.STORE,
@@ -1064,13 +1007,12 @@ public final class Session {
 
 	if (logger.isLoggable(Level.CONFIG)) {
 	    // dump the output of the tables for debugging
-	    logger.config("Tables of loaded providers from javamail.providers");
+	    logger.config("Tables of loaded providers");
 	    logger.config("Providers Listed By Class Name: " + 
 	       providersByClassName.toString());
 	    logger.config("Providers Listed By Protocol: " + 
 	       providersByProtocol.toString());
 	}
-	loadedProviders = true;
     }
 
     private void loadProvidersFromStream(InputStream is) 
@@ -1139,8 +1081,6 @@ public final class Session {
      * @since	JavaMail 1.4
      */
     public synchronized void addProvider(Provider provider) {
-	if (providers == null)
-	    providers = new ArrayList<Provider>();
 	providers.add(provider);
 	providersByClassName.put(provider.getClassName(), provider);
 	if (!providersByProtocol.containsKey(provider.getProtocol()))

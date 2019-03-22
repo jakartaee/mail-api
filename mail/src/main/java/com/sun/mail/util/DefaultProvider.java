@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,19 +14,18 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.mail.imap;
+package com.sun.mail.util;
 
-import javax.mail.Provider;
-
-import com.sun.mail.util.DefaultProvider;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
 
 /**
- * The IMAP protocol provider.
+ * Annotation to mark the default providers that are part of JavaMail.
+ * DO NOT use this on any provider made available independently.
+ *
+ * @author	Bill Shannon
+ * @since	JavaMail 1.6.4
  */
-@DefaultProvider	// Remove this annotation if you copy this provider
-public class IMAPProvider extends Provider {
-    public IMAPProvider() {
-	super(Provider.Type.STORE, "imap", IMAPStore.class.getName(),
-	    "Oracle", null);
-    }
+@Target(ElementType.TYPE)
+public @interface DefaultProvider {
 }

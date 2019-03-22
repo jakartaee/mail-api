@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,9 +18,12 @@ package com.sun.mail.pop3;
 
 import javax.mail.Provider;
 
+import com.sun.mail.util.DefaultProvider;
+
 /**
  * The POP3 protocol provider.
  */
+@DefaultProvider	// Remove this annotation if you copy this provider
 public class POP3Provider extends Provider {
     public POP3Provider() {
 	super(Provider.Type.STORE, "pop3", POP3Store.class.getName(),

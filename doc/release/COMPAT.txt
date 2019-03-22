@@ -24,6 +24,21 @@ with this release of the JavaMail API.
 	but if this causes compatibility problems it can be disabled by
 	setting the property "mail.<protocol>.auth.ntlm.v2" to "false".
 
+- Protocol providers now always loaded using ServiceLoader and config files
+
+	The changes in JavaMail 1.6.2 to use ServiceLoader introduced
+	an incompatibility with some commonn use cases.  To resolve that
+	incompatibility, the load order for providers has changed to:
+
+		1. Non-default providers available as services.
+		2. Providers configured via javamail.providers.
+		3. Providers configured via javamail.default.providers.
+		4. Default providers available as services.
+
+	An implementation-specific @DefaultProvider annotation is used
+	to mark the providers included with JavaMail (#4 above), and
+	should not be used by applications.
+
 
 -- JavaMail 1.6.3 --
 

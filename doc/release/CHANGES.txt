@@ -24,6 +24,7 @@ longer available.
 		  ----------------------------
 The following bugs have been fixed in the 1.6.4 release.
 
+E  350	ServiceLoader loads default providers ahead of application providers
 E  361	Support the NTLMv2 authentication protocol
 E  363	Multipart message sent with headers but no body
 E  366	NPE when recipients not set
