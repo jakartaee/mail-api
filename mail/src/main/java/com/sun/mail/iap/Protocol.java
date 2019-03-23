@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -551,6 +551,17 @@ public class Protocol {
 	    }
 	}
 	return ret;
+    }
+
+    /**
+     * Return the local SocketAddress (host and port) for this
+     * end of the connection.
+     *
+     * @return	the SocketAddress
+     * @since	JavaMail 1.6.4
+     */
+    public SocketAddress getLocalSocketAddress() {
+	return socket.getLocalSocketAddress();
     }
 
     /**
