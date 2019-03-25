@@ -16,8 +16,7 @@
 
 package com.sun.mail.util;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
+import java.lang.annotation.*;
 
 /**
  * Annotation to mark the default providers that are part of JavaMail.
@@ -26,6 +25,7 @@ import java.lang.annotation.ElementType;
  * @author	Bill Shannon
  * @since	JavaMail 1.6.4
  */
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface DefaultProvider {
 }
