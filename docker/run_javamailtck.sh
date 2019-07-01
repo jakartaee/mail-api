@@ -43,7 +43,7 @@ sed -i "s#^SMTP_FROM=.*#SMTP_FROM=user01@james.local#g" "$TS_HOME/lib/javamail.j
 sed -i "s#^SMTP_TO=.*#SMTP_TO=user01@james.local#g" "$TS_HOME/lib/javamail.jte"
 
 cd $TS_HOME/tests/mailboxes
-export CLASSPATH=$TS_HOME/tests/mailboxes:$WORKSPACE/jakarta.mail.jar:$WORKSPACE/jakarta.activation.jar:$CLASSPATH
+export CLASSPATH=$TS_HOME/tests/mailboxes:$WORKSPACE/mail/target/jakarta.mail.jar:$WORKSPACE/jakarta.activation.jar:$CLASSPATH
 javac -cp $CLASSPATH fpopulate.java
 java -cp $CLASSPATH fpopulate -s test1 \
     -d imap://user01%40james.local:1234@localhost:1143
