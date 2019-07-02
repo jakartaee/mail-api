@@ -24,6 +24,7 @@ if [ -z "$JAVAMAIL_TCK_BUNDLE_URL" ];then
 fi
 wget $WGET_PROPS $JAF_BUNDLE_URL -O jakarta.activation.jar
 wget $WGET_PROPS $JAVAMAIL_TCK_BUNDLE_URL -O javamailtck.zip
+cp ${WORKSPACE}/mail/target/jakarta.mail.jar ${WORKSPACE}
 
 unzip -q -o ${WORKSPACE}/javamailtck.zip -d ${WORKSPACE}
 
@@ -43,7 +44,7 @@ sed -i "s#^SMTP_FROM=.*#SMTP_FROM=user01@james.local#g" "$TS_HOME/lib/javamail.j
 sed -i "s#^SMTP_TO=.*#SMTP_TO=user01@james.local#g" "$TS_HOME/lib/javamail.jte"
 
 cd $TS_HOME/tests/mailboxes
-export CLASSPATH=$TS_HOME/tests/mailboxes:$WORKSPACE/mail/target/jakarta.mail.jar:$WORKSPACE/jakarta.activation.jar:$CLASSPATH
+export CLASSPATH=$TS_HOME/tests/mailboxes:$WORKSPACE/jakarta.mail.jar:$WORKSPACE/jakarta.activation.jar:$CLASSPATH
 javac -cp $CLASSPATH fpopulate.java
 java -cp $CLASSPATH fpopulate -s test1 \
     -d imap://user01%40james.local:1234@localhost:1143
