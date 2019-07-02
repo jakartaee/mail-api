@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,7 +28,8 @@ import com.sun.mail.test.ClassLoaderSuite.TestClass;
 @RunWith(ClassLoaderSuite.class)
 @TestClass(MimeMessage.class)
 @SuiteClasses( {
-    AllowEncodedMessages.class
+    AllowEncodedMessages.class,
+    Utf8Address.class
 })
 public class MimeMessageTestSuite {
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -379,10 +379,7 @@ public class MimeMessage extends Message implements MimePart {
      */
     @Override
     public void setFrom(Address address) throws MessagingException {
-	if (address == null)
-	    removeHeader("From");
-	else
-	    setHeader("From", MimeUtility.fold(6, address.toString()));
+	setAddressHeader("From", new Address[] { address });
     }
 
     /**
@@ -400,10 +397,7 @@ public class MimeMessage extends Message implements MimePart {
      * @since		JvaMail 1.5
      */
     public void setFrom(String address) throws MessagingException {
-	if (address == null)
-	    removeHeader("From");
-	else
-	    setAddressHeader("From", InternetAddress.parse(address));
+	setAddressHeader("From", InternetAddress.parse(address));
     }
 
     /**
@@ -485,10 +479,7 @@ public class MimeMessage extends Message implements MimePart {
      * @since		JavaMail 1.3
      */
     public void setSender(Address address) throws MessagingException {
-	if (address == null)
-	    removeHeader("Sender");
-	else
-	    setHeader("Sender", MimeUtility.fold(8, address.toString()));
+	setAddressHeader("Sender", new Address[] { address });
     }
 
     /**
