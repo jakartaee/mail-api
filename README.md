@@ -24,7 +24,7 @@ and is also included in the
 ## July 3, 2019 - Jakarta Mail is the new name for JavaMail ##
 
 The JavaMail technology contributed to the Eclipse Foundation has been renamed
-Jakarta Mail to reflect its role in the
+to "Jakarta Mail" to reflect its role in the
 [Jakarta EE platform](https://jakarta.ee/).
 
 ## November 26, 2018 - JavaMail 1.6.3 Final Release ##
