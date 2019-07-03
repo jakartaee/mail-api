@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,14 +23,14 @@
 
 <!--
 
-    NOTE: JavaMail is now built using Maven:
-    https://java.net/projects/javamail/pages/BuildInstructions
+    NOTE: Jakarta Mail is now built using Maven:
+    https://eclipse-ee4j.github.io/jakartamail/Build-Instructions
 
     This ant build file is obsolete and may not work.
 
 -->
 
-<project name="JavaMail" default="all" basedir=".">
+<project name="Jakarta Mail" default="all" basedir=".">
 
 <!-- ========== Initialize Properties =================================== -->
 
@@ -66,7 +66,7 @@
 
     <!-- compile -->
     <target name="compile" depends="init"
-            description="Compile JavaMail sources">
+            description="Compile Jakarta Mail sources">
 
         <copy file="${resources.dir}/javax/mail/Version.java"
 		toFile="${src.dir}/javax/mail/Version.java">
@@ -318,14 +318,14 @@
         </delete>
     </target>
 
-    <!-- JavaMail bundle build targets -->
+    <!-- Jakarta Mail bundle build targets -->
 
     <target name="release" depends="init, jars, democompile, docs">
 	<!-- XXX - need to replace "." with "_" in release.version -->
-        <property name="rel" value="javamail-${release.version}"/>
+        <property name="rel" value="jakartamail-${release.version}"/>
         <property name="zipname" value="${rel}.zip"/>
         <delete file="${basedir}/target/${zipname}"/>
-        <echo message="Creating JavaMail bundle ${basedir}/target/${zipname}"/>
+        <echo message="Creating Jakarta Mail bundle ${basedir}/target/${zipname}"/>
         <zip destfile="${basedir}/target/${zipname}">
 	    <zipfileset dir="${release.dir}" prefix="${rel}"/>
             <zipfileset dir="${src.demo.dir}" prefix="${rel}/demo"
@@ -550,9 +550,9 @@
             version="false"
             use="true"
             overview="${release.dir}/javadoc/overview.html"
-            windowtitle="JavaMail API documentation"
-            doctitle="JavaMail API documentation">
-            <group title="JavaMail API Packages" packages="javax.*"/>
+            windowtitle="Jakarta Mail API documentation"
+            doctitle="Jakarta Mail API documentation">
+            <group title="Jakarta Mail API Packages" packages="javax.*"/>
             <group title="Sun-specific Packages" packages="com.sun.*"/>
 	    <bottom>
 <![CDATA[Copyright &#169; 1996-2013,

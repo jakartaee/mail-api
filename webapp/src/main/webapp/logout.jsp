@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (c) 2001, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2001, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@
 
 <html>
 <head>
-	<title>JavaMail logout</title>
+	<title>Jakarta Mail logout</title>
 </head>
 
 <% mailuser.logout(); %>

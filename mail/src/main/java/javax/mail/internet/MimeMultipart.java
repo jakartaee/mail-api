@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -40,11 +40,11 @@ import com.sun.mail.util.PropUtil;
  * content. The intent is that service providers, mail JavaBean writers
  * and mail clients will write many such subclasses and their Command
  * Beans, and will install them into the JavaBeans Activation
- * Framework, so that any JavaMail implementation and its clients can
+ * Framework, so that any Jakarta Mail implementation and its clients can
  * transparently find and use these classes. Thus, a MIME multipart
  * handler is treated just like any other type handler, thereby
  * decoupling the process of providing multipart handlers from the
- * JavaMail API. Lacking these additional MimeMultipart subclasses,
+ * Jakarta Mail API. Lacking these additional MimeMultipart subclasses,
  * all subtypes of MIME multipart data appear as MimeMultipart objects. <p>
  *
  * An application can directly construct a MIME multipart object of any

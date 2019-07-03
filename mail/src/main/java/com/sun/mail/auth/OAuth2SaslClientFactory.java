@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,13 +23,13 @@ import javax.security.sasl.*;
 import javax.security.auth.callback.*;
 
 /**
- * JavaMail SASL client factory for OAUTH2.
+ * Jakarta Mail SASL client factory for OAUTH2.
  *
  * @author Bill Shannon
  */
 public class OAuth2SaslClientFactory implements SaslClientFactory {
 
-    private static final String PROVIDER_NAME = "JavaMail-OAuth2";
+    private static final String PROVIDER_NAME = "Jakarta-Mail-OAuth2";
     private static final String MECHANISM_NAME = "SaslClientFactory.XOAUTH2";
 
     static class OAuth2Provider extends Provider {

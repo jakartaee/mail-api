@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,7 +20,7 @@
 <!DOCTYPE project [
   <!ENTITY commonBuild SYSTEM "ant-common.xml">
 ]>
-<project name="JavaMail" default="all" basedir="."
+<project name="Jakarta Mail" default="all" basedir="."
 	xmlns:cpptasks="antlib:org.sf.net.antcontrib.cpptasks">
 
     <taskdef resource="cpptasks.tasks"/>
@@ -159,7 +159,7 @@
         </delete>
     </target>
 
-    <!-- JavaMail bundle build targets -->
+    <!-- Jakarta Mail bundle build targets -->
 
     <target name="mboxrelease" depends="init, mboxjar, mboxcc">
         <property name="rel" value="mbox-${release.version}"/>

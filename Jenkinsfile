@@ -1,4 +1,4 @@
-env.label = "javamail-tck-ci-pod-${UUID.randomUUID().toString()}"
+env.label = "mail-tck-ci-pod-${UUID.randomUUID().toString()}"
 pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
@@ -18,7 +18,7 @@ spec:
     - "localhost.localdomain"
     - "james.local"
   containers:
-  - name: javamail-ci
+  - name: mail-ci
     image: jakartaee/cts-javamail-base:0.1
     command:
     - cat
@@ -60,26 +60,26 @@ spec:
     MAIL_USER="user01@james.local"
   }
   stages {
-    stage('javamail-build') {
+    stage('mail-build') {
       steps {
-        container('javamail-ci') {
+        container('mail-ci') {
           sh """
-            bash -x ${WORKSPACE}/docker/build_javamail.sh
+            bash -x ${WORKSPACE}/docker/build_jakartamail.sh
           """
           archiveArtifacts artifacts: 'mail/target/*.jar'
-          stash includes: 'mail/target/*.jar', name: 'javamail-bundles'
+          stash includes: 'mail/target/*.jar', name: 'mail-bundles'
         }
       }
     }
   
-    stage('javamail-tck-run') {
+    stage('mail-tck-run') {
       steps {
-        container('javamail-ci') {
-	  unstash name: 'javamail-bundles'
+        container('mail-ci') {
+	  unstash name: 'mail-bundles'
           sh """
-            bash -x ${WORKSPACE}/docker/run_javamailtck.sh
+            bash -x ${WORKSPACE}/docker/run_jakartamailtck.sh
           """
-          archiveArtifacts artifacts: "javamailtck-results.tar.gz"
+          archiveArtifacts artifacts: "mailtck-results.tar.gz"
           junit testResults: 'results/junitreports/*.xml', allowEmptyResults: true
         }
       }

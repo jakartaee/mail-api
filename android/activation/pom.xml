@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,12 +28,12 @@
 
     <!--
 	This is a fork of the JavaBeans Activation Framework (JAF) that
-	is sufficient for use by JavaMail when running on Android.
+	is sufficient for use by Jakarta Mail when running on Android.
 	Android is not Java Compatible, and is missing the java.awt.datatransfer
 	classes.  This fork of JAF breaks the dependency on the
 	java.awt.datatransfer classes and thus isn't compatible with
 	the JAF specification.  It should not be used by anything other
-	than this Android-specific version of JavaMail.
+	than this Android-specific version of Jakarta Mail.
     -->
 
     <properties>

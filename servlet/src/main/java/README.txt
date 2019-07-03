@@ -1,24 +1,24 @@
-			     JavaMail Servlet
-			     ~~~~~~~~~~~~~~~~
+			     Jakarta Mail Servlet
+			     ~~~~~~~~~~~~~~~~~~~~
 
 Overview:
 =========
 
-JavaMailServlet should not be taken as a demo of how to use the Java 
-Servlet API. It is rather an example of how the JavaMail APIs could 
+JakartaMailServlet should not be taken as a demo of how to use the Java 
+Servlet API. It is rather an example of how the Jakarta Mail APIs could 
 be used in a server in a three-tier environment described by the 
 following diagram:
 
-	+-----------+        +-----------+        +-----------+
-	|   IMAP    |        |           |        |           |
-	|  Server   |<-IMAP->| JavaMail  |<-HTTP->|    WWW    |
-	+-----------+        | Servlet   |--HTML->|  Browser  |
-	|   SMTP    |<-SMTP->|           |        |           |
-	|  Server   |        |           |        |           |
-	+-----------+        +-----------+        +-----------+
+	+-----------+        +--------------+        +-----------+
+	|   IMAP    |        |              |        |           |
+	|  Server   |<-IMAP->| JakartaMail  |<-HTTP->|    WWW    |
+	+-----------+        | Servlet      |--HTML->|  Browser  |
+	|   SMTP    |<-SMTP->|              |        |           |
+	|  Server   |        |              |        |           |
+	+-----------+        +--------------+        +-----------+
 
 
-The JavaMailServlet supports the following functionality:
+The JakartaMailServlet supports the following functionality:
 	* login to an IMAP server
 	* list all the messages in the INBOX folder
 	* view the selected message
@@ -42,20 +42,20 @@ other web servers that support the Java Servlet API.
 	   make sure your web browser has cookie support turned on.
 
 	2. Set your classpath to include the following:
-	    * mail.jar:		in the JavaMail API distribution
+	    * mail.jar:		in the Jakarta Mail API distribution
 	    * activation.jar:	in the JAF distribution
 	    * jws.jar:		in the /lib/ directory in JWS installation
 
-	3. In javamail-1.1/demo/servlet directory, compile the 
-	   JavaMailServlet.java file. That produces two class files,
-	   JavaMailServlet.class and MailUserData.class. Copy these
+	3. In the servlet/src/main/java directory, compile the 
+	   JakartaMailServlet.java file. That produces two class files,
+	   JakartaMailServlet.class and MailUserData.class. Copy these
 	   class files to the /servlets/ directory in the JWS 
 	   installation.
 
 	4. Copy the mail.jar and activation.jar to the /lib/
 	   directory in the JWS installation.
 
-	5. Copy the JavaMail.html file to the /public_html/
+	5. Copy the JakartaMail.html file to the /public_html/
 	   directory in the JWS installation.
 
 	6. Restart Java Web Server to pick up the new jar files
@@ -64,32 +64,32 @@ other web servers that support the Java Servlet API.
 	   is working fine.
 
 	7. Using a web browser, go to 
-	   http://<hostname>/JavaMail.html and login to a
+	   http://<hostname>/JakartaMail.html and login to a
 	   valid IMAP account. From here on, you can view 
 	   messages in your INBOX and create and send new 
 	   messages.
 
 
 
-JavaMailServlet Design:
-=======================
+JakartaMailServlet Design:
+==========================
 
-The following is a brief description of JavaMailServlet class. It
+The following is a brief description of JakartaMailServlet class. It
 is not intended to serve as an example of how to develop servlets;
 see http://java.sun.com/products/servlet for information on the Java
-Servlet API. You may find it useful to refer to JavaMailServlet.java
+Servlet API. You may find it useful to refer to JakartaMailServlet.java
 source while reading this.
 
-The JavaMailServlet uses two primary methods to process all
+The JakartaMailServlet uses two primary methods to process all
 requests: doPost() and doGet(). doPost() processes submissions
 from the login and compose forms. When the user logs in, the
-doPost() method gets a JavaMail Session and uses the values
+doPost() method gets a Jakarta Mail Session and uses the values
 of the "hostname", "username" and "password" parameters to login
 to the IMAP Store and get the INBOX Folder. To preserve state
 between multiple HTTP requests, the necessary information
 (Session, Store, Folder, URLName) are collected in the
 MailUserData object which is stored using JWS's Session
-technology (don't confuse HttpSession and JavaMail's Session--
+technology (don't confuse HttpSession and Jakarta Mail's Session--
 they are different). Finally, the doPost() method outputs 
 a table listing the INBOX and the number of messages in it.
 

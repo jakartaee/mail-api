@@ -1,6 +1,6 @@
 #
 #
-# JavaMail content-handlers:
+# Jakarta Mail content-handlers:
 #
 multipart/report;;	x-java-content-handler=com.sun.mail.dsn.multipart_report
 message/delivery-status;; x-java-content-handler=com.sun.mail.dsn.message_deliverystatus

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,7 +18,7 @@
 -->
 
 <probe-providers>
-  <probe-provider moduleProviderName="glassfish" moduleName="javamail"
+  <probe-provider moduleProviderName="glassfish" moduleName="jakartamail"
       probeProviderName="smtp-transport"
       class="com.sun.mail.smtp.SMTPTransport">
     <probe name="sendMessageStart">
@@ -31,7 +31,7 @@
       <return-param type="void" />
     </probe>
   </probe-provider>
-  <probe-provider moduleProviderName="glassfish" moduleName="javamail"
+  <probe-provider moduleProviderName="glassfish" moduleName="jakartamail"
       probeProviderName="iap-protocol"
       class="com.sun.mail.iap.Protocol">
     <probe name="commandStart">
@@ -44,7 +44,7 @@
       <return-param type="void" />
     </probe>
   </probe-provider>
-  <probe-provider moduleProviderName="glassfish" moduleName="javamail"
+  <probe-provider moduleProviderName="glassfish" moduleName="jakartamail"
       probeProviderName="pop3-protocol"
       class="com.sun.mail.pop3.Protocol">
     <probe name="simpleCommandStart">

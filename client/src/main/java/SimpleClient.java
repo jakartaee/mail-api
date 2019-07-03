@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,7 +68,7 @@ public class SimpleClient {
 	    CommandMap.setDefaultCommandMap( new MailcapCommandMap(
 		new FileInputStream(capfile)));
 		
-	    JFrame frame = new JFrame("Simple JavaMail Client");
+	    JFrame frame = new JFrame("Simple Jakarta Mail Client");
 	    frame.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {System.exit(0);}});
 	    //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

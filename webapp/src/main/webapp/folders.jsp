@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (c) 2001, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2001, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,14 +16,14 @@
 	
 <html>
 <head>
-    <title>JavaMail folders</title>
+    <title>Jakarta Mail folders</title>
 </head>
 	
 <body bgcolor="#ccccff">
 
 <center>
 <font face="Arial,Helvetica" font size=+3>
-<b>Welcome to JavaMail!</b> </font> </center>
+<b>Welcome to Jakarta Mail!</b> </font> </center>
 <table width="50%" border=0 align=center>
 <tr>
 <td width="75%" bgcolor="#ffffcc">

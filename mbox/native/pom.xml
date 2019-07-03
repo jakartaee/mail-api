@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,9 +31,9 @@
     <groupId>com.sun.mail</groupId>
     <artifactId>libmbox</artifactId>
     <packaging>so</packaging>
-    <name>JavaMail API mbox native library</name>
-    <description>JavaMail API mbox native library</description>
-    <url>http://java.sun.com/projects/javamail</url>
+    <name>Jakarta Mail API mbox native library</name>
+    <description>Jakarta Mail API mbox native library</description>
+    <url>https://github.com/eclipse-ee4j/jakartamail</url>
 
     <properties>
 	<m64>

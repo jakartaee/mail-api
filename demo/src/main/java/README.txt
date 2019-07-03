@@ -1,13 +1,13 @@
 	README for the demo programs in this directory
 	==============================================
 
-These demo programs illustrate how to use the JavaMail API to
+These demo programs illustrate how to use the Jakarta Mail API to
 perform a number of common email functions.  Note these these
 programs are not intended to be examples of good user interfaces,
 or good command line interfaces.  No one is expected to actually
 *use* these programs for anything real.  Rather, their value is
 in the source code.  Don't look at their command line arguments
-or user interface to figure out what JavaMail can do, look at
+or user interface to figure out what Jakarta Mail can do, look at
 their source code.  We strongly recommend that you read the
 source code and understand what these programs are doing before
 running them.
@@ -277,7 +277,7 @@ but if in doubt, read the source code.
 
 - registry.java
 
-	Demonstrates how to query the JavaMail "registry" for providers,
+	Demonstrates how to query the Jakarta Mail "registry" for providers,
 	set default providers, etc.
 
    Usage:

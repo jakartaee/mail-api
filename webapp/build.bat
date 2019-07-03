@@ -1,6 +1,6 @@
 @echo off
 REM
-REM  Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+REM  Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 REM
 REM  This program and the accompanying materials are made available under the
 REM  terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,7 +28,7 @@ jar cvf ..\docroot\WEB-INF\lib\taglib.jar META-INF demo\*.class
 del demo\*.class
 cd ..\docroot
 echo creating web archive
-jar cvf ..\..\javamail.war index.html *.jsp WEB-INF
+jar cvf ..\..\jakartamail.war index.html *.jsp WEB-INF
 cd WEB-INF\classes\demo
 del *.*
 cd ..

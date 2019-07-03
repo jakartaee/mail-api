@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -49,7 +49,7 @@ public class IMAPProtocolTest {
      * Test that a response containing multiple BODY elements
      * returns the correct one.  Derived from a customer bug
      * with Exchange 2003.  Normally this would never happen,
-     * but it's a valid IMAP response and JavaMail needs to
+     * but it's a valid IMAP response and Jakarta Mail needs to
      * handle it properly.
      */
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -699,7 +699,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      *
      * The content is wrapped in a DataHandler object. Note that a
      * DataContentHandler class for the specified type should be
-     * available to the JavaMail implementation for this to work right.
+     * available to the Jakarta Mail implementation for this to work right.
      * That is, to do <code>setContent(foobar, "application/x-foobar")</code>,
      * a DataContentHandler for "application/x-foobar" should be installed.
      * Refer to the Java Activation Framework for more information.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ import javax.mail.*;
 
 /**
  * copier will copy a specified number of messages from one folder
- * to another folder. it demonstrates how to use the JavaMail APIs
+ * to another folder. it demonstrates how to use the Jakarta Mail APIs
  * to copy messages.<p>
  *
  * Usage for copier: copier <i>store urlname</i> 

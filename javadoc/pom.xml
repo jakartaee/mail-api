@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,7 +31,7 @@
     <artifactId>javadoc</artifactId>
     <packaging>pom</packaging>
     <version>1.6.4-SNAPSHOT</version>
-    <name>JavaMail API javadocs</name>
+    <name>Jakarta Mail API javadocs</name>
     <description>${project.name}</description>
 
     <build>
@@ -128,13 +128,13 @@
 			    <additionalJOption>-J-Xmx256m</additionalJOption>
 			    <author>false</author>
 			    <description>
-				JavaMail API documentation
+				Jakarta Mail API documentation
 			    </description>
 			    <doctitle>
-				JavaMail API documentation
+				Jakarta Mail API documentation
 			    </doctitle>
 			    <windowtitle>
-				JavaMail API documentation
+				Jakarta Mail API documentation
 			    </windowtitle>
 			    <splitindex>true</splitindex>
 			    <use>true</use>
@@ -154,7 +154,7 @@
 			    </bottom>
 			    <groups>
 				<group>
-				    <title>JavaMail API Packages</title>
+				    <title>Jakarta Mail API Packages</title>
 				    <packages>javax.*</packages>
 				</group>
 				<group>

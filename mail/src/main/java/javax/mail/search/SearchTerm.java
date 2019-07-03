@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -32,7 +32,7 @@ import javax.mail.Message;
  *
  * <strong>Warning:</strong>
  * Serialized objects of this class may not be compatible with future
- * JavaMail API releases.  The current serialization support is
+ * Jakarta Mail API releases.  The current serialization support is
  * appropriate for short term storage. <p>
  *
  * @author Bill Shannon

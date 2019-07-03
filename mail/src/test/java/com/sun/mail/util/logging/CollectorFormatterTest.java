@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2013, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -1015,8 +1015,8 @@ public class CollectorFormatterTest extends AbstractLogging {
     }
 
     @Test
-    public void testJavaMailLinkage() throws Exception {
-        testJavaMailLinkage(CollectorFormatter.class);
+    public void testLinkage() throws Exception {
+        testLinkage(CollectorFormatter.class);
     }
 
     @Test

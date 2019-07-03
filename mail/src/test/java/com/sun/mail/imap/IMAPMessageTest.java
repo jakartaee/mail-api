@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -61,9 +61,9 @@ public final class IMAPMessageTest {
       "=?UTF-8?B?4LKt4LK14LK/4LK44LOBIOCyh+CyguCypuCzhuCyqA==?= " +
       "=?UTF-8?B?4LON4LKoIOCyueCzg+CypuCyr+CypuCysuCyvyA=?=";
     private static final String ENV_ADDRS =
-	"((\"JavaMail\" NIL \"testuser\" \"example.com\")) " +
-	"((\"JavaMail\" NIL \"testuser\" \"example.com\")) " +
-	"((\"JavaMail\" NIL \"testuser\" \"example.com\")) " +
+	"((\"Jakarta Mail\" NIL \"testuser\" \"example.com\")) " +
+	"((\"Jakarta Mail\" NIL \"testuser\" \"example.com\")) " +
+	"((\"Jakarta Mail\" NIL \"testuser\" \"example.com\")) " +
 	"((NIL NIL \"testuser\" \"example.com\")) NIL NIL NIL " +
 	"\"<40D98512.9040803@example.com>\"";
     private static final String ENVELOPE =

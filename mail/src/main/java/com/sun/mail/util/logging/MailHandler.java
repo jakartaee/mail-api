@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -351,7 +351,7 @@ public class MailHandler extends Handler {
      */
     private static final int offValue = Level.OFF.intValue();
     /**
-     * The action to set the context class loader for use with the JavaMail API.
+     * The action to set the context class loader for use with the Jakarta Mail API.
      * Load and pin this before it is loaded in the close method. The field is
      * declared as java.security.PrivilegedAction so
      * WebappClassLoader.clearReferencesStaticFinal() method will ignore this
@@ -1690,8 +1690,8 @@ public class MailHandler extends Handler {
                        return true;
                     }
 
-                    //Not all JavaMail implementations support JDK 1.4 exception
-                    //chaining.
+                    //Not all Jakarta Mail implementations support JDK 1.4
+                    //exception chaining.
                     final Throwable cause = t.getCause();
                     if (cause == null && t instanceof MessagingException) {
                         t = ((MessagingException) t).getNextException();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -86,7 +86,7 @@ public class transport implements ConnectionListener, TransportListener {
 	    Message msg = new MimeMessage(session);
 	    msg.setFrom(from);
 	    msg.setRecipients(Message.RecipientType.TO, toAddr);
-	    msg.setSubject("JavaMail APIs transport.java Test");
+	    msg.setSubject("Jakarta Mail APIs transport.java Test");
 	    msg.setSentDate(new Date());  // Date: header
 	    msg.setContent(msgText+msgText2, "text/plain");
 	    msg.saveChanges();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,7 +18,7 @@
 -->
 
 <!--
-    This project builds the JavaMail Android jar file.
+    This project builds the Jakarta Mail Android jar file.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -34,14 +34,14 @@
     <groupId>com.sun.mail</groupId>
     <artifactId>android-mail</artifactId>
     <packaging>jar</packaging>
-    <name>JavaMail API for Android</name>
+    <name>Jakarta Mail API for Android</name>
 
     <properties>
 	<mail.extensionName>
 	    jakarta.mail.android
 	</mail.extensionName>
 	<mail.specificationTitle>
-	    JavaMail(TM) API Design Specification
+	    Jakarta Mail API Design Specification
 	</mail.specificationTitle>
 	<mail.implementationTitle>
 	    javax.mail.android

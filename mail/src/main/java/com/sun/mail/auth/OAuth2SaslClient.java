@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -27,7 +27,7 @@ import javax.security.auth.callback.*;
 import com.sun.mail.util.ASCIIUtility;
 
 /**
- * JavaMail SASL client for OAUTH2.
+ * Jakarta Mail SASL client for OAUTH2.
  *
  * @see <a href="http://tools.ietf.org/html/rfc6749">
  *	RFC 6749 - OAuth 2.0 Authorization Framework</a>
@@ -71,7 +71,7 @@ public class OAuth2SaslClient implements SaslClient {
 	}
 
 	/*
-	 * The OAuth token isn't really a password, and JavaMail doesn't
+	 * The OAuth token isn't really a password, and Jakarta Mail doesn't
 	 * use char[] for passwords, so we don't worry about storing the
 	 * token in strings.
 	 */

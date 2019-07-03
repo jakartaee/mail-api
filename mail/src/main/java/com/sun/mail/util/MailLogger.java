@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import javax.mail.Session;
 
 /**
- * A simplified logger used by JavaMail to handle logging to a
+ * A simplified logger used by Jakarta Mail to handle logging to a
  * PrintStream and logging through a java.util.logging.Logger.
  * If debug is set, messages are written to the PrintStream and
  * prefixed by the specified prefix (which is not included in
@@ -371,7 +371,7 @@ public final class MailLogger {
     }
 
     /**
-     * A disadvantage of not being able to use Logger directly in JavaMail
+     * A disadvantage of not being able to use Logger directly in Jakarta Mail
      * code is that the "source class" information that Logger guesses will
      * always refer to this class instead of our caller.  This method
      * duplicates what Logger does to try to find *our* caller, so that

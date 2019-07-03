@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (c) 2001, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2001, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,16 +12,16 @@
 
 <%@ page language="java" import="demo.MessageInfo, demo.AttachmentInfo" %>
 <%@ page errorPage="errorpage.jsp" %>
-<%@ taglib uri="http://java.sun.com/products/javamail/demo/webapp" 
-    prefix="javamail" %>
+<%@ taglib uri="https://github.com/eclipse-ee4j/jakartamail/tree/master/webapp" 
+    prefix="jakartamail" %>
  
 
 <html>
 <head>
-    <title>JavaMail messagecontent</title>
+    <title>Jakarta Mail messagecontent</title>
 </head>
 
-<javamail:message 
+<jakartamail:message 
 id="msginfo"
 folder="folder"
 num="<%= request.getParameter(\"message\") %>" 
@@ -66,7 +66,7 @@ num="<%= request.getParameter(\"message\") %>"
 <%= msginfo.getBody() %>
 </pre>
 <% if (msginfo.hasAttachments()) { %>
-<javamail:listattachments
+<jakartamail:listattachments
  id="attachment"
  messageinfo="msginfo">
 <p><hr>
@@ -89,7 +89,7 @@ num="<%= request.getParameter(\"message\") %>"
 <%= msginfo.getNum() %>&part=<%= attachment.getNum() %>">
 Display Attachment</a>
 <% } %>
-</javamail:listattachments>
+</jakartamail:listattachments>
 <% } %>
 </body>
 </html>

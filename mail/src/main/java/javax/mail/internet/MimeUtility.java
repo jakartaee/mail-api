@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -44,7 +44,7 @@ import com.sun.mail.util.UUEncoderStream;
  * There are a set of methods to encode and decode MIME headers as 
  * per RFC 2047.  Note that, in general, these methods are
  * <strong>not</strong> needed when using methods such as
- * <code>setSubject</code> and <code>setRecipients</code>; JavaMail
+ * <code>setSubject</code> and <code>setRecipients</code>; Jakarta Mail
  * will automatically encode and decode data when using these "higher
  * level" methods.  The methods below are only needed when maniuplating
  * raw MIME headers using <code>setHeader</code> and <code>getHeader</code>

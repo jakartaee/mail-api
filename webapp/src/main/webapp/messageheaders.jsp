@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (c) 2001, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2001, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,12 +12,12 @@
 
 <%@ page language="java" import="demo.MessageInfo" %>
 <%@ page errorPage="errorpage.jsp" %>
-<%@ taglib uri="http://java.sun.com/products/javamail/demo/webapp" 
-    prefix="javamail" %>
+<%@ taglib uri="https://github.com/eclipse-ee4j/jakartamail/tree/master/webapp" 
+    prefix="jakartamail" %>
 
 <html>
 <head>
-	<title>JavaMail messageheaders</title>
+	<title>Jakarta Mail messageheaders</title>
 </head>
 
 <body bgcolor="#ccccff"><hr>
@@ -43,7 +43,7 @@
 <font face="Arial,Helvetica" font size="+1">
 <b>Subject</b></font></td>
 </tr>
-<javamail:listmessages
+<jakartamail:listmessages
  id="msginfo"
  folder="folder">
 <%-- from --%>
@@ -75,7 +75,7 @@ Unknown
 </a>
 </font></td>
 </tr>
-</javamail:listmessages>
+</jakartamail:listmessages>
 </table>
 </body>
 </html>

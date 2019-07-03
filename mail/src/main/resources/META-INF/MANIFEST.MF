@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Extension-Name: javax.mail
-Specification-Title: JavaMail(TM) API Design Specification
+Specification-Title: Jakarta Mail API Design Specification
 Specification-Version: ${mail.spec.version}
 Specification-Vendor: ${project.organization.name}
 Implementation-Title: javax.mail

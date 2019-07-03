@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,10 +18,10 @@
 -->
 
 <!--
-    This project builds the JavaMail "mailapi.jar" file.  This jar file
-    contains a fully operational JavaMail implementation but without any
+    This project builds the Jakarta Mail "mailapi.jar" file.  This jar file
+    contains a fully operational Jakarta Mail implementation but without any
     protocol providers.  It can be used with the separate protocol provider
-    jar files (e.g., smtp.jar, imap.jar) to provide a full JavaMail runtime
+    jar files (e.g., smtp.jar, imap.jar) to provide a full Jakarta Mail runtime
     implementation.
 -->
 
@@ -38,7 +38,7 @@
     <groupId>com.sun.mail</groupId>
     <artifactId>mailapi</artifactId>
     <packaging>jar</packaging>
-    <name>JavaMail API (no providers)</name>
+    <name>Jakarta Mail API (no providers)</name>
 
     <properties>
 	<mail.packages.export>

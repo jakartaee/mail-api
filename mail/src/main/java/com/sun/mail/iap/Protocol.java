@@ -558,7 +558,7 @@ public class Protocol {
      * end of the connection.
      *
      * @return	the SocketAddress
-     * @since	JavaMail 1.6.4
+     * @since	Jakarta Mail 1.6.4
      */
     public SocketAddress getLocalSocketAddress() {
 	return socket.getLocalSocketAddress();

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,7 +24,7 @@
 </HEAD>
 <BODY BGCOLOR="white">
 
-A POP3 protocol provider for the JavaMail API
+A POP3 protocol provider for the Jakarta Mail API
 that provides access to a POP3 message store.
 Refer to <A HREF="http://www.ietf.org/rfc/rfc1939.txt" TARGET="_top">
 RFC 1939</A>
@@ -32,19 +32,19 @@ for more information.
 <P>
 The POP3 provider provides a Store object that contains a single Folder
 named "INBOX". Due to the limitations of the POP3 protocol, many of
-the JavaMail API capabilities like event notification, folder management,
+the Jakarta Mail API capabilities like event notification, folder management,
 flag management, etc. are not allowed.  The corresponding methods throw
 the MethodNotSupportedException exception; see below for details.
 </P>
 <P>
-Note that JavaMail does <strong>not</strong> include a local store into
+Note that Jakarta Mail does <strong>not</strong> include a local store into
 which messages can be downloaded and stored.  See our
-<A HREF="http://java.sun.com/products/javamail/Third_Party.html" TARGET="_top">
+<A HREF="https://eclipse-ee4j.github.io/jakartamail/ThirdPartyProducts" TARGET="_top">
 Third Party Products</A>
 web page for availability of "mbox" and "MH" local store providers.
 </P>
 <P>
-The POP3 provider is accessed through the JavaMail APIs by using the protocol
+The POP3 provider is accessed through the Jakarta Mail APIs by using the protocol
 name "pop3" or a URL of the form "pop3://user:password@host:port/INBOX".
 </P>
 <P>
@@ -174,7 +174,7 @@ the I/O buffer, greatly reducing memory usage when fetching messages.
 <A NAME="properties"><STRONG>Properties</STRONG></A>
 <P>
 The POP3 protocol provider supports the following properties,
-which may be set in the JavaMail <code>Session</code> object.
+which may be set in the Jakarta Mail <code>Session</code> object.
 The properties are always set as strings; the Type column describes
 how the string is interpreted.  For example, use
 </P>
@@ -600,7 +600,7 @@ If this property is set to true, a hard reference to the cached content
 will be kept, preventing the memory from being reused until the folder
 is closed or the cached content is explicitly invalidated (using the
 {@link com.sun.mail.pop3.POP3Message#invalidate invalidate} method).
-(This was the behavior in previous versions of JavaMail.)
+(This was the behavior in previous versions of Jakarta Mail.)
 Defaults to false.
 </TD>
 </TR>

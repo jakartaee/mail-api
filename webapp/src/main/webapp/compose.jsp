@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (c) 2001, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2001, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@
 
 <html>
 <head>
-	<title>JavaMail compose</title>
+	<title>Jakarta Mail compose</title>
 </head>
 
 <body bgcolor="#ccccff">
@@ -23,7 +23,7 @@
 <input type="hidden" name="send" value="send">
 <p align="center">
 <b><font size="4" face="Verdana, Arial, Helvetica">
-JavaMail Compose Message</font></b>
+Jakarta Mail Compose Message</font></b>
 <p>
 <table border="0" width="100%">
 <tr>

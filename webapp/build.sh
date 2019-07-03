@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2010, 2019 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,7 @@ jar cvf ../docroot/WEB-INF/lib/taglib.jar META-INF demo/*.class
 rm demo/*.class
 cd ../docroot
 echo "creating web archive"
-jar cvf ../../javamail.war index.html *.jsp WEB-INF
+jar cvf ../../jakartamail.war index.html *.jsp WEB-INF
 rm -r WEB-INF/classes
 rm -r WEB-INF/lib
 cd ../..

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -25,18 +25,18 @@
 <BODY BGCOLOR="white">
 
 <P>
-The JavaMail&trade; API
+The Jakarta Mail API
 provides classes that model a mail system.
 The <code>javax.mail</code> package defines classes that are common to
 all mail systems.
 The <code>javax.mail.internet</code> package defines classes that are specific
 to mail systems based on internet standards such as MIME, SMTP, POP3, and IMAP.
-The JavaMail API includes the <code>javax.mail</code> package and subpackages.
+The Jakarta Mail API includes the <code>javax.mail</code> package and subpackages.
 </P>
 <P>
-For an overview of the JavaMail API, read the
-<A HREF="https://javaee.github.io/javamail/docs/JavaMail-1.6.pdf" TARGET="_top">
-JavaMail specification</A>.
+For an overview of the Jakarta Mail API, read the
+<A HREF="https://javaee.github.io/jakartamail/docs/JakartaMail-1.6.pdf" TARGET="_top">
+Jakarta Mail specification</A>.
 </P>
 <P>
 The code to send a plain text message can be as simple as the following:
@@ -51,7 +51,7 @@ The code to send a plain text message can be as simple as the following:
 	msg.setFrom("me@example.com");
 	msg.setRecipients(Message.RecipientType.TO,
 			  "you@example.com");
-	msg.setSubject("JavaMail hello world example");
+	msg.setSubject("Jakarta Mail hello world example");
 	msg.setSentDate(new Date());
 	msg.setText("Hello, world!\n");
 	Transport.send(msg, "me@example.com", "my-password");
@@ -60,21 +60,21 @@ The code to send a plain text message can be as simple as the following:
     }
 </PRE>
 <P>
-The JavaMail download bundle contains many more complete examples
+The Jakarta Mail download bundle contains many more complete examples
 in the "demo" directory.
 </P>
 <P>
 Don't forget to see the
-<A HREF="https://javaee.github.io/javamail/FAQ.html" TARGET="_top">
-JavaMail API FAQ</A>
+<A HREF="https://javaee.github.io/jakartamail/FAQ.html" TARGET="_top">
+Jakarta Mail API FAQ</A>
 for answers to the most common questions.
-The <A HREF="https://javaee.github.io/javamail/" TARGET="_top">
-JavaMail web site</A>
+The <A HREF="https://javaee.github.io/jakartamail/" TARGET="_top">
+Jakarta Mail web site</A>
 contains many additional resources.
 </P>
 <A NAME="properties"><STRONG>Properties</STRONG></A>
 <P>
-The JavaMail API supports the following standard properties,
+The Jakarta Mail API supports the following standard properties,
 which may be set in the <code>Session</code> object, or in the
 <code>Properties</code> object used to create the <code>Session</code> object.
 The properties are always set as strings; the Type column describes
@@ -86,7 +86,7 @@ how the string is interpreted.  For example, use
 <P>
 to set the <code>mail.debug</code> property, which is of type boolean.
 </P>
-<TABLE BORDER SUMMARY="JavaMail properties">
+<TABLE BORDER SUMMARY="Jakarta Mail properties">
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -206,11 +206,11 @@ Overrides the <code>mail.user</code> property.
 
 <P>
 The following properties are supported by the reference implementation (RI) of
-JavaMail, but are not currently a required part of the specification.
+Jakarta Mail, but are not currently a required part of the specification.
 The names, types, defaults, and semantics of these properties may
 change in future releases.
 </P>
-<TABLE BORDER SUMMARY="JavaMail RI properties">
+<TABLE BORDER SUMMARY="Jakarta Mail RI properties">
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -293,15 +293,15 @@ event queue is no longer in use.
 </TABLE>
 
 <P>
-The JavaMail API also supports several System properties;
+The Jakarta Mail API also supports several System properties;
 see the {@link javax.mail.internet} package documentation
 for details.
 </P>
 <P>
-The JavaMail reference
+The Jakarta Mail reference
 implementation includes protocol providers in subpackages of
 <code>com.sun.mail</code>.  Note that the APIs to these protocol
-providers are not part of the standard JavaMail API.  Portable
+providers are not part of the standard Jakarta Mail API.  Portable
 programs will not use these APIs.
 </P>
 <P>
@@ -309,7 +309,7 @@ Nonportable programs may use the APIs of the protocol providers
 by (for example) casting a returned <code>Folder</code> object to a
 <code>com.sun.mail.imap.IMAPFolder</code> object.  Similarly for
 <code>Store</code> and <code>Message</code> objects returned from the
-standard JavaMail APIs.
+standard Jakarta Mail APIs.
 </P>
 <P>
 The protocol providers also support properties that are specific to
@@ -323,7 +323,7 @@ In addition to printing debugging output as controlled by the
 implementation of classes in this package log the same information using
 {@link java.util.logging.Logger} as described in the following table:
 </P>
-<TABLE BORDER SUMMARY="JavaMail Loggers">
+<TABLE BORDER SUMMARY="Jakarta Mail Loggers">
 <TR>
 <TH>Logger Name</TH>
 <TH>Logging Level</TH>

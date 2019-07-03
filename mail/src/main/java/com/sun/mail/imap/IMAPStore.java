@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -99,7 +99,7 @@ import java.util.List;
  * The connected IMAPStore object may or may not maintain a separate IMAP
  * protocol object that provides the store a dedicated connection to the
  * IMAP server. This is provided mainly for compatibility with previous
- * implementations of JavaMail and is determined by the value of the 
+ * implementations of Jakarta Mail and is determined by the value of the 
  * mail.imap.separatestoreconnection property. <p>
  *
  * An IMAPStore object provides closed IMAPFolder objects thru its list()

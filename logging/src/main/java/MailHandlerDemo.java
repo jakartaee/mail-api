@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2009, 2018 Jason Mehrens. All Rights Reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -83,7 +83,7 @@ public class MailHandlerDemo {
             final boolean debug = init(l); //may create log messages.
             try {
                 LOGGER.log(Level.FINEST, "This is the finest part of the demo.",
-                        new MessagingException("Fake JavaMail issue."));
+                        new MessagingException("Fake Jakarta Mail issue."));
                 LOGGER.log(Level.FINER, "This is the finer part of the demo.",
                         new NullPointerException("Fake bug."));
                 LOGGER.log(Level.FINE, "This is the fine part of the demo.");

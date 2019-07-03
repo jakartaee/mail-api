@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2019 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2016, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -79,7 +79,7 @@ abstract class AbstractLogging {
     }
 
     /**
-     * Determines if the given class is from the JavaMail API Reference
+     * Determines if the given class is from the Jakarta Mail API Reference
      * Implementation {@code com.sun.mail} package.
      *
      * @param k the type to test.
@@ -88,7 +88,7 @@ abstract class AbstractLogging {
      * @throws Exception if there is a problem.
      */
     final boolean isPrivateSpec(final Class<?> k) throws Exception {
-        return isFromJavaMail(k, false);
+        return isFromJakartaMail(k, false);
     }
 
     /**
@@ -158,68 +158,68 @@ abstract class AbstractLogging {
 
     /**
      * Fails if any declared types are outside of the logging-mailhandler.jar.
-     * This includes classes from the JavaMail spec.
+     * This includes classes from the Jakarta Mail spec.
      *
      * @param k the type to check for dependencies.
      * @throws Exception if there is a problem.
      */
-    final void testJavaMailLinkage(final Class<?> k) throws Exception {
-        testJavaMailLinkage(k, true);
+    final void testLinkage(final Class<?> k) throws Exception {
+        testLinkage(k, true);
     }
 
     /**
      * Fails if any declared types are outside of the logging-mailhandler.jar.
      *
      * @param k the type to check for dependencies.
-     * @param includeSpec if true this includes official JavaMail spec classes.
+     * @param includeSpec if true this includes official JakartaMail spec classes.
      * @throws Exception if there is a problem.
      */
-    final void testJavaMailLinkage(final Class<?> k, final boolean includeSpec)
+    final void testLinkage(final Class<?> k, final boolean includeSpec)
             throws Exception {
-        assertFalse(k.getName(), isFromJavaMail(k, includeSpec));
+        assertFalse(k.getName(), isFromJakartaMail(k, includeSpec));
         for (Annotation an : k.getDeclaredAnnotations()) {
             assertFalse(an.toString(),
-                    isFromJavaMail(an.annotationType(), includeSpec));
+                    isFromJakartaMail(an.annotationType(), includeSpec));
         }
 
         for (Method m : k.getDeclaredMethods()) {
             assertFalse(m.getReturnType().getName(),
-                    isFromJavaMail(m.getReturnType(), includeSpec));
+                    isFromJakartaMail(m.getReturnType(), includeSpec));
             for (Class<?> p : m.getParameterTypes()) {
-                assertFalse(p.getName(), isFromJavaMail(p, includeSpec));
+                assertFalse(p.getName(), isFromJakartaMail(p, includeSpec));
             }
 
             for (Class<?> e : m.getExceptionTypes()) {
-                assertFalse(e.getName(), isFromJavaMail(e, includeSpec));
+                assertFalse(e.getName(), isFromJakartaMail(e, includeSpec));
             }
 
             for (Annotation an : m.getDeclaredAnnotations()) {
                 assertFalse(an.toString(),
-                        isFromJavaMail(an.annotationType(), includeSpec));
+                        isFromJakartaMail(an.annotationType(), includeSpec));
             }
         }
 
         for (Constructor<?> c : k.getDeclaredConstructors()) {
             for (Class<?> p : c.getParameterTypes()) {
-                assertFalse(p.getName(), isFromJavaMail(p, includeSpec));
+                assertFalse(p.getName(), isFromJakartaMail(p, includeSpec));
             }
 
             for (Class<?> e : c.getExceptionTypes()) {
-                assertFalse(e.getName(), isFromJavaMail(e, includeSpec));
+                assertFalse(e.getName(), isFromJakartaMail(e, includeSpec));
             }
 
             for (Annotation an : c.getDeclaredAnnotations()) {
                 assertFalse(an.toString(),
-                        isFromJavaMail(an.annotationType(), includeSpec));
+                        isFromJakartaMail(an.annotationType(), includeSpec));
             }
         }
 
         for (Field f : k.getDeclaredFields()) {
             for (Annotation an : k.getDeclaredAnnotations()) {
                 assertFalse(an.toString(),
-                        isFromJavaMail(an.annotationType(), includeSpec));
+                        isFromJakartaMail(an.annotationType(), includeSpec));
             }
-            assertFalse(f.getName(), isFromJavaMail(f.getType(), includeSpec));
+            assertFalse(f.getName(), isFromJakartaMail(f.getType(), includeSpec));
         }
     }
 
@@ -362,7 +362,7 @@ abstract class AbstractLogging {
         throw new AssertionError(then + " " + System.currentTimeMillis());
     }
 
-    private boolean isFromJavaMail(Class<?> k, boolean include) throws Exception {
+    private boolean isFromJakartaMail(Class<?> k, boolean include) throws Exception {
         for (Class<?> t = k; t != null; t = t.getSuperclass()) {
             final String n = t.getName();
             if (n.startsWith("javax.mail.")) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,19 +31,19 @@
     <artifactId>all</artifactId>
     <packaging>pom</packaging>
     <version>1.6.4-SNAPSHOT</version>
-    <name>JavaMail API distribution</name>
+    <name>Jakarta Mail API distribution</name>
     <description>${project.name}</description>
-    <url>http://eclipse-ee4j.github.io/javamail</url>
+    <url>http://eclipse-ee4j.github.io/mail</url>
 
     <scm>
-	<connection>scm:git:ssh://git@github.com/eclipse-ee4j/javamail.git</connection>
-	<developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/javamail.git</developerConnection>
-	<url>https://github.com/eclipse-ee4j/javamail</url>
+	<connection>scm:git:ssh://git@github.com/eclipse-ee4j/mail.git</connection>
+	<developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/mail.git</developerConnection>
+	<url>https://github.com/eclipse-ee4j/mail</url>
     </scm>
 
     <issueManagement>
 	<system>GitHub</system>
-	<url>https://github.com/eclipse-ee4j/javamail/issues</url>
+	<url>https://github.com/eclipse-ee4j/mail/issues</url>
     </issueManagement>
 
     <licenses>
@@ -176,7 +176,7 @@
 	</profile>
 
 	<!--
-	    This profile is used for deploying a JavaMail final release.
+	    This profile is used for deploying a Jakarta Mail final release.
 
 	    Activating this profile manually for deployment causes
 	    the above profile to be deactivated, which works around
@@ -272,7 +272,7 @@
 	</profile>
 
 	<!--
-	    This profile is used for deploying a JavaMail SNAPSHOT release.
+	    This profile is used for deploying a Jakarta Mail SNAPSHOT release.
 	    It's identical to the above deploy-release profile except that
 	    artifacts aren't signed.
 	-->
@@ -561,7 +561,7 @@
 	    </plugin>
 
 	    <!--
-		Use the 1.8 compiler for JavaMail itself and the test classes,
+		Use the 1.8 compiler for Jakarta Mail itself and the test classes,
 		but restrict it to 1.7 source and target.  The 1.8 compiler is
 		used *only* to pick up the definition of the Repeatable
 		annotation, needed by MailServiceDefinition.
@@ -889,7 +889,7 @@
     <!--
 	I'm leaving this here but commented out to remind myself
 	NOT to add this back in because it breaks the Android
-	version of JavaMail.
+	version of Jakarta Mail.
 
     <dependencies>
 	<dependency>

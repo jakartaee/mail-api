@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -51,9 +51,9 @@ public final class IMAPFetchProfileTest {
     private static final String RDATE = "23-Jun-2004 06:26:26 -0700";
     private static final String ENVELOPE =
 	"(\"Wed, 23 Jun 2004 18:56:42 +0530\" \"test\" " +
-	"((\"JavaMail\" NIL \"testuser\" \"example.com\")) " +
-	"((\"JavaMail\" NIL \"testuser\" \"example.com\")) " +
-	"((\"JavaMail\" NIL \"testuser\" \"example.com\")) " +
+	"((\"Jakarta Mail\" NIL \"testuser\" \"example.com\")) " +
+	"((\"Jakarta Mail\" NIL \"testuser\" \"example.com\")) " +
+	"((\"Jakarta Mail\" NIL \"testuser\" \"example.com\")) " +
 	"((NIL NIL \"testuser\" \"example.com\")) NIL NIL NIL " +
 	"\"<40D98512.9040803@example.com>\")";
 

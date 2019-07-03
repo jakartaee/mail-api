@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -36,7 +36,7 @@ The IMAP, SMTP, and POP3 protocols use
 </P>
 <A NAME="properties"><STRONG>Properties</STRONG></A>
 <P>
-The JavaMail API supports the following standard properties,
+The Jakarta Mail API supports the following standard properties,
 which may be set in the <code>Session</code> object, or in the
 <code>Properties</code> object used to create the <code>Session</code> object.
 The properties are always set as strings; the Type column describes
@@ -49,7 +49,7 @@ how the string is interpreted.  For example, use
 to set the <CODE>mail.mime.address.strict</CODE> property,
 which is of type boolean.
 </P>
-<TABLE BORDER SUMMARY="JavaMail properties">
+<TABLE BORDER SUMMARY="Jakarta Mail properties">
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -80,7 +80,7 @@ supports UTF-8.
 </TR>
 </TABLE>
 <P>
-The JavaMail API specification requires support for the following properties,
+The Jakarta Mail API specification requires support for the following properties,
 which must be set in the <code>System</code> properties.
 The properties are always set as strings; the Type column describes
 how the string is interpreted.  For example, use
@@ -92,7 +92,7 @@ how the string is interpreted.  For example, use
 to set the <CODE>mail.mime.decodetext.strict</CODE> property,
 which is of type boolean.
 </P>
-<TABLE BORDER SUMMARY="JavaMail System properties">
+<TABLE BORDER SUMMARY="Jakarta Mail System properties">
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -264,12 +264,12 @@ The default value of this property is false.
 
 <P>
 The following properties are supported by the reference implementation (RI) of
-JavaMail, but are not currently a required part of the specification.
+Jakarta Mail, but are not currently a required part of the specification.
 These must be set as <CODE>Session</CODE> properties.
 The names, types, defaults, and semantics of these properties may
 change in future releases.
 </P>
-<TABLE BORDER SUMMARY="JavaMail RI properties">
+<TABLE BORDER SUMMARY="Jakarta Mail RI properties">
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -303,12 +303,12 @@ constructed message.
 
 <P>
 The following properties are supported by the reference implementation (RI) of
-JavaMail, but are not currently a required part of the specification.
+Jakarta Mail, but are not currently a required part of the specification.
 These must be set as <CODE>System</CODE> properties.
 The names, types, defaults, and semantics of these properties may
 change in future releases.
 </P>
-<TABLE BORDER SUMMARY="JavaMail RI System properties">
+<TABLE BORDER SUMMARY="Jakarta Mail RI System properties">
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -383,7 +383,7 @@ or special characters.
 <TD>
 Apple Mail incorrectly encodes filenames that contain spaces,
 forgetting to quote the parameter value.  If this property is
-set to <code>"true"</code>, JavaMail will try to detect this
+set to <code>"true"</code>, Jakarta Mail will try to detect this
 situation when parsing parameters and work around it.
 The default is false.
 Note that this property handles a subset of the cases handled
@@ -400,11 +400,11 @@ Internet Explorer 6 incorrectly includes a complete pathname
 in the filename parameter of the Content-Disposition header
 for uploaded files, and fails to properly escape the backslashes
 in the pathname.  If this property is
-set to <code>"true"</code>, JavaMail will preserve all backslashes
+set to <code>"true"</code>, Jakarta Mail will preserve all backslashes
 in the "filename" and "name" parameters of any MIME header.
 The default is false.
 Note that this is a violation of the MIME specification but may
-be useful when using JavaMail to parse HTTP messages for uploaded
+be useful when using Jakarta Mail to parse HTTP messages for uploaded
 files sent by IE6.
 </TD>
 </TR>
@@ -486,13 +486,13 @@ The default value of this property is false.
 <TD><A NAME="mail.mime.contenttypehandler">mail.mime.contenttypehandler</A></TD>
 <TD>String</TD>
 <TD>
-In some cases JavaMail is unable to process messages with an invalid
+In some cases Jakarta Mail is unable to process messages with an invalid
 Content-Type header.  The header may have incorrect syntax or other
 problems.  This property specifies the name of a class that will be
-used to clean up the Content-Type header value before JavaMail uses it.
+used to clean up the Content-Type header value before Jakarta Mail uses it.
 The class must have a method with this signature:
 <CODE>public static String cleanContentType(MimePart mp, String contentType)</CODE>
-Whenever JavaMail accesses the Content-Type header of a message, it
+Whenever Jakarta Mail accesses the Content-Type header of a message, it
 will pass the value to this method and use the returned value instead.
 The value may be null if the Content-Type header isn't present.
 Returning null will cause the default Content-Type to be used.
@@ -530,7 +530,7 @@ The current
 implementation of classes in this package log debugging information using
 {@link java.util.logging.Logger} as described in the following table:
 </P>
-<TABLE BORDER SUMMARY="JavaMail Loggers">
+<TABLE BORDER SUMMARY="Jakarta Mail Loggers">
 <TR>
 <TH>Logger Name</TH>
 <TH>Logging Level</TH>

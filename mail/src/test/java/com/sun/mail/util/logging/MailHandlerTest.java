@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -306,13 +306,13 @@ public class MailHandlerTest extends AbstractLogging {
     }
 
     @Test
-    public void testJavaMailLinkage() throws Exception {
+    public void testLinkage() throws Exception {
         /**
-         * The MailHandler has to depend on the official JavaMail spec classes.
+         * The MailHandler has to depend on the official Jakarta Mail spec classes.
          * The logging-mailhandler.jar needs to be portable to other platforms
          * so it doesn't depend on reference implementation classes directly.
          */
-        testJavaMailLinkage(MailHandler.class, false);
+        testLinkage(MailHandler.class, false);
     }
 
     @Test

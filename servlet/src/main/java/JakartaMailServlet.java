@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1998, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,16 +21,16 @@ import javax.activation.*;
 
 
 /**
- * This is a servlet that demonstrates the use of JavaMail APIs
+ * This is a servlet that demonstrates the use of Jakarta Mail APIs
  * in a 3-tier application. It allows the user to login to an 
  * IMAP store, list all the messages in the INBOX folder, view
  * selected messages, compose and send a message, and logout.
  * <p>
  * Please note: This is NOT an example of how to write servlets! 
- * This is simply to show that JavaMail can be used in a servlet.
+ * This is simply to show that Jakarta Mail can be used in a servlet.
  * <p>
  * For more information on this servlet, see the 
- * JavaMailServlet.README.txt file. 
+ * JakartaMailServlet.README.txt file. 
  * <p>
  * For more information on servlets, see 
  * <a href="http://java.sun.com/products/java-server/servlets/index.html">
@@ -38,7 +38,7 @@ import javax.activation.*;
  *
  * @author Max Spivak
  */
-public class JavaMailServlet extends HttpServlet implements SingleThreadModel {
+public class JakartaMailServlet extends HttpServlet implements SingleThreadModel {
     String protocol = "imap";
     String mbox = "INBOX";
 
@@ -75,7 +75,7 @@ public class JavaMailServlet extends HttpServlet implements SingleThreadModel {
 
 	    // create 
 	    MailUserData mud = new MailUserData(url);
-	    ssn.putValue("javamailservlet", mud);
+	    ssn.putValue("jakartamailservlet", mud);
 	    
 	    try {
 		Properties props = System.getProperties();
@@ -110,7 +110,7 @@ public class JavaMailServlet extends HttpServlet implements SingleThreadModel {
 		// splash
 		out.print("<center>");
 		out.print("<font face=\"Arial,Helvetica\" font size=+3>");
-		out.println("<b>Welcome to JavaMail!</b></font></center><p>");
+		out.println("<b>Welcome to Jakarta Mail!</b></font></center><p>");
 
 		// folder table
 		out.println("<table width=\"50%\" border=0 align=center>");
@@ -222,7 +222,7 @@ public class JavaMailServlet extends HttpServlet implements SingleThreadModel {
 	throws IOException {
 	    
 	out.println("<html>");
-	out.println("<HEAD><TITLE>JavaMail Servlet</TITLE></HEAD>");
+	out.println("<HEAD><TITLE>Jakarta Mail Servlet</TITLE></HEAD>");
 	out.println("<BODY bgcolor=\"#ccccff\">");
 	out.print("<center><font face=\"Arial,Helvetica\" ");
 	out.println("font size=\"+3\"><b>");
@@ -419,7 +419,7 @@ public class JavaMailServlet extends HttpServlet implements SingleThreadModel {
 	SimpleDateFormat df = new SimpleDateFormat("EE M/d/yy");
 
 	out.println("<html>");
-	out.println("<HEAD><TITLE>JavaMail Servlet</TITLE></HEAD>");
+	out.println("<HEAD><TITLE>Jakarta Mail Servlet</TITLE></HEAD>");
 	out.println("<BODY bgcolor=\"#ccccff\"><hr>");
 	out.print("<center><font face=\"Arial,Helvetica\" font size=\"+3\">");
 	out.println("<b>Folder " + mud.getStore().getURLName() + 
@@ -595,7 +595,7 @@ public class JavaMailServlet extends HttpServlet implements SingleThreadModel {
 	if (ses == null) {
 	    return null;
 	} else {
-	    if ((mud = (MailUserData)ses.getValue("javamailservlet")) == null){
+	    if ((mud = (MailUserData)ses.getValue("jakartamailservlet")) == null){
 		return null;
 	    }
 	}
@@ -611,7 +611,7 @@ public class JavaMailServlet extends HttpServlet implements SingleThreadModel {
      * This is the HTML code for the compose form. Another option would
      * have been to use a separate html page.
      */
-    private static String composeForm = "<HTML><HEAD><TITLE>JavaMail Compose</TITLE></HEAD><BODY BGCOLOR=\"#CCCCFF\"><FORM ACTION=\"/servlet/JavaMailServlet\" METHOD=\"POST\"><input type=\"hidden\" name=\"send\" value=\"send\"><P ALIGN=\"CENTER\"><B><FONT SIZE=\"4\" FACE=\"Verdana, Arial, Helvetica\">JavaMail Compose Message</FONT></B><P><TABLE BORDER=\"0\" WIDTH=\"100%\"><TR><TD WIDTH=\"16%\" HEIGHT=\"22\">	<P ALIGN=\"RIGHT\"><B><FONT FACE=\"Verdana, Arial, Helvetica\">To:</FONT></B></TD><TD WIDTH=\"84%\" HEIGHT=\"22\"><INPUT TYPE=\"TEXT\" NAME=\"to\" SIZE=\"30\"> <FONT SIZE=\"1\" FACE=\"Verdana, Arial, Helvetica\"> (separate addresses with commas)</FONT></TD></TR><TR><TD WIDTH=\"16%\"><P ALIGN=\"RIGHT\"><B><FONT FACE=\"Verdana, Arial, Helvetica\">CC:</FONT></B></TD><TD WIDTH=\"84%\"><INPUT TYPE=\"TEXT\" NAME=\"cc\" SIZE=\"30\"> <FONT SIZE=\"1\" FACE=\"Verdana, Arial, Helvetica\"> (separate addresses with commas)</FONT></TD></TR><TR><TD WIDTH=\"16%\"><P ALIGN=\"RIGHT\"><B><FONT FACE=\"Verdana, Arial, Helvetica\">Subject:</FONT></B></TD><TD WIDTH=\"84%\"><INPUT TYPE=\"TEXT\" NAME=\"subject\" SIZE=\"55\"></TD></TR><TR><TD WIDTH=\"16%\">&nbsp;</TD><TD WIDTH=\"84%\"><TEXTAREA NAME=\"text\" ROWS=\"15\" COLS=\"53\"></TEXTAREA></TD></TR><TR><TD WIDTH=\"16%\" HEIGHT=\"32\">&nbsp;</TD><TD WIDTH=\"84%\" HEIGHT=\"32\"><INPUT TYPE=\"SUBMIT\" NAME=\"Send\" VALUE=\"Send\"><INPUT TYPE=\"RESET\" NAME=\"Reset\" VALUE=\"Reset\"></TD></TR></TABLE></FORM></BODY></HTML>";
+    private static String composeForm = "<HTML><HEAD><TITLE>Jakarta Mail Compose</TITLE></HEAD><BODY BGCOLOR=\"#CCCCFF\"><FORM ACTION=\"/servlet/JakartaMailServlet\" METHOD=\"POST\"><input type=\"hidden\" name=\"send\" value=\"send\"><P ALIGN=\"CENTER\"><B><FONT SIZE=\"4\" FACE=\"Verdana, Arial, Helvetica\">Jakarta Mail Compose Message</FONT></B><P><TABLE BORDER=\"0\" WIDTH=\"100%\"><TR><TD WIDTH=\"16%\" HEIGHT=\"22\">	<P ALIGN=\"RIGHT\"><B><FONT FACE=\"Verdana, Arial, Helvetica\">To:</FONT></B></TD><TD WIDTH=\"84%\" HEIGHT=\"22\"><INPUT TYPE=\"TEXT\" NAME=\"to\" SIZE=\"30\"> <FONT SIZE=\"1\" FACE=\"Verdana, Arial, Helvetica\"> (separate addresses with commas)</FONT></TD></TR><TR><TD WIDTH=\"16%\"><P ALIGN=\"RIGHT\"><B><FONT FACE=\"Verdana, Arial, Helvetica\">CC:</FONT></B></TD><TD WIDTH=\"84%\"><INPUT TYPE=\"TEXT\" NAME=\"cc\" SIZE=\"30\"> <FONT SIZE=\"1\" FACE=\"Verdana, Arial, Helvetica\"> (separate addresses with commas)</FONT></TD></TR><TR><TD WIDTH=\"16%\"><P ALIGN=\"RIGHT\"><B><FONT FACE=\"Verdana, Arial, Helvetica\">Subject:</FONT></B></TD><TD WIDTH=\"84%\"><INPUT TYPE=\"TEXT\" NAME=\"subject\" SIZE=\"55\"></TD></TR><TR><TD WIDTH=\"16%\">&nbsp;</TD><TD WIDTH=\"84%\"><TEXTAREA NAME=\"text\" ROWS=\"15\" COLS=\"53\"></TEXTAREA></TD></TR><TR><TD WIDTH=\"16%\" HEIGHT=\"32\">&nbsp;</TD><TD WIDTH=\"84%\" HEIGHT=\"32\"><INPUT TYPE=\"SUBMIT\" NAME=\"Send\" VALUE=\"Send\"><INPUT TYPE=\"RESET\" NAME=\"Reset\" VALUE=\"Reset\"></TD></TR></TABLE></FORM></BODY></HTML>";
 
 }
 

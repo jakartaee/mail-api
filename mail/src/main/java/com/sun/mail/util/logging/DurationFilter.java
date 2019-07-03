@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2019 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2015, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -402,7 +402,7 @@ public class DurationFilter implements Filter {
 
     /**
      * Multiply and check for overflow. This can be replaced with
-     * {@code java.lang.Math.multiplyExact} when JavaMail requires JDK 8.
+     * {@code java.lang.Math.multiplyExact} when Jakarta Mail requires JDK 8.
      *
      * @param x the first value.
      * @param y the second value.

@@ -68,10 +68,10 @@ import com.sun.mail.util.DefaultProvider;
  * The first method allows the user to include their own version of the
  * resource file by placing it in the <i>conf</i> directory where the
  * <code>java.home</code> property points.  The second method allows an
- * application that uses the JavaMail APIs to include their own resource
+ * application that uses the Jakarta Mail APIs to include their own resource
  * files in their application's or jar file's <code>META-INF</code>
  * directory.  The <code>javamail.default.</code><i>X</i> default files
- * are part of the JavaMail <code>mail.jar</code> file and should not be
+ * are part of the Jakarta Mail <code>mail.jar</code> file and should not be
  * supplied by users. <p>
  *
  * File location depends upon how the <code>ClassLoader</code> method
@@ -84,7 +84,7 @@ import com.sun.mail.util.DefaultProvider;
  * entries.  For example, the first IMAP provider found will be set as the
  * default IMAP implementation until explicitly changed by the
  * application.  The user- or system-supplied resource files augment, they
- * do not override, the default files included with the JavaMail APIs.
+ * do not override, the default files included with the Jakarta Mail APIs.
  * This means that all entries in all files loaded will be available. <p>
  *
  * <b><code>javamail.providers</code></b> and
@@ -242,7 +242,7 @@ public final class Session {
 	    debug = true;
 
 	initLogger();
-	logger.log(Level.CONFIG, "JavaMail version {0}", Version.version);
+	logger.log(Level.CONFIG, "Jakarta Mail version {0}", Version.version);
 
 	// get the Class associated with the Authenticator
 	Class<?> cl;
@@ -266,7 +266,7 @@ public final class Session {
      * @param	props	Properties object that hold relevant properties.<br>
      *                  It is expected that the client supplies values
      *                  for the properties listed in Appendix A of the
-     *                  JavaMail spec (particularly  mail.store.protocol, 
+     *                  Jakarta Mail spec (particularly  mail.store.protocol, 
      *                  mail.transport.protocol, mail.host, mail.user, 
      *                  and mail.from) as the defaults are unlikely to 
      *                  work in all cases.
@@ -287,7 +287,7 @@ public final class Session {
      * @param	props	Properties object that hold relevant properties.<br>
      *                  It is expected that the client supplies values
      *                  for the properties listed in Appendix A of the
-     *                  JavaMail spec (particularly  mail.store.protocol, 
+     *                  Jakarta Mail spec (particularly  mail.store.protocol, 
      *                  mail.transport.protocol, mail.host, mail.user, 
      *                  and mail.from) as the defaults are unlikely to 
      *                  work in all cases.
@@ -336,7 +336,7 @@ public final class Session {
      *			object is created.<br>
      *                  It is expected that the client supplies values
      *                  for the properties listed in Appendix A of the
-     *                  JavaMail spec (particularly  mail.store.protocol, 
+     *                  Jakarta Mail spec (particularly  mail.store.protocol, 
      *                  mail.transport.protocol, mail.host, mail.user, 
      *                  and mail.from) as the defaults are unlikely to 
      *                  work in all cases.
@@ -384,7 +384,7 @@ public final class Session {
      *			object is created.<br>
      *                  It is expected that the client supplies values
      *                  for the properties listed in Appendix A of the
-     *                  JavaMail spec (particularly  mail.store.protocol, 
+     *                  Jakarta Mail spec (particularly  mail.store.protocol, 
      *                  mail.transport.protocol, mail.host, mail.user, 
      *                  and mail.from) as the defaults are unlikely to 
      *                  work in all cases.
@@ -413,7 +413,7 @@ public final class Session {
     public synchronized void setDebug(boolean debug) {
 	this.debug = debug;
 	initLogger();
-	logger.log(Level.CONFIG, "setDebug: JavaMail version {0}",
+	logger.log(Level.CONFIG, "setDebug: Jakarta Mail version {0}",
 				    Version.version);
     }
 

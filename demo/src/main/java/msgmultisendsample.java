@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,7 +55,7 @@ public class msgmultisendsample {
 	    msg.setFrom(new InternetAddress(from));
 	    InternetAddress[] address = {new InternetAddress(to)};
 	    msg.setRecipients(Message.RecipientType.TO, address);
-	    msg.setSubject("JavaMail APIs Multipart Test");
+	    msg.setSubject("Jakarta Mail APIs Multipart Test");
 	    msg.setSentDate(new Date());
 
 	    // create and fill the first message part

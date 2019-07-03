@@ -2,9 +2,9 @@ You can find more information about each bug number by visiting the
 Issue Tracker and looking up each bug you're interested in.
 
 Bug IDs that start with "E" can be found in the GitHub Issue Tracker
-for the Eclipse EE4J JavaMail project (after removing the "E"):
+for the Eclipse EE4J Jakarta Mail project (after removing the "E"):
 
-	https://github.com/eclipse-ee4j/javamail/issues/<bug-number>
+	https://github.com/eclipse-ee4j/mail/issues/<bug-number>
 
 Bug IDs that start with "GH" can be found in the GitHub Issue Tracker
 (after removing the "GH"):
@@ -34,6 +34,7 @@ E  370	Exchange sometimes returns entire message for a partial fetch
 E  371	Cannot allow UTF-8 headers in MimeMultipart
 E  372	Add QUIT support on session rejection
 E  375	WriteSocketTimeoutTest fails on JDK 8u201
+E  377	Change project name to Jakarta Mail
 E  383	From header is encoded even though mail.mime.allowutf8 is set
 
 

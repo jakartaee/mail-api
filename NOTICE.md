@@ -1,13 +1,12 @@
-# Notices for Eclipse Project for JavaMail
+# Notices for Jakarta Mail
 
-This content is produced and maintained by the Eclipse Project for JavaMail
-project.
+This content is produced and maintained by the Jakarta Mail project.
 
-* Project home: https://projects.eclipse.org/projects/ee4j.javamail
+* Project home: https://projects.eclipse.org/projects/ee4j.mail
 
 ## Trademarks
 
-Eclipse Project for JavaMail is a trademark of the Eclipse Foundation.
+Jakarta Mail is a trademark of the Eclipse Foundation.
 
 ## Copyright
 
@@ -31,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 The project maintains the following source code repositories:
 
-* https://github.com/eclipse-ee4j/javamail
+* https://github.com/eclipse-ee4j/mail
 
 ## Third-party Content
 

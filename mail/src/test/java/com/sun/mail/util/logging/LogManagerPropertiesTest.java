@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -247,8 +247,8 @@ public class LogManagerPropertiesTest extends AbstractLogging {
     }
 
     @Test
-    public void testJavaMailLinkage() throws Exception {
-        testJavaMailLinkage(LogManagerProperties.class);
+    public void testLinkage() throws Exception {
+        testLinkage(LogManagerProperties.class);
     }
 
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,7 +56,7 @@ public class msgsendsample {
 	    msg.setFrom(new InternetAddress(from));
 	    InternetAddress[] address = {new InternetAddress(to)};
 	    msg.setRecipients(Message.RecipientType.TO, address);
-	    msg.setSubject("JavaMail APIs Test");
+	    msg.setSubject("Jakarta Mail APIs Test");
 	    msg.setSentDate(new Date());
 	    // If the desired charset is known, you can use
 	    // setText(text, charset)

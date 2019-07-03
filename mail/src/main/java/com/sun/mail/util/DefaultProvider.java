@@ -19,11 +19,11 @@ package com.sun.mail.util;
 import java.lang.annotation.*;
 
 /**
- * Annotation to mark the default providers that are part of JavaMail.
+ * Annotation to mark the default providers that are part of Jakarta Mail.
  * DO NOT use this on any provider made available independently.
  *
  * @author	Bill Shannon
- * @since	JavaMail 1.6.4
+ * @since	Jakarta Mail 1.6.4
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
