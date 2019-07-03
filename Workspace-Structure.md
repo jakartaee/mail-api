@@ -1,8 +1,8 @@
-JavaMail Workspace Structure
-============================
+Jakarta Mail Workspace Structure
+================================
 
-Here's the structure of the JavaMail workspace, showing the different
-maven modules I needed to create to allow JavaMail to be built by
+Here's the structure of the Jakarta Mail workspace, showing the different
+maven modules I needed to create to allow Jakarta Mail to be built by
 maven.
 
 First, the main maven module.
@@ -26,7 +26,7 @@ Finally, some files for checking that the API signatures match the spec
     siggen
     sigtest
 
-The main JavaMail source code module, containing all the code that goes
+The main Jakarta Mail source code module, containing all the code that goes
 into mail.jar.
 
     mail/pom.xml
@@ -86,8 +86,8 @@ source code. Note the embedded README.txt files
     client/src/main/java/TextViewer.java
     client/src/main/java/simple.mailcap
     servlet/pom.xml
-    servlet/src/main/java/JavaMail.html
-    servlet/src/main/java/JavaMailServlet.java
+    servlet/src/main/java/JakartaMail.html
+    servlet/src/main/java/JakartaMailServlet.java
     servlet/src/main/java/README.txt
     webapp/build.bat
     webapp/build.sh

@@ -3,8 +3,8 @@ mbox Store
 
 The mbox Store supports reading messages from files in the UNIX
 [mbox](http://en.wikipedia.org/wiki/Mbox) format. The mbox Store is
-included in the JavaMail source code, but is not currently distributed
-with JavaMail. To use the mbox Store, you'll need to build it
+included in the Jakarta Mail source code, but is not currently distributed
+with Jakarta Mail. To use the mbox Store, you'll need to build it
 yourself.
 
 ### File Locking

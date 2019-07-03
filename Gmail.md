@@ -1,9 +1,9 @@
 Gmail
 =====
 
-This page describes hints and tips for using JavaMail with Gmail. Basic
+This page describes hints and tips for using Jakarta Mail with Gmail. Basic
 Gmail usage information can be found in the
-[JavaMail FAQ](FAQ.html#gmail).
+[Jakarta Mail FAQ](FAQ.html#gmail).
 
 Gmail users might want to read the
 [Gmail Help page](https://support.google.com/mail/topic/7280141?hl=en).
@@ -27,7 +27,7 @@ signed in with, see this
 
 You may need to enable
 [less secure apps](https://www.google.com/settings/security/lesssecureapps)
-to use JavaMail with Gmail.
+to use Jakarta Mail with Gmail.
 
 If the Gmail Auto-Expunge setting is turned on (the default),
 when setting the \Deleted flag on a message, Gmail will expunge
@@ -55,7 +55,7 @@ As of Jan 2012, Gmail has a bug that causes it to fail to return a
 valid IMAP BODYSTRUCTURE response for messages that include another
 message as an attachment. Applications may see an exception with a
 message of "ENVELOPE parse error". The
-[workaround described in the JavaMail FAQ](FAQ.html#imapserverbug)
+[workaround described in the Jakarta Mail FAQ](FAQ.html#imapserverbug)
 can be helpful for dealing with such messages. JavaMail 1.4.5 includes
 a workaround for this Gmail bug.
 

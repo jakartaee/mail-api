@@ -1,28 +1,28 @@
-# Contributing to Eclipse Project for JavaMail
+# Contributing to Jakarta Mail
 
 Thanks for your interest in this project.
 
 ## Project description
 
-The JavaMail API provides a platform-independent and protocol-independent
-framework to build mail and messaging applications. The JavaMail API is
+The Jakarta Mail API provides a platform-independent and protocol-independent
+framework to build mail and messaging applications. The Jakarta Mail API is
 available as an optional package for use with the Java SE platform and is also
-included in the Java EE platform.
+included in the Jakarta EE platform.
 
-* [https://projects.eclipse.org/projects/ee4j.javamail](https://projects.eclipse.org/projects/ee4j.javamail)
+* [https://projects.eclipse.org/projects/ee4j.mail](https://projects.eclipse.org/projects/ee4j.mail)
 
 ## Developer resources
 
 Information regarding source code management, builds, coding standards, and
 more.
 
-* [https://eclipse-ee4j.github.io/javamail/Contributions](https://eclipse-ee4j.github.io/javamail/Contributions)
-* [https://projects.eclipse.org/projects/ee4j.javamail/developer](https://projects.eclipse.org/projects/ee4j.javamail/developer)
+* [https://eclipse-ee4j.github.io/mail/Contributions](https://eclipse-ee4j.github.io/mail/Contributions)
+* [https://projects.eclipse.org/projects/ee4j.mail/developer](https://projects.eclipse.org/projects/ee4j.mail/developer)
 
 The project maintains the following source code repositories
 
-* [https://github.com/eclipse-ee4j/javamail](https://github.com/eclipse-ee4j/javamail)
-* [https://github.com/eclipse-ee4j/javamail-tck](https://github.com/eclipse-ee4j/javamail-tck)
+* [https://github.com/eclipse-ee4j/mail](https://github.com/eclipse-ee4j/mail)
+* [https://github.com/eclipse-ee4j/mail-tck](https://github.com/eclipse-ee4j/mail-tck)
 
 ## Eclipse Contributor Agreement
 
@@ -44,4 +44,4 @@ For more information, please see the Eclipse Committer Handbook:
 
 Contact the project developers via the project's "dev" list.
 
-* [https://accounts.eclipse.org/mailing-list/javamail-dev](https://accounts.eclipse.org/mailing-list/javamail-dev)
+* [https://accounts.eclipse.org/mailing-list/mail-dev](https://accounts.eclipse.org/mailing-list/mail-dev)

@@ -1,7 +1,7 @@
 # Links
 
 Here are some links to sites with lots of good information on Internet
-mail and some articles on the JavaMail API. If you know of other good
+mail and some articles on the Jakarta Mail API. If you know of other good
 sources of such information, please let us know at <a
 href="mailto:javamail_ww@oracle.com">javamail_ww@oracle.com</a>.
 

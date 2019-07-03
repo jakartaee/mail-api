@@ -1,4 +1,4 @@
-# Books on the JavaMail API and Internet Mail
+# Books on the Jakarta Mail API and Internet Mail
 
 You might find these books useful.
 If you know of other books we should list, please let us know at

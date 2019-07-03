@@ -1,7 +1,7 @@
-JavaMail Mbox Provider
-======================
+Jakarta Mail Mbox Provider
+==========================
 
-The mbox provider is a JavaMail local store provider that manages files
+The mbox provider is a Jakarta Mail local store provider that manages files
 in [ Unix mbox format ](http://en.wikipedia.org/wiki/Mbox)
 (in particular, the *mboxcl2* variant).
 

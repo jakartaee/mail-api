@@ -2,7 +2,7 @@
 
 <FONT SIZE="-1">(Last updated Oct 16, 2017)</FONT>
 
-Links to third-party products related to the JavaMail APIs. Send us
+Links to third-party products related to the Jakarta Mail APIs. Send us
 a note at <A HREF="mailto:javamail_ww@oracle.com">javamail_ww@oracle.com</A>
 if you want your product listed here.
 

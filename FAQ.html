@@ -1,24 +1,24 @@
 ---
 layout: default
-title: JavaMail FAQ
+title: Jakarta Mail FAQ
 ---
-<H1>JavaMail FAQ</H1>
+<H1>Jakarta Mail FAQ</H1>
 <!-- content goes here -->
 
 <!-- BEGIN INDEX -->
 <H2><STRONG>General</STRONG></H2>
 <UL>
-    <LI><A HREF="#1">What is the JavaMail API?</A><BR>
-    <LI><A HREF="#getJM">How do I get an implementation of the JavaMail API?</A><BR>
+    <LI><A HREF="#1">What is the Jakarta Mail API?</A><BR>
+    <LI><A HREF="#getJM">How do I get an implementation of the Jakarta Mail API?</A><BR>
     <LI><A HREF="#feedback">How do I send feedback or comments?</A>
 <BR>
     <LI><A HREF="#JAF">Where is <code>javax.activation</code>?</A><BR>
-    <LI><A HREF="#JDK">What JDK does the JavaMail API need?</A><BR>
-    <LI><A HREF="#ossup">Where can I find a version of JavaMail for my favorite
+    <LI><A HREF="#JDK">What JDK does the Jakarta Mail API need?</A><BR>
+    <LI><A HREF="#ossup">Where can I find a version of Jakarta Mail for my favorite
 operating system?</A>
 <BR>
-    <LI><A HREF="#browsers">Do the JavaMail APIs work in web browsers?</A><BR>
-    <LI><A HREF="#webmail">Can I use JavaMail to read mail from my web mail account
+    <LI><A HREF="#browsers">Do the Jakarta Mail APIs work in web browsers?</A><BR>
+    <LI><A HREF="#webmail">Can I use Jakarta Mail to read mail from my web mail account
 (such as Yahoo or Hotmail)?
 </A>
 <BR>
@@ -32,12 +32,12 @@ and other service providers?</A><BR>
 <BR>
     <LI><A HREF="#sundocs">Where do I find documentation on the protocol providers?</A>
 <BR>
-    <LI><A HREF="#free">Is the JavaMail API implementation completely free?
+    <LI><A HREF="#free">Is the Jakarta Mail API implementation completely free?
 Can I ship it along with my product?</A><BR>
-    <LI><A HREF="#source">Can I get the source code for the JavaMail API
+    <LI><A HREF="#source">Can I get the source code for the Jakarta Mail API
 implementation?</A>
 <BR>
-    <LI><A HREF="#y2k">Is JavaMail Y2K compliant?</A><BR>
+    <LI><A HREF="#y2k">Is Jakarta Mail Y2K compliant?</A><BR>
     <LI><A HREF="#more">The answer to my question isn't here, where else should I look?
 </A>
 <BR>
@@ -46,7 +46,7 @@ implementation?</A>
 <BR>
 <H2><STRONG>Installation and Configuration</STRONG></H2>
 <UL>
-    <LI><A HREF="#install">How do I install the JavaMail API implementation?</A>
+    <LI><A HREF="#install">How do I install the Jakarta Mail API implementation?</A>
 <BR>
     <LI><A HREF="#classpath">I get a ClassNotFoundException when I run my program.</A>
 <BR>
@@ -57,19 +57,19 @@ when I run my program on JDK 9.</A>
     <LI><A HREF="#classpathwin">How do I set my CLASSPATH on Windows?
 </A>
 <BR>
-    <LI><A HREF="#libnetbeans">How do I add the JavaMail library to my NetBeans Java Project?
+    <LI><A HREF="#libnetbeans">How do I add the Jakarta Mail library to my NetBeans Java Project?
 </A>
 <BR>
-    <LI><A HREF="#libeclipse">How do I add the JavaMail library to my Eclipse Java Project?
+    <LI><A HREF="#libeclipse">How do I add the Jakarta Mail library to my Eclipse Java Project?
 </A>
 <BR>
-    <LI><A HREF="#incservers">Does JavaMail include all the necessary mail servers? </A>
+    <LI><A HREF="#incservers">Does Jakarta Mail include all the necessary mail servers? </A>
 <BR>
     <LI><A HREF="#servers">Where can I get the necessary mail servers?</A>
 <BR>
     <LI><A HREF="#whichserver">What host name, user name, or password should I use?</A>
 <BR>
-    <LI><A HREF="#proxy">How do I configure JavaMail to work through my proxy server?</A>
+    <LI><A HREF="#proxy">How do I configure Jakarta Mail to work through my proxy server?</A>
 <IMG SRC="assets/images/updated.gif" ALT="[updated!]" TITLE="Updated 11/6/2017">
 <BR>
     <LI><A HREF="#installcert">When connecting to my mail server over SSL I get an exception like
@@ -78,16 +78,16 @@ when I run my program on JDK 9.</A>
 <BR>
     <LI><A HREF="#linuxzip">While trying to run my program on Linux I get a very strange
 error message and the program fails.  What did I do wrong?</A><BR>
-    <LI><A HREF="#securityManager">How do I use JavaMail in an application run under a SecurityManager;
-what permissions must I grant to the application and to JavaMail?
+    <LI><A HREF="#securityManager">How do I use Jakarta Mail in an application run under a SecurityManager;
+what permissions must I grant to the application and to Jakarta Mail?
 </A>
 <BR>
-    <LI><A HREF="#tomcatconfig">How do I configure Tomcat to allow me to use JavaMail in my
+    <LI><A HREF="#tomcatconfig">How do I configure Tomcat to allow me to use Jakarta Mail in my
 web application?
 </A>
 <BR>
-    <LI><A HREF="#servletcp">When using JavaMail in my servlet, it is unable to find any of
-the JavaMail classes.  I've added jakarta.mail.jar to the server's CLASSPATH.
+    <LI><A HREF="#servletcp">When using Jakarta Mail in my servlet, it is unable to find any of
+the Jakarta Mail classes.  I've added jakarta.mail.jar to the server's CLASSPATH.
 </A>
 <BR>
     <LI><A HREF="#dupcp">I'm sure I've set my CLASSPATH correctly, but I'm still getting
@@ -95,12 +95,12 @@ complaints about classes that can't be found, such as <code>com.sun.mail</code>
 classes.
 </A>
 <BR>
-    <LI><A HREF="#servletSecurityManager">My servlet can find the JavaMail classes, but JavaMail complains
+    <LI><A HREF="#servletSecurityManager">My servlet can find the Jakarta Mail classes, but Jakarta Mail complains
 that it can't find a service provider for "smtp" or "imap" or address
 type "rfc822".
 </A>
 <BR>
-    <LI><A HREF="#gmail">How do I access Gmail with JavaMail? </A>
+    <LI><A HREF="#gmail">How do I access Gmail with Jakarta Mail? </A>
 <BR>
     <LI><A HREF="#gmailauth">Why do I get AuthenticationFailedException when
 accessing Gmail? </A>
@@ -115,11 +115,11 @@ Gmail with IMAP? </A>
 </A>
 <IMG SRC="assets/images/new.gif" ALT="[new!]" TITLE="New 9/21/2016">
 <BR>
-    <LI><A HREF="#yahoomail">How do I access Yahoo! Mail with JavaMail? </A>
+    <LI><A HREF="#yahoomail">How do I access Yahoo! Mail with Jakarta Mail? </A>
 <BR>
-    <LI><A HREF="#hotmail">How do I access Hotmail (Windows Live mail) with JavaMail? </A>
+    <LI><A HREF="#hotmail">How do I access Hotmail (Windows Live mail) with Jakarta Mail? </A>
 <BR>
-    <LI><A HREF="#outlook">How do I access Outlook.com with JavaMail? </A>
+    <LI><A HREF="#outlook">How do I access Outlook.com with Jakarta Mail? </A>
 <BR>
 </UL>
 <BR>
@@ -127,12 +127,12 @@ Gmail with IMAP? </A>
 <H2><STRONG>Programming</STRONG></H2>
 <UL>
     <LI><A HREF="#basics">Where can I learn the basics about Internet email that
-I'll need to know to program JavaMail effectively? </A>
+I'll need to know to program Jakarta Mail effectively? </A>
 <BR>
-    <LI><A HREF="#examples">Where can I find some example programs that show how to use JavaMail? </A>
+    <LI><A HREF="#examples">Where can I find some example programs that show how to use Jakarta Mail? </A>
 <BR>
     <LI><A HREF="#commonmistakes">What are some of the most common mistakes people make
-when using JavaMail? </A>
+when using Jakarta Mail? </A>
 <BR>
     <LI><A HREF="#attach">How do I send a message with an attachment?</A>
 <BR>
@@ -169,7 +169,7 @@ for example in the case where the filename doesn't have an obvious extension?
 MIME type I choose?</A>
 <BR>
     <LI><A HREF="#readofficedoc">Can I read or send a Microsoft Office document using
-JavaMail? </A>
+Jakarta Mail? </A>
 <BR>
     <LI><A HREF="#ical">How do I create or process calendar appointments?</A>
 <BR>
@@ -179,21 +179,21 @@ and when should I use <code>Session.getInstance</code>? </A>
     <LI><A HREF="#disco">What is "disconnected support"?</A>
 <BR>
     <LI><A HREF="#whendisco">How do I support disconnected operation using the
-JavaMail APIs?</A><BR>
-    <LI><A HREF="#security">How do I send secure email using the JavaMail APIs?</A>
+Jakarta Mail APIs?</A><BR>
+    <LI><A HREF="#security">How do I send secure email using the Jakarta Mail APIs?</A>
 <BR>
     <LI><A HREF="#repres">The <code>writeTo()</code> method generates message text
 with lines that are neither the canonical MIME representation of the data
 (i.e., using CRLF to terminate lines), nor using the canonical line
 separator of my platform (e.g., "\n" on UNIX).  How do I get either
 of these representations if I need them?</A><BR>
-    <LI><A HREF="#javamailserver">Can I use the JavaMail APIs to implement a
+    <LI><A HREF="#mailserver">Can I use the Jakarta Mail APIs to implement a
 mail server?</A><BR>
-    <LI><A HREF="#newusers">Can I use the JavaMail APIs to add new user accounts to my
+    <LI><A HREF="#newusers">Can I use the Jakarta Mail APIs to add new user accounts to my
 mail server, remove user accounts from my mail server, or change the passwords
 for user accounts on my mail server?</A>
 <BR>
-    <LI><A HREF="#addressbook">Can I use the JavaMail APIs to access my address book
+    <LI><A HREF="#addressbook">Can I use the Jakarta Mail APIs to access my address book
 on my mail server?</A>
 <BR>
     <LI><A HREF="#serialize">Why doesn't the MimeMessage class implement Serializable
@@ -215,14 +215,14 @@ when should I use the <code>MimeUtility</code> methods?
 </A>
 <BR>
     <LI><A HREF="#preencoded">I have data that's already encoded in (e.g.) base64, how do I
-tell JavaMail to send this data without re-encoding it?
+tell Jakarta Mail to send this data without re-encoding it?
 </A>
 <BR>
-    <LI><A HREF="#howencode">Even though JavaMail does all the encoding and decoding for me,
+    <LI><A HREF="#howencode">Even though Jakarta Mail does all the encoding and decoding for me,
 I need to manually control the encoding for some body parts.
 </A>
 <BR>
-    <LI><A HREF="#encodefilename">Why doesn't JavaMail properly encode and decode filenames in
+    <LI><A HREF="#encodefilename">Why doesn't Jakarta Mail properly encode and decode filenames in
 non-ASCII character sets?
 </A>
 <BR>
@@ -235,7 +235,7 @@ when connecting to my mail server using JDK7?</A>
 <BR>
 <H2><STRONG>Debugging</STRONG></H2>
 <UL>
-    <LI><A HREF="#debug">How do I debug my application that uses JavaMail APIs?</A><BR>
+    <LI><A HREF="#debug">How do I debug my application that uses Jakarta Mail APIs?</A><BR>
     <LI><A HREF="#condebug">How do I debug problems connecting to my mail server?</A>
 <BR>
     <LI><A HREF="#ssldebug">How do I debug problems connecting to my mail server using SSL?</A>
@@ -251,9 +251,9 @@ when connecting to my mail server using JDK7?</A>
 but I get an error.</A>
 <BR>
     <LI><A HREF="#imapserverbug">I can read messages from my IMAP server with other mail clients,
-but even though I can connect to the server using JavaMail, when I use
-JavaMail to read some messages it fails.  Doesn't that mean there's a bug
-in JavaMail?
+but even though I can connect to the server using Jakarta Mail, when I use
+Jakarta Mail to read some messages it fails.  Doesn't that mean there's a bug
+in Jakarta Mail?
 </A>
 <BR>
     <LI><A HREF="#fetch">The IMAP provider seems to lose data when I fetch messages with large
@@ -396,24 +396,24 @@ when using POP3?
 </UL>
 <BR>
 <BR>
-<H2><STRONG>JavaMail in servlets</STRONG></H2>
+<H2><STRONG>Jakarta Mail in servlets</STRONG></H2>
 <UL>
-    <LI><A HREF="#servlethow">Can I use JavaMail in servlets?
+    <LI><A HREF="#servlethow">Can I use Jakarta Mail in servlets?
 </A>
 <BR>
-    <LI><A HREF="#fileupload">My web application uses JavaMail to attach and send a file that
+    <LI><A HREF="#fileupload">My web application uses Jakarta Mail to attach and send a file that
 the user specifies, but my application can't find the file.
 </A>
 <BR>
 </UL>
 <BR>
 <BR>
-<H2><STRONG>JavaMail in applets</STRONG></H2>
+<H2><STRONG>Jakarta Mail in applets</STRONG></H2>
 <UL>
-    <LI><A HREF="#applets">Can I use JavaMail in applets?
+    <LI><A HREF="#applets">Can I use Jakarta Mail in applets?
 </A>
 <BR>
-    <LI><A HREF="#appletsecurity">What are the security implications of using JavaMail in an applet?
+    <LI><A HREF="#appletsecurity">What are the security implications of using Jakarta Mail in an applet?
 </A>
 <BR>
     <LI><A HREF="#appletalt">Ok, maybe I really don't want to use an applet, what should I
@@ -434,18 +434,18 @@ do instead?
 <BR />
 <P>
 <A NAME="1">
-<strong>Q:</strong> What is the JavaMail API?</A><BR>
-<strong>A:</strong> The JavaMail API is a set of 
+<strong>Q:</strong> What is the Jakarta Mail API?</A><BR>
+<strong>A:</strong> The Jakarta Mail API is a set of 
 abstract APIs that model a mail system.
 The API provides a platform independent and protocol independent framework
 to build Java technology based email client applications.
-The JavaMail API provides facilities for reading and sending email.
+The Jakarta Mail API provides facilities for reading and sending email.
 Service providers implement particular protocols.
-Several service providers are included with the JavaMail API package;
+Several service providers are included with the Jakarta Mail API package;
 others are available separately.
-The JavaMail API is implemented as a Java optional package that can be
+The Jakarta Mail API is implemented as a Java optional package that can be
 used on JDK 1.4 and later on any operating system.
-The JavaMail API is also a required part of the
+The Jakarta Mail API is also a required part of the
 <A HREF="http://www.oracle.com/technetwork/java/javaee/overview/javaee-135128.html">
 Java Platform,
 Enterprise Edition (Java EE)</A>.
@@ -453,13 +453,13 @@ Enterprise Edition (Java EE)</A>.
 
 <P>
 <A NAME="getJM">
-<strong>Q:</strong> How do I get an implementation of the JavaMail API?</A><BR>
+<strong>Q:</strong> How do I get an implementation of the Jakarta Mail API?</A><BR>
 <strong>A:</strong> Oracle provides a royalty-free reference 
 implementation, in binary form, that developers may use and ship.
 The reference implementation 
-includes the core JavaMail packages and IMAP, POP3, and SMTP service providers. 
+includes the core Jakarta Mail packages and IMAP, POP3, and SMTP service providers. 
 The reference implementation may be downloaded
-<A href="https://eclipse-ee4j.github.io/javamail">here</A>.
+<A href="https://eclipse-ee4j.github.io/mail">here</A>.
 </P>
 
 <P>
@@ -477,34 +477,36 @@ javamail_ww@oracle.com</A>.
 <A HREF="https://github.com/eclipse-ee4j/jaf">
 JavaBeans Activation Framework (JAF)</A>
 and is included in Java SE 6 through Java SE 10.
-The JavaMail API uses JAF for data content handling.
+The Jakarta Mail API uses JAF for data content handling.
 </P>
 
 <P>
 <A NAME="JDK">
-<strong>Q:</strong> What JDK does the JavaMail API need?</A><BR>
-<strong>A:</strong> The JavaMail API requires JDK/JRE 1.4 or higher.
-The JavaMail API is a Java
+<strong>Q:</strong> What JDK does the Jakarta Mail API need?</A><BR>
+<strong>A:</strong> The Jakarta Mail API requires JDK/JRE 1.4 or higher.
+The Jakarta Mail API is a Java
 optional package, it is not part of the core
-<A HREF="http://www.oracle.com/technetwork/java/javamail/faq/ssLINK/141415">Java SE</A>
+<A HREF="https://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE</A>
 but <strong>is</strong> included in
-<A HREF="http://www.oracle.com/technetwork/java/javaee/overview/javaee-135128.html">Java EE</A>.
+<A HREF="https://www.oracle.com/technetwork/java/javaee/downloads/index.html">Java EE</A>
+and
+<A HREF="https://jakarta.ee/">Jakarta EE</A>.
 </P>
 
 <P>
 <A NAME="ossup">
-<strong>Q:</strong> Where can I find a version of JavaMail for my favorite
+<strong>Q:</strong> Where can I find a version of Jakarta Mail for my favorite
 operating system?</A>
 <BR>
-<strong>A:</strong> JavaMail is completely written in Java and will run on
+<strong>A:</strong> Jakarta Mail is completely written in Java and will run on
 any operating system that supports the required version of the JDK.
 No special version is needed for different operating systems.
 </P>
 
 <P>
 <A NAME="browsers">
-<strong>Q:</strong> Do the JavaMail APIs work in web browsers?</A><BR>
-<strong>A:</strong> JavaMail will work in any browser that supports the
+<strong>Q:</strong> Do the Jakarta Mail APIs work in web browsers?</A><BR>
+<strong>A:</strong> Jakarta Mail will work in any browser that supports the
 required JDK version.
 The <A HREF="http://docs.oracle.com/javase/7/docs/technotes/guides/jweb/applet/a
 pplet_dev_guide.html">
@@ -513,13 +515,13 @@ Java Plug-in</A> may be required to provide such support.
 
 <P>
 <A NAME="webmail">
-<strong>Q:</strong> Can I use JavaMail to read mail from my web mail account
+<strong>Q:</strong> Can I use Jakarta Mail to read mail from my web mail account
 (such as Yahoo or Hotmail)?
 </A>
 <BR>
 <strong>A:</strong> It depends.  Many web-based email services provide access only
-using a browser with HTTP.  These services cannot be accessed using JavaMail.
-If the service also provides POP3 or IMAP access, JavaMail can probably
+using a browser with HTTP.  These services cannot be accessed using Jakarta Mail.
+If the service also provides POP3 or IMAP access, Jakarta Mail can probably
 be used to access it.
 Contact your web email service provider for details.
 Another helpful tool is MrPostman, a proxy server that provides POP3 access
@@ -553,7 +555,7 @@ very wide use (it originated in 1982) and is defined by
 <strong>A:</strong> MIME and <A href="http://www.imc.org/rfc822">RFC822</A>
 are the standards  for describing email
 messages that are sent across the Internet. The javax.mail.internet
-subpackage (which is part of the JavaMail APIs) provides a complete
+subpackage (which is part of the Jakarta Mail APIs) provides a complete
 implementation of these two packages. MIME is specified by the
 following RFCs: <A href="http://www.ietf.org/rfc/rfc2045.txt">RFC2045</A>, 
 <A href="http://www.ietf.org/rfc/rfc2046.txt">RFC2046</A>, 
@@ -575,11 +577,11 @@ POP3 is very widely used and is defined by
 <strong>Q:</strong> What about support for MAPI, NNTP, Lotus Notes,
 and other service providers?</A><BR>
 <strong>A:</strong> We have no current plans to implement any of these
-providers. However, the architecture of the JavaMail APIs provides
+providers. However, the architecture of the Jakarta Mail APIs provides
 for being able to easily plug-in third-party service providers. It is
-our hope that third-parties will embrace the JavaMail APIs by writing
+our hope that third-parties will embrace the Jakarta Mail APIs by writing
 providers for other standard and proprietary protocols.
-See our <A HREF="https://eclipse-ee4j.github.io/javamail/docs/ThirdPartyProducts">Third Party Products</A> page
+See our <A HREF="https://eclipse-ee4j.github.io/mail/docs/ThirdPartyProducts">Third Party Products</A> page
 for the latest list of such providers.
 </P>
 
@@ -588,14 +590,14 @@ for the latest list of such providers.
 <strong>Q:</strong> How do I store mail messages on my local disk?</A>
 <BR>
 <strong>A:</strong> A "local store provider" can be used to store mail messages
-on a local disk.  The JavaMail API download does not include such a provider
-but a provider that supports the Unix mbox format is available in the JavaMail
+on a local disk.  The Jakarta Mail API download does not include such a provider
+but a provider that supports the Unix mbox format is available in the Jakarta Mail
 source repository that you can build yourself.  See
-<A HREF="https://eclipse-ee4j.github.io/javamail/Mbox-Store">this page</A>
+<A HREF="https://eclipse-ee4j.github.io/mail/Mbox-Store">this page</A>
 for details.
 In addition, several local store providers are available from third parties
 for different local store formats such as MH and Mbox.
-See our <A HREF="https://eclipse-ee4j.github.io/javamail/docs/ThirdPartyProducts">Third Party Products</A> page
+See our <A HREF="https://eclipse-ee4j.github.io/mail/docs/ThirdPartyProducts">Third Party Products</A> page
 for the latest list of such providers.
 </P>
 
@@ -604,51 +606,51 @@ for the latest list of such providers.
 <strong>Q:</strong> Where do I find documentation on the protocol providers?</A>
 <BR>
 <strong>A:</strong> The protocol providers for IMAP, POP3, and SMTP support
-many features that are not part of the JavaMail API specification.  The
-documentation for these protocol providers is included in the JavaMail
+many features that are not part of the Jakarta Mail API specification.  The
+documentation for these protocol providers is included in the Jakarta Mail
 javadocs.  The package level documentation for each protocol provider
 package describes the properties that are supported by the protocol
 proivder.  In addition, the protocol providers include some classes and
 methods that applications can use to take advantage of
 provider-specific features.  Note that use of these properties,
 classes, and methods renders a program <b>non-portable</b>; it may
-only work with Oracle's implementation of the JavaMail API.
+only work with Oracle's implementation of the Jakarta Mail API.
 See the
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/imap/package-summary.html">IMAP</A>,
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/pop3/package-summary.html">POP3</A>, and
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">SMTP</A> package
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/imap/package-summary.html">IMAP</A>,
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/pop3/package-summary.html">POP3</A>, and
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/smtp/package-summary.html">SMTP</A> package
 javadocs for details.
 </P>
 
 <P>
 <A NAME="free">
-<strong>Q:</strong> Is the JavaMail API implementation completely free?
+<strong>Q:</strong> Is the Jakarta Mail API implementation completely free?
 Can I ship it along with my product?</A><BR>
-<strong>A:</strong> Yes. The JavaMail API implementation
+<strong>A:</strong> Yes. The Jakarta Mail API implementation
 is completely free and open source and you can include it in your product.
 This release includes IMAP, POP3, and SMTP providers as well. Please do
 read the license and ensure that you understand it.
-The JavaMail license is described
-<A HREF="https://eclipse-ee4j.github.io/javamail/License">here</A>.
+The Jakarta Mail license is described
+<A HREF="https://eclipse-ee4j.github.io/mail/License">here</A>.
 </P>
 
 <P>
 <A NAME="source">
-<strong>Q:</strong> Can I get the source code for the JavaMail API
+<strong>Q:</strong> Can I get the source code for the Jakarta Mail API
 implementation?</A>
 <BR>
-<strong>A:</strong> Starting with JavaMail 1.4.2, the source code for the
-JavaMail API
+<strong>A:</strong> Starting with Jakarta Mail 1.4.2, the source code for the
+Jakarta Mail API
 Reference Implementation is available under the CDDL or GPL open source licenses
-in the <A HREF="https://eclipse-ee4j.github.io/javamail">JavaMail project</A>.
+in the <A HREF="https://eclipse-ee4j.github.io/mail">Jakarta Mail project</A>.
 </P>
 
 <P>
 <A NAME="y2k">
-<strong>Q:</strong> Is JavaMail Y2K compliant?</A><BR>
-<strong>A:</strong> Yes. Oracle's JavaMail implementation is Option-3 Y2K compliant. Please
-see the <A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A>
-file in the JavaMail package for more information.
+<strong>Q:</strong> Is Jakarta Mail Y2K compliant?</A><BR>
+<strong>A:</strong> Yes. Oracle's Jakarta Mail implementation is Option-3 Y2K compliant. Please
+see the <A HREF="https://eclipse-ee4j.github.io/mail/docs/NOTES.txt">NOTES.txt</A>
+file in the Jakarta Mail package for more information.
 </P>
 
 <P>
@@ -656,30 +658,30 @@ file in the JavaMail package for more information.
 <strong>Q:</strong> The answer to my question isn't here, where else should I look?
 </A>
 <BR>
-<strong>A:</strong> In addition to the JavaMail API spec and javadocs
+<strong>A:</strong> In addition to the Jakarta Mail API spec and javadocs
 (available from
-<A HREF="https://eclipse-ee4j.github.io/javamail"">our main web page</A>),
+<A HREF="https://eclipse-ee4j.github.io/mail"">our main web page</A>),
 don't forget to check the
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/README.txt">README.txt</A> and
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A> files
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/README.txt">README.txt</A> and
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/NOTES.txt">NOTES.txt</A> files
 for additional important information.
 </P>
 <P>
-You can reach the JavaMail team directly at
+You can reach the Jakarta Mail team directly at
 <A HREF="mailto:javamail_ww@oracle.com">javamail_ww@oracle.com</A>.
 You can use this address to report bugs.
 Bugs can also be reported using the Issue Tracker at the
-<A HREF="https://eclipse-ee4j.github.io/javamail">JavaMail project</A>.
+<A HREF="https://eclipse-ee4j.github.io/mail">Jakarta Mail project</A>.
 </P>
 <P>
-The Oracle Technology Network maintains a JavaMail forum, see the
+The Oracle Technology Network maintains a Jakarta Mail forum, see the
 <A HREF="http://forums.oracle.com/forums/forum.jspa?forumID=975">
-JavaMail Forum</A>.
+Jakarta Mail Forum</A>.
 </P>
 <P>
-jGuru also maintains a JavaMail FAQ, which you'll find at
-<A HREF="http://www.jguru.com/faq/JavaMail">
-http://www.jguru.com/faq/JavaMail</A>,
+jGuru also maintains a Jakarta Mail FAQ, which you'll find at
+<A HREF="http://www.jguru.com/faq/Jakarta Mail">
+http://www.jguru.com/faq/Jakarta Mail</A>,
 although it hasn't been updated in several years.
 </P>
 
@@ -691,15 +693,15 @@ although it hasn't been updated in several years.
 
 <P>
 <A NAME="install">
-<strong>Q:</strong> How do I install the JavaMail API implementation?</A>
+<strong>Q:</strong> How do I install the Jakarta Mail API implementation?</A>
 <BR>
 <strong>A:</strong> Download the
-[JavaMail jar file](https://github.com/eclipse-ee4j/javamail/releases/download/1.6.3/jakarta.mail.jar)
+[Jakarta Mail jar file](https://github.com/eclipse-ee4j/mail/releases/download/1.6.4/jakarta.mail.jar)
 and edit your CLASSPATH environment variable to include the jakarta.mail.jar file.
 You will also need an implementation of the 
 JavaBeans Activation Framework (see below) unless you're using JDK 1.6
 through JDK 10 (which includes JAF).
-See the <A HREF="https://eclipse-ee4j.github.io/javamail/docs/README.txt">README.txt</A> file
+See the <A HREF="https://eclipse-ee4j.github.io/mail/docs/README.txt">README.txt</A> file
 for additional details and examples,
 as well as the following <A HREF="#classpath">FAQ entry</A>.
 </P>
@@ -751,7 +753,7 @@ file in your CLASSPATH.
 
 <P>
 <A NAME="libnetbeans">
-<strong>Q:</strong> How do I add the JavaMail library to my NetBeans Java Project?
+<strong>Q:</strong> How do I add the Jakarta Mail library to my NetBeans Java Project?
 </A>
 <BR>
 <strong>A:</strong>
@@ -761,7 +763,7 @@ to your project.
 <LI>Inside Netbeans, open the Library Manager (Tools &gt; Libraries from the
     main menu bar).</LI>
 <LI>Select &lt;New Library...&gt;</LI>
-<LI>Enter a library name, e.g., "JavaMail", and hit &lt;OK&gt;.  Do not
+<LI>Enter a library name, e.g., "Jakarta Mail", and hit &lt;OK&gt;.  Do not
     check server library.</LI>
 <LI>Make sure the new library is selected under "Libraries" on the left.</LI>
 <LI>Select the "Classpath" tab on the right and choose
@@ -769,12 +771,12 @@ to your project.
 <LI>Using the file browser, select the jakarta.mail.jar that you downloaded,
     and hit &lt;Add Jar/Folder&gt; to accept.</LI>
 <LI>Select the "Javadoc" tab and choose &lt;Add ZIP/Folder...&gt;</LI>
-<LI>Using the file browser, select the folder where the JavaMail javadoc
+<LI>Using the file browser, select the folder where the Jakarta Mail javadoc
     index files are, and hit &lt;Add ZIP/Folder&gt; to accept.</LI>
-<LI>If you downloaded the <A href="#source">JavaMail source code</A>, you
+<LI>If you downloaded the <A href="#source">Jakarta Mail source code</A>, you
     can set the source code reference on the "Sources" tab.  This can be helpful
     for debugging. Using the file browser, select the source root for the
-    JavaMail sources and hit &lt;Add Jar/Folder&gt; to accept.</LI>
+    Jakarta Mail sources and hit &lt;Add Jar/Folder&gt; to accept.</LI>
 </OL>
 </P>
 <P>
@@ -804,28 +806,28 @@ if desired) to this library definition.
 
 <P>
 <A NAME="libeclipse">
-<strong>Q:</strong> How do I add the JavaMail library to my Eclipse Java Project?
+<strong>Q:</strong> How do I add the Jakarta Mail library to my Eclipse Java Project?
 </A>
 <BR>
 <strong>A:</strong>
-Create a "user library" for JavaMail and add a reference to that library to
+Create a "user library" for Jakarta Mail and add a reference to that library to
 your project.
 <OL>
 <LI>From the Eclipse main menu, open Window &gt; Preferences</LI>
 <LI>Open the tree to Java &gt; Build Path &gt; User Libraries and select
     the &lt;User Libraries&gt; node.</LI>
 <LI>Choose &lt;New...&gt; from the panel on the right</LI>
-<LI>In the new library dialog, enter a user library name, e.g. "JavaMail",
+<LI>In the new library dialog, enter a user library name, e.g. "Jakarta Mail",
     and hit &lt;OK&gt;.  Do not check system library.</LI>
 <LI>Make sure the new library is selected and choose &lt;Add Jars...&gt;</LI>
-<LI>Browse to where JavaMail is installed and select jakarta.mail.jar</LI>
+<LI>Browse to where Jakarta Mail is installed and select jakarta.mail.jar</LI>
 <LI>Select &lt;Javadoc location: (None)&gt; and hit &lt;Edit...&gt; to
     add a reference to the javadoc location.  This can be found at docs/javadocs
-    under the same folder where you installed JavaMail.</LI>
+    under the same folder where you installed Jakarta Mail.</LI>
 <LI>You can also set the source code reference here if you downloaded the
-    <A href="#source">JavaMail source code</A>. Use
-    ".../javamail-1.6.3/mail/src/main/java" as the source root for 1.6.3.</LI>
-<LI>Choose &lt;OK&gt; to close the Preferences dialog.  JavaMail is now
+    <A href="#source">Jakarta Mail source code</A>. Use
+    ".../jakartamail-1.6.4/mail/src/main/java" as the source root for 1.6.4.</LI>
+<LI>Choose &lt;OK&gt; to close the Preferences dialog.  Jakarta Mail is now
     installed as a Library in Eclipse.</LI>
 </OL>
 </P>
@@ -837,7 +839,7 @@ library as well.  You can create a separate library in a manner similar to
 the above, or just add activation.jar (and javadoc/source references
 if desired) to this library definition.
 </P>
-<P>Now use the JavaMail library in your Eclipse Java Project (Eclipse 3.4)
+<P>Now use the Jakarta Mail library in your Eclipse Java Project (Eclipse 3.4)
 </P>
 <OL>
 <LI>Open your project in Eclipse and be in the Java Perspective</LI>
@@ -847,22 +849,22 @@ if desired) to this library definition.
     in the tree on the left and select the Libraries tab on the right</LI>
 <LI>Click &lt;Add Library...&gt;</LI>
 <LI>Select "User Library", then click &lt;Next&gt;</LI>
-<LI>Locate and select the JavaMail library added in the previous step,
+<LI>Locate and select the Jakarta Mail library added in the previous step,
     click "Finish", and you're done.</LI>
 </OL>
 </P>
 <P>
 <A HREF="http://stackoverflow.com/questions/16212026/how-to-add-javamail-api-source-code-in-eclise-project">
 This article</A>
-explains how to make the JavaMail source code available to your Eclipse project.
+explains how to make the Jakarta Mail source code available to your Eclipse project.
 </P>
 
 <P>
 <A NAME="incservers">
-<strong>Q:</strong> Does JavaMail include all the necessary mail servers? </A>
+<strong>Q:</strong> Does Jakarta Mail include all the necessary mail servers? </A>
 <BR>
-<strong>A:</strong> No, the JavaMail API package does not include any mail servers.
-To use the JavaMail API package, you'll need to have access to an IMAP
+<strong>A:</strong> No, the Jakarta Mail API package does not include any mail servers.
+To use the Jakarta Mail API package, you'll need to have access to an IMAP
 or POP3 mail server (for reading mail) and/or an SMTP mail server (for
 sending mail).
 These mail servers are usually provided by your Internet Service Provider
@@ -898,15 +900,15 @@ mail protocols such as Gmail, Yahoo! Mail, Hotmail, etc.
 <strong>A:</strong> We do not provide a mail server for you to use.  You must use your
 own mail server, or one provided by your Internet Service Provider
 or the company you work for.  Your network administrator can give you
-the information necessary to configure JavaMail to work with your mail server.
+the information necessary to configure Jakarta Mail to work with your mail server.
 </P>
 
 <P>
 <A NAME="proxy">
-<strong>Q:</strong> How do I configure JavaMail to work through my proxy server?</A>
+<strong>Q:</strong> How do I configure Jakarta Mail to work through my proxy server?</A>
 <IMG SRC="assets/images/updated.gif" ALT="[updated!]" TITLE="Updated 11/6/2017">
 <BR>
-<strong>A:</strong> Starting with JavaMail 1.6.0, JavaMail supports accessing
+<strong>A:</strong> Starting with Jakarta Mail 1.6.0, Jakarta Mail supports accessing
 mail servers through a web proxy server.
 Set the "mail.<i>protocol</i>.proxy.host" and "mail.<i>protocol</i>.proxy.port"
 properties for the proxy server.
@@ -917,36 +919,36 @@ In addition, if your proxy server supports the SOCKS V4 or V5 protocol
 (<A HREF="http://www.socks.nec.com/aboutsocks.html">http://www.socks.nec.com/aboutsocks.html</A>,
 <A HREF="http://www.ietf.org/rfc/rfc1928.txt">RFC1928</A>)
 and allows anonymous connections, and
-you're using JDK 1.5 or newer and JavaMail 1.4.5 or newer, you can
+you're using JDK 1.5 or newer and Jakarta Mail 1.4.5 or newer, you can
 configure a SOCKS proxy on a per-session, per-protocol basis by setting the
 "mail.smtp.socks.host" property as described in the javadocs for the
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/smtp/package-summary.html">
 com.sun.mail.smtp package</A>.
 Similar properties exist for the "imap" and "pop3" protocols.
 </P>
 <P>
-If you're using older versions of the JDK or JavaMail, you can tell the Java
+If you're using older versions of the JDK or Jakarta Mail, you can tell the Java
 runtime to direct all TCP socket connections to the SOCKS server.
 See the <A HREF="http://docs.oracle.com/javase/7/docs/technotes/guides/net/properties.html">
 Networking Properties guide</A>
 for the latest documentation of the <code>socksProxyHost</code> and
 <code>socksProxyPort</code> properties.  These are system-level properties,
-not JavaMail session properties.  They can be set from the command line
+not Jakarta Mail session properties.  They can be set from the command line
 when the application is invoked, for example:
 <code>java -DsocksProxyHost=myproxy ...</code>.
 This facility can be used to direct the SMTP, IMAP, and POP3
-communication from JavaMail to the SOCKS proxy server.  Note that
+communication from Jakarta Mail to the SOCKS proxy server.  Note that
 setting these properties directs <b>all</b> TCP sockets to the SOCKS
 proxy, which may have negative impact on other aspects of your
 application.
 </P>
 <P>
-When using older versions of JavaMail, and without such a SOCKS server,
-if you want to use JavaMail to access mail servers
+When using older versions of Jakarta Mail, and without such a SOCKS server,
+if you want to use Jakarta Mail to access mail servers
 outside the firewall indirectly, you might be able to use a program such as
 <A HREF="https://bitbucket.org/gotoh/connect/wiki/Home">connect</A>
 to tunnel TCP connections through an HTTP proxy server.
-Configure JavaMail to use the connect instance as the SOCKS server.
+Configure Jakarta Mail to use the connect instance as the SOCKS server.
 </P>
 
 <P>
@@ -965,7 +967,7 @@ Your server is probably using a test certificate or self-signed
 certificate instead of a certificate signed by a commercial Certificate
 Authority.
 You'll need to install the server's certificate into your trust store.
-The <A HREF="https://eclipse-ee4j.github.io/javamail/InstallCert">
+The <A HREF="https://eclipse-ee4j.github.io/mail/InstallCert">
 InstallCert</A> program will help.
 A
 <A HREF="http://s-n-ushakov.blogspot.com/2013/11/yet-another-installcert-for-java-now.html">
@@ -1003,19 +1005,19 @@ Illegal use of nonvirtual function call
 </P>
 <P>
 The problem is due to a buggy version of the unzip command used to unzip
-the JavaMail download package on Linux.  The unzip command corrupts the
+the Jakarta Mail download package on Linux.  The unzip command corrupts the
 jakarta.mail.jar file.  Get a newer version of the unzip command, or use the
 JDK's jar command to unzip the package.
 </P>
 
 <P>
 <A NAME="securityManager">
-<strong>Q:</strong> How do I use JavaMail in an application run under a SecurityManager;
-what permissions must I grant to the application and to JavaMail?
+<strong>Q:</strong> How do I use Jakarta Mail in an application run under a SecurityManager;
+what permissions must I grant to the application and to Jakarta Mail?
 </A>
 <BR>
-<strong>A:</strong> When using JavaMail in an environment with a
-SecurityManager, JavaMail will sometimes fail to read the configuration
+<strong>A:</strong> When using Jakarta Mail in an environment with a
+SecurityManager, Jakarta Mail will sometimes fail to read the configuration
 files in the jakarta.mail.jar file.  The JavaBeans Activation Framework may
 have the same problem reading configuration files from the jakarta.activation.jar
 file.  These default configuration files are stored as "resource" files
@@ -1024,7 +1026,7 @@ in the META-INF directory in the jar file.
 <P>
 There are a number of debugging techniques that can be used to determine
 if this is the problem.  Setting the Session property "mail.debug" to
-true (or calling <code>session.setDebug(true)</code>) will cause JavaMail
+true (or calling <code>session.setDebug(true)</code>) will cause Jakarta Mail
 to print debugging messages as it attempts to load each configuration
 file.  A message of the form "DEBUG: can't load default providers file"
 indicates that this problem might exist.  Similarly, setting the System
@@ -1039,19 +1041,19 @@ other security debugging options.
 </P>
 <P>
 In addition to the permissions necessary to read the configuration files,
-the application (and JavaMail) will also need permission to connect to the
+the application (and Jakarta Mail) will also need permission to connect to the
 mail servers it uses.  If the application uses System properties to
-configure JavaMail (e.g., by passing the Properties object returned from
+configure Jakarta Mail (e.g., by passing the Properties object returned from
 <code>System.getProperties()</code> to the Session constructor, as many
-of the JavaMail demo programs do), it will also need permission to use
+of the Jakarta Mail demo programs do), it will also need permission to use
 the System Properties object.  Alternatively, the application can use
 its own Properties object and be sure to set the "mail.from" property
 or the "mail.user" and "mail.host" properties (see the
 InternetAddress.getLocalAddress() method).
 </P>
 <P>
-To allow an application to use JavaMail under a SecurityManager,
-the application, JavaMail, and JAF will need permissions such as the
+To allow an application to use Jakarta Mail under a SecurityManager,
+the application, Jakarta Mail, and JAF will need permissions such as the
 following (be sure to replace the host and path names with appropriate
 values); add these to the security policy file used by the application:
 </P>
@@ -1102,12 +1104,12 @@ permission to System properties and use the following approach:
 
 <P>
 <A NAME="tomcatconfig">
-<strong>Q:</strong> How do I configure Tomcat to allow me to use JavaMail in my
+<strong>Q:</strong> How do I configure Tomcat to allow me to use Jakarta Mail in my
 web application?
 </A>
 <BR>
 <strong>A:</strong> 
-To run a web application using JavaMail, you can add the JavaMail
+To run a web application using Jakarta Mail, you can add the Jakarta Mail
 jakarta.mail.jar file and, if you're not using JDK 1.6 or newer, the JavaBeans
 Activation Framework
 <A HREF="https://repo1.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar">jakarta.activation.jar</A>
@@ -1125,8 +1127,8 @@ files in the lib directory of your web application package (war file).
 
 <P>
 <A NAME="servletcp">
-<strong>Q:</strong> When using JavaMail in my servlet, it is unable to find any of
-the JavaMail classes.  I've added jakarta.mail.jar to the server's CLASSPATH.
+<strong>Q:</strong> When using Jakarta Mail in my servlet, it is unable to find any of
+the Jakarta Mail classes.  I've added jakarta.mail.jar to the server's CLASSPATH.
 </A>
 <BR>
 <strong>A:</strong> It is often necessary to completely restart the web server
@@ -1152,12 +1154,12 @@ application.
 
 <P>
 <A NAME="servletSecurityManager">
-<strong>Q:</strong> My servlet can find the JavaMail classes, but JavaMail complains
+<strong>Q:</strong> My servlet can find the Jakarta Mail classes, but Jakarta Mail complains
 that it can't find a service provider for "smtp" or "imap" or address
 type "rfc822".
 </A>
 <BR>
-<strong>A:</strong> Usually this is because JavaMail can't access the configuration
+<strong>A:</strong> Usually this is because Jakarta Mail can't access the configuration
 files in jakarta.mail.jar, possibly because of a security permission problem;
 see <A HREF="#securityManager">this item</A> for more details.
 Also, make sure that you haven't extracted the jakarta.mail.jar contents;
@@ -1166,13 +1168,13 @@ you should include the unmodified jakarta.mail.jar file in the server's CLASSPAT
 
 <P>
 <A NAME="gmail">
-<strong>Q:</strong> How do I access Gmail with JavaMail? </A>
+<strong>Q:</strong> How do I access Gmail with Jakarta Mail? </A>
 <BR>
 <strong>A:</strong> 
-JavaMail is capable of sending and reading messages using Gmail.
-All that's required is to properly configure JavaMail.  I'll
+Jakarta Mail is capable of sending and reading messages using Gmail.
+All that's required is to properly configure Jakarta Mail.  I'll
 illustrate the proper configuration using the
-<A HREF="#examples">demo programs</A> that come with JavaMail -
+<A HREF="#examples">demo programs</A> that come with Jakarta Mail -
 <code>msgshow.java</code> and <code>smtpsend.java</code>.
 You can use these programs for basic testing to ensure that
 your networking is working properly, that you can connect to
@@ -1184,7 +1186,7 @@ the bug is in your code or is elsewhere.
 Note that you'll need to configure your Gmail account to
 <A HREF="https://www.google.com/settings/security/lesssecureapps">
 enable less secure apps</A>, or you'll need to use
-<A HREF="https://eclipse-ee4j.github.io/javamail/OAuth2">
+<A HREF="https://eclipse-ee4j.github.io/mail/OAuth2">
 OAuth2 authentication</A>
 (which is somewhat more complex).
 </P>
@@ -1202,7 +1204,7 @@ java msgshow -D -T imaps -H imap.gmail.com -U user -P passwd
 </P>
 <P>
 By reading the <code>msgshow.java</code> source code, you can see how these
-command line arguments are used in the JavaMail API.  You should
+command line arguments are used in the Jakarta Mail API.  You should
 first try using msgshow as shown above, and once that's working
 move on to writing and configuring your own program to use Gmail.
 The following code fragment shows a simple way to incorporate the
@@ -1242,7 +1244,7 @@ End the message body with ^D on UNIX or ^Z on Windows.
 </P>
 <P>
 Again, you can read the <code>smtpsend.java</code> source code to see how the
-command line arguments are used in the JavaMail API.
+command line arguments are used in the Jakarta Mail API.
 The following code fragment shows a simple way to incorporate the
 needed configuration in your application:
 <PRE>
@@ -1260,7 +1262,7 @@ needed configuration in your application:
 <br/>
 </P>
 <P>
-There is, of course, more than one way to use the JavaMail API to accomplish
+There is, of course, more than one way to use the Jakarta Mail API to accomplish
 the same goal.  This should help you understand the essential
 configuration parameters necessary to use Gmail.
 </P>
@@ -1319,13 +1321,13 @@ and expunge the folder (<code>folder.close(true);</code>).
 
 <P>
 <A NAME="yahoomail">
-<strong>Q:</strong> How do I access Yahoo! Mail with JavaMail? </A>
+<strong>Q:</strong> How do I access Yahoo! Mail with Jakarta Mail? </A>
 <BR>
 <strong>A:</strong> 
-JavaMail is capable of sending and reading messages using Yahoo! Mail.
-All that's required is to properly configure JavaMail.  I'll
+Jakarta Mail is capable of sending and reading messages using Yahoo! Mail.
+All that's required is to properly configure Jakarta Mail.  I'll
 illustrate the proper configuration using the
-<A HREF="#examples">demo programs</A> that come with JavaMail -
+<A HREF="#examples">demo programs</A> that come with Jakarta Mail -
 <code>msgshow.java</code> and <code>smtpsend.java</code>.
 </P>
 <P>
@@ -1343,7 +1345,7 @@ java msgshow -D -T imaps -H imap.mail.yahoo.com -U user@yahoo.com -P passwd
 </P>
 <P>
 By reading the <code>msgshow.java</code> source code, you can see how these
-command line arguments are used in the JavaMail API.  You should
+command line arguments are used in the Jakarta Mail API.  You should
 first try using msgshow as shown above, and once that's working
 move on to writing and configuring your own program to use Yahoo! Mail.
 The code fragment shown above for connecting to Gmail will also work for
@@ -1364,10 +1366,10 @@ End the message body with ^D on UNIX or ^Z on Windows.
 </P>
 <P>
 Again, you can read the <code>smtpsend.java</code> source code to see how the
-command line arguments are used in the JavaMail API.  The code fragment shown
+command line arguments are used in the Jakarta Mail API.  The code fragment shown
 above for connecting to Gmail will also work for connecting to Yahoo! Mail
 by simply changing the host name.
-There is, of course, more than one way to use the JavaMail API to accomplish
+There is, of course, more than one way to use the Jakarta Mail API to accomplish
 the same goal.  This should help you understand the essential
 configuration parameters necessary to use Yahoo! Mail.
 </P>
@@ -1379,13 +1381,13 @@ POP server settings for Yahoo Mail</A>
 
 <P>
 <A NAME="hotmail">
-<strong>Q:</strong> How do I access Hotmail (Windows Live mail) with JavaMail? </A>
+<strong>Q:</strong> How do I access Hotmail (Windows Live mail) with Jakarta Mail? </A>
 <BR>
 <strong>A:</strong> 
-JavaMail is capable of sending and reading messages using Hotmail.
-All that's required is to properly configure JavaMail.  I'll
+Jakarta Mail is capable of sending and reading messages using Hotmail.
+All that's required is to properly configure Jakarta Mail.  I'll
 illustrate the proper configuration using the
-<A HREF="#examples">demo programs</A> that come with JavaMail -
+<A HREF="#examples">demo programs</A> that come with Jakarta Mail -
 <code>msgshow.java</code> and <code>smtpsend.java</code>.
 </P>
 <P>
@@ -1403,7 +1405,7 @@ java msgshow -D -T pop3s -H pop3.live.com -U user@hotmail.com -P passwd
 </P>
 <P>
 By reading the <code>msgshow.java</code> source code, you can see how these
-command line arguments are used in the JavaMail API.  You should
+command line arguments are used in the Jakarta Mail API.  You should
 first try using msgshow as shown above, and once that's working
 move on to writing and configuring your own program to use Hotmail.
 The code fragment shown above for connecting to Gmail will also work for
@@ -1426,8 +1428,8 @@ should type it on one line.)
 </P>
 <P>
 The smtpsend program uses the System properties
-when creating the JavaMail Session, so the properties set on the
-command line will be available to the JavaMail Session.
+when creating the Jakarta Mail Session, so the properties set on the
+command line will be available to the Jakarta Mail Session.
 </P>
 <P>
 The smtpsend program will prompt for a subject and message body text.
@@ -1435,11 +1437,11 @@ End the message body with ^D on UNIX or ^Z on Windows.
 </P>
 <P>
 Again, you can read the <code>smtpsend.java</code> source code to see how the
-command line arguments are used in the JavaMail API.  The code fragment shown
+command line arguments are used in the Jakarta Mail API.  The code fragment shown
 above for connecting to Gmail will also work for connecting to Hotmail
 by simply changing the host name and changing the connect call to
 <code>t.connect(host, 587, username, password)</code>.
-There is, of course, more than one way to use the JavaMail API to accomplish
+There is, of course, more than one way to use the Jakarta Mail API to accomplish
 the same goal.  This should help you understand the essential
 configuration parameters necessary to use Hotmail.
 </P>
@@ -1451,13 +1453,13 @@ Windows Live Hotmail help</A> for "POP3".
 
 <P>
 <A NAME="outlook">
-<strong>Q:</strong> How do I access Outlook.com with JavaMail? </A>
+<strong>Q:</strong> How do I access Outlook.com with Jakarta Mail? </A>
 <BR>
 <strong>A:</strong> 
-JavaMail is capable of sending and reading messages using Outlook.com.
-All that's required is to properly configure JavaMail.  I'll
+Jakarta Mail is capable of sending and reading messages using Outlook.com.
+All that's required is to properly configure Jakarta Mail.  I'll
 illustrate the proper configuration using the
-<A HREF="#examples">demo programs</A> that come with JavaMail -
+<A HREF="#examples">demo programs</A> that come with Jakarta Mail -
 <code>msgshow.java</code> and <code>smtpsend.java</code>.
 </P>
 <P>
@@ -1475,7 +1477,7 @@ java msgshow -D -T imaps -H imap-mail.outlook.com -U user@outlook.com -P passwd
 </P>
 <P>
 By reading the <code>msgshow.java</code> source code, you can see how these
-command line arguments are used in the JavaMail API.  You should
+command line arguments are used in the Jakarta Mail API.  You should
 first try using msgshow as shown above, and once that's working
 move on to writing and configuring your own program to use Outlook.com.
 The code fragment shown above for connecting to Gmail will also work for
@@ -1503,8 +1505,8 @@ should type it on one line.)
 </P>
 <P>
 The smtpsend program uses the System properties
-when creating the JavaMail Session, so the properties set on the
-command line will be available to the JavaMail Session.
+when creating the Jakarta Mail Session, so the properties set on the
+command line will be available to the Jakarta Mail Session.
 </P>
 <P>
 The smtpsend program will prompt for a subject and message body text.
@@ -1512,7 +1514,7 @@ End the message body with ^D on UNIX or ^Z on Windows.
 </P>
 <P>
 Again, you can read the <code>smtpsend.java</code> source code to see how the
-command line arguments are used in the JavaMail API.
+command line arguments are used in the Jakarta Mail API.
 The following code fragment shows a simple way to incorporate the
 needed configuration in your application:
 <PRE>
@@ -1529,7 +1531,7 @@ needed configuration in your application:
 <br/>
 </P>
 <P>
-There is, of course, more than one way to use the JavaMail API to accomplish
+There is, of course, more than one way to use the Jakarta Mail API to accomplish
 the same goal.  This should help you understand the essential
 configuration parameters necessary to use Outlook.com.
 For more details, see the
@@ -1547,7 +1549,7 @@ Outlook Blog</A>.
 <P>
 <A NAME="basics">
 <strong>Q:</strong> Where can I learn the basics about Internet email that
-I'll need to know to program JavaMail effectively? </A>
+I'll need to know to program Jakarta Mail effectively? </A>
 <BR>
 <strong>A:</strong> See one of the
 <A HREF="community/books/index.html">books</A>
@@ -1557,13 +1559,13 @@ SMTP, IMAP, POP3, etc.
 
 <P>
 <A NAME="examples">
-<strong>Q:</strong> Where can I find some example programs that show how to use JavaMail? </A>
+<strong>Q:</strong> Where can I find some example programs that show how to use Jakarta Mail? </A>
 <BR>
 <strong>A:</strong> There are many example programs available for download
 on the
-<A HREF="https://eclipse-ee4j.github.io/javamail/">JavaMail project page</A>,
+<A HREF="https://eclipse-ee4j.github.io/mail/">Jakarta Mail project page</A>,
 including simple command line programs illustrating various aspects of
-the JavaMail API, a Swing-based GUI application, a simple servlet-based
+the Jakarta Mail API, a Swing-based GUI application, a simple servlet-based
 application, and a complete web application using JSP pages and a tag
 library.
 </P>
@@ -1571,7 +1573,7 @@ library.
 <P>
 <A NAME="commonmistakes">
 <strong>Q:</strong> What are some of the most common mistakes people make
-when using JavaMail? </A>
+when using Jakarta Mail? </A>
 <BR>
 <strong>A:</strong> Unfortunately, the internet is full of copy and paste
 programmers who don't understand the code they're using, which has resulted
@@ -1590,11 +1592,11 @@ method and ignores the Transport instance you use to call it.
 </LI>
 <LI>
 Setting various <code>socketFactory</code> properties.
-Long, long ago JavaMail didn't have built in support for SSL connections,
+Long, long ago Jakarta Mail didn't have built in support for SSL connections,
 so it was necessary to set these properties to use SSL.
 This hasn't been the case for years; remove these properties and simplify
 your code.
-The easiest way to enable SSL support in current versions of JavaMail is
+The easiest way to enable SSL support in current versions of Jakarta Mail is
 to set the property "mail.smtp.ssl.enable" to "true".
 (Replace "smtp" with "imap" or "pop3" as appropriate.)
 </LI>
@@ -1618,7 +1620,7 @@ that takes a username and password.
 MIME multipart message where the first part is the main body of the
 message and the other parts are the attachments.
 There are numerous examples showing how to construct such a message
-in the demo programs included in the JavaMail download package.
+in the demo programs included in the Jakarta Mail download package.
 To attach a file use the
 <code>attachFile</code> method of <code>MimeBodyPart</code>.
 </P>
@@ -1922,13 +1924,13 @@ the <code>getContentType</code> method.
 <strong>Q:</strong> How do I create a multipart message with a part of any
 MIME type I choose?</A>
 <BR>
-<strong>A:</strong> The JavaMail API includes builtin support for the most
+<strong>A:</strong> The Jakarta Mail API includes builtin support for the most
 common MIME types, but to create a message that includes data in
-a MIME type that JavaMail does not already understand, you'll
-need to supply that data to JavaMail in a byte stream format.
+a MIME type that Jakarta Mail does not already understand, you'll
+need to supply that data to Jakarta Mail in a byte stream format.
 The <code>ByteArrayDataSource</code> class in the <code>javax.mail.util</code>
-pacakge in JavaMail 1.4 and later, or included in source code in the demo
-directory of older versions of the JavaMail download package, can help.
+pacakge in Jakarta Mail 1.4 and later, or included in source code in the demo
+directory of older versions of the Jakarta Mail download package, can help.
 This class
 will take a <code>String</code>, byte array, or <code>InputStream</code>
 and create a <code>DataSource</code> object that you can use as follows:
@@ -1954,7 +1956,7 @@ Note that if you create a <code>ByteArrayDataSource</code> with an
 <code>InputStream</code>, it first copies all of the data in the stream
 into memory.  This is necessary because a <code>DataSource</code> needs
 to be able to supply multiple <code>InputStream</code> objects so that
-JavaMail can read the data once to determine what
+Jakarta Mail can read the data once to determine what
 Content-Transfer-Encoding is appropriate, and then read the data again
 to include the data in the message.
 </P>
@@ -1962,10 +1964,10 @@ to include the data in the message.
 <P>
 <A NAME="readofficedoc">
 <strong>Q:</strong> Can I read or send a Microsoft Office document using
-JavaMail? </A>
+Jakarta Mail? </A>
 <BR>
-<strong>A:</strong> JavaMail can read a Microsoft Office document as an
-attachment and save that document in a file.  Likewise, JavaMail can attach a
+<strong>A:</strong> Jakarta Mail can read a Microsoft Office document as an
+attachment and save that document in a file.  Likewise, Jakarta Mail can attach a
 Microsoft Office document to a message and send it as an attachment.
 Use the <A href="">MimeBodyPart</A>
 <A href="">saveFile</A> and 
@@ -2029,25 +2031,25 @@ available.  See also
 <P>
 <A NAME="whendisco">
 <strong>Q:</strong> How do I support disconnected operation using the
-JavaMail APIs?</A><BR>
-<strong>A:</strong> The JavaMail API specification defines interfaces that can
+Jakarta Mail APIs?</A><BR>
+<strong>A:</strong> The Jakarta Mail API specification defines interfaces that can
 be used by a mail client to support disconnected operation.
 Our IMAP provider implements these interfaces (the UIDFolder interfaces).
 </P>
 
 <P>
 <A NAME="security">
-<strong>Q:</strong> How do I send secure email using the JavaMail APIs?</A>
+<strong>Q:</strong> How do I send secure email using the Jakarta Mail APIs?</A>
 <BR>
-<strong>A:</strong> The JavaMail APIs currently have no support for sending
+<strong>A:</strong> The Jakarta Mail APIs currently have no support for sending
 or receiving secure email.  The architecture of the
-JavaMail APIs allows such support to be easily added later,
+Jakarta Mail APIs allows such support to be easily added later,
 by us or by third parties. Information on the current Email
 security standards (S/MIME and PGP) can be found at
 <A href="http://www.imc.org/smime-pgpmime.html">
 http://www.imc.org/smime-pgpmime.html</A>.
 Please browse our
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/ThirdPartyProducts">Third Party Products</A>
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/ThirdPartyProducts">Third Party Products</A>
 page for solutions from other vendors.
 The most popular third party solution is the
 <A HREF="https://www.bouncycastle.org/java.html">Bouncy Castle library</A>.
@@ -2065,45 +2067,45 @@ FilterOutputStream to hand to <code>writeTo()</code>.  The
 FilterOutputStream will need to accept lines with any of the common
 line terminators and write out lines with only the desired line
 terminator.  The following are examples of such filters.
-<A href="https://github.com/eclipse-ee4j/javamail/blob/master/demo/src/main/java/NewlineOutputStream.java"><code>NewlineOutputStream</code></A>
+<A href="https://github.com/eclipse-ee4j/mail/blob/master/demo/src/main/java/NewlineOutputStream.java"><code>NewlineOutputStream</code></A>
 converts to the local platform's line terminator and is useful when
 writing a message to a file.
-<A href="https://github.com/eclipse-ee4j/javamail/blob/master/demo/src/main/java/CRLFOutputStream.java"><code>CRLFOutputStream</code></A>
+<A href="https://github.com/eclipse-ee4j/mail/blob/master/demo/src/main/java/CRLFOutputStream.java"><code>CRLFOutputStream</code></A>
 converts to the MIME canonical CRLF line terminator and is useful
 when the canonical MIME format is needed (e.g., to compute a digital
 signature).
 </P>
 
 <P>
-<A NAME="javamailserver">
-<strong>Q:</strong> Can I use the JavaMail APIs to implement a
+<A NAME="mailserver">
+<strong>Q:</strong> Can I use the Jakarta Mail APIs to implement a
 mail server?</A><BR>
-<strong>A:</strong> The JavaMail APIs were not intended to help you implement a
+<strong>A:</strong> The Jakarta Mail APIs were not intended to help you implement a
 mail server.
 Nonetheless, some of the utility classes, such as the MIME
 message parsing classes, might be of use to you.
-In general you'll find that the JavaMail API errs on the side
+In general you'll find that the Jakarta Mail API errs on the side
 of "simple" instead of "robust".  That's appropriate for a mail
 client, but a mail server would likely make different tradeoffs.
 </P>
 
 <P>
 <A NAME="newusers">
-<strong>Q:</strong> Can I use the JavaMail APIs to add new user accounts to my
+<strong>Q:</strong> Can I use the Jakarta Mail APIs to add new user accounts to my
 mail server, remove user accounts from my mail server, or change the passwords
 for user accounts on my mail server?</A>
 <BR>
-<strong>A:</strong> The JavaMail API does not include any facilities for adding,
+<strong>A:</strong> The Jakarta Mail API does not include any facilities for adding,
 removing, or changing user accounts.  There are no standards in this area;
 every mail server handles this differently.
 </P>
 
 <P>
 <A NAME="addressbook">
-<strong>Q:</strong> Can I use the JavaMail APIs to access my address book
+<strong>Q:</strong> Can I use the Jakarta Mail APIs to access my address book
 on my mail server?</A>
 <BR>
-<strong>A:</strong> The JavaMail API does not include any facilities for accessing
+<strong>A:</strong> The Jakarta Mail API does not include any facilities for accessing
 an address book.  There are no standards in this area;
 every mail server handles this differently.
 If you can figure out how <em>your</em> server does it, you might be able
@@ -2118,10 +2120,10 @@ so that I can serialize a message to disk and read it back later?
 </A>
 <BR>
 <strong>A:</strong> 
-The JavaMail API was designed to layer on top of existing email systems,
+The Jakarta Mail API was designed to layer on top of existing email systems,
 using existing message formats.  The ability to use Java serialization
 was neither essential nor useful for such implementations, and thus was
-not considered a goal of the JavaMail API.
+not considered a goal of the Jakarta Mail API.
 </P>
 <P>
 The hard part about serializing a Message is retaining the pointers to
@@ -2152,7 +2154,7 @@ provider, you subclass <code>javax.mail.Transport</code>, possibly
 <code>javax.mail.Message</code> and a few others. Then you add
 the entry describing your provider to the <code>javamail.providers</code>
 registry. If you're interested in writing a service provider for a protocol 
-or messaging system not currently supported by the JavaMail API 
+or messaging system not currently supported by the Jakarta Mail API 
 implementation, please contact us at <A href="mailto:javamail_ww@oracle.com">
 javamail_ww@oracle.com</A>.
 </P>
@@ -2169,14 +2171,14 @@ more than your simple login name.  For example, if your email address
 is "J.User@server.com", your Windows NT login name is "juser", your
 NT domain name is "dom", and your Exchange mailbox name is "Joe User",
 then you would need to use a username of "dom\juser\J.User" when logging
-in using JavaMail.
+in using Jakarta Mail.
 </P>
 <P>
 Note also that there's a bug in Exchange 2007.  The Exchange server
 advertises that it supports AUTH=PLAIN, even though
 <A HREF="http://technet.microsoft.com/en-us/library/cc540463.aspx">
 this Exchange documentation</A> claims that it's not supported.
-This causes JavaMail to choose PLAIN authentication, which will always fail.
+This causes Jakarta Mail to choose PLAIN authentication, which will always fail.
 To work around this Exchange bug, set the session property
 "mail.imap.auth.plain.disable" to "true".  (Change "imap" to "imaps" if
 you're using the "imaps" protocol.)
@@ -2188,7 +2190,7 @@ you're using the "imaps" protocol.)
 decode it when I receive it?
 </A>
 <BR>
-<strong>A:</strong> You don't need to!  JavaMail will automatically determine an
+<strong>A:</strong> You don't need to!  Jakarta Mail will automatically determine an
 appropriate encoding to use for your message parts before sending the
 message, and will automatically decode message parts when reading them.
 The <code>getInputStream</code> method will return the <strong>decoded</strong>
@@ -2202,7 +2204,7 @@ when should I use the <code>MimeUtility</code> methods?
 </A>
 <BR>
 <strong>A:</strong> The <code>MimeUtility</code> methods are useful in cases that
-JavaMail doesn't handle automatically for you.  One such case that
+Jakarta Mail doesn't handle automatically for you.  One such case that
 occurs frequently is encoding of filenames.  The base MIME spec does not
 allow header parameter values (such as the filename parameter) to be
 encoded in the same way that (e.g.) the Subject header may be encoded.
@@ -2219,21 +2221,21 @@ encode filenames.
 <P>
 <A NAME="preencoded">
 <strong>Q:</strong> I have data that's already encoded in (e.g.) base64, how do I
-tell JavaMail to send this data without re-encoding it?
+tell Jakarta Mail to send this data without re-encoding it?
 </A>
 <BR>
 <strong>A:</strong> Use the <code>PreencodedMimeBodyPart</code> class,
-new in JavaMail 1.4.
+new in Jakarta Mail 1.4.
 </P>
 
 <P>
 <A NAME="howencode">
-<strong>Q:</strong> Even though JavaMail does all the encoding and decoding for me,
+<strong>Q:</strong> Even though Jakarta Mail does all the encoding and decoding for me,
 I need to manually control the encoding for some body parts.
 </A>
 <BR>
 <strong>A:</strong> In the rare case that you need to control the encoding, there
-are several ways to override JavaMail's default behavior.  A simple
+are several ways to override Jakarta Mail's default behavior.  A simple
 approach is as follows.  After creating the entire message, call
 <code>msg.saveChanges()</code> and then use something like
 <code>mbp.setHeader("Content-Transfer-Encoding", "base64")</code>
@@ -2248,7 +2250,7 @@ the <code>updateHeaders</code> method so that it first calls
 
 <P>
 <A NAME="encodefilename">
-<strong>Q:</strong> Why doesn't JavaMail properly encode and decode filenames in
+<strong>Q:</strong> Why doesn't Jakarta Mail properly encode and decode filenames in
 non-ASCII character sets?
 </A>
 <BR>
@@ -2256,7 +2258,7 @@ non-ASCII character sets?
 Encoded filenames of the form <CODE>=?ISO-8859-15?B?5OTkLUluZm8ucGRm?=</CODE>
 are <strong>not</strong> part of the MIME spec.  A filename of
 the form <CODE>=?A?B?C?=</CODE> is a perfectly valid filename,
-not an incorrectly encoded filename.  JavaMail does
+not an incorrectly encoded filename.  Jakarta Mail does
 not encode and decode filenames by default because <strong>doing so
 would violate the MIME spec</strong>.
 </P>
@@ -2265,25 +2267,25 @@ The base MIME spec does not allow for encoding parameters.
 RFC 2231 defines a new way to include encoded paramters,
 including filenames, in MIME headers.  It is <strong>not</strong>
 compatible with the de facto way that many older applications
-illegally encode filenames.  Even though JavaMail supports RFC 2231, that
-alone does not allow JavaMail to interoperate with these older
-programs.  Most recent email programs support RFC 2231 and JavaMail
-enables support for it by default starting in JavaMail 1.5.
-To enable RFC 2231 support in older JavaMail releases for encoded parameters,
+illegally encode filenames.  Even though Jakarta Mail supports RFC 2231, that
+alone does not allow Jakarta Mail to interoperate with these older
+programs.  Most recent email programs support RFC 2231 and Jakarta Mail
+enables support for it by default starting in Jakarta Mail 1.5.
+To enable RFC 2231 support in older Jakarta Mail releases for encoded parameters,
 set the System properties "mail.mime.encodeparameters" and
 "mail.mime.decodeparameters" to "true".
 </P>
 <P>
 If you choose to violate the MIME spec, in order to
 interoperate with other programs that also violate the
-MIME spec, JavaMail gives you all the tools you need to
-do so.  Starting with JavaMail 1.4, setting the System properties
+MIME spec, Jakarta Mail gives you all the tools you need to
+do so.  Starting with Jakarta Mail 1.4, setting the System properties
 "mail.mime.encodefilename" and "mail.mime.decodefilename" to "true"
-will cause JavaMail to encode and decode the filename parameter
+will cause Jakarta Mail to encode and decode the filename parameter
 using the non-RFC 2231 MIME encoding.
 </P>
 <P>
-Applications using earlier versions of JavaMail can use the following
+Applications using earlier versions of Jakarta Mail can use the following
 workaround to encode a filename:
 </P>
 <P>
@@ -2296,7 +2298,7 @@ The workaround for decoding a filename is equally simple:
 <CODE>String filename = MimeUtility.decodeText(part.getFileName());</CODE>
 </P>
 <P>
-Again, this is primarily for applications using old versions of JavaMail.
+Again, this is primarily for applications using old versions of Jakarta Mail.
 Most applications should <strong>never</strong> need to use these methods.
 </P>
 
@@ -2322,7 +2324,7 @@ You can do this when starting your program using
 
 <P>
 <A NAME="debug">
-<strong>Q:</strong> How do I debug my application that uses JavaMail APIs?</A><BR>
+<strong>Q:</strong> How do I debug my application that uses Jakarta Mail APIs?</A><BR>
 <strong>A:</strong> Turn on session debugging by invoking the method
 <code>setDebug(true)</code>
 on the Session object in your code. That will cause debug information to
@@ -2330,7 +2332,7 @@ be printed to the console, including a protocol trace.
 If you passed the System properties to the Session when you created it,
 you can simply run your program with <code>java -Dmail.debug=true ...</code>
 <BR>
-If you think that you found a bug in JavaMail,
+If you think that you found a bug in Jakarta Mail,
 send us this trace along with a test case that reproduces the problem,
 the platform you are using, the version of the JDK you are using, and
 the name and version of the mail servers (IMAP, SMTP) that you are using.
@@ -2369,7 +2371,7 @@ your network will prevent you from connecting to the server.
 If telnet complains that it doesn't know the host name that
 you're using, most likely your name service (e.g., DNS) isn't
 properly configured to resolve internet host names.
-None of these problems are JavaMail or Java problems.
+None of these problems are Jakarta Mail or Java problems.
 </P>
 <P>
 Usually, when you get a low level SocketException
@@ -2379,7 +2381,7 @@ configuration.  Usually it's not a Java problem.
 <P>
 If you've succeeded in connecting with telnet, the next thing
 to do is to turn on Session debugging and get the protocol
-trace when JavaMail tries to connect to the remote machine,
+trace when Jakarta Mail tries to connect to the remote machine,
 as described <A href="#debug">above</A>.
 This will often include more detailed error messages from the
 server that will indicate the real source of the problem.
@@ -2391,8 +2393,8 @@ server that will indicate the real source of the problem.
 <BR>
 <strong>A:</strong> Debugging SSL problems, and in particular certificate problems,
 can be difficult.  The file
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
-includes some useful information.  JavaMail uses the JDK's JSSE
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
+includes some useful information.  Jakarta Mail uses the JDK's JSSE
 API to provide SSL support.  You can find information about debugging
 JSSE problems in the
 <A HREF=" /j2se/5.0/docs/guide/security/jsse/JSSERefGuide.html#Debug">
@@ -2434,9 +2436,9 @@ server.
 <P>
 <A NAME="imapserverbug">
 <strong>Q:</strong> I can read messages from my IMAP server with other mail clients,
-but even though I can connect to the server using JavaMail, when I use
-JavaMail to read some messages it fails.  Doesn't that mean there's a bug
-in JavaMail?
+but even though I can connect to the server using Jakarta Mail, when I use
+Jakarta Mail to read some messages it fails.  Doesn't that mean there's a bug
+in Jakarta Mail?
 </A>
 <BR>
 <strong>A:</strong> No, not usually.  Most other mail clients make very little
@@ -2513,8 +2515,8 @@ attachments.</A><BR>
 <strong>A:</strong> This is due to bugs in the partial fetch implementation of your
 IMAP server.  To workaround this server bug, set the
 "mail.imap.partialfetch" property to "false".
-Refer to <A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A> from
-the JavaMail package for more information.
+Refer to <A HREF="https://eclipse-ee4j.github.io/mail/docs/NOTES.txt">NOTES.txt</A> from
+the Jakarta Mail package for more information.
 </P>
 
 <P>
@@ -2595,7 +2597,7 @@ and register your own DataContentHandlers.
 return Unicode String objects when <code>getContent()</code> is used.
 Typically,
 such bodyparts internally hold their textual data in some non Unicode
-charset. JavaMail (through the corresponding DataContentHandler)
+charset. Jakarta Mail (through the corresponding DataContentHandler)
 attempts to convert that data into a Unicode string.
 The underlying JDK's charset converters are used to do this.
 If the JDK does not support a particular charset, then the
@@ -2687,10 +2689,10 @@ If so, loop.  If not, add the listener, then wait for new messages
 <P>
 Part of the key to understanding how this works is understanding when
 the server is allowed to notify the client of new messages, and when
-JavaMail will see those notifications.  Between getting the number of
-messages and adding the listener, JavaMail won't see any notifications
+Jakarta Mail will see those notifications.  Between getting the number of
+messages and adding the listener, Jakarta Mail won't see any notifications
 of new messages.  By the time you do an operation that will allow
-JavaMail to see the notification, the listener will be in place.
+Jakarta Mail to see the notification, the listener will be in place.
 </P>
 <P>
 The following code illustrates the general approach.  Many details have
@@ -2950,7 +2952,7 @@ authentication information.
 <BR>
 <strong>A:</strong> You need to authenticate to your SMTP server.  The package
 javadocs for the
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/smtp/package-summary.html">
 com.sun.mail.smtp package</A> describe several methods to do this.
 The easiest is to replace the call <code>Transport.send(msg);</code> with
 <code>Transport.send(msg, username, password);</code>.
@@ -3127,10 +3129,10 @@ You can enable use of this command by setting the Session property
 This will cause the SMTP protocol provider to issue the STARTTLS
 command after connecting to the server.
 See the file
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/SSLNOTES.txt">SSLNOTES.txt</A>
 for additional information.
 Also, the javadocs for the
-<A HREF="https://eclipse-ee4j.github.io/javamail/docs/api//com/sun/mail/smtp/package-summary.html">com.sun.mail.smtp</A>
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/smtp/package-summary.html">com.sun.mail.smtp</A>
 package has more information on the properties that can be set.
 </P>
 <P>
@@ -3176,17 +3178,17 @@ but a large number of servers don't support these new standards, instead
 using ad hoc techniques for returning such failure messages.  This makes
 it very difficult to correlate a "bounced" message with the original message
 that caused the problem.  (Note that this problem is completely independent
-of JavaMail.)
-JavaMail now includes support for parsing Delivery Status Notifications;
-see the <A HREF="https://eclipse-ee4j.github.io/javamail/docs/NOTES.txt">NOTES.txt</A>
-file in the JavaMail package for details.
+of Jakarta Mail.)
+Jakarta Mail now includes support for parsing Delivery Status Notifications;
+see the <A HREF="https://eclipse-ee4j.github.io/mail/docs/NOTES.txt">NOTES.txt</A>
+file in the Jakarta Mail package for details.
 </P>
 <P>
 There are a number of techniques and heuristics for dealing with this
 problem - none of them perfect.  One technique is Variable Envelope
 Return Paths, described at
 <A HREF="http://cr.yp.to/proto/verp.txt">http://cr.yp.to/proto/verp.txt</A>.
-The use of VERP with JavaMail and Apache James is described
+The use of VERP with Jakarta Mail and Apache James is described
 <A HREF="http://cephas.net/blog/2006/06/09/using-apache-james-and-javamail-to-implement-variable-envelope-return-paths/">here</A>.
 </P>
 
@@ -3209,7 +3211,7 @@ running behind a firewall or isn't currently connected to the Internet.
 <CODE>javax.mail.SendFailedException: 550 Unable to relay for
 <I>my-address</I></CODE>?</A>
 <BR>
-<strong>A:</strong> This is not a JavaMail problem.  This is an error reply from
+<strong>A:</strong> This is not a Jakarta Mail problem.  This is an error reply from
 your SMTP mail server.  It indicates that your mail server is not
 configured to allow you to send mail through it.  Typically, mail servers
 for an organization will be configured to allow mail from within the
@@ -3264,7 +3266,7 @@ message something like
 <strong>A:</strong> In order to prevent their use to send spam, some mail servers
 will require you to have a valid POP3 account and require you to login
 to that account before they'll let you send mail through that mail server.
-This is simple to handle in JavaMail.  When you know that you're dealing
+This is simple to handle in Jakarta Mail.  When you know that you're dealing
 with such a mail server, make sure you connect to your POP3 Store on that
 mail server before sending mail.
 </P>
@@ -3406,10 +3408,10 @@ entire message.
 <strong>A:</strong> Some versions of Microsoft Exchange do not implement the
 POP3 protocol properly.  They return different headers from the
 <code>TOP</code> command than they do from the <code>RETR</code>
-command.  This can cause all sorts of strange failures in JavaMail.
+command.  This can cause all sorts of strange failures in Jakarta Mail.
 One solution is to disable use of the <code>TOP</code> command,
 as described <A href="#pop3size">above</A>.  Another approach
-that works in some cases os to tell JavaMail to forget about the
+that works in some cases os to tell Jakarta Mail to forget about the
 headers it retrieved using the <code>TOP</code> command after
 retrieving the entire message using the <code>RETR</code> command.
 To do this, set the property "mail.pop3.forgettopheaders" to "true".
@@ -3417,51 +3419,51 @@ To do this, set the property "mail.pop3.forgettopheaders" to "true".
 
 <BR>
 <BR>
-<H2><STRONG>JavaMail in servlets</STRONG></H2>
+<H2><STRONG>Jakarta Mail in servlets</STRONG></H2>
 <BR />
 <BR />
 
 <P>
 <A NAME="servlethow">
-<strong>Q:</strong> Can I use JavaMail in servlets?
+<strong>Q:</strong> Can I use Jakarta Mail in servlets?
 </A>
 <BR>
 <strong>A:</strong> 
 Yes, see the Installation and Configuration section above for more details.
-The JavaMail API is also a required part of the
+The Jakarta Mail API is also a required part of the
 <A HREF="http://www.oracle.com/technetwork/java/javaee/overview/javaee-135128.html">
 Java Platform, Enterprise Edition (Java EE)</A>.
-No installation or configuration is necessary when using JavaMail
+No installation or configuration is necessary when using Jakarta Mail
 in a Java EE product, <EM>it's just there</EM>!
 </P>
 
 <P>
 <A NAME="fileupload">
-<strong>Q:</strong> My web application uses JavaMail to attach and send a file that
+<strong>Q:</strong> My web application uses Jakarta Mail to attach and send a file that
 the user specifies, but my application can't find the file.
 </A>
 <BR>
 <strong>A:</strong> If the user species the filename in an HTML form in the browser,
 the filename is normally the name of a file on the user's machine, not on
 the server.  The file will need to be uploaded to the server before
-JavaMail can access it.
+Jakarta Mail can access it.
 The <A HREF="http://jakarta.apache.org/commons/fileupload/">
 Apache Jakarta Commons FileUpload package</A> can help.
 </P>
 
 <BR>
 <BR>
-<H2><STRONG>JavaMail in applets</STRONG></H2>
+<H2><STRONG>Jakarta Mail in applets</STRONG></H2>
 <BR />
 <BR />
 
 <P>
 <A NAME="applets">
-<strong>Q:</strong> Can I use JavaMail in applets?
+<strong>Q:</strong> Can I use Jakarta Mail in applets?
 </A>
 <BR>
 <strong>A:</strong> 
-Yes, JavaMail will work in applets in browsers that support the
+Yes, Jakarta Mail will work in applets in browsers that support the
 required JDK version.
 The <A HREF="http://docs.oracle.com/javase/7/docs/technotes/guides/jweb/applet/applet_dev_guide.html">
 Java Plug-in</A> may be required to provide such support.
@@ -3469,13 +3471,13 @@ Java Plug-in</A> may be required to provide such support.
 
 <P>
 <A NAME="appletsecurity">
-<strong>Q:</strong> What are the security implications of using JavaMail in an applet?
+<strong>Q:</strong> What are the security implications of using Jakarta Mail in an applet?
 </A>
 <BR>
 <strong>A:</strong> One of the biggest
-issues with using JavaMail in applets is the default applet security
+issues with using Jakarta Mail in applets is the default applet security
 restrictions.  These restrictions only allow applets to connect to the
-host from which they were loaded.  Thus, for such applets to use JavaMail,
+host from which they were loaded.  Thus, for such applets to use Jakarta Mail,
 the mail server will need to be located on the same machine as the web
 server from which the applet is loaded.  You can find more information
 on the applet security model
@@ -3490,8 +3492,8 @@ do instead?
 </A>
 <BR>
 <strong>A:</strong> In general, we recommend use of a web application to collect
-a mail message and send it using JavaMail.  The demo servlet included in
-the JavaMail download package illustrates this approach.  The
+a mail message and send it using Jakarta Mail.  The demo servlet included in
+the Jakarta Mail download package illustrates this approach.  The
 <A HREF="http://www.oracle.com/technetwork/articles/javase/emailapps-141091.html">
 Email Web Application demo program</A> on the Oracle Technology Network
 illustrates another approach using JavaServer Pages.

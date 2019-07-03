@@ -1,20 +1,20 @@
-How to Contribute to JavaMail
-=============================
+How to Contribute to Jakarta Mail
+=================================
 
 If you're interested in contributing fixes, enhancements, etc. to
-JavaMail, please contact us at <javamail_ww@oracle.com> before you
+Jakarta Mail, please contact us at <javamail_ww@oracle.com> before you
 start.  We can give you advice you might need to make it easier to
 contribute, and we can better coordinate contributions with other
-planned or ongoing work on JavaMail.
+planned or ongoing work on Jakarta Mail.
 
-Contributions to JavaMail follow the same rules and process as
+Contributions to Jakarta Mail follow the same rules and process as
 contributions to other Eclipse projects.
 
 See [CONTRIBUTING](CONTRIBUTING.md) for the legal details.
 
 ## Coding Style
 
-Modifications to existing JavaMail source files, and contributions of
+Modifications to existing Jakarta Mail source files, and contributions of
 new source files, should use the standard Java coding style as
 originally described
 [here](http://www.oracle.com/technetwork/java/codeconvtoc-136057.html)
@@ -66,7 +66,7 @@ The most important points are summarized below:
        }
 ```
 
--   When in doubt, copy the style used in existing JavaMail code.
+-   When in doubt, copy the style used in existing Jakarta Mail code.
 
 * * * * *
 

@@ -22,10 +22,10 @@ Note that it seems the
 -------------------
 
 Windows applications typically store single messages in MIME format in
-".eml" files. JavaMail can read these files using the MimeMessage
+".eml" files. Jakarta Mail can read these files using the MimeMessage
 constructor that takes an InputStream.
 
 Windows applications typically store messages in the Windows
-proprietary Outlook message format in ".msg" files. JavaMail can't
+proprietary Outlook message format in ".msg" files. Jakarta Mail can't
 process these files directly, but the
 [Apache POI project](http://poi.apache.org/) might help.

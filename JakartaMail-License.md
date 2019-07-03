@@ -1,14 +1,14 @@
-JavaMail License
-================
+Jakarta Mail License
+====================
 
-JavaMail uses several licenses:
+Jakarta Mail uses several licenses:
 
--   Most of the JavaMail source code is licensed under the
+-   Most of the Jakarta Mail source code is licensed under the
     [Eclipse Public License (EPL) v2.0](http://www.eclipse.org/legal/epl-2.0)
     and [GNU General Public License (GPL) v2 with Classpath Exception](
     https://www.gnu.org/software/classpath/license.html);
     see the license information at the top of each source file.
--   The source code for the forked copy of the JavaBeans Activation Framework
+-   The source code for the forked copy of Jakarta Activation
     is licensed under the
     [Eclipse Distribution License (EDL) v1.0](
     http://www.eclipse.org/org/documents/edl-v10.php);

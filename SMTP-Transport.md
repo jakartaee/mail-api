@@ -1,7 +1,7 @@
 SMTP Transport
 ==============
 
-The only Transport (for sending mail) provided with JavaMail uses the
+The only Transport (for sending mail) provided with Jakarta Mail uses the
 SMTP protocol. The primary documentation for the SMTP Transport is in
 the javadocs for the
 [com.sun.mail.smtp package](docs/api/com/sun/mail/smtp/package-summary.html).

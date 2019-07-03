@@ -14,7 +14,7 @@ Exchange
 
 Exchange 2016 returns incorrect BODYSTRUCTURE data for an S/MIME
 encrypted message.  Use the workaround described in the
-[JavaMail FAQ](FAQ.html#imapserverbug).
+[Jakarta Mail FAQ](FAQ.html#imapserverbug).
 
 Exchange fails to find an email address using FromTerm, FromStringTerm,
 RecipientTerm, or RecipientStringTerm.  As described in
@@ -37,7 +37,7 @@ parentheses as required by the IMAP spec. See
 [this bug report](https://github.com/eclipse-ee4j/javamail/issues/31).
 This causes a MessagingException with the message "Unable to load
 BODYSTRUCTURE". Use the workaround described in the
-[JavaMail FAQ](FAQ.html#imapserverbug).
+[Jakarta Mail FAQ](FAQ.html#imapserverbug).
 
 Exchange 2010 has a bug where it fails to quote the encoding value in a
 BODYSTRUCTURE response. This causes a MessagingException with the
@@ -50,12 +50,12 @@ Exchange 2007 has a bug where it returns "-1" as the size of a
 multipart/signed body part (at least) in the BODYSTRUCTURE response..
 This causes a MessagingException with the message "Unable to load
 BODYSTRUCTURE". Use the workaround described in the
-[JavaMail FAQ](FAQ.html#imapserverbug).
+[Jakarta Mail FAQ](FAQ.html#imapserverbug).
 
 Exchange 2007 has a bug where it advertises that it supports
 AUTH=PLAIN, even though
 [this Exchange documentation](http://technet.microsoft.com/en-us/library/cc540463.aspx)
-claims that it's not supported. This causes JavaMail to choose PLAIN
+claims that it's not supported. This causes Jakarta Mail to choose PLAIN
 authentication, which will always fail. To work around this Exchange
 bug, set the session property "mail.imap.auth.plain.disable" to "true".
 (Change "imap" to "imaps" if you're using the "imaps" protocol.)

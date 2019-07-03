@@ -1,24 +1,24 @@
-JavaMail Build Instructions
-===========================
+Jakarta Mail Build Instructions
+===============================
 
-To download the most recent JavaMail source code you'll need
+To download the most recent Jakarta Mail source code you'll need
 [git](https://git-scm.com/downloads).
 
 Once you've installed git, the following command will check out a copy
 of the source code:
 
-    % git clone git@github.com:eclipse-ee4j/javamail.git
+    % git clone git@github.com:eclipse-ee4j/mail.git
 
 Or, to check out the version corresponding to a particular release, use
-a tag. For example, to check out the 1.6.3 version:
+a tag. For example, to check out the 1.6.4 version:
 
-    % git clone -b 1.6.3 git@github.com:eclipse-ee4j/javamail.git
+    % git clone -b 1.6.4 git@github.com:eclipse-ee4j/mail.git
 
-To build JavaMail you'll need [Maven](http://maven.apache.org/).
+To build Jakarta Mail you'll need [Maven](http://maven.apache.org/).
 
 To simply build everything, use:
 
-    % cd javamail
+    % cd mail
     % mvn install
 
 You'll find the jakarta.mail.jar file in mail/target/jakarta.mail.jar.
