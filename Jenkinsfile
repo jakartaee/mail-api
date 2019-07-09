@@ -31,7 +31,7 @@ spec:
   - name: james-mail
     image: jakartaee/cts-mailserver:0.1
     command:
-    - /root/startup.sh
+    - cat
     env:
       - name: JAVA_TOOL_OPTIONS
         value: -Xmx1G
@@ -74,6 +74,15 @@ spec:
   
     stage('mail-tck-run') {
       steps {
+        container('james-mail') {
+	  sh """
+	    cd /root
+	    /root/startup.sh | tee /root/mailserver.log &
+	    sleep 120
+	    bash -x /root/create_users.sh 2>&1 | tee /root/create_users.log
+	    echo "Mail server setup complete"
+	  """
+	}
         container('mail-ci') {
 	  unstash name: 'mail-bundles'
           sh """
