@@ -53,18 +53,18 @@ which ant
 ant -version
 
 cd $WORKSPACE/javamailtck/
-ant -Dreport.dir=$WORKSPACE/JTreport/javamailtck \
-    -Dwork.dir=$WORKSPACE/JTwork/javamailtck run
+ant -Dreport.dir=$WORKSPACE/JTreport/mailtck \
+    -Dwork.dir=$WORKSPACE/JTwork/mailtck run
 
 HOST=`hostname -f`
-echo "1 javamailtck $HOST" > $WORKSPACE/args.txt
+echo "1 mailtck $HOST" > $WORKSPACE/args.txt
 
 mkdir -p $WORKSPACE/results/junitreports/
 $JAVA_HOME/bin/java -Djunit.embed.sysout=true \
     -jar ${WORKSPACE}/docker/JTReportParser/JTReportParser.jar \
     $WORKSPACE/args.txt $WORKSPACE/JTreport $WORKSPACE/results/junitreports/ 
 
-tar zcf ${WORKSPACE}/javamailtck-results.tar.gz \
-    $WORKSPACE/JTreport/javamailtck \
-    $WORKSPACE/JTwork/javamailtck \
+tar zcf ${WORKSPACE}/mailtck-results.tar.gz \
+    $WORKSPACE/JTreport/mailtck \
+    $WORKSPACE/JTwork/mailtck \
     $WORKSPACE/results/junitreports/
