@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2010, 2019 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v. 2.0, which is available at
@@ -25,10 +25,11 @@
 new=$1
 # find the second version string in pom.xml, which is the old version
 # this is almost the same as "mvn versions:set -DnewVersion=$1"
-# except that misses mbox/native/pom.xml and oldmail/pom.xml
+# except that misses mbox/native/pom.xml
 old=`grep '<version>.*</version>' pom.xml | sed -n 2p | \
 	sed -e 's:.*<version>\(.*\)</version>.*:\1:'`
-for file in `find . -name 'pom.xml' `
+# skip the spec directory, which is versioned separately
+for file in `find * -name spec -prune -o -name 'pom.xml' -print`
 do
 	ed - "$file" <<-EOF
 	g:<version>$old</version>:s::<version>$new</version>:
@@ -36,11 +37,8 @@ do
 	q
 	EOF
 done
-zipold=`echo "$old" | sed -e 's/\\./_/g'`
-zipnew=`echo "$new" | sed -e 's/\\./_/g'`
 ed - pom.xml <<-EOF
 g:<mail.version>$old</mail.version>:s::<mail.version>$new</mail.version>:
-g:<mail.zipversion>$zipold</mail.zipversion>:s::<mail.zipversion>$zipnew</mail.zipversion>:
 w
 q
 EOF
