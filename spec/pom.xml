@@ -27,7 +27,7 @@
     <groupId>jakarta.mail</groupId>
     <artifactId>mail-spec</artifactId>
     <packaging>pom</packaging>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.6</version>
     <name>Jakarta Mail Specification</name>
 
     <properties>
@@ -38,7 +38,7 @@
         <asciidoctorj.pdf.version>1.5.0-alpha.16</asciidoctorj.pdf.version>
         <jruby.version>9.2.6.0</jruby.version>
         <!-- status: DRAFT, BETA, etc., or blank for final -->
-        <status>DRAFT</status>
+        <status></status>
         <maven.build.timestamp.format>MMMM dd, yyyy</maven.build.timestamp.format>
         <revisiondate>${maven.build.timestamp}</revisiondate>
     </properties>
