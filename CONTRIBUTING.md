@@ -22,6 +22,7 @@ more.
 The project maintains the following source code repositories
 
 * [https://github.com/eclipse-ee4j/mail](https://github.com/eclipse-ee4j/mail)
+* [https://github.com/eclipse-ee4j/mail-spec](https://github.com/eclipse-ee4j/mail-spec)
 * [https://github.com/eclipse-ee4j/mail-tck](https://github.com/eclipse-ee4j/mail-tck)
 
 ## Eclipse Contributor Agreement
