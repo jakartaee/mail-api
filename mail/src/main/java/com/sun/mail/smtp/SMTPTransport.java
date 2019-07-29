@@ -2191,13 +2191,13 @@ public class SMTPTransport extends Transport {
                lineInputStream = null;
            }
            if (logger.isLoggable(Level.FINE))
-               logger.fine("could not connect to host \"" +
-                       host + "\", port: " + port +
-                       ", response: " + r);
+               logger.fine("got bad greeting from SMTP host \"" +
+                           host + "\", port: " + port +
+                           ", response: \"" + lastServerResponse + "\"");
            throw new MessagingException(
-                   "Could not connect to SMTP host: " + host +
+                   "Got bad greeting from SMTP host: " + host +
                    ", port: " + port +
-                   ", response: " + r);
+                   ", response: " + lastServerResponse);
 	    } else {
 		if (logger.isLoggable(Level.FINE))
 		    logger.fine("connected to host \"" +
@@ -2252,13 +2252,13 @@ public class SMTPTransport extends Transport {
             lineInputStream = null;
         }
 		if (logger.isLoggable(Level.FINE))
-		    logger.fine("got bad greeting from host \"" +
-				    host + "\", port: " + port +
-				    ", response: " + r);
+		    logger.fine("got bad greeting from SMTP host \"" +
+				host + "\", port: " + port +
+                                ", response: \"" + lastServerResponse + "\"");
 		throw new MessagingException(
 			"Got bad greeting from SMTP host: " + host +
-				    ", port: " + port +
-				    ", response: " + r);
+			", port: " + port +
+			", response: " + lastServerResponse);
 	    } else {
 		if (logger.isLoggable(Level.FINE))
 		    logger.fine("protocol started to host \"" +
