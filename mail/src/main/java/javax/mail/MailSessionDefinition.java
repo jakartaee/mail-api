@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 import java.lang.annotation.Repeatable;
 
 /**
- * Annotation used by Java EE applications to define a <code>MailSession</code>
+ * Annotation used by Jakarta EE applications to define a <code>MailSession</code>
  * to be registered with JNDI.  The <code>MailSession</code> may be configured
  * by setting the annotation elements for commonly used <code>Session</code>
  * properties.  Additional standard and vendor-specific properties may be
@@ -31,7 +31,7 @@ import java.lang.annotation.Repeatable;
  * <p>
  * The session will be registered under the name specified in the
  * <code>name</code> element.  It may be defined to be in any valid
- * <code>Java EE</code> namespace, and will determine the accessibility of
+ * <code>Jakarta EE</code> namespace, and will determine the accessibility of
  * the session from other components.
  *
  * @since JavaMail 1.5
