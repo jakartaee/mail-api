@@ -88,7 +88,7 @@ spec:
           sh """
             bash -x ${WORKSPACE}/docker/run_jakartamailtck.sh
           """
-          archiveArtifacts artifacts: "mailtck-results.tar.gz"
+          archiveArtifacts artifacts: "mail-tck-results.tar.gz"
           junit testResults: 'results/junitreports/*.xml', allowEmptyResults: true
         }
       }
