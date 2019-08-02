@@ -51,9 +51,9 @@ spec:
     string(name: 'JAF_BUNDLE_URL',
            defaultValue: 'http://central.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar',
            description: 'URL required for downloading JAF implementation jar' )
-    string(name: 'JAVAMAIL_TCK_BUNDLE_URL',
-           defaultValue: 'https://jenkins.eclipse.org/javamail/job/javamail-tck/job/master/lastSuccessfulBuild/artifact/bundles/javamailtck-1.6_latest.zip',
-           description: 'URL required for downloading JavaMail TCK zip' )
+    string(name: 'MAIL_TCK_BUNDLE_URL',
+           defaultValue: 'https://jenkins.eclipse.org/javamail/job/javamail-tck/job/master/lastSuccessfulBuild/artifact/bundles/mail-tck-1.6.0.zip',
+           description: 'URL required for downloading Jakarta Mail TCK zip' )
   }
   environment {
     ANT_OPTS = "-Djavax.xml.accessExternalStylesheet=all -Djavax.xml.accessExternalSchema=all -Djavax.xml.accessExternalDTD=file,http" 
