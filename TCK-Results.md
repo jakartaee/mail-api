@@ -8,7 +8,7 @@ following is a summary of the TCK results for releases of Jakarta Mail.
 # 1.6.4 Certification Request
 
 - [x] Organization Name ("Organization") and, if applicable, URL:<br/>
-  Eclipse Foundation
+  [Eclipse Foundation](https://www.eclipse.org/)
 - [x] Product Name, Version and download URL (if applicable):<br/>
   [EE4J implementation of Jakarta Mail 1.6.4](index.html)
 - [x] Specification Name, Version and download URL:<br/>
