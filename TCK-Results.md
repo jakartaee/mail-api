@@ -14,7 +14,7 @@ following is a summary of the TCK results for releases of Jakarta Mail.
 - [x] Specification Name, Version and download URL:<br/>
    [Jakarta Mail 1.6](https://jakarta.ee/specifications/mail/1.6/)
 - [x] TCK Version, digital SHA-256 fingerprint and download URL:<br/>
-  [Jakarta Mail TCK 1.6.0](https://download.eclipse.org/jakartaee/mail/1.6/eclipse-mail-tck-1.6.0.zip), SHA-256: d16d112fb17722e3363569949e8e394cad22fe1ebc3f92f986c2e7ad93642754
+  [Jakarta Mail TCK 1.6.0](https://download.eclipse.org/jakartaee/mail/1.6/eclipse-mail-tck-1.6.0.zip), SHA-256: fb1a4195b6b91321bbdcc64683aec1e98939c9695679c720a1c7c5b14e4f8e56
 - [x] Public URL of TCK Results Summary:<br/>
   [TCK results summary](TCK-Results.html)
 - [x] Any Additional Specification Certification Requirements:<br/>
