@@ -2,9 +2,9 @@ You can find more information about each bug number by visiting the
 Issue Tracker and looking up each bug you're interested in.
 
 Bug IDs that start with "E" can be found in the GitHub Issue Tracker
-for the Eclipse EE4J JavaMail project (after removing the "E"):
+for the Eclipse EE4J Jakarta Mail project (after removing the "E"):
 
-	https://github.com/eclipse-ee4j/javamail/issues/<bug-number>
+	https://github.com/eclipse-ee4j/mail/issues/<bug-number>
 
 Bug IDs that start with "GH" can be found in the GitHub Issue Tracker
 (after removing the "GH"):
@@ -18,6 +18,24 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
+
+
+		  CHANGES IN THE 1.6.4 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 1.6.4 release.
+
+E  350	ServiceLoader loads default providers ahead of application providers
+E  356	Expose the socket's local port in IMAPProtocol/Protocol
+E  361	Support the NTLMv2 authentication protocol
+E  363	Multipart message sent with headers but no body
+E  366	NPE when recipients not set
+E  369	javax.mail.internet.GetLocalAddressTest fails when host has no name
+E  370	Exchange sometimes returns entire message for a partial fetch
+E  371	Cannot allow UTF-8 headers in MimeMultipart
+E  372	Add QUIT support on session rejection
+E  375	WriteSocketTimeoutTest fails on JDK 8u201
+E  377	Change project name to Jakarta Mail
+E  383	From header is encoded even though mail.mime.allowutf8 is set
 
 
 		  CHANGES IN THE 1.6.3 RELEASE

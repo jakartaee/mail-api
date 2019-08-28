@@ -6,6 +6,7 @@ applications.
 The Jakarta Mail API is available as an optional package for use with the
 [Java SE platform](http://www.oracle.com/technetwork/java/javase/index.html)
 and is also included in the
+[Jakarta EE platform](http://jakarta.ee) and the
 [Java EE platform](http://www.oracle.com/technetwork/java/javaee/index.html).
 
 # Table of Contents
@@ -20,6 +21,14 @@ and is also included in the
 * [Project Documentation](#Project_Documentation)
 
 # <a name="Latest_News"></a>Latest News
+
+## August 28, 2019 - Jakarta Mail 1.6.4 Final Release ##
+
+The 1.6.4 release is the first release of the Jakarta Mail project using the
+[Jakarta EE Specification Process](https://jakarta.ee/about/jesp/)
+and includes several bug fixes and enhancements.
+The main jar file is located at
+[com.sun.mail:jakarta.mail](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/1.6.4/jakarta.mail-1.6.4.jar).
 
 ## July 3, 2019 - Jakarta Mail is the new name for JavaMail ##
 
@@ -44,7 +53,7 @@ use, described in [CONTRIBUTING](CONTRIBUTING.md).
 
 # <a name="Download_Jakarta_Mail_Release"></a>Download Jakarta Mail Release
 
-The latest release of Jakarta Mail is 1.6.3.
+The latest release of Jakarta Mail is 1.6.4.
 
 The following table provides easy access to the latest release. Most
 people will only need the main Jakarta Mail implementation in the
@@ -52,7 +61,7 @@ jakarta.mail.jar file.
 
 |Item|Description|
 |:---|:----------|
-|[jakarta.mail.jar](https://github.com/eclipse-ee4j/mail/releases/download/1.6.3/jakarta.mail.jar)|The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
+|[jakarta.mail.jar](https://github.com/eclipse-ee4j/mail/releases/download/1.6.4/jakarta.mail.jar)|The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
 |[README.txt](docs/README.txt)|Overview of the release|
 |[NOTES.txt](docs/NOTES.txt)|Additional notes about using Jakarta Mail|
 |[SSLNOTES.txt](docs/SSLNOTES.txt)|Notes on using SSL/TLS with Jakarta Mail|
@@ -69,7 +78,7 @@ can be included using this Maven dependency:
             <dependency>
                 <groupId>com.sun.mail</groupId>
                 <artifactId>jakarta.mail</artifactId>
-                <version>1.6.3</version>
+                <version>1.6.4</version>
             </dependency>
         </dependencies>
 ```
@@ -79,25 +88,28 @@ You can find all of the Jakarta Mail jar files in
 
 |jar file|groupId|artifactId|Description|
 |:-------|:------|:---------|:----------|
-|[jakarta.mail.jar](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/1.6.3/jakarta.mail-1.6.3.jar)|com.sun.mail|jakarta.mail|The Jakarta Mail implementation jar file, including the SMTP, IMAP, and POP3 protocol providers|
-|[jakarta.mail-api.jar](https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/1.6.3/jakarta.mail-api-1.6.3.jar)|jakarta.mail|jakarta.mail-api|The Jakarta Mail API definitions only, suitable for compiling against; use only with a Maven "provided" dependency scope|
-|[mailapi.jar](https://repo1.maven.org/maven2/com/sun/mail/mailapi/1.6.3/mailapi-1.6.3.jar)|com.sun.mail|mailapi|The Jakarta Mail implementation with no protocol providers; use with one of the following providers|
-|[smtp.jar](https://repo1.maven.org/maven2/com/sun/mail/smtp/1.6.3/smtp-1.6.3.jar)|com.sun.mail|smtp|The SMTP protocol provider|
-|[imap.jar](https://repo1.maven.org/maven2/com/sun/mail/imap/1.6.3/imap-1.6.3.jar)|com.sun.mail|imap|The IMAP protocol provider|
-|[pop3.jar](https://repo1.maven.org/maven2/com/sun/mail/pop3/1.6.3/pop3-1.6.3.jar)|com.sun.mail|pop3|The POP3 protocol provider|
-|[gimap.jar](https://repo1.maven.org/maven2/com/sun/mail/gimap/1.6.3/gimap-1.6.3.jar)|com.sun.mail|gimap|An EXPERIMENTAL Gmail IMAP protocol provider that supports Gmail-specific features|
-|[dsn.jar](https://repo1.maven.org/maven2/com/sun/mail/dsn/1.6.3/dsn-1.6.3.jar)|com.sun.mail|dsn|Support for parsing and creating messages containing Delivery Status Notifications|
-|[logging-mailhandler.jar](https://repo1.maven.org/maven2/com/sun/mail/logging-mailhandler/1.6.3/logging-mailhandler-1.6.3.jar)|com.sun.mail|logging-mailhandler|A java.util.logging handler that uses Jakarta Mail, suitable for use in Google App Engine.|
+|[jakarta.mail.jar](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/1.6.4/jakarta.mail-1.6.4.jar)|com.sun.mail|jakarta.mail|The Jakarta Mail implementation jar file, including the SMTP, IMAP, and POP3 protocol providers|
+|[jakarta.mail-api.jar](https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/1.6.4/jakarta.mail-api-1.6.4.jar)|jakarta.mail|jakarta.mail-api|The Jakarta Mail API definitions only, suitable for compiling against; use only with a Maven "provided" dependency scope|
+|[mailapi.jar](https://repo1.maven.org/maven2/com/sun/mail/mailapi/1.6.4/mailapi-1.6.4.jar)|com.sun.mail|mailapi|The Jakarta Mail implementation with no protocol providers; use with one of the following providers|
+|[smtp.jar](https://repo1.maven.org/maven2/com/sun/mail/smtp/1.6.4/smtp-1.6.4.jar)|com.sun.mail|smtp|The SMTP protocol provider|
+|[imap.jar](https://repo1.maven.org/maven2/com/sun/mail/imap/1.6.4/imap-1.6.4.jar)|com.sun.mail|imap|The IMAP protocol provider|
+|[pop3.jar](https://repo1.maven.org/maven2/com/sun/mail/pop3/1.6.4/pop3-1.6.4.jar)|com.sun.mail|pop3|The POP3 protocol provider|
+|[gimap.jar](https://repo1.maven.org/maven2/com/sun/mail/gimap/1.6.4/gimap-1.6.4.jar)|com.sun.mail|gimap|An EXPERIMENTAL Gmail IMAP protocol provider that supports Gmail-specific features|
+|[dsn.jar](https://repo1.maven.org/maven2/com/sun/mail/dsn/1.6.4/dsn-1.6.4.jar)|com.sun.mail|dsn|Support for parsing and creating messages containing Delivery Status Notifications|
+|[logging-mailhandler.jar](https://repo1.maven.org/maven2/com/sun/mail/logging-mailhandler/1.6.4/logging-mailhandler-1.6.4.jar)|com.sun.mail|logging-mailhandler|A java.util.logging handler that uses Jakarta Mail, suitable for use in Google App Engine.|
 
 # <a name="API_Documentation"></a>API Documentation
 
+The Jakarta Mail 1.6 API is defined through the
+[Jakarta EE Specification Process](https://jakarta.ee/about/jesp/).
+
+The Jakarta Mail 1.6 specification and API documentation are available
+[here](https://jakarta.ee/specifications/mail/1.6/).
+
+Note that Jakarta Mail 1.6 is identical to JavaMail 1.6.
+
 The JavaMail 1.6 and earlier API is defined through the Java Community Process as
 [JSR 919](http://jcp.org/en/jsr/detail?id=919).
-
-The Jakarta Mail API documentation is available
-[here](https://eclipse-ee4j.github.io/mail/docs/api/)
-and the Jakarta Mail specification is available
-[here](https://javaee.github.io/mail/docs/mail-spec-1.6.pdf).
 
 The following documents summarize the API changes in each release of
 the JavaMail API specification:
@@ -112,7 +124,7 @@ the JavaMail API specification:
 # <a name="Samples"></a>Samples
 
 Some sample programs showing how to use the Jakarta Mail APIs are available
-[here](https://github.com/eclipse-ee4j/mail/releases/download/1.6.3/javamail-samples.zip).
+[here](https://github.com/eclipse-ee4j/mail/releases/download/1.6.4/jakartamail-samples.zip).
 
 # <a name="Help"></a>Help
 
