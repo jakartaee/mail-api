@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates and others.
+ * All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -12,6 +13,9 @@
  * https://www.gnu.org/software/classpath/license.html.
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ *
+ * Contributors:
+ *   Payara Services - Load default providers from mail.jar classloader
  */
 
 package javax.mail;
@@ -970,6 +974,9 @@ public final class Session {
 	loadAllResources("META-INF/javamail.providers", cl, loader);
 
 	// load default META-INF/javamail.default.providers from mail.jar file
+	loadResource("/META-INF/javamail.default.providers", getClass(), loader, true);
+
+	// Load default META-INF/javamail.default.providers from the the application (not required)
 	loadResource("/META-INF/javamail.default.providers", cl, loader, false);
 
 	// finally, add all the default services
@@ -1098,7 +1105,10 @@ public final class Session {
 	};
 
 	// load default META-INF/javamail.default.address.map from mail.jar
-	loadResource("/META-INF/javamail.default.address.map", cl, loader, true);
+	loadResource("/META-INF/javamail.default.address.map", getClass(), loader, true);
+
+	// Load default META-INF/javamail.default.address.map from the the application (not required)
+	loadResource("/META-INF/javamail.default.address.map", cl, loader, false);
 
 	// load the META-INF/javamail.address.map file supplied by an app
 	loadAllResources("META-INF/javamail.address.map", cl, loader);
