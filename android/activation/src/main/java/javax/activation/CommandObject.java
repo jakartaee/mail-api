@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package javax.activation;
 import java.io.IOException;
 
 /**
- * JavaBeans components that are Activation Framework aware implement
+ * JavaBeans components that are Jakarta Activation aware implement
  * this interface to find out which command verb they're being asked
  * to perform, and to obtain the DataHandler representing the
  * data they should operate on.  JavaBeans that don't implement

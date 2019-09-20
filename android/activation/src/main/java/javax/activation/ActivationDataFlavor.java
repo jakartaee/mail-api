@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -175,8 +175,8 @@ public class ActivationDataFlavor /*extends DataFlavor*/ {
      * to the MIME type of this DataFlavor. <p>
      *
      * ActivationDataFlavor delegates the comparison of MIME types to
-     * the MimeType class included as part of the JavaBeans Activation
-     * Framework. This provides a more robust comparison than is normally
+     * the MimeType class included as part of Jakarta Activation.
+     * This provides a more robust comparison than is normally
      * available in the DataFlavor class.
      *
      * @param mimeType	the MIME type

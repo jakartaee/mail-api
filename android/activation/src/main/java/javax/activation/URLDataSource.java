@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * The URLDataSource class provides an object that wraps a <code>URL</code>
  * object in a DataSource interface. URLDataSource simplifies the handling
- * of data described by URLs within the JavaBeans Activation Framework
+ * of data described by URLs within Jakarta Activation
  * because this class can be used to create new DataHandlers. <i>NOTE: The
  * DataHandler object creates a URLDataSource internally,
  * when it is constructed with a URL.</i>

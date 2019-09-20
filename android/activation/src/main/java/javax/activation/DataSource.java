@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 
 /**
- * The DataSource interface provides the JavaBeans Activation Framework
+ * The DataSource interface provides Jakarta Activation
  * with an abstraction of an arbitrary collection of data.  It
  * provides a type for that data as well as access
  * to it in the form of <code>InputStreams</code> and

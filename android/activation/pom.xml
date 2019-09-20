@@ -24,15 +24,15 @@
     <groupId>com.sun.mail</groupId>
     <artifactId>android-activation</artifactId>
     <packaging>jar</packaging>
-    <name>JavaBeans Activation Framework fork for Android</name>
+    <name>Jakarta Activation fork for Android</name>
 
     <!--
-	This is a fork of the JavaBeans Activation Framework (JAF) that
+	This is a fork of Jakarta Activation that
 	is sufficient for use by Jakarta Mail when running on Android.
 	Android is not Java Compatible, and is missing the java.awt.datatransfer
-	classes.  This fork of JAF breaks the dependency on the
+	classes.  This fork of Activation breaks the dependency on the
 	java.awt.datatransfer classes and thus isn't compatible with
-	the JAF specification.  It should not be used by anything other
+	the Activation specification.  It should not be used by anything other
 	than this Android-specific version of Jakarta Mail.
     -->
 
@@ -42,7 +42,7 @@
 	    jakarta.activation.android
 	</activation.extensionName>
 	<activation.specificationTitle>
-	    JavaBeans(TM) Activation Framework Specification
+	    Jakarta Activation Specification
 	</activation.specificationTitle>
 	<activation.implementationTitle>
 	    javax.activation
