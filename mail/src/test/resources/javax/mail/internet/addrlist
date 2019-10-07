@@ -771,3 +771,16 @@ To: " <string@string.ru>
 Expect: 1
 	string@string.ru
 Header: false
+Strict: true
+To: ".foo"@example.com
+Expect: 1
+	".foo"@example.com
+To: "foo."@example.com
+Expect: 1
+	"foo."@example.com
+To: "foo..bar"@example.com
+Expect: 1
+	"foo..bar"@example.com
+To: "foo..bar".baz@example.com
+Expect: 1
+	"foo..bar".baz@example.com
