@@ -1319,7 +1319,11 @@ public class InternetAddress extends Address implements Cloneable {
 		    throw new AddressException(
 		     "Quoted local address contains newline without whitespace",
 			addr);
-	    } else if (c == '.') {
+	    }
+	    if (inquote)
+		continue;
+	    // dot rules should not be applied to quoted-string
+	    if (c == '.') {
 		if (i == start)
 		    throw new AddressException(
 			"Local address starts with dot", addr);
@@ -1327,8 +1331,6 @@ public class InternetAddress extends Address implements Cloneable {
 		    throw new AddressException(
 			"Local address contains dot-dot", addr);
 	    }
-	    if (inquote)
-		continue;
 	    if (c == '@') {
 		if (i == 0)
 		    throw new AddressException("Missing local name", addr);
