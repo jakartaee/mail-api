@@ -20,6 +20,13 @@ Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
 
+		  CHANGES IN THE 1.6.5 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 1.6.4 release.
+
+E  398	Don't enforce dot rules for quoted-string in local-part
+
+
 		  CHANGES IN THE 1.6.4 RELEASE
 		  ----------------------------
 The following bugs have been fixed in the 1.6.4 release.
