@@ -147,6 +147,7 @@
 	<module>dsn</module>
 	<module>mailhandler</module>
 	<module>android</module>
+	<module>parent-distrib</module>
     </modules>
 
     <profiles>
@@ -187,158 +188,6 @@
 	    <modules>
 		<module>parent-distrib</module>
 	    </modules>
-	    <build>
-		<pluginManagement>
-		    <plugins>
-			<plugin>
-			    <!-- Enables step-by-step staging deployment -->
-			    <groupId>org.sonatype.plugins</groupId>
-			    <artifactId>nexus-staging-maven-plugin</artifactId>
-			    <version>1.6.7</version>
-			</plugin>
-			<plugin>
-			    <!-- Newer version then in parent -->
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-gpg-plugin</artifactId>
-			    <version>1.6</version>
-			</plugin>
-		    </plugins>
-		</pluginManagement>
-		<plugins>
-		    <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<configuration>
-			    <skip>true</skip>
-			</configuration>
-		    </plugin>
-
-		    <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-javadoc-plugin</artifactId>
-			<executions>
-			    <execution>
-				<id>attach-javadocs</id>
-				<goals>
-				    <goal>jar</goal>
-				</goals>
-			    </execution>
-			</executions>
-		    </plugin>
-
-		    <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-gpg-plugin</artifactId>
-			<executions>
-			    <execution>
-				<id>sign-artifacts</id>
-				<phase>verify</phase>
-				<goals>
-				    <goal>sign</goal>
-				</goals>
-			    </execution>
-			</executions>
-		    </plugin>
-		    <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-deploy-plugin</artifactId>
-			<configuration>
-			   <skip>true</skip> <!-- To prefer nexus-staging-maven-plugin -->
-			</configuration>
-		   </plugin>
-		   <plugin>
-			<groupId>org.sonatype.plugins</groupId>
-			<artifactId>nexus-staging-maven-plugin</artifactId>
-			<extensions>true</extensions>
-			<executions>
-			    <execution>
-				<id>default-deploy</id>
-				<phase>deploy</phase>
-				<goals>
-				    <goal>deploy</goal>
-				</goals>
-			    </execution>
-			</executions>
-			<configuration>
-			    <serverId>ossrh</serverId>
-			    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-			    <autoReleaseAfterClose>false</autoReleaseAfterClose>
-			</configuration>
-		    </plugin>
-		</plugins>
-	    </build>
-	</profile>
-
-	<!--
-	    This profile is used for deploying a Jakarta Mail SNAPSHOT release.
-	    It's identical to the above deploy-release profile except that
-	    artifacts aren't signed.
-	-->
-	<profile>
-	    <id>deploy-snapshot</id>
-	    <modules>
-		<module>parent-distrib</module>
-	    </modules>
-	    <build>
-		<pluginManagement>
-		    <plugins>
-			<plugin>
-			    <!-- Enables step-by-step staging deployment -->
-			    <groupId>org.sonatype.plugins</groupId>
-			    <artifactId>nexus-staging-maven-plugin</artifactId>
-			    <version>1.6.7</version>
-			</plugin>
-		    </plugins>
-		</pluginManagement>
-		<plugins>
-		    <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<configuration>
-			    <skip>true</skip>
-			</configuration>
-		    </plugin>
-
-		    <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-javadoc-plugin</artifactId>
-			<executions>
-			    <execution>
-				<id>attach-javadocs</id>
-				<goals>
-				    <goal>jar</goal>
-				</goals>
-			    </execution>
-			</executions>
-		    </plugin>
-		    <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-deploy-plugin</artifactId>
-			<configuration>
-			   <skip>true</skip> <!-- To prefer nexus-staging-maven-plugin -->
-			</configuration>
-		   </plugin>
-		   <plugin>
-			<groupId>org.sonatype.plugins</groupId>
-			<artifactId>nexus-staging-maven-plugin</artifactId>
-			<extensions>true</extensions>
-			<executions>
-			    <execution>
-				<id>default-deploy</id>
-				<phase>deploy</phase>
-				<goals>
-				    <goal>deploy</goal>
-				</goals>
-			    </execution>
-			</executions>
-			<configuration>
-			    <serverId>ossrh</serverId>
-			    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-			    <autoReleaseAfterClose>false</autoReleaseAfterClose>
-			</configuration>
-		    </plugin>
-		</plugins>
-	    </build>
 	</profile>
 
 	<!--
@@ -400,12 +249,12 @@
 	</profile>
 
 	<!--
-	    A special profile for compiling with JDK 9.
+	    A special profile for compiling with JDK 11+.
 	-->
 	<profile>
-	    <id>9</id>
+	    <id>11</id>
 	    <activation>
-		<jdk>9</jdk>
+		<jdk>11</jdk>
 	    </activation>
 	    <build>
 		<plugins>
@@ -415,6 +264,11 @@
 			    <execution>
 				<id>default-compile</id>
 				<configuration>
+				    <source>1.8</source>
+				    <target>1.8</target>
+				    <excludes>
+					<exclude>module-info.java</exclude>
+				    </excludes>
 				    <compilerArgs>
 					<arg>-Xlint</arg>
 					<arg>-Xlint:-options</arg>
@@ -426,10 +280,28 @@
 				    </compilerArgs>
 				</configuration>
 			    </execution>
+			    <execution>
+				<id>module-info-compile</id>
+				<goals>
+				    <goal>compile</goal>
+				</goals>
+				<configuration>
+				    <release>9</release>
+				    <includes>
+					<include>module-info.java</include>
+				    </includes>
+				</configuration>
+			    </execution>
+			    <execution>
+				<id>default-testCompile</id>
+				<configuration>
+				    <release>9</release>
+				</configuration>
+			    </execution>
 			</executions>
 		    </plugin>
 		    <!--
-			Require JDK 9.
+			Require JDK 11.
 		    -->
 		    <plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -446,7 +318,7 @@
 					    <version>[3.0.3,)</version>
 					</requireMavenVersion>
 					<requireJavaVersion>
-					    <version>9</version>
+					    <version>[11,)</version>
 					</requireJavaVersion>
 				    </rules>
 				</configuration>
@@ -733,8 +605,7 @@
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-jar-plugin</artifactId>
-		    <!-- need at least this version to make excludes work -->
-		    <version>2.4</version>
+		    <version>3.1.2</version>
 		</plugin>
 		<plugin>
 		    <groupId>org.codehaus.mojo</groupId>
@@ -782,7 +653,7 @@
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-javadoc-plugin</artifactId>
-		    <version>3.0.0-M1</version>
+		    <version>3.1.1</version>
 		    <configuration>
 			<!-- make all the APIs available for javadoc -->
 			<additionalDependencies>
@@ -854,6 +725,11 @@
 	    <dependency>
 		<groupId>com.sun.mail</groupId>
 		<artifactId>dsn</artifactId>
+		<version>${mail.version}</version>
+	    </dependency>
+	    <dependency>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>imap</artifactId>
 		<version>${mail.version}</version>
 	    </dependency>
 	    <dependency>

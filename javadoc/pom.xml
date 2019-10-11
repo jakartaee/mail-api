@@ -156,29 +156,25 @@
 				    <packages>javax.*</packages>
 				</group>
 				<group>
-				    <title>RI-specific Packages</title>
+				    <title>Implementation-specific Packages</title>
 				    <packages>com.sun.*</packages>
 				</group>
 			    </groups>
-			    <subpackages>
-javax:com.sun.mail.imap:com.sun.mail.pop3:com.sun.mail.smtp:com.sun.mail.dsn:com.sun.mail.util:com.sun.mail.gimap
-			    </subpackages>
-			    <excludePackageNames>
-				com.sun.mail.imap.protocol:com.sun.mail.gimap.protocol
-			    </excludePackageNames>
-			    <sourcepath>${basedir}/target/javadoc</sourcepath>
 			    <!--
-				Links to Java SE javadocs.
-
-				XXX - links need to include a trailing "/."
-				      because Maven strips off a trailing "/"
-				      before passing the option to the javadoc
-				      command, which then strips off the last
-				      name if it doesn't end with "/".
+				Force javadoc to produce non-module docs
+				since the module definition isn't part of
+				the API specification.
 			    -->
-			    <links>
-				<link>http://docs.oracle.com/javase/7/docs/api/.</link>
-			    </links>
+			    <source>8</source>
+			    <sourceFileExcludes>
+				<sourceFileExclude>module-info.java</sourceFileExclude>
+				<sourceFileExclude>com/sun/mail/imap/protocol/**</sourceFileExclude>
+				<sourceFileExclude>com/sun/mail/gimap/protocol/**</sourceFileExclude>
+			    </sourceFileExcludes>
+			    <!-- force the doc-files directory to be copied -->
+			    <docfilessubdirs>true</docfilessubdirs>
+			    <detectJavaApiLink>false</detectJavaApiLink>
+			    <sourcepath>${basedir}/target/javadoc</sourcepath>
 			</configuration>
 		    </execution>
                 </executions>

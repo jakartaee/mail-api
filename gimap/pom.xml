@@ -66,6 +66,11 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>imap</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <reporting>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -110,7 +110,7 @@ import com.sun.mail.util.MailLogger;
  * allowing for a leap second; see [STD12]), and the zone MUST be within
  * the range -9959 through +9959.
  *
- * <h3><a name="synchronization">Synchronization</a></h3>
+ * <h3><a id="synchronization">Synchronization</a></h3>
  * 
  * <p>
  * Date formats are not synchronized.

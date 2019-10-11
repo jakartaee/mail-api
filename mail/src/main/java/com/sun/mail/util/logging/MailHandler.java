@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2019 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -35,10 +35,10 @@ import javax.mail.internet.*;
 import javax.mail.util.ByteArrayDataSource;
 
 /**
- * <tt>Handler</tt> that formats log records as an email message.
+ * <code>Handler</code> that formats log records as an email message.
  *
  * <p>
- * This <tt>Handler</tt> will store a fixed number of log records used to
+ * This <code>Handler</code> will store a fixed number of log records used to
  * generate a single email message.  When the internal buffer reaches capacity,
  * all log records are formatted and placed in an email which is sent to an
  * email server.  The code to manually setup this handler can be as simple as
@@ -67,8 +67,8 @@ import javax.mail.util.ByteArrayDataSource;
  *      com.sun.mail.util.logging.MailHandler.verify = local
  * </pre>
  *
- * For a custom handler, e.g. <tt>com.foo.MyHandler</tt>, the properties would
- * be:
+ * For a custom handler, e.g. <code>com.foo.MyHandler</code>, the properties
+ * would be:
  *
  * <pre>
  *      #Subclass com.foo.MyHandler settings.
@@ -78,29 +78,30 @@ import javax.mail.util.ByteArrayDataSource;
  *      com.foo.MyHandler.verify = local
  * </pre>
  *
- * All mail properties documented in the <tt>Java Mail API</tt> cascade to the
- * LogManager by prefixing a key using the fully qualified class name of this
- * <tt>MailHandler</tt> or the fully qualified derived class name dot mail
- * property.  If the prefixed property is not found, then the mail property
- * itself is searched in the LogManager. By default each <tt>MailHandler</tt> is
- * initialized using the following LogManager configuration properties where
- * <tt>&lt;handler-name&gt;</tt> refers to the fully qualified class name of the
- * handler.  If properties are not defined, or contain invalid values, then the
- * specified default values are used.
+ * All mail properties documented in the <code>Java Mail API</code> cascade to
+ * the LogManager by prefixing a key using the fully qualified class name of
+ * this <code>MailHandler</code> or the fully qualified derived class name dot
+ * mail property.  If the prefixed property is not found, then the mail property
+ * itself is searched in the LogManager. By default each
+ * <code>MailHandler</code> is initialized using the following LogManager
+ * configuration properties where <code>&lt;handler-name&gt;</code> refers to
+ * the fully qualified class name of the handler.  If properties are not
+ * defined, or contain invalid values, then the specified default values are
+ * used.
  *
  * <ul>
  * <li>&lt;handler-name&gt;.attachment.filters a comma
- * separated list of <tt>Filter</tt> class names used to create each attachment.
- * The literal <tt>null</tt> is reserved for attachments that do not require
- * filtering. (defaults to the
+ * separated list of <code>Filter</code> class names used to create each
+ * attachment.  The literal <code>null</code> is reserved for attachments that
+ * do not require filtering. (defaults to the
  * {@linkplain java.util.logging.Handler#getFilter() body} filter)
  *
  * <li>&lt;handler-name&gt;.attachment.formatters a comma
- * separated list of <tt>Formatter</tt> class names used to create each
+ * separated list of <code>Formatter</code> class names used to create each
  * attachment. (default is no attachments)
  *
  * <li>&lt;handler-name&gt;.attachment.names a comma separated
- * list of names or <tt>Formatter</tt> class names of each attachment.  All
+ * list of names or <code>Formatter</code> class names of each attachment.  All
  * control characters are removed from the attachment names.
  * (default is {@linkplain java.util.logging.Formatter#toString() toString}
  * of the attachment formatter)
@@ -109,54 +110,55 @@ import javax.mail.util.ByteArrayDataSource;
  * {@linkplain javax.mail.Authenticator} class used to provide login credentials
  * to the email server or string literal that is the password used with the
  * {@linkplain Authenticator#getDefaultUserName() default} user name.
- * (default is <tt>null</tt>)
+ * (default is <code>null</code>)
  *
  * <li>&lt;handler-name&gt;.capacity the max number of
- * <tt>LogRecord</tt> objects include in each email message.
- * (defaults to <tt>1000</tt>)
+ * <code>LogRecord</code> objects include in each email message.
+ * (defaults to <code>1000</code>)
  *
  * <li>&lt;handler-name&gt;.comparator name of a
  * {@linkplain java.util.Comparator} class used to sort the published
- * <tt>LogRecord</tt> objects prior to all formatting.
- * (defaults to <tt>null</tt> meaning records are unsorted).
+ * <code>LogRecord</code> objects prior to all formatting.
+ * (defaults to <code>null</code> meaning records are unsorted).
  *
  * <li>&lt;handler-name&gt;.comparator.reverse a boolean
- * <tt>true</tt> to reverse the order of the specified comparator or
- * <tt>false</tt> to retain the original order. (defaults to <tt>false</tt>)
+ * <code>true</code> to reverse the order of the specified comparator or
+ * <code>false</code> to retain the original order.
+ * (defaults to <code>false</code>)
  *
  * <li>&lt;handler-name&gt;.encoding the name of the Java
  * {@linkplain java.nio.charset.Charset#name() character set} to use for the
- * email message. (defaults to <tt>null</tt>, the
+ * email message. (defaults to <code>null</code>, the
  * {@linkplain javax.mail.internet.MimeUtility#getDefaultJavaCharset() default}
  * platform encoding).
  *
  * <li>&lt;handler-name&gt;.errorManager name of an
- * <tt>ErrorManager</tt> class used to handle any configuration or mail
- * transport problems. (defaults to <tt>java.util.logging.ErrorManager</tt>)
+ * <code>ErrorManager</code> class used to handle any configuration or mail
+ * transport problems. (defaults to <code>java.util.logging.ErrorManager</code>)
  *
- * <li>&lt;handler-name&gt;.filter name of a <tt>Filter</tt>
- * class used for the body of the message. (defaults to <tt>null</tt>,
+ * <li>&lt;handler-name&gt;.filter name of a <code>Filter</code>
+ * class used for the body of the message. (defaults to <code>null</code>,
  * allow all records)
  *
  * <li>&lt;handler-name&gt;.formatter name of a
- * <tt>Formatter</tt> class used to format the body of this message.
- * (defaults to <tt>java.util.logging.SimpleFormatter</tt>)
+ * <code>Formatter</code> class used to format the body of this message.
+ * (defaults to <code>java.util.logging.SimpleFormatter</code>)
  *
  * <li>&lt;handler-name&gt;.level specifies the default level
- * for this <tt>Handler</tt> (defaults to <tt>Level.WARNING</tt>).
+ * for this <code>Handler</code> (defaults to <code>Level.WARNING</code>).
  *
  * <li>&lt;handler-name&gt;.mail.bcc a comma separated list of
  * addresses which will be blind carbon copied.  Typically, this is set to the
  * recipients that may need to be privately notified of a log message or
  * notified that a log message was sent to a third party such as a support team.
  * The empty string can be used to specify no blind carbon copied address.
- * (defaults to <tt>null</tt>, none)
+ * (defaults to <code>null</code>, none)
  *
  * <li>&lt;handler-name&gt;.mail.cc a comma separated list of
  * addresses which will be carbon copied.  Typically, this is set to the
  * recipients that may need to be notified of a log message but, are not
  * required to provide direct support.  The empty string can be used to specify
- * no carbon copied address.  (defaults to <tt>null</tt>, none)
+ * no carbon copied address.  (defaults to <code>null</code>, none)
  *
  * <li>&lt;handler-name&gt;.mail.from a comma separated list of
  * addresses which will be from addresses. Typically, this is set to the email
@@ -165,15 +167,15 @@ import javax.mail.util.ByteArrayDataSource;
  * (defaults to the {@linkplain javax.mail.Message#setFrom() local address})
  *
  * <li>&lt;handler-name&gt;.mail.host the host name or IP
- * address of the email server. (defaults to <tt>null</tt>, use
+ * address of the email server. (defaults to <code>null</code>, use
  * {@linkplain Transport#protocolConnect default}
- * <tt>Java Mail</tt> behavior)
+ * <code>Java Mail</code> behavior)
  *
  * <li>&lt;handler-name&gt;.mail.reply.to a comma separated
  * list of addresses which will be reply-to addresses.  Typically, this is set
  * to the recipients that provide support for the application itself.  The empty
  * string can be used to specify no reply-to address.
- * (defaults to <tt>null</tt>, none)
+ * (defaults to <code>null</code>, none)
  *
  * <li>&lt;handler-name&gt;.mail.to a comma separated list of
  * addresses which will be send-to addresses. Typically, this is set to the
@@ -187,43 +189,44 @@ import javax.mail.util.ByteArrayDataSource;
  * identifying sender of the email; never equal to the from address.  Typically,
  * this is set to the email address identifying the application itself.  The
  * empty string can be used to specify no sender address.
- * (defaults to <tt>null</tt>, none)
+ * (defaults to <code>null</code>, none)
  *
  * <li>&lt;handler-name&gt;.subject the name of a
- * <tt>Formatter</tt> class or string literal used to create the subject line.
- * The empty string can be used to specify no subject.  All control characters
- * are removed from the subject line. (defaults to {@linkplain
+ * <code>Formatter</code> class or string literal used to create the subject
+ * line.  The empty string can be used to specify no subject.  All control
+ * characters are removed from the subject line. (defaults to {@linkplain
  * com.sun.mail.util.logging.CollectorFormatter CollectorFormatter}.)
  *
  * <li>&lt;handler-name&gt;.pushFilter the name of a
- * <tt>Filter</tt> class used to trigger an early push.
- * (defaults to <tt>null</tt>, no early push)
+ * <code>Filter</code> class used to trigger an early push.
+ * (defaults to <code>null</code>, no early push)
  *
  * <li>&lt;handler-name&gt;.pushLevel the level which will
- * trigger an early push. (defaults to <tt>Level.OFF</tt>, only push when full)
+ * trigger an early push. (defaults to <code>Level.OFF</code>, only push when
+ * full)
  *
- * <li>&lt;handler-name&gt;.verify <a name="verify">used</a> to
- * verify the <tt>Handler</tt> configuration prior to a push.
+ * <li>&lt;handler-name&gt;.verify <a id="verify">used</a> to
+ * verify the <code>Handler</code> configuration prior to a push.
  * <ul>
  *      <li>If the value is not set, equal to an empty string, or equal to the
- *      literal <tt>null</tt> then no settings are verified prior to a push.
- *      <li>If set to a value of <tt>limited</tt> then the <tt>Handler</tt> will
- *      verify minimal local machine settings.
- *      <li>If set to a value of <tt>local</tt> the <tt>Handler</tt> will verify
- *      all of settings of the local machine.
- *      <li>If set to a value of <tt>resolve</tt>, the <tt>Handler</tt> will
- *      verify all local settings and try to resolve the remote host name with
- *      the domain name server.
- *      <li>If set to a value of <tt>login</tt>, the <tt>Handler</tt> will
- *      verify all local settings and try to establish a connection with
+ *      literal <code>null</code> then no settings are verified prior to a push.
+ *      <li>If set to a value of <code>limited</code> then the
+ *      <code>Handler</code> will verify minimal local machine settings.
+ *      <li>If set to a value of <code>local</code> the <code>Handler</code>
+ *      will verify all of settings of the local machine.
+ *      <li>If set to a value of <code>resolve</code>, the <code>Handler</code>
+ *      will verify all local settings and try to resolve the remote host name
+ *      with the domain name server.
+ *      <li>If set to a value of <code>login</code>, the <code>Handler</code>
+ *      will verify all local settings and try to establish a connection with
  *      the email server.
- *      <li>If set to a value of <tt>remote</tt>, the <tt>Handler</tt> will
- *      verify all local settings, try to establish a connection with the
+ *      <li>If set to a value of <code>remote</code>, the <code>Handler</code>
+ *      will verify all local settings, try to establish a connection with the
  *      email server, and try to verify the envelope of the email message.
  * </ul>
- * If this <tt>Handler</tt> is only implicitly closed by the
- * <tt>LogManager</tt>, then verification should be turned on.
- * (defaults to <tt>null</tt>, no verify).
+ * If this <code>Handler</code> is only implicitly closed by the
+ * <code>LogManager</code>, then verification should be turned on.
+ * (defaults to <code>null</code>, no verify).
  * </ul>
  *
  * <p>
@@ -251,22 +254,23 @@ import javax.mail.util.ByteArrayDataSource;
  *
  * <p>
  * <b>Sorting:</b>
- * All <tt>LogRecord</tt> objects are ordered prior to formatting if this
- * <tt>Handler</tt> has a non null comparator.  Developers might be interested
- * in sorting the formatted email by thread id, time, and sequence properties
- * of a <tt>LogRecord</tt>.  Where as system administrators might be interested
- * in sorting the formatted email by thrown, level, time, and sequence
- * properties of a <tt>LogRecord</tt>.  If comparator for this handler is
- * <tt>null</tt> then the order is unspecified.
+ * All <code>LogRecord</code> objects are ordered prior to formatting if this
+ * <code>Handler</code> has a non null comparator.  Developers might be
+ * interested in sorting the formatted email by thread id, time, and sequence
+ * properties of a <code>LogRecord</code>.  Where as system administrators might
+ * be interested in sorting the formatted email by thrown, level, time, and
+ * sequence properties of a <code>LogRecord</code>.  If comparator for this
+ * handler is <code>null</code> then the order is unspecified.
  *
  * <p>
  * <b>Formatting:</b>
- * The main message body is formatted using the <tt>Formatter</tt> returned by
- * <tt>getFormatter()</tt>.  Only records that pass the filter returned by
- * <tt>getFilter()</tt> will be included in the message body.  The subject
- * <tt>Formatter</tt> will see all <tt>LogRecord</tt> objects that were
- * published regardless of the current <tt>Filter</tt>.  The MIME type of the
- * message body can be {@linkplain FileTypeMap#setDefaultFileTypeMap overridden}
+ * The main message body is formatted using the <code>Formatter</code> returned
+ * by <code>getFormatter()</code>.  Only records that pass the filter returned
+ * by <code>getFilter()</code> will be included in the message body.  The
+ * subject <code>Formatter</code> will see all <code>LogRecord</code> objects
+ * that were published regardless of the current <code>Filter</code>.  The MIME
+ * type of the message body can be
+ * {@linkplain FileTypeMap#setDefaultFileTypeMap overridden}
  * by adding a MIME {@linkplain MimetypesFileTypeMap entry} using the simple
  * class name of the body formatter as the file extension.  The MIME type of the
  * attachments can be overridden by changing the attachment file name extension
@@ -274,18 +278,18 @@ import javax.mail.util.ByteArrayDataSource;
  *
  * <p>
  * <b>Attachments:</b>
- * This <tt>Handler</tt> allows multiple attachments per each email message.
+ * This <code>Handler</code> allows multiple attachments per each email message.
  * The presence of an attachment formatter will change the content type of the
  * email message to a multi-part message.  The attachment order maps directly to
- * the array index order in this <tt>Handler</tt> with zero index being the
+ * the array index order in this <code>Handler</code> with zero index being the
  * first attachment.  The number of attachment formatters controls the number of
  * attachments per email and the content type of each attachment.  The
- * attachment filters determine if a <tt>LogRecord</tt> will be included in an
- * attachment.  If an attachment filter is <tt>null</tt> then all records are
- * included for that attachment.  Attachments without content will be omitted
- * from email message.  The attachment name formatters create the file name for
- * an attachment.  Custom attachment name formatters can be used to generate an
- * attachment name based on the contents of the attachment.
+ * attachment filters determine if a <code>LogRecord</code> will be included in
+ * an attachment.  If an attachment filter is <code>null</code> then all records
+ * are included for that attachment.  Attachments without content will be
+ * omitted from email message.  The attachment name formatters create the file
+ * name for an attachment.  Custom attachment name formatters can be used to
+ * generate an attachment name based on the contents of the attachment.
  *
  * <p>
  * <b>Push Level and Push Filter:</b>
@@ -300,25 +304,25 @@ import javax.mail.util.ByteArrayDataSource;
  * Log records that are published are stored in an internal buffer.  When this
  * buffer reaches capacity the existing records are formatted and sent in an
  * email.  Any published records can be sent before reaching capacity by
- * explictly calling the <tt>flush</tt>, <tt>push</tt>, or <tt>close</tt>
- * methods.  If a circular buffer is required then this handler can be wrapped
- * with a {@linkplain java.util.logging.MemoryHandler} typically with an
- * equivalent capacity, level, and push level.
+ * explictly calling the <code>flush</code>, <code>push</code>, or
+ * <code>close</code> methods.  If a circular buffer is required then this
+ * handler can be wrapped with a {@linkplain java.util.logging.MemoryHandler}
+ * typically with an equivalent capacity, level, and push level.
  *
  * <p>
  * <b>Error Handling:</b>
  * If the transport of an email message fails, the email is converted to
  * a {@linkplain javax.mail.internet.MimeMessage#writeTo raw}
  * {@linkplain java.io.ByteArrayOutputStream#toString(java.lang.String) string}
- * and is then passed as the <tt>msg</tt> parameter to
+ * and is then passed as the <code>msg</code> parameter to
  * {@linkplain Handler#reportError reportError} along with the exception
  * describing the cause of the failure.  This allows custom error managers to
  * store, {@linkplain javax.mail.internet.MimeMessage#MimeMessage(
  * javax.mail.Session, java.io.InputStream) reconstruct}, and resend the
  * original MimeMessage.  The message parameter string is <b>not</b> a raw email
- * if it starts with value returned from <tt>Level.SEVERE.getName()</tt>.
+ * if it starts with value returned from <code>Level.SEVERE.getName()</code>.
  * Custom error managers can use the following test to determine if the
- * <tt>msg</tt> parameter from this handler is a raw email:
+ * <code>msg</code> parameter from this handler is a raw email:
  *
  * <pre>
  * public void error(String msg, Exception ex, int code) {
@@ -511,10 +515,10 @@ public class MailHandler extends Handler {
     private volatile ErrorManager errorManager = defaultErrorManager();
 
     /**
-     * Creates a <tt>MailHandler</tt> that is configured by the
-     * <tt>LogManager</tt> configuration properties.
+     * Creates a <code>MailHandler</code> that is configured by the
+     * <code>LogManager</code> configuration properties.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      */
     public MailHandler() {
         init((Properties) null);
@@ -523,13 +527,13 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Creates a <tt>MailHandler</tt> that is configured by the
-     * <tt>LogManager</tt> configuration properties but overrides the
-     * <tt>LogManager</tt> capacity with the given capacity.
+     * Creates a <code>MailHandler</code> that is configured by the
+     * <code>LogManager</code> configuration properties but overrides the
+     * <code>LogManager</code> capacity with the given capacity.
      * @param capacity of the internal buffer.
-     * @throws IllegalArgumentException if <tt>capacity</tt> less than one.
+     * @throws IllegalArgumentException if <code>capacity</code> less than one.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      */
     public MailHandler(final int capacity) {
         init((Properties) null);
@@ -539,13 +543,13 @@ public class MailHandler extends Handler {
 
     /**
      * Creates a mail handler with the given mail properties.
-     * The key/value pairs are defined in the <tt>Java Mail API</tt>
-     * documentation.  This <tt>Handler</tt> will also search the
-     * <tt>LogManager</tt> for defaults if needed.
-     * @param props a non <tt>null</tt> properties object.
-     * @throws NullPointerException if <tt>props</tt> is <tt>null</tt>.
+     * The key/value pairs are defined in the <code>Java Mail API</code>
+     * documentation.  This <code>Handler</code> will also search the
+     * <code>LogManager</code> for defaults if needed.
+     * @param props a non <code>null</code> properties object.
+     * @throws NullPointerException if <code>props</code> is <code>null</code>.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      */
     public MailHandler(final Properties props) {
         if (props == null) {
@@ -557,16 +561,17 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Check if this <tt>Handler</tt> would actually log a given
-     * <tt>LogRecord</tt> into its internal buffer.
+     * Check if this <code>Handler</code> would actually log a given
+     * <code>LogRecord</code> into its internal buffer.
      * <p>
-     * This method checks if the <tt>LogRecord</tt> has an appropriate level and
-     * whether it satisfies any <tt>Filter</tt> including any attachment filters.
-     * However it does <b>not</b> check whether the <tt>LogRecord</tt> would
+     * This method checks if the <code>LogRecord</code> has an appropriate level
+     * and whether it satisfies any <code>Filter</code> including any
+     * attachment filters.
+     * However it does <b>not</b> check whether the <code>LogRecord</code> would
      * result in a "push" of the buffer contents.
      * <p>
-     * @param record  a <tt>LogRecord</tt>
-     * @return true if the <tt>LogRecord</tt> would be logged.
+     * @param record  a <code>LogRecord</code>
+     * @return true if the <code>LogRecord</code> would be logged.
      */
     @Override
     public boolean isLoggable(final LogRecord record) {
@@ -585,12 +590,12 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Stores a <tt>LogRecord</tt> in the internal buffer.
+     * Stores a <code>LogRecord</code> in the internal buffer.
      * <p>
-     * The <tt>isLoggable</tt> method is called to check if the given log record
-     * is loggable. If the given record is loggable, it is copied into
+     * The <code>isLoggable</code> method is called to check if the given log
+     * record is loggable. If the given record is loggable, it is copied into
      * an internal buffer.  Then the record's level property is compared with
-     * the push level. If the given level of the <tt>LogRecord</tt>
+     * the push level. If the given level of the <code>LogRecord</code>
      * is greater than or equal to the push level then the push filter is
      * called.  If no push filter exists, the push filter returns true,
      * or the capacity of the internal buffer has been reached then all buffered
@@ -823,11 +828,11 @@ public class MailHandler extends Handler {
      * The internal buffer is then cleared.  Once this handler is closed it
      * will remain closed.
      * <p>
-     * If this <tt>Handler</tt> is only implicitly closed by the
-     * <tt>LogManager</tt>, then <a href="#verify">verification</a> should be
-     * turned on.
+     * If this <code>Handler</code> is only implicitly closed by the
+     * <code>LogManager</code>, then <a href="#verify">verification</a> should
+     * be turned on.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @see #flush()
      */
     @Override
@@ -868,12 +873,14 @@ public class MailHandler extends Handler {
 
     /**
      * Set the log level specifying which message levels will be
-     * logged by this <tt>Handler</tt>.  Message levels lower than this
+     * logged by this <code>Handler</code>.  Message levels lower than this
      * value will be discarded.
      * @param newLevel   the new value for the log level
-     * @throws NullPointerException if <tt>newLevel</tt> is <tt>null</tt>.
+     * @throws NullPointerException if <code>newLevel</code> is
+     *          <code>null</code>.
      * @throws SecurityException  if a security manager exists and
-     *          the caller does not have <tt>LoggingPermission("control")</tt>.
+     *          the caller does not have
+     *          <code>LoggingPermission("control")</code>.
      */
     @Override
     public void setLevel(final Level newLevel) {
@@ -892,7 +899,7 @@ public class MailHandler extends Handler {
 
     /**
      * Get the log level specifying which messages will be logged by this
-     * <tt>Handler</tt>.  Message levels lower than this level will be
+     * <code>Handler</code>.  Message levels lower than this level will be
      * discarded.
      *
      * @return the level of messages being logged.
@@ -907,7 +914,7 @@ public class MailHandler extends Handler {
      *
      * @return the ErrorManager for this Handler
      * @throws SecurityException if a security manager exists and if the caller
-     * does not have <tt>LoggingPermission("control")</tt>.
+     * does not have <code>LoggingPermission("control")</code>.
      */
     @Override
     public ErrorManager getErrorManager() {
@@ -923,7 +930,7 @@ public class MailHandler extends Handler {
      *
      * @param em  the new ErrorManager
      * @throws  SecurityException  if a security manager exists and if the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws NullPointerException if the given error manager is null.
      */
     @Override
@@ -955,9 +962,9 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Get the current <tt>Filter</tt> for this <tt>Handler</tt>.
+     * Get the current <code>Filter</code> for this <code>Handler</code>.
      *
-     * @return  a <tt>Filter</tt> object (may be null)
+     * @return  a <code>Filter</code> object (may be null)
      */
     @Override
     public Filter getFilter() {
@@ -965,15 +972,15 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Set a <tt>Filter</tt> to control output on this <tt>Handler</tt>.
+     * Set a <code>Filter</code> to control output on this <code>Handler</code>.
      * <P>
-     * For each call of <tt>publish</tt> the <tt>Handler</tt> will call this
-     * <tt>Filter</tt> (if it is non-null) to check if the <tt>LogRecord</tt>
-     * should be published or discarded.
+     * For each call of <code>publish</code> the <code>Handler</code> will call
+     * this <code>Filter</code> (if it is non-null) to check if the
+     * <code>LogRecord</code> should be published or discarded.
      *
-     * @param newFilter  a <tt>Filter</tt> object (may be null)
+     * @param newFilter  a <code>Filter</code> object (may be null)
      * @throws SecurityException  if a security manager exists and if the caller
-     * does not have <tt>LoggingPermission("control")</tt>.
+     * does not have <code>LoggingPermission("control")</code>.
      */
     @Override
     public void setFilter(final Filter newFilter) {
@@ -987,7 +994,7 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Return the character encoding for this <tt>Handler</tt>.
+     * Return the character encoding for this <code>Handler</code>.
      *
      * @return  The encoding name.  May be null, which indicates the default
      * encoding should be used.
@@ -998,15 +1005,15 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Set the character encoding used by this <tt>Handler</tt>.
+     * Set the character encoding used by this <code>Handler</code>.
      * <p>
-     * The encoding should be set before any <tt>LogRecords</tt> are written
-     * to the <tt>Handler</tt>.
+     * The encoding should be set before any <code>LogRecords</code> are written
+     * to the <code>Handler</code>.
      *
      * @param encoding  The name of a supported character encoding.  May be
      * null, to indicate the default platform encoding.
      * @throws SecurityException  if a security manager exists and if the caller
-     * does not have <tt>LoggingPermission("control")</tt>.
+     * does not have <code>LoggingPermission("control")</code>.
      * @throws UnsupportedEncodingException if the named encoding is not
      * supported.
      */
@@ -1040,9 +1047,9 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Return the <tt>Formatter</tt> for this <tt>Handler</tt>.
+     * Return the <code>Formatter</code> for this <code>Handler</code>.
      *
-     * @return the <tt>Formatter</tt> (may be null).
+     * @return the <code>Formatter</code> (may be null).
      */
     @Override
     public synchronized Formatter getFormatter() {
@@ -1050,15 +1057,15 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Set a <tt>Formatter</tt>.  This <tt>Formatter</tt> will be used to format
-     * <tt>LogRecords</tt> for this <tt>Handler</tt>.
+     * Set a <code>Formatter</code>.  This <code>Formatter</code> will be used
+     * to format <code>LogRecords</code> for this <code>Handler</code>.
      * <p>
-     * Some <tt>Handlers</tt> may not use <tt>Formatters</tt>, in which case the
-     * <tt>Formatter</tt> will be remembered, but not used.
+     * Some <code>Handlers</code> may not use <code>Formatters</code>, in which
+     * case the <code>Formatter</code> will be remembered, but not used.
      * <p>
-     * @param newFormatter the <tt>Formatter</tt> to use (may not be null)
+     * @param newFormatter the <code>Formatter</code> to use (may not be null)
      * @throws SecurityException  if a security manager exists and if the caller
-     * does not have <tt>LoggingPermission("control")</tt>.
+     * does not have <code>LoggingPermission("control")</code>.
      * @throws NullPointerException if the given formatter is null.
      */
     @Override
@@ -1071,8 +1078,8 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Gets the push level.  The default is <tt>Level.OFF</tt> meaning that
-     * this <tt>Handler</tt> will only push when the internal buffer is full.
+     * Gets the push level.  The default is <code>Level.OFF</code> meaning that
+     * this <code>Handler</code> will only push when the internal buffer is full.
      * @return the push level.
      */
     public final synchronized Level getPushLevel() {
@@ -1085,9 +1092,9 @@ public class MailHandler extends Handler {
      * the push level triggers a send, the resulting email is flagged as
      * high importance with urgent priority.
      * @param level Level object.
-     * @throws NullPointerException if <tt>level</tt> is <tt>null</tt>.
+     * @throws NullPointerException if <code>level</code> is <code>null</code>.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     public final synchronized void setPushLevel(final Level level) {
@@ -1103,8 +1110,8 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Gets the push filter.  The default is <tt>null</tt>.
-     * @return the push filter or <tt>null</tt>.
+     * Gets the push filter.  The default is <code>null</code>.
+     * @return the push filter or <code>null</code>.
      */
     public final synchronized Filter getPushFilter() {
         return this.pushFilter;
@@ -1112,13 +1119,13 @@ public class MailHandler extends Handler {
 
     /**
      * Sets the push filter.  This filter is only called if the given
-     * <tt>LogRecord</tt> level was greater than the push level.  If this
-     * filter returns <tt>true</tt>, all pending records are formatted and sent
-     * to the email server.  When the push filter triggers a send, the resulting
-     * email is flagged as high importance with urgent priority.
-     * @param filter push filter or <tt>null</tt>
+     * <code>LogRecord</code> level was greater than the push level.  If this
+     * filter returns <code>true</code>, all pending records are formatted and
+     * sent to the email server.  When the push filter triggers a send, the
+     * resulting email is flagged as high importance with urgent priority.
+     * @param filter push filter or <code>null</code>
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     public final synchronized void setPushFilter(final Filter filter) {
@@ -1130,20 +1137,20 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Gets the comparator used to order all <tt>LogRecord</tt> objects prior
-     * to formatting.  If <tt>null</tt> then the order is unspecified.
-     * @return the <tt>LogRecord</tt> comparator.
+     * Gets the comparator used to order all <code>LogRecord</code> objects
+     * prior to formatting.  If <code>null</code> then the order is unspecified.
+     * @return the <code>LogRecord</code> comparator.
      */
     public final synchronized Comparator<? super LogRecord> getComparator() {
         return this.comparator;
     }
 
     /**
-     * Sets the comparator used to order all <tt>LogRecord</tt> objects prior
-     * to formatting.  If <tt>null</tt> then the order is unspecified.
-     * @param c the <tt>LogRecord</tt> comparator.
+     * Sets the comparator used to order all <code>LogRecord</code> objects
+     * prior to formatting.  If <code>null</code> then the order is unspecified.
+     * @param c the <code>LogRecord</code> comparator.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     public final synchronized void setComparator(Comparator<? super LogRecord> c) {
@@ -1156,8 +1163,8 @@ public class MailHandler extends Handler {
 
     /**
      * Gets the number of log records the internal buffer can hold.  When
-     * capacity is reached, <tt>Handler</tt> will format all <tt>LogRecord</tt>
-     * objects into one email message.
+     * capacity is reached, <code>Handler</code> will format all
+     * <code>LogRecord</code> objects into one email message.
      * @return the capacity.
      */
     public final synchronized int getCapacity()  {
@@ -1166,10 +1173,11 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Gets the <tt>Authenticator</tt> used to login to the email server.
-     * @return an <tt>Authenticator</tt> or <tt>null</tt> if none is required.
+     * Gets the <code>Authenticator</code> used to login to the email server.
+     * @return an <code>Authenticator</code> or <code>null</code> if none is
+     * required.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      */
     public final synchronized Authenticator getAuthenticator() {
         checkAccess();
@@ -1177,10 +1185,11 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Sets the <tt>Authenticator</tt> used to login to the email server.
-     * @param auth an <tt>Authenticator</tt> object or null if none is required.
+     * Sets the <code>Authenticator</code> used to login to the email server.
+     * @param auth an <code>Authenticator</code> object or null if none is
+     * required.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     public final void setAuthenticator(final Authenticator auth) {
@@ -1188,12 +1197,12 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Sets the <tt>Authenticator</tt> used to login to the email server.
+     * Sets the <code>Authenticator</code> used to login to the email server.
      * @param password a password, empty array can be used to only supply a
-     * user name set by <tt>mail.user</tt> property, or null if no credentials
-     * are required.
+     * user name set by <code>mail.user</code> property, or null if no
+     * credentials are required.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IllegalStateException if called from inside a push.
      * @see String#toCharArray()
      * @since JavaMail 1.4.6
@@ -1210,7 +1219,7 @@ public class MailHandler extends Handler {
      * A private hook to handle possible future overrides. See public method.
      * @param auth see public method.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     private void setAuthenticator0(final Authenticator auth) {
@@ -1229,13 +1238,13 @@ public class MailHandler extends Handler {
 
     /**
      * Sets the mail properties used for the session.  The key/value pairs
-     * are defined in the <tt>Java Mail API</tt> documentation.  This
-     * <tt>Handler</tt> will also search the <tt>LogManager</tt> for defaults
-     * if needed.
-     * @param props a non <tt>null</tt> properties object.
+     * are defined in the <code>Java Mail API</code> documentation.  This
+     * <code>Handler</code> will also search the <code>LogManager</code> for
+     * defaults if needed.
+     * @param props a non <code>null</code> properties object.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
-     * @throws NullPointerException if <tt>props</tt> is <tt>null</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
+     * @throws NullPointerException if <code>props</code> is <code>null</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     public final void setMailProperties(Properties props) {
@@ -1265,7 +1274,7 @@ public class MailHandler extends Handler {
      * Gets a copy of the mail properties used for the session.
      * @return a non null properties object.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      */
     public final Properties getMailProperties() {
         checkAccess();
@@ -1278,7 +1287,7 @@ public class MailHandler extends Handler {
 
     /**
      * Gets the attachment filters.  If the attachment filter does not
-     * allow any <tt>LogRecord</tt> to be formatted, the attachment may
+     * allow any <code>LogRecord</code> to be formatted, the attachment may
      * be omitted from the email.
      * @return a non null array of attachment filters.
      */
@@ -1288,12 +1297,12 @@ public class MailHandler extends Handler {
 
     /**
      * Sets the attachment filters.
-     * @param filters a non <tt>null</tt> array of filters.  A <tt>null</tt>
-     * index value is allowed.  A <tt>null</tt> value means that all
-     * records are allowed for the attachment at that index.
+     * @param filters a non <code>null</code> array of filters.  A
+     * <code>null</code> index value is allowed.  A <code>null</code> value
+     * means that all records are allowed for the attachment at that index.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
-     * @throws NullPointerException if <tt>filters</tt> is <tt>null</tt>
+     * caller does not have <code>LoggingPermission("control")</code>.
+     * @throws NullPointerException if <code>filters</code> is <code>null</code>
      * @throws IndexOutOfBoundsException if the number of attachment
      * name formatters do not match the number of attachment formatters.
      * @throws IllegalStateException if called from inside a push.
@@ -1327,9 +1336,9 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Gets the attachment formatters.  This <tt>Handler</tt> is using
+     * Gets the attachment formatters.  This <code>Handler</code> is using
      * attachments only if the returned array length is non zero.
-     * @return a non <tt>null</tt> array of formatters.
+     * @return a non <code>null</code> array of formatters.
      */
     public final Formatter[] getAttachmentFormatters() {
         Formatter[] formatters;
@@ -1340,15 +1349,15 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Sets the attachment <tt>Formatter</tt> object for this handler.
+     * Sets the attachment <code>Formatter</code> object for this handler.
      * The number of formatters determines the number of attachments per
      * email.  This method should be the first attachment method called.
      * To remove all attachments, call this method with empty array.
      * @param formatters a non null array of formatters.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws NullPointerException if the given array or any array index is
-     * <tt>null</tt>.
+     * <code>null</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     public final void setAttachmentFormatters(Formatter... formatters) {
@@ -1379,9 +1388,9 @@ public class MailHandler extends Handler {
     /**
      * Gets the attachment name formatters.
      * If the attachment names were set using explicit names then
-     * the names can be returned by calling <tt>toString</tt> on each
+     * the names can be returned by calling <code>toString</code> on each
      * attachment name formatter.
-     * @return non <tt>null</tt> array of attachment name formatters.
+     * @return non <code>null</code> array of attachment name formatters.
      */
     public final Formatter[] getAttachmentNames() {
         final Formatter[] formatters;
@@ -1397,11 +1406,12 @@ public class MailHandler extends Handler {
      * This method will create a set of custom formatters.
      * @param names an array of names.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IndexOutOfBoundsException if the number of attachment
      * names do not match the number of attachment formatters.
      * @throws IllegalArgumentException  if any name is empty.
-     * @throws NullPointerException if any given array or name is <tt>null</tt>.
+     * @throws NullPointerException if any given array or name is
+     * <code>null</code>.
      * @throws IllegalStateException if called from inside a push.
      * @see Character#isISOControl(char)
      * @see Character#isISOControl(int)
@@ -1443,21 +1453,22 @@ public class MailHandler extends Handler {
 
     /**
      * Sets the attachment file name formatters.  The format method of each
-     * attachment formatter will see only the <tt>LogRecord</tt> objects that
-     * passed its attachment filter during formatting. The format method will
-     * typically return an empty string. Instead of being used to format
+     * attachment formatter will see only the <code>LogRecord</code> objects
+     * that passed its attachment filter during formatting. The format method
+     * will typically return an empty string. Instead of being used to format
      * records, it is used to gather information about the contents of an
-     * attachment.  The <tt>getTail</tt> method should be used to construct the
-     * attachment file name and reset any formatter collected state.  All
+     * attachment.  The <code>getTail</code> method should be used to construct
+     * the attachment file name and reset any formatter collected state.  All
      * control characters will be removed from the output of the formatter.  The
-     * <tt>toString</tt> method of the given formatter should be overridden to
-     * provide a useful attachment file name, if possible.
+     * <code>toString</code> method of the given formatter should be overridden
+     * to provide a useful attachment file name, if possible.
      * @param formatters and array of attachment name formatters.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IndexOutOfBoundsException if the number of attachment
      * name formatters do not match the number of attachment formatters.
-     * @throws NullPointerException if any given array or name is <tt>null</tt>.
+     * @throws NullPointerException if any given array or name is
+     * <code>null</code>.
      * @throws IllegalStateException if called from inside a push.
      * @see Character#isISOControl(char)
      * @see Character#isISOControl(int)
@@ -1495,7 +1506,7 @@ public class MailHandler extends Handler {
     /**
      * Gets the formatter used to create the subject line.
      * If the subject was created using a literal string then
-     * the <tt>toString</tt> method can be used to get the subject line.
+     * the <code>toString</code> method can be used to get the subject line.
      * @return the formatter.
      */
     public final synchronized Formatter getSubject() {
@@ -1505,10 +1516,11 @@ public class MailHandler extends Handler {
     /**
      * Sets a literal string for the email subject.  All control characters are
      * removed from the subject line.
-     * @param subject a non <tt>null</tt> string.
+     * @param subject a non <code>null</code> string.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
-     * @throws NullPointerException if <tt>subject</tt> is <tt>null</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
+     * @throws NullPointerException if <code>subject</code> is
+     * <code>null</code>.
      * @throws IllegalStateException if called from inside a push.
      * @see Character#isISOControl(char)
      * @see Character#isISOControl(int)
@@ -1524,19 +1536,19 @@ public class MailHandler extends Handler {
 
     /**
      * Sets the subject formatter for email.  The format method of the subject
-     * formatter will see all <tt>LogRecord</tt> objects that were published to
-     * this <tt>Handler</tt> during formatting and will typically return an
-     * empty string.  This formatter is used to gather information to create a
-     * summary about what information is contained in the email.  The
-     * <tt>getTail</tt> method should be used to construct the subject and reset
-     * any formatter collected state.  All control characters
-     * will be removed from the formatter output.  The <tt>toString</tt>
+     * formatter will see all <code>LogRecord</code> objects that were published
+     * to this <code>Handler</code> during formatting and will typically return
+     * an empty string.  This formatter is used to gather information to create
+     * a summary about what information is contained in the email.  The
+     * <code>getTail</code> method should be used to construct the subject and
+     * reset any formatter collected state.  All control characters
+     * will be removed from the formatter output.  The <code>toString</code>
      * method of the given formatter should be overridden to provide a useful
      * subject, if possible.
      * @param format the subject formatter.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
-     * @throws NullPointerException if <tt>format</tt> is <tt>null</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
+     * @throws NullPointerException if <code>format</code> is <code>null</code>.
      * @throws IllegalStateException if called from inside a push.
      * @see Character#isISOControl(char)
      * @see Character#isISOControl(int)
@@ -1558,8 +1570,8 @@ public class MailHandler extends Handler {
     /**
      * Protected convenience method to report an error to this Handler's
      * ErrorManager.  This method will prefix all non null error messages with
-     * <tt>Level.SEVERE.getName()</tt>.  This allows the receiving error
-     * manager to determine if the <tt>msg</tt> parameter is a simple error
+     * <code>Level.SEVERE.getName()</code>.  This allows the receiving error
+     * manager to determine if the <code>msg</code> parameter is a simple error
      * message or a raw email message.
      * @param msg    a descriptive string (may be null)
      * @param ex     an exception (may be null)
@@ -1846,7 +1858,7 @@ public class MailHandler extends Handler {
      * E.G. do nothing, flush now, truncate now, push now and resize.
      * @param newCapacity the max number of records.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      * @throws IllegalStateException if called from inside a push.
      */
     private synchronized void setCapacity0(final int newCapacity) {
@@ -1991,7 +2003,7 @@ public class MailHandler extends Handler {
      * @param props the given mail properties.  Maybe null and are never
      * captured by this handler.
      * @throws SecurityException  if a security manager exists and the
-     * caller does not have <tt>LoggingPermission("control")</tt>.
+     * caller does not have <code>LoggingPermission("control")</code>.
      */
     private synchronized void init(final Properties props) {
         assert this.errorManager != null;
@@ -2637,10 +2649,10 @@ public class MailHandler extends Handler {
 
     /**
      * Check if any attachment would actually format the given
-     * <tt>LogRecord</tt>.  This method does not check if the handler
+     * <code>LogRecord</code>.  This method does not check if the handler
      * is level is set to OFF or if the handler is closed.
-     * @param record  a <tt>LogRecord</tt>
-     * @return true if the <tt>LogRecord</tt> would be formatted.
+     * @param record  a <code>LogRecord</code>
+     * @return true if the <code>LogRecord</code> would be formatted.
      */
     private boolean isAttachmentLoggable(final LogRecord record) {
         final Filter[] filters = readOnlyAttachmentFilters();
@@ -2655,10 +2667,10 @@ public class MailHandler extends Handler {
     }
 
     /**
-     * Check if this <tt>Handler</tt> would push after storing the
-     * <tt>LogRecord</tt> into its internal buffer.
-     * @param record  a <tt>LogRecord</tt>
-     * @return true if the <tt>LogRecord</tt> triggers an email push.
+     * Check if this <code>Handler</code> would push after storing the
+     * <code>LogRecord</code> into its internal buffer.
+     * @param record  a <code>LogRecord</code>
+     * @return true if the <code>LogRecord</code> triggers an email push.
      * @throws NullPointerException if tryMutex was not called.
      */
     private boolean isPushable(final LogRecord record) {

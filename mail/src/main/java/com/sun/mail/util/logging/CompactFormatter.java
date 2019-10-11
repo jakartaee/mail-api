@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2013, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2019 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -25,16 +25,16 @@ import java.util.logging.LogRecord;
  * separator and newline characters. Only specified fields support an
  * {@linkplain #toAlternate(java.lang.String) alternate} fixed width format.
  * <p>
- * By default each <tt>CompactFormatter</tt> is initialized using the following
- * LogManager configuration properties where
- * <tt>&lt;formatter-name&gt;</tt> refers to the fully qualified class name or
- * the fully qualified derived class name of the formatter. If properties are
+ * By default each <code>CompactFormatter</code> is initialized using the
+ * following LogManager configuration properties where
+ * <code>&lt;formatter-name&gt;</code> refers to the fully qualified class name
+ * or the fully qualified derived class name of the formatter. If properties are
  * not defined, or contain invalid values, then the specified default values are
  * used.
  * <ul>
  * <li>&lt;formatter-name&gt;.format - the {@linkplain java.util.Formatter
  *     format} string used to transform the output. The format string can be
- * used to fix the output size. (defaults to <tt>%7$#.160s%n</tt>)</li>
+ * used to fix the output size. (defaults to <code>%7$#.160s%n</code>)</li>
  * </ul>
  *
  * @author Jason Mehrens

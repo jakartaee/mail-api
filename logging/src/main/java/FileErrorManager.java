@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2018 Jason Mehrens. All Rights Reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Jason Mehrens. All Rights Reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,9 +18,10 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 
 /**
- * An error manager used to store mime messages from the <tt>MailHandler</tt>
- * to the file system when the email server is unavailable or unreachable. The
- * code to manually setup this error manager can be as simple as the following:
+ * An error manager used to store mime messages from the
+ * <code>MailHandler</code> to the file system when the email server is
+ * unavailable or unreachable. The code to manually setup this error manager
+ * can be as simple as the following:
  * <pre>
  *      File dir = new File("path to dir");
  *      FileErrorManager em = new FileErrorManager(dir);
@@ -40,7 +41,7 @@ import java.util.logging.LogManager;
  * <ul>
  * <li>FileErrorManager.pattern the absolute file path to the directory which
  * will store any failed email messages. (defaults to the value of the system
- * property <tt>java.io.tmpdir</tt>)
+ * property <code>java.io.tmpdir</code>)
  * </ul>
  *
  * @author Jason Mehrens
@@ -77,10 +78,10 @@ public class FileErrorManager extends ErrorManager {
      * Creates a new error manager.
      *
      * @param dir a directory to store the email files.
-     * @throws NullPointerException if <tt>dir</tt> is <tt>null</tt>
-     * @throws IllegalArgumentException if <tt>dir</tt> is a
-     * <tt>java.io.File</tt> subclass, not a directory, or is not an absolute
-     * path.
+     * @throws NullPointerException if <code>dir</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>dir</code> is a
+     * <code>java.io.File</code> subclass, not a directory, or is not an
+     * absolute path.
      * @throws SecurityException if a security manager is present and unable to
      * read or write to a given directory.
      */

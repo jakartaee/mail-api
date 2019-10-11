@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2019 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -835,8 +835,8 @@ final class LogManagerProperties extends Properties {
      *
      * @param parent the parent properties.
      * @param prefix the namespace prefix.
-     * @throws NullPointerException if <tt>prefix</tt> or <tt>parent</tt> is
-     * <tt>null</tt>.
+     * @throws NullPointerException if <code>prefix</code> or
+     * <code>parent</code> is <code>null</code>.
      */
     LogManagerProperties(final Properties parent, final String prefix) {
         super(parent);

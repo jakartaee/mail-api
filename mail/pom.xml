@@ -106,27 +106,31 @@
 	</profile>
 
 	<!--
-	    A special profile used when compiling with the real JDK 9 compiler.
-	    Override the release setting from the parent's "9" profile so
-	    that we produce JDK 1.7 compatible class files.
+	    A special profile used when compiling with the real JDK 11 compiler.
+	    Override the release setting from the parent's "11" profile so
+	    that we produce JDK 1.8 compatible class files.
 	-->
 	<profile>
-	    <id>9</id>
+	    <id>11</id>
 	    <activation>
-		<jdk>9</jdk>
+		<jdk>11</jdk>
 	    </activation>
 	    <build>
 		<plugins>
 		    <plugin>
 			<artifactId>maven-compiler-plugin</artifactId>
-			<executions>
-			    <execution>
-				<id>default-compile</id>
-				<configuration>
-				    <release combine.self="override"></release>
-				</configuration>
-			    </execution>
-			</executions>
+			<configuration>
+			    <release combine.self="override"></release>
+			    <compilerArgs>
+				<arg>-Xlint</arg>
+				<arg>-Xlint:-options</arg>
+				<arg>-Xlint:-path</arg>
+				<!--
+				    Too many finalize warnings.
+				<arg>-Werror</arg>
+				-->
+			    </compilerArgs>
+			</configuration>
 		    </plugin>
 		</plugins>
 	    </build>
@@ -151,8 +155,8 @@
 	    <plugin>
 		<artifactId>maven-compiler-plugin</artifactId>
 		<configuration>
-		    <source>1.7</source>
-		    <target>1.7</target>
+		    <source>1.8</source>
+		    <target>1.8</target>
 		    <compilerArgs>
 			<arg>-Xlint</arg>
 			<arg>-Xlint:-options</arg>
