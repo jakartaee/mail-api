@@ -1601,9 +1601,10 @@ public class IMAPStore extends Store
     public synchronized void close() throws MessagingException {
 	cleanup();
 	// do these again in case cleanup returned early
-	// because we were already closed due to a failure
-	closeAllFolders(false);
-	emptyConnectionPool(false);
+	// because we were already closed due to a failure,
+	// in which case we force close everything
+	closeAllFolders(true);
+	emptyConnectionPool(true);
     }
 
     @Override
