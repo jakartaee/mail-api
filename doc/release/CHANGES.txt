@@ -25,6 +25,7 @@ longer available.
 The following bugs have been fixed in the 1.6.5 release.
 
 E  398	Don't enforce dot rules for quoted-string in local-part
+E  399	NPE com.sun.mail.imap.protocol.BODY.getOrigin() since 1.6.4
 E  400	finalizecleanclose false can send commands causing unhandled exception
 
 
