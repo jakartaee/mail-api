@@ -2232,7 +2232,7 @@ public class SMTPTransport extends Transport {
 
 	    int r = -1;
 	    if ((r = readServerResponse()) != 220) {
-	    	String welcomeResponse = getLastServerResponse(); // storing current lastServerResponse locally to prevent loss on quit command.
+	    	String welcomeResponse = getLastServerResponse(); //  storing current lastServerResponse locally to prevent loss on quit command.
         try {
             if (quitOnSessionReject) {
                 sendCommand("QUIT");
