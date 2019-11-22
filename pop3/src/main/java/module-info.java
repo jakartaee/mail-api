@@ -16,7 +16,7 @@
 
 module com.sun.mail.pop3 {
     exports com.sun.mail.pop3;
-    provides javax.mail.Provider with
+    provides jakarta.mail.Provider with
 	com.sun.mail.pop3.POP3Provider, com.sun.mail.pop3.POP3SSLProvider;
 
     requires jakarta.mail;

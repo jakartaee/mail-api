@@ -16,9 +16,8 @@
 
 package com.sun.mail.pop3;
 
-import javax.mail.Provider;
-
 import com.sun.mail.util.DefaultProvider;
+import jakarta.mail.Provider;
 
 /**
  * The POP3 protocol provider.

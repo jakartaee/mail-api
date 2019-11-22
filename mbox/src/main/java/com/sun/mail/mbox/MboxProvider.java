@@ -16,7 +16,7 @@
 
 package com.sun.mail.mbox;
 
-import javax.mail.Provider;
+import jakarta.mail.Provider;
 
 /**
  * The Mbox protocol provider.

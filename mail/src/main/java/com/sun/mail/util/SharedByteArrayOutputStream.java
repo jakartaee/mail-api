@@ -16,10 +16,10 @@
 
 package com.sun.mail.util;
 
-import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
+import jakarta.mail.util.SharedByteArrayInputStream;
 
-import javax.mail.util.SharedByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 /**
  * A ByteArrayOutputStream that allows us to share the byte array

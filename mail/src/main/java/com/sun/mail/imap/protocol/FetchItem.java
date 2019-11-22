@@ -16,10 +16,8 @@
 
 package com.sun.mail.imap.protocol;
 
-import java.lang.reflect.*;
-
-import javax.mail.FetchProfile;
 import com.sun.mail.iap.ParsingException;
+import jakarta.mail.FetchProfile;
 
 /**
  * Metadata describing a FETCH item.

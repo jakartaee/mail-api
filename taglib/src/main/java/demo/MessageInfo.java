@@ -10,11 +10,6 @@
 
 package demo;
 
-import java.text.*;
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /**
  * Used to store message information.
  */
@@ -97,7 +92,7 @@ public class MessageInfo {
     }
     
     /**
-     * Returns the javax.mail.Message object.
+     * Returns the jakarta.mail.Message object.
      */
     public Message getMessage() {
 	return message;

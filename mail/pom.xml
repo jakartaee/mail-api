@@ -43,10 +43,10 @@
 	    Jakarta Mail API Design Specification
 	</mail.specificationTitle>
 	<mail.implementationTitle>
-	    javax.mail
+		jakarta.mail
 	</mail.implementationTitle>
 	<mail.packages.export>
-	    javax.mail.*; version=${mail.spec.version},
+		jakarta.mail.*; version=${mail.spec.version},
 	    com.sun.mail.imap; version=${mail.osgiversion},
 	    com.sun.mail.imap.protocol; version=${mail.osgiversion},
 	    com.sun.mail.iap; version=${mail.osgiversion},
@@ -88,10 +88,10 @@
 				<configuration>
 				    <excludes>
 					<exclude>
-					  javax/mail/MailSessionDefinition.java
+					  jakarta/mail/MailSessionDefinition.java
 					</exclude>
 					<exclude>
-					  javax/mail/MailSessionDefinitions.java
+					  jakarta/mail/MailSessionDefinitions.java
 					</exclude>
 					<exclude>
 					  module-info.java

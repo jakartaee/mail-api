@@ -16,19 +16,27 @@
 
 package com.sun.mail.pop3;
 
-import javax.mail.*;
-import javax.mail.event.*;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.EOFException;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.lang.reflect.Constructor;
-
 import com.sun.mail.util.LineInputStream;
 import com.sun.mail.util.MailLogger;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.FetchProfile;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.FolderNotFoundException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MethodNotSupportedException;
+import jakarta.mail.UIDFolder;
+import jakarta.mail.event.ConnectionEvent;
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
 
 /**
  * A POP3 Folder (can only be "INBOX").
@@ -37,7 +45,7 @@ import java.util.List;
  * documentation for further information on the POP3 protocol provider. <p>
  *
  * @author      Bill Shannon
- * @author	John Mani (ported to the javax.mail APIs)
+ * @author	John Mani (ported to the jakarta.mail APIs)
  */
 public class POP3Folder extends Folder {
 
@@ -95,7 +103,7 @@ public class POP3Folder extends Folder {
      * Always throws <code>MessagingException</code> because no POP3 folders
      * can contain subfolders.
      *
-     * @exception	MessagingException	always
+     * @exception MessagingException    always
      */
     @Override
     public Folder[] list(String pattern) throws MessagingException {
@@ -160,7 +168,7 @@ public class POP3Folder extends Folder {
      * because the POP3 protocol doesn't allow the INBOX to
      * be deleted.
      *
-     * @exception	MethodNotSupportedException	always
+     * @exception MethodNotSupportedException    always
      */
     @Override
     public boolean delete(boolean recurse) throws MessagingException {
@@ -182,8 +190,8 @@ public class POP3Folder extends Folder {
      * Throws <code>FolderNotFoundException</code> unless this
      * folder is named "INBOX".
      *
-     * @exception	FolderNotFoundException	if not INBOX
-     * @exception	AuthenticationFailedException	authentication failures
+     * @exception FolderNotFoundException    if not INBOX
+     * @exception AuthenticationFailedException    authentication failures
      * @exception	MessagingException	other open failures
      */
     @Override

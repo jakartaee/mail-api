@@ -44,10 +44,10 @@
 	    Jakarta Mail API Design Specification
 	</mail.specificationTitle>
 	<mail.implementationTitle>
-	    javax.mail.android
+		jakarta.mail.android
 	</mail.implementationTitle>
 	<mail.packages.export>
-	    javax.mail.*; version=${mail.spec.version},
+		jakarta.mail.*; version=${mail.spec.version},
 	    com.sun.mail.imap; version=${mail.osgiversion},
 	    com.sun.mail.imap.protocol; version=${mail.osgiversion},
 	    com.sun.mail.iap; version=${mail.osgiversion},

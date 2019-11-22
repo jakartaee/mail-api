@@ -16,11 +16,14 @@
 
 package com.sun.mail.dsn;
 
-import java.io.*;
+import jakarta.mail.MessagingException;
+
+import javax.activation.ActivationDataFlavor;
+import javax.activation.DataContentHandler;
+import javax.activation.DataSource;
 import java.awt.datatransfer.DataFlavor;
-import javax.activation.*;
-import javax.mail.MessagingException;
-import javax.mail.internet.*;
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**

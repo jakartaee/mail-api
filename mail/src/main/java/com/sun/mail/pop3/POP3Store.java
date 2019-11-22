@@ -16,23 +16,24 @@
 
 package com.sun.mail.pop3;
 
-import java.util.Properties;
-import java.util.logging.Level;
-import java.lang.reflect.*;
+import com.sun.mail.util.MailConnectException;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+import com.sun.mail.util.SocketConnectException;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.Folder;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.URLName;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-import java.io.File;
-import java.io.PrintStream;
-import java.io.IOException;
 import java.io.EOFException;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.Collections;
 import java.util.Map;
-
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
-import com.sun.mail.util.SocketConnectException;
-import com.sun.mail.util.MailConnectException;
+import java.util.logging.Level;
 
 /**
  * A POP3 Message Store.  Contains only one folder, "INBOX".
@@ -136,7 +137,7 @@ public class POP3Store extends Store {
 		    messageClass = Class.forName(s);
 		}
 
-		Class<?>[] c = {javax.mail.Folder.class, int.class};
+		Class<?>[] c = {Folder.class, int.class};
 		messageConstructor = messageClass.getConstructor(c);
 	    } catch (Exception ex) {
 		logger.log(Level.CONFIG, "failed to load message class", ex);

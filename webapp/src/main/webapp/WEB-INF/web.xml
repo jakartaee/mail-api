@@ -60,7 +60,7 @@
   </servlet-mapping>
   <resource-ref>
     <res-ref-name>MySession</res-ref-name>
-    <res-type>javax.mail.Session</res-type>
+    <res-type>jakarta.mail.Session</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
 </web-app>

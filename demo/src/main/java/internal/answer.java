@@ -8,12 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.search.*;
-import javax.mail.internet.*;
-
 /**
  * Program to manage the javamail@Sun.COM mailing list by keeping track
  * of which messages have been answered.  Message that have been answered

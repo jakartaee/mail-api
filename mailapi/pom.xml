@@ -42,7 +42,7 @@
 
     <properties>
 	<mail.packages.export>
-	    javax.mail.*; version=${mail.spec.version},
+		jakarta.mail.*; version=${mail.spec.version},
 	    com.sun.mail.util; version=${mail.osgiversion},
 	    com.sun.mail.auth; version=${mail.osgiversion},
 	    com.sun.mail.handlers; version=${mail.osgiversion}
@@ -50,7 +50,7 @@
 	<mail.bundle.symbolicName>
 	    jakarta.mail.api
 	</mail.bundle.symbolicName>
-	<mail.extraClasses>javax/**</mail.extraClasses>
+	<mail.extraClasses>jakarta/**</mail.extraClasses>
     </properties>
 
     <profiles>
@@ -71,10 +71,10 @@
 				<configuration>
 				    <excludes>
 					<exclude>
-					  javax/mail/MailSessionDefinition.java
+					  jakarta/mail/MailSessionDefinition.java
 					</exclude>
 					<exclude>
-					  javax/mail/MailSessionDefinitions.java
+					  jakarta/mail/MailSessionDefinitions.java
 					</exclude>
 					<exclude>
 					  module-info.java

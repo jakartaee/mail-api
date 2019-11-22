@@ -16,12 +16,14 @@
 
 package com.sun.mail.dsn;
 
-import java.io.*;
-import java.util.Properties;
+import jakarta.mail.MessagingException;
+
+import javax.activation.ActivationDataFlavor;
+import javax.activation.DataContentHandler;
+import javax.activation.DataSource;
 import java.awt.datatransfer.DataFlavor;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**
@@ -70,7 +72,7 @@ public class message_dispositionnotification implements DataContentHandler {
 	    /*
 	    Session session;
 	    if (ds instanceof MessageAware) {
-		javax.mail.MessageContext mc =
+		jakarta.mail.MessageContext mc =
 			((MessageAware)ds).getMessageContext();
 		session = mc.getSession();
 	    } else {

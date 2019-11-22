@@ -19,9 +19,9 @@
 
 <!--
     This project builds the Jakarta Mail API jar file, which contains only
-    the javax.mail.* API definitions and is *only* intended to be used
+    the jakarta.mail.* API definitions and is *only* intended to be used
     for programs to compile against.  Note that it includes none of the
-    implementation-specific classes that the javax.mail.* classes rely on.
+    implementation-specific classes that the jakarta.mail.* classes rely on.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -44,7 +44,7 @@
 	    jakarta.mail
 	</mail.extensionName>
 	<mail.packages.export>
-	    javax.mail.*; version=${mail.spec.version}
+		jakarta.mail.*; version=${mail.spec.version}
 	</mail.packages.export>
 	<mail.bundle.symbolicName>
 	    jakarta.mail-api

@@ -8,19 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.tree.*;
-import javax.swing.event.*;
-
-
 /**
  * Demo app that shows a very simple Mail Client
  *

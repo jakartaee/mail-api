@@ -16,12 +16,17 @@
 
 package com.sun.mail.util;
 
-import java.io.*;
-import java.util.*;
-import javax.mail.*;
-
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Test base64 encoding/decoding.

@@ -16,9 +16,8 @@
 
 package com.sun.mail.smtp;
 
-import javax.mail.Provider;
-
 import com.sun.mail.util.DefaultProvider;
+import jakarta.mail.Provider;
 
 /**
  * The SMTP protocol provider.

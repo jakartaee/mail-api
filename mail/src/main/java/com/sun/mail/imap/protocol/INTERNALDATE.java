@@ -16,16 +16,15 @@
 
 package com.sun.mail.imap.protocol;
 
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.Locale;
+import com.sun.mail.iap.ParsingException;
+import jakarta.mail.internet.MailDateFormat;
+
+import java.text.FieldPosition;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.FieldPosition;
-
-import javax.mail.internet.MailDateFormat;
-
-import com.sun.mail.iap.*; 
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 /**

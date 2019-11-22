@@ -16,23 +16,18 @@
 
 package com.sun.mail.pop3;
 
-import java.io.IOException;
+import com.sun.mail.test.TestServer;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Part;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import org.junit.Test;
+
 import java.util.Properties;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.MessagingException;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 /**

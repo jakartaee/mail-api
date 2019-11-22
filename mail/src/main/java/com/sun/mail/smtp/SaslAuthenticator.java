@@ -16,7 +16,7 @@
 
 package com.sun.mail.smtp;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 /**
  * Interface to make it easier to call SMTPSaslAuthenticator.

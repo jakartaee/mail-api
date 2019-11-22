@@ -8,10 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /**
  * A special MultipartDataSource used with MSMessage.
  *

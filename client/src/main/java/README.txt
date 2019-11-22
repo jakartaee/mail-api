@@ -77,7 +77,7 @@ Main Classes:
 			     a FolderViewer.  Otherwise it will add the
 			     subfolders to the tree.
 
-	SimpleAuthenticator = subclass of javax.mail.Authenticator. If
+	SimpleAuthenticator = subclass of jakarta.mail.Authenticator. If
 			     the Store is missing the username or the
 			     password, this authenticator will be used.
 			     It displays a dialog requesting the
@@ -95,14 +95,14 @@ Viewing Folders:
 JAF Viewers:
 
 	MessageViewer   =    Uses the content of the DataHandler.  The
-			     content will be a javax.mail.Message
+			     content will be a jakarta.mail.Message
 			     object.  Displays the headers and then
 			     uses the JAF to find another viewer for
 			     the content type of the Message.  (either
 			     multipart/mixed, image/gif, or text/plain)
 
 	MultipartViewer =    Uses the content of the DataHandler.  The
-			     content will be a javax.mail.Multipart
+			     content will be a jakarta.mail.Multipart
 			     object.  Uses the JAF to find another
 			     viewer for the first BodyPart's content.
 			     Also puts Buttons (as "attachments") for

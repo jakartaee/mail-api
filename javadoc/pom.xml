@@ -54,7 +54,7 @@
 				<copy todir="target/javadoc">
 				    <fileset dir="../mail/src/main/java">
 					<include name="**/*.html"/>
-					<include name="javax/mail/**"/>
+					<include name="jakarta/mail/**"/>
 				    </fileset>
 				    <fileset dir="../mail/src/main/java"
 					includes="
@@ -153,7 +153,7 @@
 			    <groups>
 				<group>
 				    <title>Jakarta Mail API Packages</title>
-				    <packages>javax.*</packages>
+				    <packages>jakarta.*</packages>
 				</group>
 				<group>
 				    <title>Implementation-specific Packages</title>

@@ -16,13 +16,13 @@
 
 package com.sun.mail.dsn;
 
+import jakarta.mail.Session;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.internet.MimeMessage;
+import org.junit.Test;
+
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.InternetHeaders;
-
-import org.junit.*;
 import static org.junit.Assert.assertTrue;
 
 /**

@@ -16,24 +16,91 @@
  */
 package com.sun.mail.util.logging;
 
-import java.io.*;
+import jakarta.mail.Address;
+import jakarta.mail.Authenticator;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Message;
+import jakarta.mail.MessageContext;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Part;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.MimeUtility;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import javax.activation.FileTypeMap;
+import javax.activation.MimetypesFileTypeMap;
+import javax.activation.UnsupportedDataTypeException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.lang.management.CompilationMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.*;
-import java.util.*;
-import java.util.logging.*;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.Random;
+import java.util.ResourceBundle;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.ErrorManager;
+import java.util.logging.Filter;
 import java.util.logging.Formatter;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.internet.*;
-import org.junit.*;
-import static org.junit.Assert.*;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.LoggingPermission;
+import java.util.logging.MemoryHandler;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.XMLFormatter;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test case for the MailHandler spec.
@@ -6864,7 +6931,7 @@ public class MailHandlerTest extends AbstractLogging {
         h.close();
     }
 
-    private PasswordAuthentication passwordAuthentication(javax.mail.Authenticator auth, String user) {
+    private PasswordAuthentication passwordAuthentication(Authenticator auth, String user) {
         final Session s = Session.getInstance(new Properties(), auth);
         return s.requestPasswordAuthentication(null, 25, "SMTP", "", user);
     }
@@ -7446,7 +7513,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class ThrowAuthenticator extends javax.mail.Authenticator {
+    public static final class ThrowAuthenticator extends Authenticator {
 
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
@@ -7454,7 +7521,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class EmptyAuthenticator extends javax.mail.Authenticator {
+    public static final class EmptyAuthenticator extends Authenticator {
 
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
@@ -7638,7 +7705,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class InitAuthenticator extends javax.mail.Authenticator {
+    public static final class InitAuthenticator extends Authenticator {
 
         public InitAuthenticator() {
             throwPending();
@@ -7833,7 +7900,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class StaticInitReAuthenticator extends javax.mail.Authenticator {
+    public static final class StaticInitReAuthenticator extends Authenticator {
 
         static {
             throwPending();
@@ -7939,7 +8006,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class StaticInitErAuthenticator extends javax.mail.Authenticator {
+    public static final class StaticInitErAuthenticator extends Authenticator {
 
         static {
             throwPending();
@@ -8349,7 +8416,7 @@ public class MailHandlerTest extends AbstractLogging {
     }
 
     public static final class ClassLoaderAuthenticator
-            extends javax.mail.Authenticator {
+            extends Authenticator {
 
         private final ClassLoader expect;
 
@@ -8365,7 +8432,7 @@ public class MailHandlerTest extends AbstractLogging {
         protected PasswordAuthentication getPasswordAuthentication() {
             checkContextClassLoader(expect);
             for (StackTraceElement se : new Throwable().getStackTrace()) {
-                if ("javax.mail.Transport".equals(se.getClassName())
+                if ("jakarta.mail.Transport".equals(se.getClassName())
                         && "send".equals(se.getMethodName())) {
                     return null;
                 }

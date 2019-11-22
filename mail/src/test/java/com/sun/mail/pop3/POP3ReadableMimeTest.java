@@ -16,24 +16,21 @@
 
 package com.sun.mail.pop3;
 
+import com.sun.mail.test.TestServer;
+import com.sun.mail.util.ReadableMime;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Part;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.Properties;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.Part;
-import javax.mail.MessagingException;
-
-import com.sun.mail.util.ReadableMime;
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 

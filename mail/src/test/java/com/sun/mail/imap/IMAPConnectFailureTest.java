@@ -16,20 +16,18 @@
 
 package com.sun.mail.imap;
 
-import java.io.*;
-import java.util.Properties;
-import java.net.ServerSocket;
-
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.MessagingException;
-
 import com.sun.mail.iap.ConnectionException;
-
 import com.sun.mail.test.TestServer;
 import com.sun.mail.util.MailConnectException;
-
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.Properties;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;

@@ -10,7 +10,7 @@
 
 --%>
 
-<%@ page language="java" import="javax.mail.*, demo.MailUserBean" %>
+<%@ page language="java" import="jakarta.mail.*, demo.MailUserBean" %>
 <%@ page errorPage="errorpage.jsp" %>
 <jsp:useBean id="mailuser" scope="session" class="demo.MailUserBean" />
 	

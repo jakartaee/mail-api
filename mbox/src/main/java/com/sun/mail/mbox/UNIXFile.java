@@ -16,9 +16,8 @@
 
 package com.sun.mail.mbox;
 
-import java.io.File;
-import java.io.FileDescriptor;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class UNIXFile extends File {
     protected static final boolean loaded;
@@ -58,7 +57,7 @@ public class UNIXFile extends File {
 		    String path = st.nextToken();
 		    if (path.endsWith("/classes") ||
 			    path.endsWith("/mail.jar") ||
-			    path.endsWith("/javax.mail.jar")) {
+			    path.endsWith("/jakarta.mail.jar")) {
 			int i = path.lastIndexOf('/');
 			String libdir = path.substring(0, i + 1) + "lib/";
 			String lib = libdir + arch + "/libmbox.so";

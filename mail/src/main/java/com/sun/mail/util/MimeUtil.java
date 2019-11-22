@@ -16,10 +16,11 @@
 
 package com.sun.mail.util;
 
-import java.lang.reflect.*;
-import java.security.*;
+import jakarta.mail.internet.MimePart;
 
-import javax.mail.internet.MimePart;
+import java.lang.reflect.Method;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 
 /**
  * General MIME-related utility methods.

@@ -18,13 +18,13 @@
 #
 # Generate a new signature file.
 #
-# Usage: siggen javax.mail.jar mail.sig
+# Usage: siggen jakarta.mail.jar mail.sig
 #
 SIGTEST=${SIGTEST:-/java/re/sigtest/4.0/promoted/fcs/latest/binaries/sigtest-4.0}
 SIGTEST_JAR=$SIGTEST/lib/sigtestdev.jar
 JAVA_HOME=${JAVA_HOME:-/opt/jdk1.8}
-PKG=javax.mail
-USAGE="siggen [-p package] javax.mail.jar mail.sig"
+PKG=jakarta.mail
+USAGE="siggen [-p package] jakarta.mail.jar mail.sig"
 
 while getopts p: opt
 do

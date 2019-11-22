@@ -8,10 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-
 /*
  * Demo app that exercises the namespace interfaces.
  * Show the namespaces supported by a store.

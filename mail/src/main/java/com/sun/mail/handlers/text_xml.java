@@ -16,19 +16,19 @@
 
 package com.sun.mail.handlers;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.ParseException;
 
 import javax.activation.ActivationDataFlavor;
 import javax.activation.DataSource;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.ParseException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * DataContentHandler for text/xml.

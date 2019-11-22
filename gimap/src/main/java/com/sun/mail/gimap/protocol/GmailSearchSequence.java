@@ -16,15 +16,16 @@
 
 package com.sun.mail.gimap.protocol;
 
-import java.io.*;
+import com.sun.mail.gimap.GmailMsgIdTerm;
+import com.sun.mail.gimap.GmailRawSearchTerm;
+import com.sun.mail.gimap.GmailThrIdTerm;
+import com.sun.mail.iap.Argument;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import com.sun.mail.imap.protocol.SearchSequence;
+import jakarta.mail.search.SearchException;
+import jakarta.mail.search.SearchTerm;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
-
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.protocol.*;
-import com.sun.mail.gimap.*;
+import java.io.IOException;
 
 /**
  * Support Gmail-specific search extensions.

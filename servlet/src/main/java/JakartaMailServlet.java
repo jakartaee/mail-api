@@ -8,16 +8,10 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
+import jakarta.mail.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.mail.*;
-import javax.mail.Part;
-import javax.mail.internet.*;
-import javax.activation.*;
 
 
 /**

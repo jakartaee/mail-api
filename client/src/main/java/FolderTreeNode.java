@@ -8,13 +8,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.mail.Store;
-import javax.mail.Folder;
-import javax.mail.MessagingException;
+import jakarta.mail.*;
+
+import javax.swing.tree.*;
 
 /**
- * Node which represents a Folder in the javax.mail apis. 
+ * Node which represents a Folder in the jakarta.mail apis.
  *
  * @author Christopher Cotton
  */

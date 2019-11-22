@@ -8,13 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.beans.*;
-import javax.activation.*;
-import javax.mail.*;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 /**

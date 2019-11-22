@@ -16,19 +16,22 @@
 
 package com.sun.mail.pop3;
 
-import java.io.*;
+import com.sun.mail.test.TestServer;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.Timeout;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Store;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.Timeout;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**

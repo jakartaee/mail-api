@@ -16,29 +16,57 @@
 
 package com.sun.mail.smtp;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.lang.reflect.*;
-import java.nio.charset.StandardCharsets;
-import javax.net.ssl.SSLSocket;
-
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.mail.internet.*;
-
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
+import com.sun.mail.auth.Ntlm;
 import com.sun.mail.util.ASCIIUtility;
-import com.sun.mail.util.SocketFetcher;
-import com.sun.mail.util.MailConnectException;
-import com.sun.mail.util.SocketConnectException;
 import com.sun.mail.util.BASE64EncoderStream;
 import com.sun.mail.util.LineInputStream;
+import com.sun.mail.util.MailConnectException;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+import com.sun.mail.util.SocketConnectException;
+import com.sun.mail.util.SocketFetcher;
 import com.sun.mail.util.TraceInputStream;
 import com.sun.mail.util.TraceOutputStream;
-import com.sun.mail.auth.Ntlm;
+import jakarta.mail.Address;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.URLName;
+import jakarta.mail.event.ConnectionEvent;
+import jakarta.mail.event.TransportEvent;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.ParseException;
+
+import javax.net.ssl.SSLSocket;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.lang.reflect.Constructor;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
 
 /**
  * This class implements the Transport abstract class using SMTP for
@@ -68,8 +96,8 @@ import com.sun.mail.auth.Ntlm;
  * @author Dean Gibson (DIGEST-MD5 authentication)
  * @author Lu\u00EDs Serralheiro (NTLM authentication)
  *
- * @see javax.mail.event.ConnectionEvent
- * @see javax.mail.event.TransportEvent
+ * @see ConnectionEvent
+ * @see TransportEvent
  */
 
 public class SMTPTransport extends Transport {
@@ -1224,10 +1252,10 @@ public class SMTPTransport extends Transport {
      *
      * @param message	The MimeMessage to be sent
      * @param addresses	List of addresses to send this message to
-     * @see 		javax.mail.event.TransportEvent
+     * @see        TransportEvent
      * @exception       SMTPSendFailedException if the send failed because of
      *			an SMTP command error
-     * @exception       SendFailedException if the send failed because of
+     * @exception SendFailedException if the send failed because of
      *			invalid addresses.
      * @exception       MessagingException if the connection is dead
      *                  or not in the connected state or if the message is

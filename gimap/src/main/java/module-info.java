@@ -14,10 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
+import jakarta.mail.Provider;
+
 module com.sun.mail.gimap {
     exports com.sun.mail.gimap;
     exports com.sun.mail.gimap.protocol;
-    provides javax.mail.Provider with
+    provides Provider with
 	com.sun.mail.gimap.GmailProvider, com.sun.mail.gimap.GmailSSLProvider;
 
     requires jakarta.mail;

@@ -16,15 +16,21 @@
 
 package com.sun.mail.gimap;
 
-import java.io.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.*;
-import com.sun.mail.imap.protocol.*;
-import com.sun.mail.gimap.protocol.*;
+import com.sun.mail.gimap.protocol.GmailProtocol;
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPMessage;
+import com.sun.mail.imap.IMAPStore;
+import com.sun.mail.imap.Utility;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import com.sun.mail.imap.protocol.ListInfo;
+import com.sun.mail.imap.protocol.MessageSet;
+import jakarta.mail.FetchProfile;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
 
 /**
  * A Gmail folder.  Defines new FetchProfile items and
@@ -108,11 +114,11 @@ public class GmailFolder extends IMAPFolder {
      * @param	msgs	the messages
      * @param	labels	the labels to add or remove
      * @param	set	true to add, false to remove
-     * @exception	MessagingException	for failures
+     * @exception MessagingException    for failures
      * @since	JavaMail 1.5.5
      */
     public synchronized void setLabels(Message[] msgs,
-				String[] labels, boolean set)
+                                       String[] labels, boolean set)
 				throws MessagingException {
 	checkOpened();
 

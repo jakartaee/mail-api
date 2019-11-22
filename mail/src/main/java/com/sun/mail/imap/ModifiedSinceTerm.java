@@ -16,8 +16,8 @@
 
 package com.sun.mail.imap;
 
-import javax.mail.Message;
-import javax.mail.search.SearchTerm;
+import jakarta.mail.Message;
+import jakarta.mail.search.SearchTerm;
 
 /**
  * Find messages that have been modified since a given MODSEQ value.

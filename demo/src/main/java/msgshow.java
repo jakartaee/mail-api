@@ -8,12 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.mail.internet.*;
-
 /*
  * Demo app that exercises the Message interfaces.
  * Show information about and contents of messages.

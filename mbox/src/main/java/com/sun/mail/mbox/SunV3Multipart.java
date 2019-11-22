@@ -16,8 +16,8 @@
 
 package com.sun.mail.mbox;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 import javax.activation.*;
 import java.util.*;
 import java.io.*;

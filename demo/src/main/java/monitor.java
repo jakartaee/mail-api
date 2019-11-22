@@ -8,14 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.activation.*;
-
-import com.sun.mail.imap.*;
-
 /* Monitors given mailbox for new mail */
 
 public class monitor {

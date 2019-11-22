@@ -16,7 +16,7 @@
 
 package com.sun.mail.remote;
 
-import javax.mail.Provider;
+import jakarta.mail.*;
 
 /**
  * The POP3 remote protocol provider.

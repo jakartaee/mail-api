@@ -16,8 +16,7 @@
 
 package com.sun.mail.remote;
 
-import javax.mail.*;
-import com.sun.mail.pop3.POP3Store;
+import com.sun.mail.pop3.*;
 
 /**
  * A local store that uses POP3 to populate the INBOX.

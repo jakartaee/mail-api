@@ -16,22 +16,18 @@
 
 package com.sun.mail.smtp;
 
-import java.io.IOException;
+import com.sun.mail.test.TestServer;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.MimeMessage;
+import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.Timeout;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.fail;
 

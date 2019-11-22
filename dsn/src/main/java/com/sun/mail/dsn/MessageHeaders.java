@@ -16,11 +16,14 @@
 
 package com.sun.mail.dsn;
 
-import java.io.*;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.internet.MimeMessage;
 
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.activation.DataHandler;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 /**
  * A special MimeMessage object that contains only message headers,
@@ -33,7 +36,7 @@ public class MessageHeaders extends MimeMessage {
     /**
      * Construct a MessageHeaders object.
      *
-     * @exception	MessagingException for failures
+     * @exception MessagingException for failures
      */
     public MessageHeaders() throws MessagingException {
 	super((Session)null);

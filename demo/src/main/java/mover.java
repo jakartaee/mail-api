@@ -8,11 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.io.*;
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /* MOVE messages between mailboxes */
 
 public class mover {

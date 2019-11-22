@@ -9,21 +9,13 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import com.sun.mail.util.logging.CollectorFormatter;
-import com.sun.mail.util.logging.DurationFilter;
-import com.sun.mail.util.logging.MailHandler;
-import com.sun.mail.util.logging.SeverityComparator;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.lang.management.ManagementFactory;
-import java.util.*;
-import java.util.logging.*;
-import javax.activation.DataHandler;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
+import com.sun.mail.util.logging.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+
+import javax.activation.*;
+import java.io.*;
+import java.lang.management.*;
 
 /**
  * Demo for the different configurations for the MailHandler. If the logging

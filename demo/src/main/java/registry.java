@@ -8,11 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /**
  * This class demonstrates how to query the registry for available
  * Providers, set default providers, etc. See section 5.2 in the

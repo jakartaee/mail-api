@@ -45,7 +45,7 @@
 	    Jakarta Activation Specification
 	</activation.specificationTitle>
 	<activation.implementationTitle>
-	    javax.activation
+		jakarta.activation
 	</activation.implementationTitle>
 	<activation.bundle.symbolicName>
 	    ${project.groupId}.${project.artifactId}

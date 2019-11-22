@@ -16,12 +16,18 @@
 
 package com.sun.mail.dsn;
 
-import java.io.*;
-import java.util.Vector;
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.activation.DataSource;
+import java.io.IOException;
+import java.util.Vector;
 
 /**
  * A multipart/report message content, as defined in
@@ -53,7 +59,7 @@ public class MultipartReport extends MimeMultipart {
     /**
      * Construct a multipart/report object with no content.
      *
-     * @exception	MessagingException for failures
+     * @exception MessagingException for failures
      */
     public MultipartReport() throws MessagingException {
 	super("report");

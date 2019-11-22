@@ -16,10 +16,17 @@
 
 package com.sun.mail.handlers;
 
-import java.io.*;
-import javax.activation.*;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.MimeUtility;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.MimeUtility;
+
+import javax.activation.ActivationDataFlavor;
+import javax.activation.DataSource;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 
 /**
  * DataContentHandler for text/plain.

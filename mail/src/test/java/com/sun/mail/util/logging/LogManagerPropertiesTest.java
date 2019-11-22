@@ -16,21 +16,53 @@
  */
 package com.sun.mail.util.logging;
 
-import java.io.*;
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Service;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.URLName;
+import jakarta.mail.internet.InternetAddress;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.lang.management.CompilationMXBean;
 import java.lang.management.ManagementFactory;
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.*;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import org.junit.*;
-import static org.junit.Assert.*;
+import java.util.logging.ErrorManager;
+import java.util.logging.Filter;
+import java.util.logging.Formatter;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.LogRecord;
+import java.util.logging.LoggingPermission;
+import java.util.logging.SimpleFormatter;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test case for the LogManagerProperties spec.
@@ -312,7 +344,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
             "java.lang.System",
             "java.nio.channels.Channels",
             "java.util.Collections",
-            "javax.mail.internet.MimeUtility",
+            "jakarta.mail.internet.MimeUtility",
             "org.junit.Assert"
         };
 
@@ -1002,7 +1034,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
     public void testEscapingAuthenticator() throws Exception {
         try {
             Class<?> k = ErrorAuthenticator.class;
-            javax.mail.Authenticator a;
+            Authenticator a;
 
             a = LogManagerProperties.newObjectFrom(k.getName(), Authenticator.class);
             assertEquals(k, a.getClass());
@@ -1223,7 +1255,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
         return false;
     }
 
-    public static final class EmptyAuthenticator extends javax.mail.Authenticator {
+    public static final class EmptyAuthenticator extends Authenticator {
 
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
@@ -1231,7 +1263,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
         }
     }
 
-    public static final class ErrorAuthenticator extends javax.mail.Authenticator {
+    public static final class ErrorAuthenticator extends Authenticator {
 
         public ErrorAuthenticator() {
             throwPendingIfSet();

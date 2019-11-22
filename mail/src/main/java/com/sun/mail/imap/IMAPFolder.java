@@ -16,29 +16,62 @@
 
 package com.sun.mail.imap;
 
-import java.util.Date;
-import java.util.Vector;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.io.*;
+import com.sun.mail.iap.BadCommandException;
+import com.sun.mail.iap.CommandFailedException;
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.Literal;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.iap.Response;
+import com.sun.mail.iap.ResponseHandler;
+import com.sun.mail.imap.protocol.FLAGS;
+import com.sun.mail.imap.protocol.FetchItem;
+import com.sun.mail.imap.protocol.FetchResponse;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import com.sun.mail.imap.protocol.IMAPResponse;
+import com.sun.mail.imap.protocol.Item;
+import com.sun.mail.imap.protocol.ListInfo;
+import com.sun.mail.imap.protocol.MODSEQ;
+import com.sun.mail.imap.protocol.MailboxInfo;
+import com.sun.mail.imap.protocol.MessageSet;
+import com.sun.mail.imap.protocol.Status;
+import com.sun.mail.imap.protocol.UID;
+import com.sun.mail.imap.protocol.UIDSet;
+import com.sun.mail.util.CRLFOutputStream;
+import com.sun.mail.util.MailLogger;
+import jakarta.mail.FetchProfile;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.FolderNotFoundException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Quota;
+import jakarta.mail.ReadOnlyFolderException;
+import jakarta.mail.StoreClosedException;
+import jakarta.mail.UIDFolder;
+import jakarta.mail.event.ConnectionEvent;
+import jakarta.mail.event.FolderEvent;
+import jakarta.mail.event.MailEvent;
+import jakarta.mail.event.MessageChangedEvent;
+import jakarta.mail.event.MessageCountListener;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.search.FlagTerm;
+import jakarta.mail.search.SearchException;
+import jakarta.mail.search.SearchTerm;
+
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.io.OutputStream;
 import java.net.SocketTimeoutException;
 import java.nio.channels.SocketChannel;
-
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
-
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
-import com.sun.mail.util.CRLFOutputStream;
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.protocol.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.logging.Level;
 
 /**
  * This class implements an IMAP folder. <p>
@@ -2335,7 +2368,7 @@ public class IMAPFolder extends Folder implements UIDFolder, ResponseHandler {
      *
      * @param	term	the search term
      * @return		the messages that match
-     * @exception	SearchException if mail.imap.throwsearchexception is
+     * @exception SearchException if mail.imap.throwsearchexception is
      *			true and the search is too complex for the IMAP protocol
      * @exception	MessagingException for other failures
      */
@@ -2482,7 +2515,7 @@ public class IMAPFolder extends Folder implements UIDFolder, ResponseHandler {
      * are removed, and that's a rare case, so we don't try.
      */
     @Override
-    public synchronized void addMessageCountListener(MessageCountListener l) { 
+    public synchronized void addMessageCountListener(MessageCountListener l) {
 	super.addMessageCountListener(l);
 	hasMessageCountListener = true;
     }

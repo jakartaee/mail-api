@@ -16,19 +16,17 @@
 
 package com.sun.mail.imap;
 
-import java.io.IOException;
+import com.sun.mail.test.TestServer;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.event.StoreEvent;
+import jakarta.mail.event.StoreListener;
+import org.junit.Test;
+
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.event.StoreListener;
-import javax.mail.event.StoreEvent;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 

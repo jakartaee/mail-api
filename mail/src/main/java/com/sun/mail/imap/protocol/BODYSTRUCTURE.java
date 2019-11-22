@@ -16,11 +16,13 @@
 
 package com.sun.mail.imap.protocol;
 
-import java.util.List;
-import java.util.ArrayList;
-import javax.mail.internet.ParameterList;
-import com.sun.mail.iap.*; 
+import com.sun.mail.iap.ParsingException;
+import com.sun.mail.iap.Response;
 import com.sun.mail.util.PropUtil;
+import jakarta.mail.internet.ParameterList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A BODYSTRUCTURE response.

@@ -16,7 +16,7 @@
 
 package com.sun.mail.util;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 /**
  * A MessagingException that indicates a socket connection attempt failed.

@@ -10,14 +10,8 @@
 
 package demo;
 
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
 import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 /**
  * This servlet gets the input stream for a given msg part and 

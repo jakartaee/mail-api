@@ -16,17 +16,15 @@
 
 package com.sun.mail.smtp;
 
+import com.sun.mail.test.TestServer;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.AuthenticationFailedException;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**

@@ -16,7 +16,11 @@
 
 package com.sun.mail.pop3;
 
-import javax.mail.*;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MethodNotSupportedException;
 
 /**
  * The POP3 DefaultFolder.  Only contains the "INBOX" folder.

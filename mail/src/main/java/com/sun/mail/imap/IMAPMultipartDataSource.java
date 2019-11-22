@@ -17,10 +17,13 @@
 package com.sun.mail.imap;
 
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import com.sun.mail.imap.protocol.BODYSTRUCTURE;
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MultipartDataSource;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.MimePartDataSource;
 
-import com.sun.mail.imap.protocol.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +37,8 @@ public class IMAPMultipartDataSource extends MimePartDataSource
 				     implements MultipartDataSource {
     private List<IMAPBodyPart> parts;
 
-    protected IMAPMultipartDataSource(MimePart part, BODYSTRUCTURE[] bs, 
-				      String sectionId, IMAPMessage msg) {
+    protected IMAPMultipartDataSource(MimePart part, BODYSTRUCTURE[] bs,
+                                      String sectionId, IMAPMessage msg) {
 	super(part);
 
 	parts = new ArrayList<>(bs.length);

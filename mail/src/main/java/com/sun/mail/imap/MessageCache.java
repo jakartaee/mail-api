@@ -16,13 +16,13 @@
 
 package com.sun.mail.imap;
 
-import java.io.PrintStream;
-import java.util.*;
-import java.util.logging.Level;
-
-import javax.mail.*;
-import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.MailLogger;
+import jakarta.mail.Message;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
 
 /**
  * A cache of IMAPMessage objects along with the

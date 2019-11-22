@@ -3,4 +3,4 @@
 ^nbproject/private/
 ^\.m2/
 ^webrev
-^src/main/java/javax/mail/Version\.java$
+^src/main/java/jakarta/mail/Version\.java$

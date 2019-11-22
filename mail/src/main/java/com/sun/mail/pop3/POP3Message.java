@@ -16,14 +16,28 @@
 
 package com.sun.mail.pop3;
 
-import java.io.*;
+import com.sun.mail.util.ReadableMime;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.event.MessageChangedEvent;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeUtility;
+import jakarta.mail.internet.SharedInputStream;
+
+import java.io.BufferedOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.ref.SoftReference;
 import java.util.Enumeration;
 import java.util.logging.Level;
-import java.lang.ref.SoftReference;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.event.*;
-import com.sun.mail.util.ReadableMime;
 
 /**
  * A POP3 Message.  Just like a MimeMessage except that
@@ -338,7 +352,7 @@ public class POP3Message extends MimeMessage implements ReadableMime {
      * @param	name	name of header
      * @return	array of headers
      * @exception	MessagingException for failures
-     * @see 	javax.mail.internet.MimeUtility
+     * @see    MimeUtility
      */
     @Override
     public String[] getHeader(String name)
@@ -374,8 +388,8 @@ public class POP3Message extends MimeMessage implements ReadableMime {
      *
      * @param	name 	header name
      * @param	value	header value
-     * @see 	javax.mail.internet.MimeUtility
-     * @exception	IllegalWriteException because the underlying
+     * @see    MimeUtility
+     * @exception IllegalWriteException because the underlying
      *			implementation does not support modification
      * @exception	IllegalStateException if this message is
      *			obtained from a READ_ONLY folder.
@@ -394,7 +408,7 @@ public class POP3Message extends MimeMessage implements ReadableMime {
      *
      * @param	name 	header name
      * @param	value	header value
-     * @see 	javax.mail.internet.MimeUtility
+     * @see    MimeUtility
      * @exception	IllegalWriteException because the underlying
      *			implementation does not support modification
      * @exception	IllegalStateException if this message is
@@ -433,7 +447,7 @@ public class POP3Message extends MimeMessage implements ReadableMime {
      *
      * @return	array of header objects
      * @exception	MessagingException for failures
-     * @see 	javax.mail.internet.MimeUtility
+     * @see    MimeUtility
      */
     @Override
     public Enumeration<Header> getAllHeaders() throws MessagingException {

@@ -16,13 +16,7 @@
 
 package com.sun.mail.mbox;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
-import java.security.*;
-
-import com.sun.mail.util.PropUtil;
-import javax.mail.util.SharedFileInputStream;
+import jakarta.mail.util.*;
 
 /**
  * A temporary file used to cache messages.

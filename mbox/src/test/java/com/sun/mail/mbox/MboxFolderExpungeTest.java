@@ -16,24 +16,14 @@
 
 package com.sun.mail.mbox;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
-import java.util.Date;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import org.junit.*;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.Flags;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import java.io.*;
+import java.util.*;
 
-import org.junit.Test;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Test expunge of mbox folders.

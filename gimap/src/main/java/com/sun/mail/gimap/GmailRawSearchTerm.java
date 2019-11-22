@@ -16,8 +16,8 @@
 
 package com.sun.mail.gimap;
 
-import javax.mail.Message;
-import javax.mail.search.StringTerm;
+import jakarta.mail.Message;
+import jakarta.mail.search.StringTerm;
 
 /**
  * This class implements searching using the Gmail X-GM-RAW extension.

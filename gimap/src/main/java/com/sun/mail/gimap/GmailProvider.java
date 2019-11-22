@@ -16,9 +16,8 @@
 
 package com.sun.mail.gimap;
 
-import javax.mail.Provider;
-
 import com.sun.mail.util.DefaultProvider;
+import jakarta.mail.Provider;
 
 /**
  * The Gmail IMAP protocol provider.

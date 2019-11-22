@@ -8,9 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /*
  * Copy folder hierarchies between different Stores. This is a useful 
  * utility to populate new (and possibly empty) mail stores. Specify

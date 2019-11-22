@@ -8,12 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
 /**
  * msgmultisendsample creates a simple multipart/mixed message and sends it.
  * Both body parts are text/plain.

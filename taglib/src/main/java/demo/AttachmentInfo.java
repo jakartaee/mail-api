@@ -10,12 +10,6 @@
 
 package demo;
 
-import java.io.*;
-import java.util.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /**
  * Used to store attachment information.
  */

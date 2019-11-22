@@ -16,16 +16,15 @@
 
 package com.sun.mail.gimap;
 
-import java.io.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-
-import com.sun.mail.util.*;
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.*;
-import com.sun.mail.imap.protocol.*;
-import com.sun.mail.gimap.protocol.*;
+import com.sun.mail.gimap.protocol.GmailProtocol;
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPMessage;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 
 /**
  * A Gmail message.  Adds methods to access Gmail-specific per-message data.
@@ -58,7 +57,7 @@ public class GmailMessage extends IMAPMessage {
      * Return the Gmail unique message ID.
      *
      * @return	the message ID
-     * @exception	MessagingException for failures
+     * @exception MessagingException for failures
      */
     public long getMsgId() throws MessagingException {
 	Long msgid = (Long)getItem(GmailProtocol.MSGID_ITEM);

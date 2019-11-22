@@ -18,7 +18,7 @@ module com.sun.mail.imap {
     exports com.sun.mail.iap;
     exports com.sun.mail.imap;
     exports com.sun.mail.imap.protocol;
-    provides javax.mail.Provider with
+    provides jakarta.mail.Provider with
 	com.sun.mail.imap.IMAPProvider, com.sun.mail.imap.IMAPSSLProvider;
 
     requires jakarta.mail;

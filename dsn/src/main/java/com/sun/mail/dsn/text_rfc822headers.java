@@ -16,11 +16,19 @@
 
 package com.sun.mail.dsn;
 
-import java.io.*;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.MimeUtility;
+
+import javax.activation.ActivationDataFlavor;
+import javax.activation.DataContentHandler;
+import javax.activation.DataSource;
 import java.awt.datatransfer.DataFlavor;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 
 /**
  * DataContentHandler for text/rfc822-headers MIME type.

@@ -22,15 +22,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 			    http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-	<groupId>org.eclipse.ee4j</groupId>
-	<artifactId>project</artifactId>
-	<version>1.0.4</version>
+		<groupId>org.eclipse.ee4j</groupId>
+		<artifactId>project</artifactId>
+		<version>1.0.4</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.mail</groupId>
     <artifactId>all</artifactId>
+	<version>1.6.5-SNAPSHOT</version>
+
     <packaging>pom</packaging>
-    <version>1.6.5-SNAPSHOT</version>
+
     <name>Jakarta Mail API distribution</name>
     <description>${project.name}</description>
     <url>http://eclipse-ee4j.github.io/mail</url>
@@ -87,7 +90,7 @@
 	    ${project.groupId}.${project.artifactId}
 	</mail.bundle.symbolicName>
 	<mail.packages.export>
-	    javax.mail.*; version=${mail.spec.version}
+		jakarta.mail.*; version=${mail.spec.version}
 	</mail.packages.export>
 	<mail.packages.import>
 	    javax.activation;version=!,

@@ -8,10 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.text.*;
-import javax.mail.*;
-
 /**
  *
  * Split mail folders according to date of messages.

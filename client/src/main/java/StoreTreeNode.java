@@ -8,11 +8,10 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.mail.*;
+import javax.swing.tree.*;
 
 /**
- * Node which represents a Store in the javax.mail apis. 
+ * Node which represents a Store in the jakarta.mail apis.
  *
  * @author Christopher Cotton
  */

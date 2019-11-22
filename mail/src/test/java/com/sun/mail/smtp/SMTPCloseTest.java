@@ -16,15 +16,14 @@
 
 package com.sun.mail.smtp;
 
-import java.io.IOException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.Timeout;
+
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-
-import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.Timeout;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 

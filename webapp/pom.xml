@@ -40,7 +40,7 @@
 		    <warName>webapp</warName>
 		    <packagingExcludes>
 			WEB-INF/lib/activation*.jar,
-			WEB-INF/lib/javax.mail*.jar,
+			WEB-INF/lib/jakarta.mail*.jar,
 			WEB-INF/lib/jsp*.jar,
 			WEB-INF/lib/servlet*.jar
 		    </packagingExcludes>

@@ -8,12 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.io.*;
-import java.util.Properties;
-import java.util.Date;
-
-import javax.mail.*;
-import javax.mail.internet.*;
+import java.util.*;
 
 /**
  * Demo app that shows how to construct and send an RFC822

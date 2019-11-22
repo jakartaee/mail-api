@@ -16,11 +16,18 @@
 
 package com.sun.mail.handlers;
 
-import java.io.*;
+import jakarta.mail.Message;
+import jakarta.mail.MessageAware;
+import jakarta.mail.MessageContext;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
+
+import javax.activation.ActivationDataFlavor;
+import javax.activation.DataSource;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Properties;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
 
 
 /**

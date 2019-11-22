@@ -16,9 +16,11 @@
 
 package com.sun.mail.smtp;
 
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
+
+import java.io.InputStream;
 
 /**
  * This class is a specialization of the MimeMessage class that allows
@@ -31,7 +33,7 @@ import javax.mail.internet.*;
  * documentation for further information on the SMTP protocol provider. <p>
  *
  * @author Bill Shannon
- * @see	javax.mail.internet.MimeMessage
+ * @see    MimeMessage
  */
 
 public class SMTPMessage extends MimeMessage {
@@ -80,7 +82,7 @@ public class SMTPMessage extends MimeMessage {
      *
      * @param session	Session object for this message
      * @param is	the message input stream
-     * @exception	MessagingException for failures
+     * @exception MessagingException for failures
      */
     public SMTPMessage(Session session, InputStream is) 
 			throws MessagingException {

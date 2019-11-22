@@ -16,21 +16,20 @@
 
 package com.sun.mail.imap;
 
+import com.sun.mail.test.TestServer;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.search.SearchException;
+import jakarta.mail.search.SubjectTerm;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.Timeout;
+
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.search.*;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.Timeout;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**

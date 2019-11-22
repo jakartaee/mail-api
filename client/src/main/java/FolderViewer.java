@@ -8,12 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.awt.*;
-import javax.mail.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-
 /**
  * @author	Christopher Cotton
  * @author	Bill Shannon

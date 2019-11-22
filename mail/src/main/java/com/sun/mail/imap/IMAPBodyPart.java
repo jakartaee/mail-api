@@ -16,19 +16,32 @@
 
 package com.sun.mail.imap;
 
-import java.io.*;
-
-import java.util.Enumeration;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.imap.protocol.BODY;
+import com.sun.mail.imap.protocol.BODYSTRUCTURE;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import com.sun.mail.util.LineOutputStream;
 import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.ReadableMime;
-import com.sun.mail.util.LineOutputStream;
 import com.sun.mail.util.SharedByteArrayOutputStream;
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.protocol.*;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeUtility;
+
+import javax.activation.DataHandler;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Enumeration;
 
 /**
  * An IMAP body part.

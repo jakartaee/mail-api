@@ -10,11 +10,6 @@
 
 package demo;
 
-import java.io.*;
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.*;
 

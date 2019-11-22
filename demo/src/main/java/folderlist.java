@@ -8,10 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.Properties;
-import javax.mail.*;
-
-import com.sun.mail.imap.*;
+import java.util.*;
 
 /**
  * Demo app that exercises the Message interfaces.

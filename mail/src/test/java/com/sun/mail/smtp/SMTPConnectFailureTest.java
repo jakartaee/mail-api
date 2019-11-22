@@ -16,16 +16,14 @@
 
 package com.sun.mail.smtp;
 
-import java.util.Properties;
-import java.net.ServerSocket;
-
-import javax.mail.Session;
-import javax.mail.Transport;
-
 import com.sun.mail.util.MailConnectException;
-
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+
+import java.net.ServerSocket;
+import java.util.Properties;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

@@ -16,10 +16,15 @@
 
 package com.sun.mail.imap;
 
-import java.io.*;
-import javax.mail.*;
-import com.sun.mail.imap.protocol.*;
 import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.imap.protocol.BODYSTRUCTURE;
+import com.sun.mail.imap.protocol.ENVELOPE;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import jakarta.mail.Flags;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MethodNotSupportedException;
 
 /**
  * This class implements a nested IMAP message
@@ -128,7 +133,7 @@ public class IMAPNestedMessage extends IMAPMessage {
      * Disallow setting flags on nested messages
      */
     @Override
-    public synchronized void setFlags(Flags flag, boolean set) 
+    public synchronized void setFlags(Flags flag, boolean set)
 			throws MessagingException {
 	// Cannot set FLAGS on a nested IMAP message	
 	throw new MethodNotSupportedException(

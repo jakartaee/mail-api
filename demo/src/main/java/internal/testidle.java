@@ -11,9 +11,9 @@
 import java.util.*;
 import java.util.concurrent.atomic.*;
 import java.io.*;
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.event.*;
+import jakarta.mail.internet.*;
 import javax.activation.*;
 
 import com.sun.mail.imap.*;

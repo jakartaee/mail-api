@@ -16,11 +16,12 @@
 
 package com.sun.mail.util;
 
+import jakarta.mail.Session;
+
 import java.io.PrintStream;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Session;
 
 /**
  * A simplified logger used by Jakarta Mail to handle logging to a

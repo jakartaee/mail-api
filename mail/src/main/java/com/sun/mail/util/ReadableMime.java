@@ -16,9 +16,9 @@
 
 package com.sun.mail.util;
 
-import java.io.InputStream;
+import jakarta.mail.MessagingException;
 
-import javax.mail.MessagingException;
+import java.io.InputStream;
 
 /**
  * A Message or message Part whose data can be read as a MIME format

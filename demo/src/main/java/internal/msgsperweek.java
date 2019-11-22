@@ -8,13 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import java.text.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.search.*;
-import javax.mail.internet.*;
-
 /**
  * Program that generates stats about new messages received per week 
  * by the javamail@Sun.COM mailing list. It tracks *new* messages only,

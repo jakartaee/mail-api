@@ -16,29 +16,45 @@
 
 package com.sun.mail.imap;
 
-import java.lang.reflect.*;
-import java.util.Vector;
-import java.util.StringTokenizer;
-import java.util.Locale;
-import java.util.Properties;
+import com.sun.mail.iap.BadCommandException;
+import com.sun.mail.iap.CommandFailedException;
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.iap.Response;
+import com.sun.mail.iap.ResponseHandler;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import com.sun.mail.imap.protocol.IMAPReferralException;
+import com.sun.mail.imap.protocol.ListInfo;
+import com.sun.mail.imap.protocol.Namespaces;
+import com.sun.mail.util.MailConnectException;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+import com.sun.mail.util.SocketConnectException;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.Folder;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Quota;
+import jakarta.mail.QuotaAwareStore;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.StoreClosedException;
+import jakarta.mail.URLName;
+import jakarta.mail.event.StoreEvent;
+
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.logging.Level;
-
-import javax.mail.*;
-import javax.mail.event.*;
-
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.protocol.*;
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
-import com.sun.mail.util.SocketConnectException;
-import com.sun.mail.util.MailConnectException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.Vector;
+import java.util.logging.Level;
 
 /**
  * This class provides access to an IMAP message store. <p>
@@ -138,7 +154,7 @@ import java.util.List;
  * is not used directly in this case. <p>
  */
 
-public class IMAPStore extends Store 
+public class IMAPStore extends Store
 	     implements QuotaAwareStore, ResponseHandler {
     
     /**

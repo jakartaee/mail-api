@@ -16,15 +16,16 @@
 
 package com.sun.mail.dsn;
 
-import java.io.*;
-import java.util.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-
-import com.sun.mail.util.LineOutputStream;	// XXX
-import com.sun.mail.util.PropUtil;
+import com.sun.mail.util.LineOutputStream;
 import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetHeaders;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
 
 /**
  * A message/disposition-notification message content, as defined in
@@ -48,7 +49,7 @@ public class DispositionNotification extends Report {
     /**
      * Construct a disposition notification with no content.
      *
-     * @exception	MessagingException for failures
+     * @exception MessagingException for failures
      */
     public DispositionNotification() throws MessagingException {
 	super("disposition-notification");

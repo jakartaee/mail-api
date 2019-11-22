@@ -10,10 +10,6 @@
 
 package demo;
 
-import java.util.*;
-import javax.mail.*;
-import javax.naming.*;
-
 /**
  * This JavaBean is used to store mail user information.
  */
@@ -31,7 +27,7 @@ public class MailUserBean {
     public MailUserBean(){}
 
     /**
-     * Returns the javax.mail.Folder object.
+     * Returns the jakarta.mail.Folder object.
      */
     public Folder getFolder() {
 	return folder;

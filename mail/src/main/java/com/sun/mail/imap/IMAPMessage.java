@@ -16,17 +16,54 @@
 
 package com.sun.mail.imap;
 
-import java.util.Date;
-import java.io.*;
-import java.util.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.iap.Response;
+import com.sun.mail.imap.protocol.BODY;
+import com.sun.mail.imap.protocol.BODYSTRUCTURE;
+import com.sun.mail.imap.protocol.ENVELOPE;
+import com.sun.mail.imap.protocol.FetchItem;
+import com.sun.mail.imap.protocol.FetchResponse;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+import com.sun.mail.imap.protocol.INTERNALDATE;
+import com.sun.mail.imap.protocol.Item;
+import com.sun.mail.imap.protocol.MODSEQ;
+import com.sun.mail.imap.protocol.RFC822DATA;
+import com.sun.mail.imap.protocol.RFC822SIZE;
+import com.sun.mail.imap.protocol.UID;
 import com.sun.mail.util.ReadableMime;
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.protocol.*;
+import jakarta.mail.Address;
+import jakarta.mail.FetchProfile;
+import jakarta.mail.Flags;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.UIDFolder;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeUtility;
+
+import javax.activation.DataHandler;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class implements an IMAPMessage object. <p>
@@ -135,7 +172,7 @@ public class IMAPMessage extends MimeMessage implements ReadableMime {
      *
      * @return	the IMAPProtocol object for the containing folder
      * @exception	ProtocolException for protocol errors
-     * @exception	FolderClosedException if the folder is closed
+     * @exception FolderClosedException if the folder is closed
      */
     protected IMAPProtocol getProtocol()
 			    throws ProtocolException, FolderClosedException {
@@ -196,7 +233,7 @@ public class IMAPMessage extends MimeMessage implements ReadableMime {
      * Returns -1 if not known; use UIDFolder.getUID() in this case.
      *
      * @return	the UID
-     * @see	javax.mail.UIDFolder#getUID
+     * @see	UIDFolder#getUID
      */
     protected long getUID() {
 	return uid;
@@ -211,7 +248,7 @@ public class IMAPMessage extends MimeMessage implements ReadableMime {
      * Returns -1 if not known.
      *
      * @return	the modification sequence number
-     * @exception	MessagingException for failures
+     * @exception MessagingException for failures
      * @see	"RFC 4551"
      * @since	JavaMail 1.5.1
      */
@@ -717,7 +754,7 @@ public class IMAPMessage extends MimeMessage implements ReadableMime {
      * in MimeMessage. This method is ultimately used by the DataHandler
      * to obtain the input stream for this message.
      *
-     * @see javax.mail.internet.MimeMessage#getContentStream
+     * @see MimeMessage#getContentStream
      */
     @Override
     protected InputStream getContentStream() throws MessagingException {

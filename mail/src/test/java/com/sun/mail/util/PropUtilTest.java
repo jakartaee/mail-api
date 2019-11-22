@@ -16,12 +16,13 @@
 
 package com.sun.mail.util;
 
+import jakarta.mail.Session;
+import org.junit.Test;
+
 import java.util.Properties;
-import javax.mail.Session;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 /**
  * Test that the PropUtil methods return the correct values,

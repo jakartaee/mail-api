@@ -16,20 +16,17 @@
 
 package com.sun.mail.imap;
 
+import com.sun.mail.test.TestServer;
+import jakarta.mail.Session;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.Timeout;
+
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Store;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.Timeout;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test that capabilities are updated after login.

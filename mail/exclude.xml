@@ -46,9 +46,9 @@
     -->
     <Match>
 	<Or>
-	    <Class name="javax.mail.SendFailedException"/>
-	    <Class name="javax.mail.event.MessageCountEvent"/>
-	    <Class name="javax.mail.event.TransportEvent"/>
+	    <Class name="jakarta.mail.SendFailedException"/>
+	    <Class name="jakarta.mail.event.MessageCountEvent"/>
+	    <Class name="jakarta.mail.event.TransportEvent"/>
 	    <Class name="com.sun.mail.iap.ByteArray"/>
 	    <Class name="com.sun.mail.imap.MessageVanishedEvent"/>
 	    <Class name="com.sun.mail.imap.protocol.FetchResponse"/>
@@ -65,13 +65,13 @@
 	<Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
     <Match>
-	<Class name="javax.mail.internet.MimeBodyPart"/>
+	<Class name="jakarta.mail.internet.MimeBodyPart"/>
 	<Method name="&lt;init&gt;"/> <!-- match constructor -->
 	<!-- passed in byte array -->
 	<Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
     <Match>
-	<Class name="javax.mail.util.ByteArrayDataSource"/>
+	<Class name="jakarta.mail.util.ByteArrayDataSource"/>
 	<Method name="&lt;init&gt;"/> <!-- match constructor -->
 	<!-- passed in byte array -->
 	<Bug pattern="EI_EXPOSE_REP2"/>
@@ -193,7 +193,7 @@
 	<Bug pattern="REC_CATCH_EXCEPTION"/>
     </Match>
     <Match>
-	<Class name="javax.mail.Session"/>
+	<Class name="jakarta.mail.Session"/>
 	<Or>
 	    <Method name="getService"/>
 	    <Method name="loadAllResources"/>
@@ -201,7 +201,7 @@
 	<Bug pattern="REC_CATCH_EXCEPTION"/>
     </Match>
     <Match>
-	<Class name="javax.mail.internet.MimeUtility"/>
+	<Class name="jakarta.mail.internet.MimeUtility"/>
 	<Or>
 	    <Method name="&lt;clinit&gt;"/> <!-- match static initializer -->
 	    <Method name="getEncoding"/>
@@ -270,7 +270,7 @@
 	used, but it feels weird to only have a "prev" element.
     -->
     <Match>
-	<Class name="javax.mail.EventQueue$QueueElement"/>
+	<Class name="jakarta.mail.EventQueue$QueueElement"/>
 	<Field name="next"/>
 	<Bug pattern="URF_UNREAD_FIELD"/>
     </Match>
@@ -283,7 +283,7 @@
 	this complaint.  Ditto Exception fields.
     -->
     <Match>
-	<Class name="javax.mail.event.TransportEvent"/>
+	<Class name="jakarta.mail.event.TransportEvent"/>
 	<Or>
 	    <Field name="invalid"/>
 	    <Field name="validSent"/>
@@ -292,7 +292,7 @@
 	<Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
     </Match>
     <Match>
-	<Class name="javax.mail.event.FolderEvent"/>
+	<Class name="jakarta.mail.event.FolderEvent"/>
 	<Or>
 	    <Field name="folder"/>
 	    <Field name="newFolder"/>
@@ -300,22 +300,22 @@
 	<Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
     </Match>
     <Match>
-	<Class name="javax.mail.event.MessageChangedEvent"/>
+	<Class name="jakarta.mail.event.MessageChangedEvent"/>
 	<Field name="msg"/>
 	<Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
     </Match>
     <Match>
-	<Class name="javax.mail.event.MessageCountEvent"/>
+	<Class name="jakarta.mail.event.MessageCountEvent"/>
 	<Field name="msgs"/>
 	<Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
     </Match>
     <Match>
-	<Class name="javax.mail.event.TransportEvent"/>
+	<Class name="jakarta.mail.event.TransportEvent"/>
 	<Field name="msg"/>
 	<Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
     </Match>
     <Match>
-	<Class name="javax.mail.SendFailedException"/>
+	<Class name="jakarta.mail.SendFailedException"/>
 	<Or>
 	    <Field name="invalid"/>
 	    <Field name="validSent"/>
@@ -329,8 +329,8 @@
     -->
     <Match>
 	<Or>
-	    <Class name="javax.mail.URLName"/>
-	    <Class name="javax.mail.internet.InternetAddress"/>
+	    <Class name="jakarta.mail.URLName"/>
+	    <Class name="jakarta.mail.internet.InternetAddress"/>
 	</Or>
 	<Method name="equals"/>
 	<Bug pattern="ES_COMPARING_STRINGS_WITH_EQ"/>
@@ -341,7 +341,7 @@
 	String object is a different String object.
     -->
     <Match>
-	<Class name="javax.mail.internet.MimeUtility"/>
+	<Class name="jakarta.mail.internet.MimeUtility"/>
 	<Method name="decodeText"/>
 	<Bug pattern="ES_COMPARING_STRINGS_WITH_EQ"/>
     </Match>
@@ -373,7 +373,7 @@
 	currently do anything with it.  Ignore this complaint.
     -->
     <Match>
-	<Class name="javax.mail.internet.ParameterList"/>
+	<Class name="jakarta.mail.internet.ParameterList"/>
 	<Method name="decodeValue"/>
 	<Bug pattern="DLS_DEAD_LOCAL_STORE"/>
     </Match>
@@ -384,7 +384,7 @@
 	In other cases we *want* a null name to cause a NullPointerException.
     -->
     <Match>
-	<Class name="javax.mail.internet.ParameterList"/>
+	<Class name="jakarta.mail.internet.ParameterList"/>
 	<Method name="set"/>
 	<Bug pattern="NP_NULL_ON_SOME_PATH"/>
     </Match>
@@ -394,7 +394,7 @@
 	around the original stream that needs to remain open.
     -->
     <Match>
-	<Class name="javax.mail.internet.MimeMultipart"/>
+	<Class name="jakarta.mail.internet.MimeMultipart"/>
 	<Or>
 	    <Method name="parse"/>
 	    <Method name="parsebm"/>
@@ -428,8 +428,8 @@
     -->
     <Match>
 	<Or>
-	    <Class name="javax.mail.internet.ContentDisposition"/>
-	    <Class name="javax.mail.internet.ContentType"/>
+	    <Class name="jakarta.mail.internet.ContentDisposition"/>
+	    <Class name="jakarta.mail.internet.ContentType"/>
 	</Or>
 	<Method name="toString"/>
 	<Bug pattern="NP_TOSTRING_COULD_RETURN_NULL"/>
@@ -470,7 +470,7 @@
 	to just leave this alone and ignore the errors.
     -->
     <Match>
-	<Class name="javax.mail.URLName"/>
+	<Class name="jakarta.mail.URLName"/>
 	<Bug pattern="DM_DEFAULT_ENCODING"/>
     </Match>
 
@@ -479,7 +479,7 @@
 	we're trying to discover what the platform default encoding *is*!
     -->
     <Match>
-	<Class name="javax.mail.internet.MimeUtility"/>
+	<Class name="jakarta.mail.internet.MimeUtility"/>
 	<Method name="getDefaultJavaCharset"/>
 	<Bug pattern="DM_DEFAULT_ENCODING"/>
     </Match>
@@ -489,7 +489,7 @@
 	charset hasn't been specified.
     -->
     <Match>
-	<Class name="javax.mail.internet.ParameterList"/>
+	<Class name="jakarta.mail.internet.ParameterList"/>
 	<Method name="combineMultisegmentNames"/>
 	<Bug pattern="DM_DEFAULT_ENCODING"/>
     </Match>
@@ -513,7 +513,7 @@
 	better to leave the defensive code in and ignore this error.
     -->
     <Match>
-	<Class name="javax.mail.internet.MimeBodyPart"/>
+	<Class name="jakarta.mail.internet.MimeBodyPart"/>
 	<Field name="headers"/>
 	<Bug pattern="IS2_INCONSISTENT_SYNC"/>
     </Match>
@@ -598,12 +598,12 @@
 	These unread fields are part of the public API.
     -->
     <Match>
-	<Class name="javax.mail.Service"/>
+	<Class name="jakarta.mail.Service"/>
 	<Field name="debug"/>
 	<Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
     </Match>
     <Match>
-	<Class name="javax.mail.Quota$Resource"/>
+	<Class name="jakarta.mail.Quota$Resource"/>
 	<Field name="usage"/>
 	<Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
     </Match>
@@ -649,7 +649,7 @@
 	but this extra check is cheap insurance.
     -->
     <Match>
-	<Class name="javax.mail.MessagingException"/>
+	<Class name="jakarta.mail.MessagingException"/>
 	<Method name="toString"/>
 	<Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
     </Match>
@@ -658,7 +658,7 @@
 	but this extra check is cheap insurance.
     -->
     <Match>
-	<Class name="~javax\.mail\.Session\$.*"/>
+	<Class name="~jakarta\.mail\.Session\$.*"/>
 	<Method name="run"/>
 	<Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
     </Match>
@@ -667,7 +667,7 @@
 	These names may be confusing, but we're stuck with them.
     -->
     <Match>
-	<Class name="javax.mail.PasswordAuthentication"/>
+	<Class name="jakarta.mail.PasswordAuthentication"/>
 	<Method name="getUserName"/>
 	<Bug pattern="NM_CONFUSING"/>
     </Match>
@@ -677,7 +677,7 @@
 	so it doesn't really need a serialVersionUID.
     -->
     <Match>
-	<Class name="javax.mail.internet.ParameterList$MultiValue"/>
+	<Class name="jakarta.mail.internet.ParameterList$MultiValue"/>
 	<Bug pattern="SE_NO_SERIALVERSIONID"/>
     </Match>
 
@@ -703,7 +703,7 @@
 	expose them itself.
     -->
     <Match>
-	<Class name="javax.mail.Authenticator"/>
+	<Class name="jakarta.mail.Authenticator"/>
 	<Bug pattern="IS2_INCONSISTENT_SYNC"/>
     </Match>
 

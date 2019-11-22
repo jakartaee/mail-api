@@ -16,9 +16,9 @@
 
 package com.sun.mail.imap;
 
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.event.MessageCountEvent;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.event.MessageCountEvent;
 
 /**
  * This class provides notification of messages that have been removed

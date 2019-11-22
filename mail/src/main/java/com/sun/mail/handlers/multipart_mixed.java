@@ -16,11 +16,14 @@
 
 package com.sun.mail.handlers;
 
-import java.io.*;
-import javax.activation.*;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.internet.MimeMultipart;
+
+import javax.activation.ActivationDataFlavor;
+import javax.activation.DataSource;
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 public class multipart_mixed extends handler_base {

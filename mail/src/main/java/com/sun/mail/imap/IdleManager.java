@@ -16,20 +16,25 @@
 
 package com.sun.mail.imap;
 
+import com.sun.mail.util.MailLogger;
+import jakarta.mail.Folder;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.Socket;
-import java.nio.*;
-import java.nio.channels.*;
-import java.util.*;
-import java.util.logging.*;
+import java.nio.channels.CancelledKeyException;
+import java.nio.channels.SelectableChannel;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executor;
-
-import javax.mail.*;
-
-import com.sun.mail.imap.protocol.IMAPProtocol;
-import com.sun.mail.util.MailLogger;
+import java.util.logging.Level;
 
 /**
  * IdleManager uses the optional IMAP IDLE command
@@ -167,7 +172,7 @@ public class IdleManager {
      * command.
      *
      * @param	folder	the folder to watch
-     * @exception	MessagingException	for errors related to the folder
+     * @exception MessagingException    for errors related to the folder
      */
     public void watch(Folder folder)
 				throws MessagingException {

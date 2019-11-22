@@ -8,10 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import jakarta.mail.*;
 
 /**
  * This class models a UUEncoded Message sent from MS Outlook etc. <p>
@@ -24,7 +21,7 @@ import javax.activation.*;
  *
  * @author John Mani
  * @author Bill Shannon
- * @see    javax.mail.internet.MimeMessage
+ * @see    jakarta.mail.internet.MimeMessage
  */
 
 public class MSMessage extends MimeMessage {

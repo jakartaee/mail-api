@@ -16,16 +16,15 @@
 
 package com.sun.mail.imap;
 
-import java.io.*;
+import com.sun.mail.test.TestServer;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import org.junit.Test;
+
+import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Folder;
-
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
 import static org.junit.Assert.fail;
 
 /**

@@ -33,6 +33,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -365,7 +366,7 @@ abstract class AbstractLogging {
     private boolean isFromJakartaMail(Class<?> k, boolean include) throws Exception {
         for (Class<?> t = k; t != null; t = t.getSuperclass()) {
             final String n = t.getName();
-            if (n.startsWith("javax.mail.")) {
+            if (n.startsWith("jakarta.mail.")) {
                 return include;
             }
 

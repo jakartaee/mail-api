@@ -16,10 +16,11 @@
 
 package com.sun.mail.pop3;
 
+import jakarta.mail.util.SharedFileInputStream;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import javax.mail.util.SharedFileInputStream;
 
 /**
  * A subclass of SharedFileInputStream that also allows writing.

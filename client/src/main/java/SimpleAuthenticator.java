@@ -8,10 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.mail.*;
-import java.net.InetAddress;
-import java.awt.*;
-import javax.swing.*;
+import java.net.*;
 
 /**
  * Simple Authenticator for requesting password information.

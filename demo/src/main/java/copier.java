@@ -13,8 +13,6 @@
  * @author	Christopher Cotton
  */
 
-import javax.mail.*;
-
 /**
  * copier will copy a specified number of messages from one folder
  * to another folder. it demonstrates how to use the Jakarta Mail APIs

@@ -16,13 +16,13 @@
 
 package com.sun.mail.imap;
 
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.MethodNotSupportedException;
 import com.sun.mail.iap.ProtocolException;
 import com.sun.mail.imap.protocol.IMAPProtocol;
 import com.sun.mail.imap.protocol.ListInfo;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MethodNotSupportedException;
 
 /**
  * The default IMAP folder (root of the naming hierarchy).

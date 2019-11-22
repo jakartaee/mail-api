@@ -16,19 +16,13 @@
 
 package com.sun.mail.mbox;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.Properties;
+import jakarta.mail.*;
+import org.junit.*;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Folder;
+import java.io.*;
+import java.util.*;
 
-import org.junit.Test;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Test of mbox folders.

@@ -8,9 +8,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.mail.*;
-import java.util.Date;
-import javax.swing.table.AbstractTableModel; 
+import javax.swing.table.*;
+import java.util.*;
 
 /**
  * Maps the messages in a Folder to the Swing's Table Model

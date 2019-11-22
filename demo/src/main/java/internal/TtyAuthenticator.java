@@ -8,11 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.io.*;
-import java.net.*;
-import javax.mail.*;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Authenticator;
+import jakarta.mail.*;
 
 /**
  * A simple Authenticator that prompts for the user name and password on stdin.

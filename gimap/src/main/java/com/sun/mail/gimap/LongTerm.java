@@ -16,7 +16,7 @@
 
 package com.sun.mail.gimap;
 
-import javax.mail.search.SearchTerm;
+import jakarta.mail.search.SearchTerm;
 
 /**
  * This class implements a long integer search term.

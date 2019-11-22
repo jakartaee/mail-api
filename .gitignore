@@ -3,7 +3,8 @@ target/
 nbproject/private/
 .m2/
 webrev
-src/main/java/javax/mail/Version\.java
+src/main/java/jakarta/mail/Version\.java
 .idea
 .java-version
 **/*.iml
+**/.DS_Store

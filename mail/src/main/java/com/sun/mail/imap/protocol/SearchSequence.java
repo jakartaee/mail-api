@@ -16,15 +16,38 @@
 
 package com.sun.mail.imap.protocol;
 
-import java.util.*;
-import java.io.IOException;
-
-import javax.mail.*;
-import javax.mail.search.*;
-import com.sun.mail.iap.*;
+import com.sun.mail.iap.Argument;
+import com.sun.mail.imap.ModifiedSinceTerm;
 import com.sun.mail.imap.OlderTerm;
 import com.sun.mail.imap.YoungerTerm;
-import com.sun.mail.imap.ModifiedSinceTerm;
+import jakarta.mail.Flags;
+import jakarta.mail.Message;
+import jakarta.mail.search.AddressTerm;
+import jakarta.mail.search.AndTerm;
+import jakarta.mail.search.BodyTerm;
+import jakarta.mail.search.ComparisonTerm;
+import jakarta.mail.search.DateTerm;
+import jakarta.mail.search.FlagTerm;
+import jakarta.mail.search.FromStringTerm;
+import jakarta.mail.search.FromTerm;
+import jakarta.mail.search.HeaderTerm;
+import jakarta.mail.search.MessageIDTerm;
+import jakarta.mail.search.NotTerm;
+import jakarta.mail.search.OrTerm;
+import jakarta.mail.search.ReceivedDateTerm;
+import jakarta.mail.search.RecipientStringTerm;
+import jakarta.mail.search.RecipientTerm;
+import jakarta.mail.search.SearchException;
+import jakarta.mail.search.SearchTerm;
+import jakarta.mail.search.SentDateTerm;
+import jakarta.mail.search.SizeTerm;
+import jakarta.mail.search.StringTerm;
+import jakarta.mail.search.SubjectTerm;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * This class traverses a search-tree and generates the 
@@ -64,10 +87,10 @@ public class SearchSequence {
      * @param	term	the search term
      * @param	charset	charset for the search
      * @return		the SEARCH Argument
-     * @exception	SearchException	for failures
+     * @exception SearchException    for failures
      * @exception	IOException	for I/O errors
      */
-    public Argument generateSequence(SearchTerm term, String charset) 
+    public Argument generateSequence(SearchTerm term, String charset)
 		throws SearchException, IOException {
 	/*
 	 * Call the appropriate handler depending on the type of
@@ -321,7 +344,7 @@ public class SearchSequence {
     }
 
     protected Argument recipient(Message.RecipientType type,
-				      String address, String charset)
+                                 String address, String charset)
 			throws SearchException, IOException {
 	Argument result = new Argument();
 
@@ -411,7 +434,7 @@ public class SearchSequence {
 	return s.toString();
     }
 
-    protected Argument sentdate(DateTerm term) 
+    protected Argument sentdate(DateTerm term)
 			throws SearchException {
 	Argument result = new Argument();
 	String date = toIMAPDate(term.getDate());

@@ -16,12 +16,11 @@
 
 package com.sun.mail.imap.protocol;
 
-import javax.mail.internet.ParameterList;
-
-import com.sun.mail.iap.Response;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
+import jakarta.mail.internet.ParameterList;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test the BODYSTRUCTURE class.

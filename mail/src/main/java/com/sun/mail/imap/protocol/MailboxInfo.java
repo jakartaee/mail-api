@@ -16,12 +16,12 @@
 
 package com.sun.mail.imap.protocol;
 
-import java.util.List;
+import com.sun.mail.iap.ParsingException;
+import com.sun.mail.iap.Response;
+import jakarta.mail.Flags;
+
 import java.util.ArrayList;
-
-import javax.mail.Flags;
-
-import com.sun.mail.iap.*;
+import java.util.List;
 
 /**
  * Information collected when opening a mailbox.

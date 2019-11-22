@@ -16,7 +16,8 @@
 
 package com.sun.mail.gimap;
 
-import javax.mail.*;
+import jakarta.mail.Session;
+import jakarta.mail.URLName;
 
 /**
  * Support "gimaps" protocol name.

@@ -16,18 +16,17 @@
 
 package com.sun.mail.mbox;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import jakarta.mail.*;
+
 import java.io.*;
 
 /**
  * This class represents a SunV3 BodyPart.
  *
  * @author Bill Shannon
- * @see javax.mail.Part
- * @see javax.mail.internet.MimePart
- * @see javax.mail.internet.MimeBodyPart
+ * @see jakarta.mail.Part
+ * @see jakarta.mail.internet.MimePart
+ * @see jakarta.mail.internet.MimeBodyPart
  */
 
 public class SunV3BodyPart extends MimeBodyPart {
