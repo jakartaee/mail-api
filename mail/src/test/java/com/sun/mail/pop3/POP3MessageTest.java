@@ -19,13 +19,13 @@ package com.sun.mail.pop3;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.MessagingException;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.Message;
+import jakarta.mail.Multipart;
+import jakarta.mail.Part;
+import jakarta.mail.MessagingException;
 
 import com.sun.mail.test.TestServer;
 

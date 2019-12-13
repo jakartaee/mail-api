@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.logging.Level;
 import javax.security.sasl.*;
 import javax.security.auth.callback.*;
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.ASCIIUtility;

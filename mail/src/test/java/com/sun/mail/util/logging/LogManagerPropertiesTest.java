@@ -27,8 +27,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -312,7 +312,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
             "java.lang.System",
             "java.nio.channels.Channels",
             "java.util.Collections",
-            "javax.mail.internet.MimeUtility",
+            "jakarta.mail.internet.MimeUtility",
             "org.junit.Assert"
         };
 
@@ -1002,7 +1002,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
     public void testEscapingAuthenticator() throws Exception {
         try {
             Class<?> k = ErrorAuthenticator.class;
-            javax.mail.Authenticator a;
+            jakarta.mail.Authenticator a;
 
             a = LogManagerProperties.newObjectFrom(k.getName(), Authenticator.class);
             assertEquals(k, a.getClass());
@@ -1223,7 +1223,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
         return false;
     }
 
-    public static final class EmptyAuthenticator extends javax.mail.Authenticator {
+    public static final class EmptyAuthenticator extends jakarta.mail.Authenticator {
 
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
@@ -1231,7 +1231,7 @@ public class LogManagerPropertiesTest extends AbstractLogging {
         }
     }
 
-    public static final class ErrorAuthenticator extends javax.mail.Authenticator {
+    public static final class ErrorAuthenticator extends jakarta.mail.Authenticator {
 
         public ErrorAuthenticator() {
             throwPendingIfSet();

@@ -29,10 +29,10 @@ import java.io.*;
 import java.net.SocketTimeoutException;
 import java.nio.channels.SocketChannel;
 
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
+import jakarta.mail.*;
+import jakarta.mail.event.*;
+import jakarta.mail.internet.*;
+import jakarta.mail.search.*;
 
 import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.MailLogger;

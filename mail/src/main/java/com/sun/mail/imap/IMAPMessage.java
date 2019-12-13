@@ -20,8 +20,8 @@ import java.util.Date;
 import java.io.*;
 import java.util.*;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 import javax.activation.*;
 
 import com.sun.mail.util.ReadableMime;
@@ -196,7 +196,7 @@ public class IMAPMessage extends MimeMessage implements ReadableMime {
      * Returns -1 if not known; use UIDFolder.getUID() in this case.
      *
      * @return	the UID
-     * @see	javax.mail.UIDFolder#getUID
+     * @see	jakarta.mail.UIDFolder#getUID
      */
     protected long getUID() {
 	return uid;
@@ -717,7 +717,7 @@ public class IMAPMessage extends MimeMessage implements ReadableMime {
      * in MimeMessage. This method is ultimately used by the DataHandler
      * to obtain the input stream for this message.
      *
-     * @see javax.mail.internet.MimeMessage#getContentStream
+     * @see jakarta.mail.internet.MimeMessage#getContentStream
      */
     @Override
     protected InputStream getContentStream() throws MessagingException {

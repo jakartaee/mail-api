@@ -23,9 +23,9 @@ import java.lang.reflect.*;
 import java.util.logging.Level;
 import java.nio.charset.StandardCharsets;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.mail.search.*;
 
 import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.MailLogger;

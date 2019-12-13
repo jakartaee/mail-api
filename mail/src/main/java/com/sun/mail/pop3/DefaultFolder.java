@@ -16,7 +16,7 @@
 
 package com.sun.mail.pop3;
 
-import javax.mail.*;
+import jakarta.mail.*;
 
 /**
  * The POP3 DefaultFolder.  Only contains the "INBOX" folder.

@@ -26,9 +26,9 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
-import javax.mail.*;
-import javax.mail.internet.MimeMessage;
-import javax.mail.util.ByteArrayDataSource;
+import jakarta.mail.*;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.util.ByteArrayDataSource;
 import javax.activation.DataHandler;
 import javax.net.ssl.*;
 

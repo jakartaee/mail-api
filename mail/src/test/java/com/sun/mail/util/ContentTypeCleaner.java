@@ -20,13 +20,13 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.MessagingException;
-import javax.mail.BodyPart;
+import jakarta.mail.Session;
+import jakarta.mail.MessagingException;
+import jakarta.mail.BodyPart;
 import com.sun.mail.test.AsciiStringInputStream;
-import javax.mail.internet.MimePart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 
 import org.junit.*;
 import static org.junit.Assert.assertEquals;

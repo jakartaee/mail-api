@@ -16,7 +16,7 @@
 
 package com.sun.mail.imap.protocol;
 
-import javax.mail.Flags;
+import jakarta.mail.Flags;
 import com.sun.mail.iap.*; 
 
 /**

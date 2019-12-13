@@ -20,12 +20,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import javax.mail.util.ByteArrayDataSource;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import com.sun.mail.test.TestServer;
 

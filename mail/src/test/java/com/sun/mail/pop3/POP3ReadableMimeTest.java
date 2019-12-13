@@ -21,12 +21,12 @@ import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Properties;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.Part;
-import javax.mail.MessagingException;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.Message;
+import jakarta.mail.Part;
+import jakarta.mail.MessagingException;
 
 import com.sun.mail.util.ReadableMime;
 import com.sun.mail.test.TestServer;

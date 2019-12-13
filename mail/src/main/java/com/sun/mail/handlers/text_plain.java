@@ -18,8 +18,8 @@ package com.sun.mail.handlers;
 
 import java.io.*;
 import javax.activation.*;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.MimeUtility;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.MimeUtility;
 
 /**
  * DataContentHandler for text/plain.

@@ -18,9 +18,9 @@ package com.sun.mail.handlers;
 
 import java.io.*;
 import javax.activation.*;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.internet.MimeMultipart;
 
 
 public class multipart_mixed extends handler_base {

@@ -20,9 +20,9 @@ import java.io.*;
 import java.util.Properties;
 import java.net.ServerSocket;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.MessagingException;
 
 import com.sun.mail.iap.ConnectionException;
 

@@ -16,8 +16,8 @@
 
 package com.sun.mail.smtp;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 
 /**
  * This exception is chained off a SendFailedException when the

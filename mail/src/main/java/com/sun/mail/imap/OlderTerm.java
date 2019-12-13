@@ -17,8 +17,8 @@
 package com.sun.mail.imap;
 
 import java.util.Date;
-import javax.mail.Message;
-import javax.mail.search.SearchTerm;
+import jakarta.mail.Message;
+import jakarta.mail.search.SearchTerm;
 
 /**
  * Find messages that are older than a given interval (in seconds).

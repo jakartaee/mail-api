@@ -16,7 +16,7 @@
 
 package com.sun.mail.imap;
 
-import javax.mail.AuthenticationFailedException;
+import jakarta.mail.AuthenticationFailedException;
 
 /**
  * A special kind of AuthenticationFailedException that indicates that

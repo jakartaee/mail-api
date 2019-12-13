@@ -19,8 +19,8 @@ package com.sun.mail.handlers;
 import java.io.*;
 import java.util.Properties;
 import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 
 /**

@@ -23,7 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.FieldPosition;
 
-import javax.mail.internet.MailDateFormat;
+import jakarta.mail.internet.MailDateFormat;
 
 import com.sun.mail.iap.*; 
 

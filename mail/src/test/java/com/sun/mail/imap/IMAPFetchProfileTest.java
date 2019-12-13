@@ -22,12 +22,12 @@ import java.util.StringTokenizer;
 import java.util.Set;
 import java.util.HashSet;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.FetchProfile;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.FetchProfile;
 
 import com.sun.mail.test.TestServer;
 

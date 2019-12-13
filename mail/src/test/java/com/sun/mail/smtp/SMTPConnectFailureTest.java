@@ -19,8 +19,8 @@ package com.sun.mail.smtp;
 import java.util.Properties;
 import java.net.ServerSocket;
 
-import javax.mail.Session;
-import javax.mail.Transport;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
 
 import com.sun.mail.util.MailConnectException;
 

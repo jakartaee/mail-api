@@ -19,8 +19,8 @@ package com.sun.mail.imap;
 import java.io.*;
 
 import java.util.Enumeration;
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 import javax.activation.*;
 
 import com.sun.mail.util.PropUtil;

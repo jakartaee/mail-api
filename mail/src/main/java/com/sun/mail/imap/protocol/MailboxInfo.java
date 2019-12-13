@@ -19,7 +19,7 @@ package com.sun.mail.imap.protocol;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.mail.Flags;
+import jakarta.mail.Flags;
 
 import com.sun.mail.iap.*;
 

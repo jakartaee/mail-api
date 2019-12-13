@@ -317,7 +317,8 @@ abstract class AbstractLogging {
              */
             if (f.getName().indexOf('$') < 0 && !k.isPrimitive()
                     && !k.getName().startsWith("java.")
-                    && !k.getName().startsWith("javax.")) {
+                    && !k.getName().startsWith("javax.")
+                    && !k.getName().startsWith("jakarta.")) {
                 fail(f.toString());
             }
         }
@@ -365,7 +366,7 @@ abstract class AbstractLogging {
     private boolean isFromJakartaMail(Class<?> k, boolean include) throws Exception {
         for (Class<?> t = k; t != null; t = t.getSuperclass()) {
             final String n = t.getName();
-            if (n.startsWith("javax.mail.")) {
+            if (n.startsWith("jakarta.mail.")) {
                 return include;
             }
 

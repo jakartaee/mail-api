@@ -26,7 +26,7 @@ import java.util.logging.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executor;
 
-import javax.mail.*;
+import jakarta.mail.*;
 
 import com.sun.mail.imap.protocol.IMAPProtocol;
 import com.sun.mail.util.MailLogger;

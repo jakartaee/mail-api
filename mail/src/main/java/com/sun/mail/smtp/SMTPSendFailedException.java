@@ -16,9 +16,9 @@
 
 package com.sun.mail.smtp;
 
-import javax.mail.Address;
-import javax.mail.SendFailedException;
-import javax.mail.internet.InternetAddress;
+import jakarta.mail.Address;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.internet.InternetAddress;
 
 /**
  * This exception is thrown when the message cannot be sent. <p>

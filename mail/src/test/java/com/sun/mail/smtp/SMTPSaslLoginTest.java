@@ -19,9 +19,9 @@ package com.sun.mail.smtp;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.AuthenticationFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.AuthenticationFailedException;
 
 import com.sun.mail.test.TestServer;
 

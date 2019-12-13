@@ -21,8 +21,8 @@ import java.io.OutputStream;
 
 import javax.activation.ActivationDataFlavor;
 import javax.activation.DataSource;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.ParseException;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.ParseException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;

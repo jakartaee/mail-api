@@ -16,7 +16,7 @@
 
 package com.sun.mail.smtp;
 
-import javax.mail.*;
+import jakarta.mail.*;
 
 /**
  * This class implements the Transport abstract class using SMTP

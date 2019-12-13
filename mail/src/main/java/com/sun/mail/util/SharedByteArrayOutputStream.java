@@ -19,7 +19,7 @@ package com.sun.mail.util;
 import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 
-import javax.mail.util.SharedByteArrayInputStream;
+import jakarta.mail.util.SharedByteArrayInputStream;
 
 /**
  * A ByteArrayOutputStream that allows us to share the byte array

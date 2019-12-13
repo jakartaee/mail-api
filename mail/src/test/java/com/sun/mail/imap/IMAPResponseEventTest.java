@@ -21,10 +21,10 @@ import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.event.StoreListener;
-import javax.mail.event.StoreEvent;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.event.StoreListener;
+import jakarta.mail.event.StoreEvent;
 
 import com.sun.mail.test.TestServer;
 

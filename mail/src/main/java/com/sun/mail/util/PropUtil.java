@@ -17,7 +17,7 @@
 package com.sun.mail.util;
 
 import java.util.*;
-import javax.mail.Session;
+import jakarta.mail.Session;
 
 /**
  * Utilities to make it easier to get property values.

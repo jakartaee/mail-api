@@ -19,9 +19,9 @@ package com.sun.mail.pop3;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
 
 import com.sun.mail.test.TestServer;
 

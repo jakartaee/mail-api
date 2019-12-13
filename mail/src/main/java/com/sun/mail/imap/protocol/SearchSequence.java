@@ -19,8 +19,8 @@ package com.sun.mail.imap.protocol;
 import java.util.*;
 import java.io.IOException;
 
-import javax.mail.*;
-import javax.mail.search.*;
+import jakarta.mail.*;
+import jakarta.mail.search.*;
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.OlderTerm;
 import com.sun.mail.imap.YoungerTerm;

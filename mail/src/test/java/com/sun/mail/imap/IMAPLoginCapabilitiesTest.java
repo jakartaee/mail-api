@@ -19,8 +19,8 @@ package com.sun.mail.imap;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Store;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
 
 import com.sun.mail.test.TestServer;
 

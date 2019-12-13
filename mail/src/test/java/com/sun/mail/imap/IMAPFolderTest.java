@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.MessagingException;
-import javax.mail.UIDFolder;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.MessagingException;
+import jakarta.mail.UIDFolder;
 
 import com.sun.mail.test.TestServer;
 

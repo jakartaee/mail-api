@@ -17,8 +17,8 @@
 package com.sun.mail.imap;
 
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 import com.sun.mail.imap.protocol.*;
 import java.util.ArrayList;

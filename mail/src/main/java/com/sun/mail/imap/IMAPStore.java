@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import javax.mail.*;
-import javax.mail.event.*;
+import jakarta.mail.*;
+import jakarta.mail.event.*;
 
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.protocol.*;

@@ -19,12 +19,12 @@ package com.sun.mail.imap;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.Flags;
-import javax.mail.search.FlagTerm;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.Message;
+import jakarta.mail.Flags;
+import jakarta.mail.search.FlagTerm;
 
 import com.sun.mail.test.TestServer;
 

@@ -19,7 +19,7 @@ package com.sun.mail.imap;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import javax.mail.*;
+import jakarta.mail.*;
 
 import com.sun.mail.imap.protocol.MessageSet;
 import com.sun.mail.imap.protocol.UIDSet;

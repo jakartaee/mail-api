@@ -23,8 +23,8 @@ import java.io.IOException;
  * that only throw IOException.  The getContent method will catch this
  * exception and translate it back to MessageRemovedException.
  *
- * @see	   javax.mail.Message#isExpunged()
- * @see	   javax.mail.Message#getMessageNumber()
+ * @see	   jakarta.mail.Message#isExpunged()
+ * @see	   jakarta.mail.Message#getMessageNumber()
  * @author Bill Shannon
  */
 

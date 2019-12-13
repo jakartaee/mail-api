@@ -16,7 +16,7 @@
 
 package com.sun.mail.imap;
 
-import javax.mail.Provider;
+import jakarta.mail.Provider;
 
 import com.sun.mail.util.DefaultProvider;
 

@@ -112,7 +112,7 @@ implementations of the IMAP protocol provider.
 The IMAP QUOTA extension
 (<A HREF="http://www.ietf.org/rfc/rfc2087.txt" TARGET="_top">RFC 2087</A>)
 is supported via the
-{@link javax.mail.QuotaAwareStore QuotaAwareStore} interface implemented by
+{@link jakarta.mail.QuotaAwareStore QuotaAwareStore} interface implemented by
 {@link com.sun.mail.imap.IMAPStore IMAPStore}, and the
 {@link com.sun.mail.imap.IMAPFolder#getQuota IMAPFolder getQuota} and
 {@link com.sun.mail.imap.IMAPFolder#setQuota IMAPFolder setQuota} methods.
@@ -164,12 +164,12 @@ Using a
 values also allows the server to report any changes in messages since the last
 resynchronization.
 The changes are reported as a list of
-{@link javax.mail.event.MailEvent MailEvent} instances.
+{@link jakarta.mail.event.MailEvent MailEvent} instances.
 The special
 {@link com.sun.mail.imap.MessageVanishedEvent MessageVanishedEvent} reports on
 UIDs of messages that have been removed since the last resynchronization.
 A
-{@link javax.mail.event.MessageChangedEvent MessageChangedEvent} reports on
+{@link jakarta.mail.event.MessageChangedEvent MessageChangedEvent} reports on
 changes to flags of messages.
 For example:
 </P>
@@ -196,7 +196,7 @@ The IMAP WITHIN search extension
 is supported via the
 {@link com.sun.mail.imap.YoungerTerm YoungerTerm} and
 {@link com.sun.mail.imap.OlderTerm OlderTerm} 
-{@link javax.mail.search.SearchTerm SearchTerms}, which can be used as follows:
+{@link jakarta.mail.search.SearchTerm SearchTerms}, which can be used as follows:
 </P>
 <PRE>
 	// search for messages delivered in the last day
@@ -816,13 +816,13 @@ in future releases.
 <TD><A ID="mail.imap.throwsearchexception">mail.imap.throwsearchexception</A></TD>
 <TD>boolean</TD>
 <TD>
-If set to true and a {@link javax.mail.search.SearchTerm SearchTerm}
+If set to true and a {@link jakarta.mail.search.SearchTerm SearchTerm}
 passed to the
-{@link javax.mail.Folder#search Folder.search}
+{@link jakarta.mail.Folder#search Folder.search}
 method is too complex for the IMAP protocol, throw a
-{@link javax.mail.search.SearchException SearchException}.
+{@link jakarta.mail.search.SearchException SearchException}.
 For example, the IMAP protocol only supports less-than and greater-than
-comparisons for a {@link javax.mail.search.SizeTerm SizeTerm}.
+comparisons for a {@link jakarta.mail.search.SizeTerm SizeTerm}.
 If false, the search will be done locally by fetching the required
 message data and comparing it locally.
 Defaults to false.
@@ -925,7 +925,7 @@ Defaults to false.
 <P>
 In general, applications should not need to use the classes in this
 package directly.  Instead, they should use the APIs defined by the
-<code>javax.mail</code> package (and subpackages).  Applications should
+<code>jakarta.mail</code> package (and subpackages).  Applications should
 never construct instances of <code>IMAPStore</code> or
 <code>IMAPFolder</code> directly.  Instead, they should use the
 <code>Session</code> method <code>getStore</code> to acquire an
@@ -935,7 +935,7 @@ appropriate <code>Store</code> object, and from that acquire
 <STRONG>Loggers</STRONG>
 <P>
 In addition to printing debugging output as controlled by the
-{@link javax.mail.Session Session} configuration,
+{@link jakarta.mail.Session Session} configuration,
 the com.sun.mail.imap provider logs the same information using
 {@link java.util.logging.Logger} as described in the following table:
 </P>

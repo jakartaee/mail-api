@@ -16,7 +16,7 @@
 
 package com.sun.mail.imap;
 
-import javax.mail.*;
+import jakarta.mail.*;
 
 /**
  * This class provides access to an IMAP message store over SSL.

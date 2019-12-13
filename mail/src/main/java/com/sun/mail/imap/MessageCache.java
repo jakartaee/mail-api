@@ -20,7 +20,7 @@ import java.io.PrintStream;
 import java.util.*;
 import java.util.logging.Level;
 
-import javax.mail.*;
+import jakarta.mail.*;
 import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.MailLogger;
 

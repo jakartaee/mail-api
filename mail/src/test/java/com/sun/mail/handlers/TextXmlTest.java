@@ -20,8 +20,8 @@ import java.io.*;
 import java.util.*;
 import java.awt.datatransfer.DataFlavor;
 import javax.activation.*;
-import javax.mail.*;
-import javax.mail.util.ByteArrayDataSource;
+import jakarta.mail.*;
+import jakarta.mail.util.ByteArrayDataSource;
 import javax.xml.transform.stream.*;
 
 import org.junit.Test;
