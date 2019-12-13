@@ -4,3 +4,13 @@ nbproject/private/
 .m2/
 webrev
 src/main/java/javax/mail/Version\.java
+
+#MacOS
+**/.DS_Store
+
+#IntelliJ
+.idea
+*.iml
+
+#Jenv
+.java-version
