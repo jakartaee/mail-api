@@ -26,8 +26,8 @@ spec:
     imagePullPolicy: Always
     resources:
       limits:
-        memory: "6Gi"
-        cpu: "1.25"
+        memory: "5Gi"
+        cpu: "1"
   - name: james-mail
     image: jakartaee/cts-mailserver:0.1
     command:
@@ -42,8 +42,8 @@ spec:
     imagePullPolicy: Always
     resources:
       limits:
-        memory: "4Gi"
-        cpu: "1.0"
+        memory: "2.5Gi"
+        cpu: ".75"
 """
     }
   }
