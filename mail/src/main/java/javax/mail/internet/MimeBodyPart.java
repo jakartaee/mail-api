@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,10 +14,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail.internet;
+package jakarta.mail.internet;
 
-import javax.mail.*;
-import javax.activation.*;
+import jakarta.mail.*;
+import jakarta.activation.*;
 import java.io.*;
 import java.util.*;
 import com.sun.mail.util.PropUtil;
@@ -54,9 +54,9 @@ import com.sun.mail.util.LineOutputStream;
  * @author John Mani
  * @author Bill Shannon
  * @author Kanwar Oberoi
- * @see javax.mail.Part
- * @see javax.mail.internet.MimePart
- * @see javax.mail.internet.MimeUtility
+ * @see jakarta.mail.Part
+ * @see jakarta.mail.internet.MimePart
+ * @see jakarta.mail.internet.MimeUtility
  */
 
 public class MimeBodyPart extends BodyPart implements MimePart {
@@ -562,11 +562,11 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      * @return 		an InputStream
      * @exception       IOException this is typically thrown by the
      *			DataHandler. Refer to the documentation for
-     *			javax.activation.DataHandler for more details.
+     *			jakarta.activation.DataHandler for more details.
      * @exception	MessagingException for other failures
      *
      * @see	#getContentStream
-     * @see 	javax.activation.DataHandler#getInputStream
+     * @see 	jakarta.activation.DataHandler#getInputStream
      */
     @Override
     public InputStream getInputStream() 
@@ -647,7 +647,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      * @return          Object
      * @exception       IOException this is typically thrown by the
      *			DataHandler. Refer to the documentation for
-     *			javax.activation.DataHandler for more details.
+     *			jakarta.activation.DataHandler for more details.
      * @exception       MessagingException for other failures
      */  
     @Override
@@ -962,9 +962,9 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      *
      * @exception IOException	if an error occurs writing to the
      *				stream or if an error is generated
-     *				by the javax.activation layer.
+     *				by the jakarta.activation layer.
      * @exception MessagingException for other failures
-     * @see javax.activation.DataHandler#writeTo
+     * @see jakarta.activation.DataHandler#writeTo
      */
     @Override
     public void writeTo(OutputStream os)
@@ -979,7 +979,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      *
      * @param   name    name of header
      * @return  array of headers
-     * @see     javax.mail.internet.MimeUtility
+     * @see     jakarta.mail.internet.MimeUtility
      */  
     @Override
     public String[] getHeader(String name) throws MessagingException {
@@ -1013,7 +1013,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      *
      * @param   name    header name
      * @param   value   header value
-     * @see     javax.mail.internet.MimeUtility
+     * @see     jakarta.mail.internet.MimeUtility
      */
     @Override
     public void setHeader(String name, String value)
@@ -1029,7 +1029,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      *
      * @param   name    header name
      * @param   value   header value
-     * @see     javax.mail.internet.MimeUtility
+     * @see     jakarta.mail.internet.MimeUtility
      */
     @Override
     public void addHeader(String name, String value)

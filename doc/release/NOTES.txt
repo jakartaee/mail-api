@@ -125,7 +125,8 @@ Our response:	Turn on session debugging and send us the protocol trace.
 		session debugging for the demo programs.  In your own
 		program, call "session.setDebug(true);".
 
-Your problem:	javax.mail or javax.activation classes not found when compiling.
+Your problem:	jakarta.mail or jakarta.activation classes not found when
+		compiling.
 Our response:	You didn't set CLASSPATH correctly to find jakarta.mail.jar and
 		jakarta.activation.jar.  See README.txt.
 

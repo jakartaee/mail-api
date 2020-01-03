@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,8 +20,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.lang.reflect.*;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 import java.io.File;
 import java.io.PrintStream;
 import java.io.IOException;
@@ -136,7 +136,7 @@ public class POP3Store extends Store {
 		    messageClass = Class.forName(s);
 		}
 
-		Class<?>[] c = {javax.mail.Folder.class, int.class};
+		Class<?>[] c = {jakarta.mail.Folder.class, int.class};
 		messageConstructor = messageClass.getConstructor(c);
 	    } catch (Exception ex) {
 		logger.log(Level.CONFIG, "failed to load message class", ex);

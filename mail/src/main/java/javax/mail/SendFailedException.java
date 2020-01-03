@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 /**
  * This exception is thrown when the message cannot be sent.<p>
@@ -23,9 +23,9 @@ package javax.mail;
  * sent as well as the valid addresses to which the message was sent and
  * valid addresses to which the message was not sent.
  *
- * @see	javax.mail.Transport#send
- * @see	javax.mail.Transport#sendMessage
- * @see	javax.mail.event.TransportEvent
+ * @see	jakarta.mail.Transport#send
+ * @see	jakarta.mail.Transport#sendMessage
+ * @see	jakarta.mail.event.TransportEvent
  *
  * @author John Mani
  * @author Max Spivak

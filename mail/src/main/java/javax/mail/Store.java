@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,12 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import javax.mail.event.*;
+import jakarta.mail.event.*;
 
 /**
  * An abstract class that models a message store and its
@@ -33,9 +33,9 @@ import javax.mail.event.*;
  * @author John Mani
  * @author Bill Shannon
  *
- * @see javax.mail.Service
- * @see javax.mail.event.ConnectionEvent
- * @see javax.mail.event.StoreEvent
+ * @see jakarta.mail.Service
+ * @see jakarta.mail.event.ConnectionEvent
+ * @see jakarta.mail.event.StoreEvent
  */
 
 public abstract class Store extends Service {
@@ -176,7 +176,7 @@ public abstract class Store extends Service {
      * to an internal list of StoreListeners.
      *
      * @param l         the Listener for Store events
-     * @see             javax.mail.event.StoreEvent
+     * @see             jakarta.mail.event.StoreEvent
      */
     public synchronized void addStoreListener(StoreListener l) {
 	if (storeListeners == null)
@@ -232,7 +232,7 @@ public abstract class Store extends Service {
      * to an internal list of FolderListeners.
      *
      * @param l         the Listener for Folder events
-     * @see             javax.mail.event.FolderEvent
+     * @see             jakarta.mail.event.FolderEvent
      */
     public synchronized void addFolderListener(FolderListener l) {
    	if (folderListeners == null)

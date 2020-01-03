@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,15 +14,15 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 /**
- * A {@link javax.activation.DataSource DataSource} that also implements
+ * A {@link jakarta.activation.DataSource DataSource} that also implements
  * <code>EncodingAware</code> may specify the Content-Transfer-Encoding
  * to use for its data.  Valid Content-Transfer-Encoding values specified
  * by RFC 2045 are "7bit", "8bit", "quoted-printable", "base64", and "binary".
  * <p>
- * For example, a {@link javax.activation.FileDataSource FileDataSource}
+ * For example, a {@link jakarta.activation.FileDataSource FileDataSource}
  * could be created that forces all files to be base64 encoded:
  * <blockquote><pre>
  *  public class Base64FileDataSource extends FileDataSource

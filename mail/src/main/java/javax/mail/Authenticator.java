@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 import java.net.InetAddress;
 
@@ -35,12 +35,12 @@ import java.net.InetAddress;
  * that fails.
  *
  * @see java.net.Authenticator
- * @see javax.mail.Session#getInstance(java.util.Properties,
- *					javax.mail.Authenticator)
- * @see javax.mail.Session#getDefaultInstance(java.util.Properties,
- *					javax.mail.Authenticator)
- * @see javax.mail.Session#requestPasswordAuthentication
- * @see javax.mail.PasswordAuthentication
+ * @see jakarta.mail.Session#getInstance(java.util.Properties,
+ *					jakarta.mail.Authenticator)
+ * @see jakarta.mail.Session#getDefaultInstance(java.util.Properties,
+ *					jakarta.mail.Authenticator)
+ * @see jakarta.mail.Session#requestPasswordAuthentication
+ * @see jakarta.mail.PasswordAuthentication
  *
  * @author  Bill Foote
  * @author  Bill Shannon
@@ -101,7 +101,7 @@ public abstract class Authenticator {
      *
      * @return the protcol
      *
-     * @see javax.mail.URLName#getProtocol
+     * @see jakarta.mail.URLName#getProtocol
      */
     protected final String getRequestingProtocol() {
 	return requestingProtocol;

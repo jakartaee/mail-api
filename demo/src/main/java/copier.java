@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@
  * @author	Christopher Cotton
  */
 
-import javax.mail.*;
+import jakarta.mail.*;
 
 /**
  * copier will copy a specified number of messages from one folder

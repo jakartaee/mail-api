@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2001, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,9 +12,9 @@ package demo;
 
 import java.io.*;
 import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.mail.search.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.*;
 

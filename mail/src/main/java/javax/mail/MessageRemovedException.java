@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,15 +14,15 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 /**
  * The exception thrown when an invalid method is invoked on an expunged
  * Message. The only valid methods on an expunged Message are
  * <code>isExpunged()</code> and <code>getMessageNumber()</code>.
  *
- * @see	   javax.mail.Message#isExpunged()
- * @see	   javax.mail.Message#getMessageNumber()
+ * @see	   jakarta.mail.Message#isExpunged()
+ * @see	   jakarta.mail.Message#getMessageNumber()
  * @author John Mani
  */
 

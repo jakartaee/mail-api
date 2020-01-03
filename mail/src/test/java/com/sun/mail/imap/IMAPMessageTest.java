@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,14 +24,14 @@ import java.util.StringTokenizer;
 import java.util.Set;
 import java.util.HashSet;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeUtility;
+import jakarta.mail.Folder;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.Message;
+import jakarta.mail.Multipart;
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeUtility;
 
 import com.sun.mail.test.TestServer;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -68,8 +68,8 @@
     <target name="compile" depends="init"
             description="Compile Jakarta Mail sources">
 
-        <copy file="${resources.dir}/javax/mail/Version.java"
-		toFile="${src.dir}/javax/mail/Version.java">
+        <copy file="${resources.dir}/jakarta/mail/Version.java"
+		toFile="${src.dir}/jakarta/mail/Version.java">
             <filterset begintoken="$${" endtoken="}">
                 <filter token="mail.version" value="${release.version}"/>
             </filterset>
@@ -86,7 +86,7 @@
             <classpath>
                 <pathelement location="${activation.jar}"/>
             </classpath>
-            <include name="javax/mail/**"/>
+            <include name="jakarta/mail/**"/>
             <include name="com/sun/mail/**"/>
         </javac>
     </target>
@@ -362,7 +362,7 @@
             <metainf dir="${resources.dir}/META-INF"
                     includes="javamail.charset.map,javamail.default.*,mailcap"/>
             <fileset dir="${component.classes.dir}">
-                <include name="javax/mail/**/*.class"/>
+                <include name="jakarta/mail/**/*.class"/>
                 <include name="com/sun/mail/**/*.class"/>
             </fileset>
         </jar>
@@ -372,7 +372,7 @@
     <target name="src">
         <zip file="target/mail.src.zip">
             <fileset dir="${src.dir}">
-                <include name="javax/mail/**/*.java"/>
+                <include name="jakarta/mail/**/*.java"/>
                 <include name="com/sun/mail/**/*.java"/>
             </fileset>
         </zip>
@@ -459,7 +459,7 @@
             <metainf dir="${resources.dir}/META-INF"
 		    includes="javamail.charset.map, mailcap"/>
             <fileset dir="${component.classes.dir}">
-                <include name="javax/mail/**/*.class"/>
+                <include name="jakarta/mail/**/*.class"/>
                 <include name="com/sun/mail/util/*.class"/>
                 <include name="com/sun/mail/handlers/*.class"/>
             </fileset>
@@ -484,7 +484,7 @@
         <copy todir="${release.dir}/javadoc">
 	    <fileset dir="${src.dir}">
 		<include name="**/*.html"/>
-		<include name="javax/mail/**"/>
+		<include name="jakarta/mail/**"/>
 	    </fileset>
 	    <fileset dir="${src.dir}"
 		includes="
@@ -534,9 +534,9 @@
 		"/>
         </copy>
         <mkdir dir="${release.javadocs.dir}"/>
-        <javadoc packagenames="javax.mail, javax.mail.internet,
-                               javax.mail.search, javax.mail.event,
-                               javax.mail.util,
+        <javadoc packagenames="jakarta.mail, jakarta.mail.internet,
+                               jakarta.mail.search, jakarta.mail.event,
+                               jakarta.mail.util,
                                com.sun.mail.imap,
                                com.sun.mail.pop3,
                                com.sun.mail.smtp,

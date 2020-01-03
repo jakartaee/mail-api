@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,18 +16,18 @@
 
 package com.sun.mail.mbox;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.activation.*;
 import java.io.*;
 
 /**
  * This class represents a SunV3 BodyPart.
  *
  * @author Bill Shannon
- * @see javax.mail.Part
- * @see javax.mail.internet.MimePart
- * @see javax.mail.internet.MimeBodyPart
+ * @see jakarta.mail.Part
+ * @see jakarta.mail.internet.MimePart
+ * @see jakarta.mail.internet.MimeBodyPart
  */
 
 public class SunV3BodyPart extends MimeBodyPart {
@@ -282,8 +282,8 @@ public class SunV3BodyPart extends MimeBodyPart {
      * @exception MessagingException
      * @exception IOException	if an error occurs writing to the
      *				stream or if an error is generated
-     *				by the javax.activation layer.
-     * @see javax.activation.DataHandler#writeTo()
+     *				by the jakarta.activation layer.
+     * @see jakarta.activation.DataHandler#writeTo()
      */
     public void writeTo(OutputStream os)
 				throws IOException, MessagingException {

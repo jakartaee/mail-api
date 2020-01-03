@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,10 +14,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail.internet;
+package jakarta.mail.internet;
 
-import javax.mail.*;
-import javax.activation.*;
+import jakarta.mail.*;
+import jakarta.activation.*;
 import java.io.*;
 import java.net.UnknownServiceException;
 import com.sun.mail.util.PropUtil;
@@ -27,8 +27,8 @@ import com.sun.mail.util.FolderClosedIOException;
  * A utility class that implements a DataSource out of
  * a MimePart. This class is primarily meant for service providers.
  *
- * @see		javax.mail.internet.MimePart
- * @see		javax.activation.DataSource
+ * @see		jakarta.mail.internet.MimePart
+ * @see		jakarta.activation.DataSource
  * @author 	John Mani
  */
 
@@ -62,9 +62,9 @@ public class MimePartDataSource implements DataSource, MessageAware {
      * using the <code>getContentStream()</code> method and decodes
      * it using the <code>MimeUtility.decode()</code> method.
      *
-     * @see	javax.mail.internet.MimeMessage#getContentStream
-     * @see	javax.mail.internet.MimeBodyPart#getContentStream
-     * @see	javax.mail.internet.MimeUtility#decode
+     * @see	jakarta.mail.internet.MimeMessage#getContentStream
+     * @see	jakarta.mail.internet.MimeBodyPart#getContentStream
+     * @see	jakarta.mail.internet.MimeUtility#decode
      * @return 	decoded input stream
      */
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,13 +23,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.Folder;
-import javax.mail.FetchProfile;
-import javax.mail.MessagingException;
-import javax.mail.event.ConnectionAdapter;
-import javax.mail.event.ConnectionEvent;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.Folder;
+import jakarta.mail.FetchProfile;
+import jakarta.mail.MessagingException;
+import jakarta.mail.event.ConnectionAdapter;
+import jakarta.mail.event.ConnectionEvent;
 
 import com.sun.mail.test.TestServer;
 

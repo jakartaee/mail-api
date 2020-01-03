@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,9 +24,9 @@ import java.lang.reflect.*;
 import java.nio.charset.StandardCharsets;
 import javax.net.ssl.SSLSocket;
 
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.event.*;
+import jakarta.mail.internet.*;
 
 import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.MailLogger;
@@ -68,8 +68,8 @@ import com.sun.mail.auth.Ntlm;
  * @author Dean Gibson (DIGEST-MD5 authentication)
  * @author Lu\u00EDs Serralheiro (NTLM authentication)
  *
- * @see javax.mail.event.ConnectionEvent
- * @see javax.mail.event.TransportEvent
+ * @see jakarta.mail.event.ConnectionEvent
+ * @see jakarta.mail.event.TransportEvent
  */
 
 public class SMTPTransport extends Transport {
@@ -1224,7 +1224,7 @@ public class SMTPTransport extends Transport {
      *
      * @param message	The MimeMessage to be sent
      * @param addresses	List of addresses to send this message to
-     * @see 		javax.mail.event.TransportEvent
+     * @see 		jakarta.mail.event.TransportEvent
      * @exception       SMTPSendFailedException if the send failed because of
      *			an SMTP command error
      * @exception       SendFailedException if the send failed because of

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,10 +14,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail.internet;
+package jakarta.mail.internet;
 
-import javax.mail.*;
-import javax.activation.*;
+import jakarta.mail.*;
+import jakarta.activation.*;
 import java.lang.*;
 import java.io.*;
 import java.util.*;
@@ -28,7 +28,7 @@ import com.sun.mail.util.MimeUtil;
 import com.sun.mail.util.MessageRemovedIOException;
 import com.sun.mail.util.FolderClosedIOException;
 import com.sun.mail.util.LineOutputStream;
-import javax.mail.util.SharedByteArrayInputStream;
+import jakarta.mail.util.SharedByteArrayInputStream;
 
 /**
  * This class represents a MIME style email message. It implements
@@ -74,11 +74,11 @@ import javax.mail.util.SharedByteArrayInputStream;
  * @author Bill Shannon
  * @author Max Spivak
  * @author Kanwar Oberoi
- * @see	javax.mail.internet.MimeUtility
- * @see	javax.mail.Part
- * @see	javax.mail.Message
- * @see	javax.mail.internet.MimePart
- * @see	javax.mail.internet.InternetAddress
+ * @see	jakarta.mail.internet.MimeUtility
+ * @see	jakarta.mail.Part
+ * @see	jakarta.mail.Message
+ * @see	jakarta.mail.internet.MimePart
+ * @see	jakarta.mail.internet.InternetAddress
  */
 
 public class MimeMessage extends Message implements MimePart {
@@ -483,11 +483,11 @@ public class MimeMessage extends Message implements MimePart {
     }
 
     /**
-     * This inner class extends the javax.mail.Message.RecipientType
+     * This inner class extends the jakarta.mail.Message.RecipientType
      * class to add additional RecipientTypes. The one additional
      * RecipientType currently defined here is NEWSGROUPS.
      *
-     * @see javax.mail.Message.RecipientType
+     * @see jakarta.mail.Message.RecipientType
      */
     public static class RecipientType extends Message.RecipientType {
 
@@ -534,10 +534,10 @@ public class MimeMessage extends Message implements MimePart {
      *                  be retrieved
      * @exception       AddressException if the header is misformatted
      * @see		#headers
-     * @see		javax.mail.Message.RecipientType#TO
-     * @see		javax.mail.Message.RecipientType#CC
-     * @see		javax.mail.Message.RecipientType#BCC
-     * @see		javax.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
+     * @see		jakarta.mail.Message.RecipientType#TO
+     * @see		jakarta.mail.Message.RecipientType#CC
+     * @see		jakarta.mail.Message.RecipientType#BCC
+     * @see		jakarta.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
      */
     @Override
     public Address[] getRecipients(Message.RecipientType type)
@@ -555,10 +555,10 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @return          array of Address objects
      * @exception       MessagingException for failures
-     * @see		javax.mail.Message.RecipientType#TO
-     * @see		javax.mail.Message.RecipientType#CC
-     * @see		javax.mail.Message.RecipientType#BCC
-     * @see		javax.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
+     * @see		jakarta.mail.Message.RecipientType#TO
+     * @see		jakarta.mail.Message.RecipientType#CC
+     * @see		jakarta.mail.Message.RecipientType#BCC
+     * @see		jakarta.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
      */
     @Override
     public Address[] getAllRecipients() throws MessagingException {
@@ -988,7 +988,7 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @return          The ContentType of this part
      * @exception	MessagingException for failures
-     * @see             javax.activation.DataHandler
+     * @see             jakarta.activation.DataHandler
      */
     @Override
     public String getContentType() throws MessagingException {
@@ -1266,7 +1266,7 @@ public class MimeMessage extends Message implements MimePart {
      * @return     Message-ID
      * @exception  MessagingException if the retrieval of this field
      *			causes any exception.
-     * @see        javax.mail.search.MessageIDTerm
+     * @see        jakarta.mail.search.MessageIDTerm
      * @since 	   JavaMail 1.1
      */
     public String getMessageID() throws MessagingException {
@@ -1350,11 +1350,11 @@ public class MimeMessage extends Message implements MimePart {
      * @return 		an InputStream
      * @exception       IOException this is typically thrown by the
      *			DataHandler. Refer to the documentation for
-     *			javax.activation.DataHandler for more details.
+     *			jakarta.activation.DataHandler for more details.
      * @exception	MessagingException for other failures
      *
      * @see	#getContentStream
-     * @see 	javax.activation.DataHandler#getInputStream
+     * @see 	jakarta.activation.DataHandler#getInputStream
      */
     @Override
     public InputStream getInputStream() 
@@ -1459,11 +1459,11 @@ public class MimeMessage extends Message implements MimePart {
      * calls so that modifications to the content will not be lost.
      *
      * @return          Object
-     * @see		javax.mail.Part
-     * @see 		javax.activation.DataHandler#getContent
+     * @see		jakarta.mail.Part
+     * @see 		jakarta.activation.DataHandler#getContent
      * @exception       IOException this is typically thrown by the
      *			DataHandler. Refer to the documentation for
-     *			javax.activation.DataHandler for more details.
+     *			jakarta.activation.DataHandler for more details.
      * @exception       MessagingException for other failures
      */
     @Override
@@ -1663,7 +1663,7 @@ public class MimeMessage extends Message implements MimePart {
      * of the <code>getReplyTo</code> method).  <p>
      *
      * If <code>setAnswered</code> is set, the
-     * {@link javax.mail.Flags.Flag#ANSWERED ANSWERED} flag is set
+     * {@link jakarta.mail.Flags.Flag#ANSWERED ANSWERED} flag is set
      * in this message. <p>
      *
      * The "Subject" field is filled in with the original subject
@@ -1844,9 +1844,9 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @exception IOException	if an error occurs writing to the stream
      *				or if an error is generated by the
-     *				javax.activation layer.
+     *				jakarta.activation layer.
      * @exception MessagingException for other failures
-     * @see javax.activation.DataHandler#writeTo
+     * @see jakarta.activation.DataHandler#writeTo
      */
     @Override
     public void writeTo(OutputStream os)
@@ -1867,9 +1867,9 @@ public class MimeMessage extends Message implements MimePart {
      * @param	ignoreList	the headers to not include in the output
      * @exception IOException	if an error occurs writing to the stream
      *				or if an error is generated by the
-     *				javax.activation layer.
-     * @exception javax.mail.MessagingException for other failures
-     * @see javax.activation.DataHandler#writeTo
+     *				jakarta.activation layer.
+     * @exception jakarta.mail.MessagingException for other failures
+     * @see jakarta.activation.DataHandler#writeTo
      */
     public void writeTo(OutputStream os, String[] ignoreList)
 				throws IOException, MessagingException {
@@ -1925,7 +1925,7 @@ public class MimeMessage extends Message implements MimePart {
      * @param	name	name of header
      * @return	array of headers
      * @exception       MessagingException for failures
-     * @see 	javax.mail.internet.MimeUtility
+     * @see 	jakarta.mail.internet.MimeUtility
      */
     @Override
     public String[] getHeader(String name)
@@ -1960,7 +1960,7 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @param	name 	header name
      * @param	value	header value
-     * @see 	javax.mail.internet.MimeUtility
+     * @see 	jakarta.mail.internet.MimeUtility
      * @exception	IllegalWriteException if the underlying
      *			implementation does not support modification
      * @exception	IllegalStateException if this message is
@@ -1981,7 +1981,7 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @param	name 	header name
      * @param	value	header value
-     * @see 	javax.mail.internet.MimeUtility
+     * @see 	jakarta.mail.internet.MimeUtility
      * @exception	IllegalWriteException if the underlying
      *			implementation does not support modification
      * @exception	IllegalStateException if this message is
@@ -2021,7 +2021,7 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @return	array of header objects
      * @exception  MessagingException for failures
-     * @see 	javax.mail.internet.MimeUtility
+     * @see 	jakarta.mail.internet.MimeUtility
      */
     @Override
     public Enumeration<Header> getAllHeaders() throws MessagingException {
@@ -2116,7 +2116,7 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @return          Flags object containing the flags for this message
      * @exception  	MessagingException for failures
-     * @see 		javax.mail.Flags
+     * @see 		jakarta.mail.Flags
      */
     @Override
     public synchronized Flags getFlags() throws MessagingException {
@@ -2133,13 +2133,13 @@ public class MimeMessage extends Message implements MimePart {
      * @param flag	the flag
      * @return		value of the specified flag for this message
      * @exception       MessagingException for failures
-     * @see 		javax.mail.Flags.Flag
-     * @see		javax.mail.Flags.Flag#ANSWERED
-     * @see		javax.mail.Flags.Flag#DELETED
-     * @see		javax.mail.Flags.Flag#DRAFT
-     * @see		javax.mail.Flags.Flag#FLAGGED
-     * @see		javax.mail.Flags.Flag#RECENT
-     * @see		javax.mail.Flags.Flag#SEEN
+     * @see 		jakarta.mail.Flags.Flag
+     * @see		jakarta.mail.Flags.Flag#ANSWERED
+     * @see		jakarta.mail.Flags.Flag#DELETED
+     * @see		jakarta.mail.Flags.Flag#DRAFT
+     * @see		jakarta.mail.Flags.Flag#FLAGGED
+     * @see		jakarta.mail.Flags.Flag#RECENT
+     * @see		jakarta.mail.Flags.Flag#SEEN
      */
     @Override
     public synchronized boolean isSet(Flags.Flag flag)

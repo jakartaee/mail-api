@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -14,6 +14,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
+
 package com.sun.mail.util.logging;
 
 import java.io.*;
@@ -27,11 +28,11 @@ import java.net.*;
 import java.util.*;
 import java.util.logging.*;
 import java.util.logging.Formatter;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.internet.*;
+import jakarta.activation.*;
+import jakarta.mail.*;
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.internet.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -6864,7 +6865,7 @@ public class MailHandlerTest extends AbstractLogging {
         h.close();
     }
 
-    private PasswordAuthentication passwordAuthentication(javax.mail.Authenticator auth, String user) {
+    private PasswordAuthentication passwordAuthentication(jakarta.mail.Authenticator auth, String user) {
         final Session s = Session.getInstance(new Properties(), auth);
         return s.requestPasswordAuthentication(null, 25, "SMTP", "", user);
     }
@@ -7342,7 +7343,7 @@ public class MailHandlerTest extends AbstractLogging {
 
         private boolean isDataTypeError(String m) {
             if (m != null) {
-                return m.contains("javax.activation.UnsupportedDataTypeException");
+                return m.contains("jakarta.activation.UnsupportedDataTypeException");
             }
             return false;
         }
@@ -7446,7 +7447,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class ThrowAuthenticator extends javax.mail.Authenticator {
+    public static final class ThrowAuthenticator extends jakarta.mail.Authenticator {
 
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
@@ -7454,7 +7455,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class EmptyAuthenticator extends javax.mail.Authenticator {
+    public static final class EmptyAuthenticator extends jakarta.mail.Authenticator {
 
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
@@ -7638,7 +7639,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class InitAuthenticator extends javax.mail.Authenticator {
+    public static final class InitAuthenticator extends jakarta.mail.Authenticator {
 
         public InitAuthenticator() {
             throwPending();
@@ -7833,7 +7834,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class StaticInitReAuthenticator extends javax.mail.Authenticator {
+    public static final class StaticInitReAuthenticator extends jakarta.mail.Authenticator {
 
         static {
             throwPending();
@@ -7939,7 +7940,7 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
-    public static final class StaticInitErAuthenticator extends javax.mail.Authenticator {
+    public static final class StaticInitErAuthenticator extends jakarta.mail.Authenticator {
 
         static {
             throwPending();
@@ -8349,7 +8350,7 @@ public class MailHandlerTest extends AbstractLogging {
     }
 
     public static final class ClassLoaderAuthenticator
-            extends javax.mail.Authenticator {
+            extends jakarta.mail.Authenticator {
 
         private final ClassLoader expect;
 
@@ -8365,7 +8366,7 @@ public class MailHandlerTest extends AbstractLogging {
         protected PasswordAuthentication getPasswordAuthentication() {
             checkContextClassLoader(expect);
             for (StackTraceElement se : new Throwable().getStackTrace()) {
-                if ("javax.mail.Transport".equals(se.getClassName())
+                if ("jakarta.mail.Transport".equals(se.getClassName())
                         && "send".equals(se.getMethodName())) {
                     return null;
                 }

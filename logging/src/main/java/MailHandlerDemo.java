@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2009, 2018 Jason Mehrens. All Rights Reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -20,10 +20,10 @@ import java.io.PrintStream;
 import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.util.logging.*;
-import javax.activation.DataHandler;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
+import jakarta.activation.DataHandler;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.InternetAddress;
 
 /**
  * Demo for the different configurations for the MailHandler. If the logging

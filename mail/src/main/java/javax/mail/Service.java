@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,13 +14,13 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.Executor;
-import javax.mail.event.*;
+import jakarta.mail.event.*;
 
 /**
  * An abstract class that contains the functionality
@@ -165,7 +165,7 @@ public abstract class Service implements AutoCloseable {
      * @exception MessagingException	for other failures
      * @exception IllegalStateException	if the service is already connected
      *
-     * @see javax.mail.event.ConnectionEvent
+     * @see jakarta.mail.event.ConnectionEvent
      */
     public void connect() throws MessagingException {
 	connect(null, null, null);
@@ -214,8 +214,8 @@ public abstract class Service implements AutoCloseable {
      * @exception AuthenticationFailedException	for authentication failures
      * @exception MessagingException		for other failures
      * @exception IllegalStateException	if the service is already connected
-     * @see javax.mail.event.ConnectionEvent
-     * @see javax.mail.Session#setPasswordAuthentication
+     * @see jakarta.mail.event.ConnectionEvent
+     * @see jakarta.mail.Session#setPasswordAuthentication
      */
     public void connect(String host, String user, String password)
 			throws MessagingException {
@@ -233,8 +233,8 @@ public abstract class Service implements AutoCloseable {
      * @exception AuthenticationFailedException for authentication failures
      * @exception MessagingException            for other failures
      * @exception IllegalStateException if the service is already connected
-     * @see javax.mail.event.ConnectionEvent
-     * @see javax.mail.Session#setPasswordAuthentication
+     * @see jakarta.mail.event.ConnectionEvent
+     * @see jakarta.mail.Session#setPasswordAuthentication
      * @see #connect(java.lang.String, java.lang.String, java.lang.String)
      * @since           JavaMail 1.4
      */
@@ -255,7 +255,7 @@ public abstract class Service implements AutoCloseable {
      * @exception MessagingException		for other failures
      * @exception IllegalStateException	if the service is already connected
      * @see #connect(java.lang.String, java.lang.String, java.lang.String)
-     * @see javax.mail.event.ConnectionEvent
+     * @see jakarta.mail.event.ConnectionEvent
      */
     public synchronized void connect(String host, int port,
 		String user, String password) throws MessagingException {
@@ -478,7 +478,7 @@ public abstract class Service implements AutoCloseable {
      * notification, probably by including a call to <code>super.close()</code>
      * in a <code>finally</code> clause.
      *
-     * @see javax.mail.event.ConnectionEvent
+     * @see jakarta.mail.event.ConnectionEvent
      * @throws	MessagingException	for errors while closing
      */
     public synchronized void close() throws MessagingException {
@@ -539,7 +539,7 @@ public abstract class Service implements AutoCloseable {
      * to an internal list of ConnectionListeners.
      *
      * @param l         the Listener for Connection events
-     * @see             javax.mail.event.ConnectionEvent
+     * @see             jakarta.mail.event.ConnectionEvent
      */
     public void addConnectionListener(ConnectionListener l) {
 	connectionListeners.addElement(l);
