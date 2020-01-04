@@ -140,7 +140,7 @@ public class BASE64DecoderStream extends FilterInputStream {
 	}
 
 	if (off == off0)	// haven't returned any data
-	    return -1;
+	    return len == 0 ? 0 : -1;
 	else			// returned some data before hitting EOF
 	    return off - off0;
     }
