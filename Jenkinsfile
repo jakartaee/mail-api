@@ -52,7 +52,7 @@ spec:
            defaultValue: 'http://central.maven.org/maven2/com/sun/activation/jakarta.activation/2.0.0-rc1/jakarta.activation-2.0.0-rc1.jar',
            description: 'URL required for downloading JAF implementation jar' )
     string(name: 'MAIL_TCK_BUNDLE_URL',
-           defaultValue: 'https://jenkins.eclipse.org/javamail/job/javamail-tck/job/master/lastSuccessfulBuild/artifact/bundles/mail-tck-2.0.0-rc1.zip',
+           defaultValue: 'https://jenkins.eclipse.org/mail/job/mail-tck/job/master/lastSuccessfulBuild/artifact/bundles/mail-tck-2.0.0-rc1.zip',
            description: 'URL required for downloading Jakarta Mail TCK zip' )
   }
   environment {
