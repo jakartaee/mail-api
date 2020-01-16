@@ -24,7 +24,8 @@
     <parent>
 	<groupId>org.eclipse.ee4j</groupId>
 	<artifactId>project</artifactId>
-	<version>1.0.4</version>
+	<version>1.0.6</version>
+	<relativePath></relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.mail</groupId>
