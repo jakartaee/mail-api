@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 #
-# Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,7 +20,7 @@ if [ -z "$JAF_BUNDLE_URL" ];then
   export JAF_BUNDLE_URL=http://central.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar
 fi
 if [ -z "$MAIL_TCK_BUNDLE_URL" ];then
-  export MAIL_TCK_BUNDLE_URL=https://jenkins.eclipse.org/javamail/job/javamail-tck/job/master/lastSuccessfulBuild/artifact/bundles/mail-tck-1.6.0.zip
+  export MAIL_TCK_BUNDLE_URL=https://jenkins.eclipse.org/mail/job/mail-tck/job/master/lastSuccessfulBuild/artifact/bundles/mail-tck-1.6.0.zip
 fi
 wget $WGET_PROPS $JAF_BUNDLE_URL -O jakarta.activation.jar
 wget $WGET_PROPS $MAIL_TCK_BUNDLE_URL -O mailtck.zip
