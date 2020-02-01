@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2019 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -570,11 +570,15 @@ public class MailHandler extends Handler {
      * However it does <b>not</b> check whether the <code>LogRecord</code> would
      * result in a "push" of the buffer contents.
      * <p>
-     * @param record  a <code>LogRecord</code>
+     * @param record  a <code>LogRecord</code> or null.
      * @return true if the <code>LogRecord</code> would be logged.
      */
     @Override
     public boolean isLoggable(final LogRecord record) {
+        if (record == null) { //JDK-8233979
+            return false;
+        }
+        
         int levelValue = getLevel().intValue();
         if (record.getLevel().intValue() < levelValue || levelValue == offValue) {
             return false;
@@ -601,7 +605,7 @@ public class MailHandler extends Handler {
      * or the capacity of the internal buffer has been reached then all buffered
      * records are formatted into one email and sent to the server.
      *
-     * @param  record  description of the log event.
+     * @param  record  description of the log event or null.
      */
     @Override
     public void publish(final LogRecord record) {
@@ -615,8 +619,12 @@ public class MailHandler extends Handler {
         if (tryMutex()) {
             try {
                 if (isLoggable(record)) {
-                    record.getSourceMethodName(); //Infer caller.
-                    publish0(record);
+                    if (record != null) {
+                        record.getSourceMethodName(); //Infer caller.
+                        publish0(record);
+                    } else { //Override of isLoggable is broken.
+                        reportNullError(ErrorManager.WRITE_FAILURE);
+                    }
                 }
             } catch (final LinkageError JDK8152515) {
                 reportLinkageError(JDK8152515, ErrorManager.WRITE_FAILURE);
@@ -630,7 +638,7 @@ public class MailHandler extends Handler {
 
     /**
      * Performs the publish after the record has been filtered.
-     * @param record the record.
+     * @param record the record which must not be null.
      * @since JavaMail 1.4.5
      */
     private void publish0(final LogRecord record) {
