@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -22,6 +22,8 @@ import javax.mail.*;
 
 import org.junit.Test;
 import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test base64 encoding/decoding.
@@ -249,6 +251,27 @@ public class BASE64Test {
 	    Assert.assertArrayEquals("single byte last encoded line " + i,
 					encodedLine, line);
 	}
+    }
+
+    @Test
+    public void testReadZeroBytes() throws Exception {
+	byte[] decoded = new byte[10000];
+	for (int i = 0; i < 1000; i++)
+		decoded[i] = (byte)'A';
+	byte[] encoded = java.util.Base64.getEncoder().encode(decoded);
+	// Exceed InputStream.DEFAULT_BUFFER_SIZE
+	assertTrue(decoded.length > 8192);
+	BASE64DecoderStream sut =
+		new BASE64DecoderStream(new ByteArrayInputStream(encoded));
+	// XXX - should test this using something equivalent to JDK 9's
+	// InputStream.readAllBytes, but for now...
+	int n = sut.read(decoded, 0, 0);
+	assertEquals(n, 0);
+
+	// Exercise
+	//byte[] result = sut.readAllBytes();
+	// Verify
+	//assertArrayEquals(decoded, result);
     }
 
     /**
