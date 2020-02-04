@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -450,33 +450,15 @@ public class MailHandlerTest extends AbstractLogging {
         instance.setErrorManager(em);
 
         instance.setLevel(lvl);
-        MemoryHandler mem = null;
         boolean result = false;
         boolean expect = true;
-        try {
-            result = instance.isLoggable(record);
-            mem = new MemoryHandler(new ConsoleHandler(), 100, Level.OFF);
-            mem.setErrorManager(em);
-            mem.setLevel(lvl);
-            expect = mem.isLoggable(record);
-        } catch (RuntimeException mailEx) {
-            try {
-                if (mem != null) {
-                    fail("MemoryHandler threw and exception: " + mailEx);
-                } else {
-                    mem = new MemoryHandler(new ConsoleHandler(), 100, Level.OFF);
-                    mem.setErrorManager(em);
-                    mem.setLevel(lvl);
-                    expect = mem.isLoggable(record);
-                    fail("MailHandler threw and exception: " + mailEx);
-                }
-            } catch (RuntimeException memEx) {
-                assertEquals(memEx.getClass(), mailEx.getClass());
-                result = false;
-                expect = false;
-            }
+        if (record == null || record.getLevel().intValue() < lvl.intValue() 
+        		|| Level.OFF.intValue() == lvl.intValue()) {
+            expect = false;
         }
-        assertEquals(expect, result);
+        
+        result = instance.isLoggable(record);
+        assertEquals(lvl.getName(), expect, result);
 
         instance.setLevel(Level.INFO);
         instance.setFilter(BooleanFilter.FALSE);
@@ -617,6 +599,37 @@ public class MailHandlerTest extends AbstractLogging {
         }
 
         instance.close();
+    }
+    
+    @Test
+    public void testPublishNull() {
+    	MailHandler instance = new MailHandler();
+    	InternalErrorManager em = new InternalErrorManager();
+    	instance.setErrorManager(em);
+    	instance.setLevel(Level.ALL);
+    	instance.publish((LogRecord) null);
+    	instance.close();
+    	for (Throwable t : em.exceptions) {
+            dump(t);
+        }
+        assertTrue(em.exceptions.isEmpty());
+    }
+    
+    
+    @Test
+    public void testPublishNullAsTrue() {
+    	MailHandler instance = new MailHandler() {
+    		public boolean isLoggable(LogRecord r) {
+    			return true;
+    		}
+    	};
+    	InternalErrorManager em = new InternalErrorManager();
+    	instance.setErrorManager(em);
+    	instance.setLevel(Level.ALL);
+    	instance.publish((LogRecord) null);
+    	instance.close();
+    	assertEquals(true, em.exceptions.get(0) instanceof NullPointerException);
+        assertEquals(1, em.exceptions.size());
     }
 
     @Test
