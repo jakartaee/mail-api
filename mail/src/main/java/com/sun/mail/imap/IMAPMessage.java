@@ -16,7 +16,6 @@
 
 package com.sun.mail.imap;
 
-import java.util.Date;
 import java.io.*;
 import java.util.*;
 
