@@ -179,7 +179,6 @@ public class POP3Message extends MimeMessage implements ReadableMime {
 		     * the content, skipping over the header until we come to
 		     * the empty line that separates the header from the body.
 		     */
-		    int offset = 0;
 		    for (;;) {
 			int len = 0;	// number of bytes in this line
 			int c1;

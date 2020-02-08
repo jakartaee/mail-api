@@ -77,7 +77,6 @@ public class DigestMD5 {
 	String nc = "00000001";
 	String qop = "auth";
 	byte[] bytes = new byte[32];	// arbitrary size ...
-	int resp;
 
 	logger.fine("Begin authentication ...");
 
