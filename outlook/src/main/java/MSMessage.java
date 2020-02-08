@@ -176,19 +176,6 @@ public class MSMessage extends MimeMessage {
 	    // MIME-Version header present, should be a MIME message
 	    return false;
 
-	/*
-	 * XXX - disabled X-Mailer check because many sample messages
-	 * I saw didn't have an X-Mailer header at all.
-	 */
-	if (false) {
-	// Check X-Mailer
-	String mailer = msg.getHeader("X-mailer", null);
-	if (mailer == null) // No X-mailer ? 
-	    return false; // Oh well !
-	if (mailer.indexOf("Microsoft") == -1) // Not MS stuff ?
-	    return false;
-	}
-
 	// Check X-MS-Attachment header
 	// XXX - not all such messages have this header
 	String[] att = msg.getHeader("X-MS-Attachment");
