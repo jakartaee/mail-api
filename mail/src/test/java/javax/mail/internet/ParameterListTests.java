@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,6 +24,10 @@ import static org.junit.Assert.assertTrue;
  * XXX - add more tests
  */
 public class ParameterListTests {
+    private static final String longFilename = "This is an attachment with a " +
+			"really long name - I hope it works like intended.txt";
+    private static final String longParamName = "filename12345678901234567890" +
+			"12345678901234567890123456789012345678901234567890";
 
     @BeforeClass
     public static void before() {
@@ -68,5 +72,57 @@ public class ParameterListTests {
 	String pls = pl.toString();
 	assertTrue(pls.indexOf("p*0=") >= 0);
 	assertTrue(pls.indexOf("p*1=") >= 0);
+    }
+
+    @Test
+    public void testLongParamNameWithLongValue() throws Exception {
+	testSetGet(longParamName, longFilename, 0);
+    }
+
+    @Test
+    public void testLongFilename() throws Exception {
+	for (int i = 0; i < 20; i++)
+	    testSetGet("filename", longFilename, i);
+    }
+
+    @Test
+    public void testLongParamNameWithLongValueWithOthers() throws Exception {
+	testSetGetPlus(longParamName, longFilename, 0);
+    }
+
+    @Test
+    public void testLongFilenameWithOthers() throws Exception {
+	for (int i = 0; i < 20; i++)
+	    testSetGetPlus("filename", longFilename, i);
+    }
+
+    private static void testSetGet(String p, String v, int i) throws Exception {
+	for (int j = 0; j < i; j++)
+	    v = "\"" + v;
+	ParameterList pl = new ParameterList();
+	pl.set(p, v);
+//System.out.println(pl);
+	ParameterList pl2 = new ParameterList(pl.toString());
+//System.out.println(pl2);
+	String v2 = pl2.get(p);
+	assertEquals(v, v2);
+    }
+
+    private static void testSetGetPlus(String p, String v, int i) throws Exception {
+	for (int j = 0; j < i; j++)
+	    v = "\"" + v;
+	ParameterList pl = new ParameterList();
+	pl.set("charset", "utf-8");
+	pl.set(p, v);
+	pl.set("color", "blue");
+	pl.set("name", v);
+//System.out.println(pl);
+	ParameterList pl2 = new ParameterList(pl.toString());
+//System.out.println(pl2);
+	String v2 = pl2.get(p);
+	assertEquals(v, v2);
+	assertEquals("blue", pl2.get("color"));
+	assertEquals(v, pl2.get("name"));
+	assertEquals("utf-8", pl2.get("charset"));
     }
 }

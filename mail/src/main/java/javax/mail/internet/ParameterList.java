@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -642,61 +642,54 @@ public class ParameterList {
 	    Object v = ent.getValue();
 	    if (v instanceof MultiValue) {
 		MultiValue vv = (MultiValue)v;
-		name += "*";
-		for (int i = 0; i < vv.size(); i++) {
-		    Object va = vv.get(i);
-		    String ns;
-		    if (va instanceof Value) {
-			ns = name + i + "*";
-			value = ((Value)va).encodedValue;
-		    } else {
-			ns = name + i;
-			value = (String)va;
-		    }
-		    sb.addNV(ns, quote(value));
-		}
+		addNV(sb, name, vv.value);
 	    } else if (v instanceof LiteralValue) {
 		value = ((LiteralValue)v).value;
+		// XXX - can't re-split this, it's all ready to be folded
 		sb.addNV(name, quote(value));
 	    } else if (v instanceof Value) {
-		/*
-		 * XXX - We could split the encoded value into multiple
-		 * segments if it's too long, but that's more difficult.
-		 */
 		name += "*";
 		value = ((Value)v).encodedValue;
-		sb.addNV(name, quote(value));
+		addNV(sb, name, value);
 	    } else {
 		value = (String)v;
-		/*
-		 * If this value is "long", split it into a multi-segment
-		 * parameter.  Only do this if we've enabled RFC2231 style
-		 * encoded parameters.
-		 *
-		 * Note that we check the length before quoting the value.
-		 * Quoting might make the string longer, although typically
-		 * not much, so we allow a little slop in the calculation.
-		 * In the worst case, a 60 character string will turn into
-		 * 122 characters when quoted, which is long but not
-		 * outrageous.
-		 */
-		if (value.length() > 60 &&
-				splitLongParameters && encodeParameters) {
-		    int seg = 0;
-		    name += "*";
-		    while (value.length() > 60) {
-			sb.addNV(name + seg, quote(value.substring(0, 60)));
-			value = value.substring(60);
-			seg++;
-		    }
-		    if (value.length() > 0)
-			sb.addNV(name + seg, quote(value));
-		} else {
-		    sb.addNV(name, quote(value));
-		}
+		addNV(sb, name, value);
 	    }
         }
         return sb.toString();
+    }
+
+    /**
+     * Add the name and value to the buffer.
+     *
+     * If this value is "long", split it into a multi-segment
+     * parameter.  Only do this if we've enabled RFC2231 style
+     * encoded parameters.
+     */
+    private void addNV(ToStringBuffer sb, String name, String value) {
+	String qval = quote(value);
+	boolean isEncoded = name.endsWith("*");
+	// XXX - long encoded values aren't currently split, but could be
+	if (!isEncoded && sb.valueTooLong(name, qval) &&
+			splitLongParameters && encodeParameters) {
+	    boolean isQuoted = qval.startsWith("\"");
+	    if (isQuoted)
+		// strip the quotes, they'll be re-added later
+		qval = qval.substring(1, qval.length() - 1);
+	    int seg = 0;
+	    String nameseg = name + "*" + seg;
+	    sb.addName(nameseg, qval.length());
+	    // iterate over all the pieces of the value,
+	    // adding each segment
+	    while ((qval =
+		    sb.addPartialValue(qval, isQuoted)) != null) {
+		seg++;
+		nameseg = name + "*" + seg;
+		sb.addName(nameseg, qval.length());
+	    }
+	} else {
+	    sb.addNV(name, qval);
+	}
     }
 
     /**
@@ -713,15 +706,26 @@ public class ParameterList {
 	}
 
 	public void addNV(String name, String value) {
+	    int vallen = value.length();
+	    if (vallen < 2)
+		vallen = 2;
+	    addName(name, vallen);
+	    addValue(value);
+	}
+
+	private void addName(String name, int vallen) {
 	    sb.append("; ");
 	    used += 2;
-	    int len = name.length() + value.length() + 1;
+	    int len = name.length() + vallen + 1;
 	    if (used + len > 76) { // overflows ...
 		sb.append("\r\n\t"); // .. start new continuation line
 		used = 8; // account for the starting <tab> char
 	    }
 	    sb.append(name).append('=');
 	    used += name.length() + 1;
+	}
+
+	public void addValue(String value) {
 	    if (used + value.length() > 76) { // still overflows ...
 		// have to fold value
 		String s = MimeUtility.fold(used, value);
@@ -735,6 +739,54 @@ public class ParameterList {
 		sb.append(value);
 		used += value.length();
 	    }
+	}
+
+	public String addPartialValue(String value, boolean isQuoted) {
+	    String ret;
+	    // if doesn't fit, have to split it
+	    int vlen = value.length();
+	    if (vlen > 0 && vlen + (isQuoted ? 2 : 0) > available()) {
+		int i = available() - (isQuoted ? 1 : 0);
+		// worst case, we squeeze in 4 characters per line
+		if (i < 4)
+		    i = 4;
+		if (i > vlen)
+		    i = vlen;
+		if (i <= vlen && value.charAt(i - 1) == '\\')
+		    i++;
+		ret = value.substring(i);
+		if (ret.length() == 0)
+		    ret = null;
+		value = value.substring(0, i);
+	    } else {
+		ret = null;
+	    }
+	    if (isQuoted)
+		sb.append('"');
+	    sb.append(value);
+	    if (isQuoted)
+		sb.append('"');
+	    used += value.length() + (isQuoted ? 2 : 0);
+	    return ret;
+	}
+
+	public int available() {
+	    if (76 - used < 0)
+		return 0;
+	    return 76 - used;
+	}
+
+	public boolean valueTooLong(String name, String value) {
+	    // don't forget the special syntax characters
+	    // "; <name>=<value>"
+	    int len = "; ".length() + name.length() +
+			"=".length() + value.length();
+	    if (len < available())
+		return false;
+	    len -= "; ".length();	// on previous line
+	    if (len < 76 - 8)
+		return false;
+	    return true;
 	}
 
 	@Override
