@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -2170,34 +2170,35 @@ public class SMTPTransport extends Transport {
 
 	    int r = -1;
 	    if ((r = readServerResponse()) != 220) {
-           try {
-               if (quitOnSessionReject) {
-                   sendCommand("QUIT");
-                   if (quitWait) {
-                       int resp = readServerResponse();
-                       if (resp != 221 && resp != -1 &&
-                           logger.isLoggable(Level.FINE))
-                           logger.fine("QUIT failed with " + resp);
-                   }
-               }
-           } catch (Exception e) {
-               if (logger.isLoggable(Level.FINE))
-                   logger.log(Level.FINE, "QUIT failed", e);
-           } finally {
-               serverSocket.close();
-               serverSocket = null;
-               serverOutput = null;
-               serverInput = null;
-               lineInputStream = null;
-           }
-           if (logger.isLoggable(Level.FINE))
-               logger.fine("could not connect to host \"" +
-                       host + "\", port: " + port +
-                       ", response: " + r);
-           throw new MessagingException(
-                   "Could not connect to SMTP host: " + host +
-                   ", port: " + port +
-                   ", response: " + r);
+		String failResponse = lastServerResponse;
+		try {
+		    if (quitOnSessionReject) {
+			sendCommand("QUIT");
+			if (quitWait) {
+			    int resp = readServerResponse();
+			    if (resp != 221 && resp != -1 &&
+				    logger.isLoggable(Level.FINE))
+				logger.fine("QUIT failed with " + resp);
+			}
+		    }
+		} catch (Exception e) {
+		    if (logger.isLoggable(Level.FINE))
+			logger.log(Level.FINE, "QUIT failed", e);
+		} finally {
+		    serverSocket.close();
+		    serverSocket = null;
+		    serverOutput = null;
+		    serverInput = null;
+		    lineInputStream = null;
+		}
+		if (logger.isLoggable(Level.FINE))
+		    logger.fine("got bad greeting from host \"" +
+				host + "\", port: " + port +
+				", response: " + failResponse);
+		throw new MessagingException(
+				"Got bad greeting from SMTP host: " + host +
+				", port: " + port +
+				", response: " + failResponse);
 	    } else {
 		if (logger.isLoggable(Level.FINE))
 		    logger.fine("connected to host \"" +
