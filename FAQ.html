@@ -914,7 +914,9 @@ the information necessary to configure Jakarta Mail to work with your mail serve
 mail servers through a web proxy server.
 Set the "mail.<i>protocol</i>.proxy.host" and "mail.<i>protocol</i>.proxy.port"
 properties for the proxy server.
-Note that proxy server authentication is not supported.
+Proxy server BASIC authentication is supported by setting the
+"mail.<i>protocol</i>.proxy.user" and "mail.<i>protocol</i>.proxy.password"
+properties.
 </P>
 <P>
 In addition, if your proxy server supports the SOCKS V4 or V5 protocol
@@ -924,9 +926,13 @@ and allows anonymous connections, and
 you're using JDK 1.5 or newer and Jakarta Mail 1.4.5 or newer, you can
 configure a SOCKS proxy on a per-session, per-protocol basis by setting the
 "mail.smtp.socks.host" property as described in the javadocs for the
-<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/smtp/package-summary.html">
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api/com/sun/mail/smtp/package-summary.html">
 com.sun.mail.smtp package</A>.
 Similar properties exist for the "imap" and "pop3" protocols.
+Authentication for SOCKS servers is supported by the JDK by setting the
+"java.net.socks.username" and "java.net.socks.password" System properties
+(and thus apply to all SOCKS connections) as describe in the
+<A HREF="https://docs.oracle.com/javase/8/docs/api/java/net/doc-files/net-properties.html#Proxies">JDK Networking Properties</A> documentation.
 </P>
 <P>
 If you're using older versions of the JDK or Jakarta Mail, you can tell the Java
