@@ -150,15 +150,50 @@ Jakarta Mail bugs are tracked in the
 
 From time to time snapshot releases of the next version of Jakarta Mail
 under development are published to the
-[Sonatype OSSRH repository](http://oss.sonatype.org).
+[Jakarta Sonatype OSS repository](http://jakarta.oss.sonatype.org).
 These snapshot releases have received only minimal testing, but may
 provide previews of bug fixes or new features under development.
 
 For example, you can download the jakarta.mail.jar file from the Jakarta Mail
 1.6.4-SNAPSHOT release
-[here](https://oss.sonatype.org/content/repositories/snapshots/com/sun/mail/jakarta.mail/1.6.4-SNAPSHOT/).
+[here](https://jakarta.oss.sonatype.org/content/repositories/snapshots/com/sun/mail/jakarta.mail/1.6.4-SNAPSHOT/).
 Be sure to scroll to the bottom and choose the jar file with the most
 recent time stamp.
+
+You'll need to add the following configuration to your Maven ~/.m2/settings.xml
+to be able to use these with Maven:
+
+```
+    <profiles>
+        <!-- to allow loading Jakarta snapshot artifacts -->
+        <profile>
+            <id>jakarta-snapshots</id>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>jakarta-snapshots</id>
+                    <name>Jakarta Snapshots</name>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+```
+
+And then when you build use `mvn -Pjakarta-snapshots ...`.
+
+If you want the plugin repository to be enabled all the time so you don't need the -P, add:
+
+```
+    <activeProfiles>
+        <activeProfile>jakarta-snapshots</activeProfile>
+    </activeProfiles>
+```
 
 # <a name="Jakarta_Mail_for_Android"></a>Jakarta Mail for Android
 
