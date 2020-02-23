@@ -655,6 +655,7 @@
 		    <artifactId>maven-javadoc-plugin</artifactId>
 		    <version>3.1.1</version>
 		    <configuration>
+			<doclint>none</doclint>
 			<!-- make all the APIs available for javadoc -->
 			<additionalDependencies>
 			    <additionalDependency>
@@ -695,15 +696,6 @@
 			<excludeFile>
 			    copyright-exclude
 			</excludeFile>
-		    </configuration>
-		</plugin>
-		<plugin>
-		    <groupId>org.sonatype.plugins</groupId>
-		    <artifactId>nexus-staging-maven-plugin</artifactId>
-		    <extensions>true</extensions>
-		    <configuration>
-			<serverId>ossrh</serverId>
-			<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 		    </configuration>
 		</plugin>
 	    </plugins>
