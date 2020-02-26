@@ -155,8 +155,8 @@ These snapshot releases have received only minimal testing, but may
 provide previews of bug fixes or new features under development.
 
 For example, you can download the jakarta.mail.jar file from the Jakarta Mail
-1.6.4-SNAPSHOT release
-[here](https://jakarta.oss.sonatype.org/content/repositories/snapshots/com/sun/mail/jakarta.mail/1.6.4-SNAPSHOT/).
+1.6.5-SNAPSHOT release
+[here](https://jakarta.oss.sonatype.org/content/repositories/snapshots/com/sun/mail/jakarta.mail/1.6.5-SNAPSHOT/).
 Be sure to scroll to the bottom and choose the jar file with the most
 recent time stamp.
 
