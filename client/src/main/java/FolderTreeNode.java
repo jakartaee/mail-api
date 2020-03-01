@@ -9,7 +9,6 @@
  */
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import jakarta.mail.Store;
 import jakarta.mail.Folder;
 import jakarta.mail.MessagingException;
 

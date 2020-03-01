@@ -16,8 +16,6 @@
 
 package com.sun.mail.mbox;
 
-import java.util.*;
-import java.net.*;
 import java.io.*;
 import java.security.*;
 

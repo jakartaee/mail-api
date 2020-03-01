@@ -16,7 +16,6 @@
 
 package com.sun.mail.remote;
 
-import java.io.*;
 import jakarta.mail.*;
 import com.sun.mail.mbox.*;
 

@@ -17,7 +17,6 @@
 package com.sun.mail.dsn;
 
 import java.io.*;
-import java.util.Properties;
 import jakarta.activation.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;

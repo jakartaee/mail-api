@@ -12,7 +12,6 @@ package demo;
 
 import java.io.*;
 import jakarta.mail.*;
-import jakarta.mail.internet.*;
 import jakarta.mail.search.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.*;

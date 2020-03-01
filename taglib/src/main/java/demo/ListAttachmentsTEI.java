@@ -10,7 +10,6 @@
 
 package demo;
 
-import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.*;
 
 /**

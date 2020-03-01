@@ -11,7 +11,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.beans.*;
 import jakarta.activation.*;
 import jakarta.mail.*;
 import javax.swing.JPanel;

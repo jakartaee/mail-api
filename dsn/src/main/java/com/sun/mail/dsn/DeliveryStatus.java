@@ -20,7 +20,6 @@ import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 
-import jakarta.activation.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
