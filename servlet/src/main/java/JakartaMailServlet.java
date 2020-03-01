@@ -17,7 +17,6 @@ import javax.servlet.http.*;
 import jakarta.mail.*;
 import jakarta.mail.Part;
 import jakarta.mail.internet.*;
-import jakarta.activation.*;
 
 
 /**
