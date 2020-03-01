@@ -11,7 +11,6 @@
 package demo;
 
 import java.io.*;
-import java.util.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.mail.search.*;

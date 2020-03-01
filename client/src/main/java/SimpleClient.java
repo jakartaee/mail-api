@@ -11,12 +11,10 @@
 import java.util.*;
 import java.io.*;
 import jakarta.mail.*;
-import jakarta.mail.internet.*;
 import jakarta.activation.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.table.*;
 import javax.swing.tree.*;
 import javax.swing.event.*;
 

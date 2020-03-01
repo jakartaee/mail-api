@@ -17,7 +17,6 @@
 package com.sun.mail.gimap;
 
 import jakarta.mail.Message;
-import jakarta.mail.search.StringTerm;
 
 /**
  * This class implements searching for the Gmail thread ID.

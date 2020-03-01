@@ -16,12 +16,8 @@
 
 package com.sun.mail.gimap;
 
-import java.io.*;
-
 import jakarta.mail.*;
-import jakarta.mail.internet.*;
 
-import com.sun.mail.util.*;
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.*;
 import com.sun.mail.imap.protocol.*;

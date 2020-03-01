@@ -16,7 +16,6 @@
 
 package com.sun.mail.mbox;
 
-import java.io.*;
 import jakarta.mail.*;
 
 public class MboxStore extends Store {
