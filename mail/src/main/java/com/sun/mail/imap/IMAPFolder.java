@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -3223,10 +3223,22 @@ public class IMAPFolder extends Folder implements UIDFolder, ResponseHandler {
      */
     boolean handleIdle(boolean once) throws MessagingException {
 	Response r = null;
+	boolean hasResp = false;
 	do {
-	    r = protocol.readIdleResponse();
+	    IMAPProtocol p;
+	    // avoid NPE on protocol below
+	    synchronized (messageCacheLock) {
+		p = protocol;
+		if (p == null)
+		    return false;
+	    }
+	    // protocol can become null here
+	    r = p.readIdleResponse();
+
 	    try {
 		synchronized (messageCacheLock) {
+		    if (protocol == null)
+			return false;
 		    if (r.isBYE() && r.isSynthetic() && idleState == IDLE) {
 			/*
 			 * If it was a timeout and no bytes were transferred
@@ -3286,6 +3298,8 @@ public class IMAPFolder extends Folder implements UIDFolder, ResponseHandler {
 			    idleState = ABORTING;
 			}
 		    }
+		    // read it while we know protocol is not null
+		    hasResp = protocol.hasResponse();
 		}
 	    } catch (ConnectionException cex) {
 		// Oops, the folder died on us.
@@ -3294,7 +3308,7 @@ public class IMAPFolder extends Folder implements UIDFolder, ResponseHandler {
 		throw new MessagingException(pex.getMessage(), pex);
 	    }
 	// keep processing responses already in our buffer
-	} while (r == null || protocol.hasResponse());
+	} while (r == null || hasResp);
 	return true;
     }
 
