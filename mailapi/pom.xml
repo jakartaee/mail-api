@@ -50,7 +50,7 @@
 	<mail.bundle.symbolicName>
 	    jakarta.mail.api
 	</mail.bundle.symbolicName>
-	<mail.extraClasses>javax/**</mail.extraClasses>
+	<mail.extraClasses>jakarta/**</mail.extraClasses>
     </properties>
 
     <profiles>
