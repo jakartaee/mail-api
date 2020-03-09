@@ -31,7 +31,7 @@
     <parent>
 	<groupId>com.sun.mail</groupId>
 	<artifactId>all</artifactId>
-	<version>1.6.5-SNAPSHOT</version>
+	<version>1.6.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>jakarta.mail</groupId>
