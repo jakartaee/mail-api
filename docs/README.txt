@@ -1,10 +1,10 @@
 			README
 			======
 
-	    Jakarta Mail(TM) API 1.6.4 release
+	    Jakarta Mail(TM) API 1.6.5 release
 	    ----------------------------------
 
-Welcome to the Jakarta Mail API 1.6.4 release!  This release includes
+Welcome to the Jakarta Mail API 1.6.5 release!  This release includes
 versions of the Jakarta Mail API implementation, IMAP, SMTP, and POP3
 service providers, some examples, and documentation for the Jakarta Mail
 API.

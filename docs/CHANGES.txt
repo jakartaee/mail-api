@@ -20,6 +20,20 @@ Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
 
+		  CHANGES IN THE 1.6.5 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 1.6.5 release.
+
+E  387	misleading SMTP error message when server returns bad greeting
+E  398	Don't enforce dot rules for quoted-string in local-part
+E  399	NPE com.sun.mail.imap.protocol.BODY.getOrigin() since 1.6.4
+E  400	finalizecleanclose false can send commands causing unhandled exception
+E  408	BASE64DecoderStream.read(buf, off, len) returns EOF when len is 0
+E  413	NPE com.sun.mail.pop3.POP3Store.close
+E  416	OAuth2 support for POP3
+E  421	NPE in MailHandler::isLoggable
+
+
 		  CHANGES IN THE 1.6.4 RELEASE
 		  ----------------------------
 The following bugs have been fixed in the 1.6.4 release.

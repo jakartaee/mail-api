@@ -265,7 +265,7 @@ based on the MIME standard
 The IMAP, SMTP, and POP3 protocols use
 <a href="../../../javax/mail/internet/MimeMessage.html" title="class in javax.mail.internet"><code>MimeMessages</code></a>.
 </P>
-<A NAME="properties"><STRONG>Properties</STRONG></A>
+<A ID="properties"><STRONG>Properties</STRONG></A>
 <P>
 The Jakarta Mail API supports the following standard properties,
 which may be set in the <code>Session</code> object, or in the
@@ -280,7 +280,8 @@ how the string is interpreted.  For example, use
 to set the <CODE>mail.mime.address.strict</CODE> property,
 which is of type boolean.
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail properties">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail properties</CAPTION>
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -288,7 +289,7 @@ which is of type boolean.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.address.strict">mail.mime.address.strict</A></TD>
+<TD><A ID="mail.mime.address.strict">mail.mime.address.strict</A></TD>
 <TD>boolean</TD>
 <TD>
 The <code>mail.mime.address.strict</code> session property controls
@@ -301,7 +302,7 @@ class for details.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.allowutf8">mail.mime.allowutf8</A></TD>
+<TD><A ID="mail.mime.allowutf8">mail.mime.allowutf8</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, UTF-8 strings are allowed in message headers,
@@ -323,7 +324,8 @@ how the string is interpreted.  For example, use
 to set the <CODE>mail.mime.decodetext.strict</CODE> property,
 which is of type boolean.
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail System properties">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail System properties</CAPTION>
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -331,7 +333,7 @@ which is of type boolean.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.charset">mail.mime.charset</A></TD>
+<TD><A ID="mail.mime.charset">mail.mime.charset</A></TD>
 <TD>String</TD>
 <TD>
 The <code>mail.mime.charset</code> System property can
@@ -347,7 +349,7 @@ the system, this property should be set.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.decodetext.strict">mail.mime.decodetext.strict</A></TD>
+<TD><A ID="mail.mime.decodetext.strict">mail.mime.decodetext.strict</A></TD>
 <TD>boolean</TD>
 <TD>
 The <code>mail.mime.decodetext.strict</code> property controls
@@ -361,7 +363,7 @@ illegal encoded words. The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.encodeeol.strict">mail.mime.encodeeol.strict</A></TD>
+<TD><A ID="mail.mime.encodeeol.strict">mail.mime.encodeeol.strict</A></TD>
 <TD>boolean</TD>
 <TD>
 The <code>mail.mime.encodeeol.strict</code> property controls the
@@ -377,7 +379,7 @@ be used when necessary.  The default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.decodefilename">mail.mime.decodefilename</A></TD>
+<TD><A ID="mail.mime.decodefilename">mail.mime.decodefilename</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, the <code>getFileName</code> method
@@ -391,7 +393,7 @@ The default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.encodefilename">mail.mime.encodefilename</A></TD>
+<TD><A ID="mail.mime.encodefilename">mail.mime.encodefilename</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, the <code>setFileName</code> method
@@ -405,7 +407,7 @@ The default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.decodeparameters">mail.mime.decodeparameters</A></TD>
+<TD><A ID="mail.mime.decodeparameters">mail.mime.decodeparameters</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"false"</code>, non-ASCII parameters in a
@@ -417,7 +419,7 @@ The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.encodeparameters">mail.mime.encodeparameters</A></TD>
+<TD><A ID="mail.mime.encodeparameters">mail.mime.encodeparameters</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"false"</code>, non-ASCII parameters in a
@@ -429,7 +431,7 @@ The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.multipart.ignoremissingendboundary">mail.mime.multipart. ignoremissingendboundary</A></TD>
+<TD><A ID="mail.mime.multipart.ignoremissingendboundary">mail.mime.multipart. ignoremissingendboundary</A></TD>
 <TD>boolean</TD>
 <TD>
 Normally, when parsing a multipart MIME message, a message that is
@@ -444,7 +446,7 @@ message.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.multipart.ignoremissingboundaryparameter">mail.mime.multipart. ignoremissingboundaryparameter</A></TD>
+<TD><A ID="mail.mime.multipart.ignoremissingboundaryparameter">mail.mime.multipart. ignoremissingboundaryparameter</A></TD>
 <TD>boolean</TD>
 <TD>
 If the Content-Type header for a multipart content does not have
@@ -459,7 +461,7 @@ The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.multipart.ignoreexistingboundaryparameter">mail.mime.multipart. ignoreexistingboundaryparameter</A></TD>
+<TD><A ID="mail.mime.multipart.ignoreexistingboundaryparameter">mail.mime.multipart. ignoreexistingboundaryparameter</A></TD>
 <TD>boolean</TD>
 <TD>
 Normally the boundary parameter in the Content-Type header of a multipart
@@ -475,7 +477,7 @@ The default value of this property is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.multipart.allowempty">mail.mime.multipart. allowempty</A></TD>
+<TD><A ID="mail.mime.multipart.allowempty">mail.mime.multipart. allowempty</A></TD>
 <TD>boolean</TD>
 <TD>
 Normally, when writing out a MimeMultipart that contains no body
@@ -494,13 +496,14 @@ The default value of this property is false.
 
 
 <P>
-The following properties are supported by the reference implementation (RI) of
+The following properties are supported by the EE4J implementation of
 Jakarta Mail, but are not currently a required part of the specification.
 These must be set as <CODE>Session</CODE> properties.
 The names, types, defaults, and semantics of these properties may
 change in future releases.
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail RI properties">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail implementation properties</CAPTION>
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -508,7 +511,7 @@ change in future releases.
 </TR>
 
 <TR>
-<TD><A NAME="mail.alternates">mail.alternates</A></TD>
+<TD><A ID="mail.alternates">mail.alternates</A></TD>
 <TD>String</TD>
 <TD>
 A string containing other email addresses that the current user is known by.
@@ -519,7 +522,7 @@ to avoid sending the reply back to the sender.
 </TR>
 
 <TR>
-<TD><A NAME="mail.replyallcc">mail.replyallcc</A></TD>
+<TD><A ID="mail.replyallcc">mail.replyallcc</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, the <code>MimeMessage</code>
@@ -533,13 +536,14 @@ constructed message.
 </TABLE>
 
 <P>
-The following properties are supported by the reference implementation (RI) of
+The following properties are supported by the EE4J implementation of
 Jakarta Mail, but are not currently a required part of the specification.
 These must be set as <CODE>System</CODE> properties.
 The names, types, defaults, and semantics of these properties may
 change in future releases.
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail RI System properties">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail implementation System properties</CAPTION>
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -547,7 +551,7 @@ change in future releases.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.base64.ignoreerrors">mail.mime.base64.ignoreerrors</A></TD>
+<TD><A ID="mail.mime.base64.ignoreerrors">mail.mime.base64.ignoreerrors</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, the BASE64 decoder will ignore errors
@@ -560,7 +564,7 @@ with extreme caution.  The default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.foldtext">mail.mime.foldtext</A></TD>
+<TD><A ID="mail.mime.foldtext">mail.mime.foldtext</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, header fields containing just text
@@ -572,7 +576,7 @@ when set and unfolded when read.  The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.setcontenttypefilename">mail.mime.setcontenttypefilename</A></TD>
+<TD><A ID="mail.mime.setcontenttypefilename">mail.mime.setcontenttypefilename</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, the <code>setFileName</code> method
@@ -583,7 +587,7 @@ some old mail clients.  The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.setdefaulttextcharset">mail.mime.setdefaulttextcharset</A></TD>
+<TD><A ID="mail.mime.setdefaulttextcharset">mail.mime.setdefaulttextcharset</A></TD>
 <TD>boolean</TD>
 <TD>
 When updating the headers of a message, a body
@@ -595,7 +599,7 @@ The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.parameters.strict">mail.mime.parameters.strict</A></TD>
+<TD><A ID="mail.mime.parameters.strict">mail.mime.parameters.strict</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to false, when reading a message, parameter values in header fields
@@ -609,7 +613,7 @@ or special characters.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.applefilenames">mail.mime.applefilenames</A></TD>
+<TD><A ID="mail.mime.applefilenames">mail.mime.applefilenames</A></TD>
 <TD>boolean</TD>
 <TD>
 Apple Mail incorrectly encodes filenames that contain spaces,
@@ -624,7 +628,7 @@ This property will likely be removed in a future release.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.windowsfilenames">mail.mime.windowsfilenames</A></TD>
+<TD><A ID="mail.mime.windowsfilenames">mail.mime.windowsfilenames</A></TD>
 <TD>boolean</TD>
 <TD>
 Internet Explorer 6 incorrectly includes a complete pathname
@@ -641,7 +645,7 @@ files sent by IE6.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.ignoreunknownencoding">mail.mime. ignoreunknownencoding</A></TD>
+<TD><A ID="mail.mime.ignoreunknownencoding">mail.mime. ignoreunknownencoding</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, an unknown value in the
@@ -653,7 +657,7 @@ unknown encoding value.  The default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.uudecode.ignoreerrors">mail.mime.uudecode. ignoreerrors</A></TD>
+<TD><A ID="mail.mime.uudecode.ignoreerrors">mail.mime.uudecode. ignoreerrors</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, errors in the encoded format of a
@@ -664,7 +668,7 @@ incorrectly encoded message part.  The default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.uudecode.ignoremissingbeginend">mail.mime.uudecode. ignoremissingbeginend</A></TD>
+<TD><A ID="mail.mime.uudecode.ignoremissingbeginend">mail.mime.uudecode. ignoremissingbeginend</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to <code>"true"</code>, a missing "being" or "end" line in a
@@ -676,7 +680,7 @@ The default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.ignorewhitespacelines">mail.mime. ignorewhitespacelines</A></TD>
+<TD><A ID="mail.mime.ignorewhitespacelines">mail.mime. ignorewhitespacelines</A></TD>
 <TD>boolean</TD>
 <TD>
 Normally the header of a MIME part is separated from the body by an empty
@@ -687,7 +691,7 @@ line.  The default value of this property is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.ignoremultipartencoding">mail.mime. ignoremultipartencoding</A></TD>
+<TD><A ID="mail.mime.ignoremultipartencoding">mail.mime. ignoremultipartencoding</A></TD>
 <TD>boolean</TD>
 <TD>
 The MIME spec does not allow body parts of type multipart/* to be encoded.
@@ -700,7 +704,7 @@ The default value of this property is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.allowencodedmessages">mail.mime.allowencodedmessages</A></TD>
+<TD><A ID="mail.mime.allowencodedmessages">mail.mime.allowencodedmessages</A></TD>
 <TD>boolean</TD>
 <TD>
 The MIME spec does not allow body parts of type message/* to be encoded.
@@ -714,7 +718,7 @@ The default value of this property is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.contenttypehandler">mail.mime.contenttypehandler</A></TD>
+<TD><A ID="mail.mime.contenttypehandler">mail.mime.contenttypehandler</A></TD>
 <TD>String</TD>
 <TD>
 In some cases Jakarta Mail is unable to process messages with an invalid
@@ -738,18 +742,18 @@ Content-Type information.
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.address.usecanonicalhostname">mail.mime.address.usecanonicalhostname</A></TD>
+<TD><A ID="mail.mime.address.usecanonicalhostname">mail.mime.address.usecanonicalhostname</A></TD>
 <TD>boolean</TD>
 <TD>
 Use the
-<a href="http://docs.oracle.com/javase/8/docs/api/java/net/InetAddress.html?is-external=true#getCanonicalHostName--" title="class or interface in java.net"><code>InetAddress.getCanonicalHostName</code></a>
+<code>InetAddress.getCanonicalHostName</code>
 method to determine the host name in the
 <a href="../../../javax/mail/internet/InternetAddress.html#getLocalAddress-javax.mail.Session-"><code>InternetAddress.getLocalAddress</code></a>
 method.
 With some network configurations, InetAddress.getCanonicalHostName may be
 slow or may return an address instead of a host name.
 In that case, setting this System property to false will cause the
-<a href="http://docs.oracle.com/javase/8/docs/api/java/net/InetAddress.html?is-external=true#getHostName--" title="class or interface in java.net"><code>InetAddress.getHostName</code></a>
+<code>InetAddress.getHostName</code>
 method to be used instead.
 The default is true.
 </TD>
@@ -759,9 +763,10 @@ The default is true.
 <P>
 The current
 implementation of classes in this package log debugging information using
-<a href="http://docs.oracle.com/javase/8/docs/api/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging"><code>Logger</code></a> as described in the following table:
+<code>Logger</code> as described in the following table:
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail Loggers">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail Loggers</CAPTION>
 <TR>
 <TH>Logger Name</TH>
 <TH>Logging Level</TH>

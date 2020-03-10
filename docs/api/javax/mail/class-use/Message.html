@@ -35,7 +35,7 @@
 <li><a href="../package-summary.html">Package</a></li>
 <li><a href="../../../javax/mail/Message.html" title="class in javax.mail">Class</a></li>
 <li class="navBarCell1Rev">Use</li>
-<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../overview-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../index-files/index-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
@@ -223,7 +223,7 @@ Message search terms for the Jakarta Mail API.</div>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><span class="typeNameLabel">GmailFolder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/gimap/GmailFolder.html#setLabels-javax.mail.Message:A-java.lang.String:A-boolean-">setLabels</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-         <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;labels,
+         java.lang.String[]&nbsp;labels,
          boolean&nbsp;set)</code>
 <div class="block">Set the specified labels for the given array of messages.</div>
 </td>
@@ -404,7 +404,7 @@ Message search terms for the Jakarta Mail API.</div>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">YoungerTerm.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/YoungerTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<td class="colLast"><span class="typeNameLabel">ModifiedSinceTerm.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/ModifiedSinceTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
 <div class="block">The match method.</div>
 </td>
 </tr>
@@ -416,7 +416,7 @@ Message search terms for the Jakarta Mail API.</div>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">ModifiedSinceTerm.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/ModifiedSinceTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<td class="colLast"><span class="typeNameLabel">YoungerTerm.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/YoungerTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
 <div class="block">The match method.</div>
 </td>
 </tr>
@@ -518,7 +518,7 @@ Message search terms for the Jakarta Mail API.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><span class="typeNameLabel">POP3Folder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/pop3/POP3Folder.html#getUID-javax.mail.Message-">getUID</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
 <div class="block">Return the unique ID string for this message, or null if
  not available.</div>
@@ -766,8 +766,8 @@ Message search terms for the Jakarta Mail API.</div>
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><span class="typeNameLabel">Transport.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Transport.html#send-javax.mail.Message-javax.mail.Address:A-java.lang.String-java.lang.String-">send</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg,
     <a href="../../../javax/mail/Address.html" title="class in javax.mail">Address</a>[]&nbsp;addresses,
-    <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;user,
-    <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;password)</code>
+    java.lang.String&nbsp;user,
+    java.lang.String&nbsp;password)</code>
 <div class="block">Send the message to the specified addresses, ignoring any
  recipients specified in the message itself.</div>
 </td>
@@ -775,8 +775,8 @@ Message search terms for the Jakarta Mail API.</div>
 <tr class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><span class="typeNameLabel">Transport.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Transport.html#send-javax.mail.Message-java.lang.String-java.lang.String-">send</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg,
-    <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;user,
-    <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;password)</code>
+    java.lang.String&nbsp;user,
+    java.lang.String&nbsp;password)</code>
 <div class="block">Send a message.</div>
 </td>
 </tr>
@@ -863,7 +863,7 @@ Message search terms for the Jakarta Mail API.</div>
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/event/MessageChangedEvent.html#MessageChangedEvent-java.lang.Object-int-javax.mail.Message-">MessageChangedEvent</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;source,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/event/MessageChangedEvent.html#MessageChangedEvent-java.lang.Object-int-javax.mail.Message-">MessageChangedEvent</a></span>(java.lang.Object&nbsp;source,
                    int&nbsp;type,
                    <a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
 <div class="block">Constructor.</div>
@@ -945,61 +945,39 @@ Message search terms for the Jakarta Mail API.</div>
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">SubjectTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/SubjectTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The match method.</div>
+<td class="colLast"><span class="typeNameLabel">FromTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/FromTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The address comparator.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">SizeTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/SizeTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The match method.</div>
-</td>
-</tr>
-<tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><span class="typeNameLabel">SentDateTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/SentDateTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
 <div class="block">The match method.</div>
 </td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code>abstract boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">SearchTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/SearchTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">This method applies a specific match criterion to the given
- message and returns the result.</div>
-</td>
-</tr>
 <tr class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">RecipientTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/RecipientTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The match method.</div>
-</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><span class="typeNameLabel">RecipientStringTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/RecipientStringTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
 <div class="block">Check whether the address specified in the constructor is
  a substring of the recipient address of this Message.</div>
 </td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">ReceivedDateTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/ReceivedDateTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The match method.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">OrTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/OrTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The OR operation.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">NotTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/NotTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>&nbsp;</td>
-</tr>
 <tr class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><span class="typeNameLabel">MessageNumberTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/MessageNumberTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The match method.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>abstract boolean</code></td>
+<td class="colLast"><span class="typeNameLabel">SearchTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/SearchTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">This method applies a specific match criterion to the given
+ message and returns the result.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="typeNameLabel">SizeTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/SizeTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
 <div class="block">The match method.</div>
 </td>
 </tr>
@@ -1011,27 +989,49 @@ Message search terms for the Jakarta Mail API.</div>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">HeaderTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/HeaderTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The header match method.</div>
-</td>
+<td class="colLast"><span class="typeNameLabel">NotTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/NotTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">FromTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/FromTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The address comparator.</div>
+<td class="colLast"><span class="typeNameLabel">OrTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/OrTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The OR operation.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">FromStringTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/FromStringTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">Check whether the address string specified in the constructor is
- a substring of the From address of this Message.</div>
+<td class="colLast"><span class="typeNameLabel">FlagTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/FlagTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The comparison method.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">FlagTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/FlagTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The comparison method.</div>
+<td class="colLast"><span class="typeNameLabel">AndTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/AndTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The AND operation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="typeNameLabel">SubjectTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/SubjectTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The match method.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="typeNameLabel">HeaderTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/HeaderTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The header match method.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="typeNameLabel">RecipientTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/RecipientTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The match method.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="typeNameLabel">FromStringTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/FromStringTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">Check whether the address string specified in the constructor is
+ a substring of the From address of this Message.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -1042,8 +1042,8 @@ Message search terms for the Jakarta Mail API.</div>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><span class="typeNameLabel">AndTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/AndTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
-<div class="block">The AND operation.</div>
+<td class="colLast"><span class="typeNameLabel">ReceivedDateTerm.</span><code><span class="memberNameLink"><a href="../../../javax/mail/search/ReceivedDateTerm.html#match-javax.mail.Message-">match</a></span>(<a href="../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<div class="block">The match method.</div>
 </td>
 </tr>
 </tbody>
@@ -1066,7 +1066,7 @@ Message search terms for the Jakarta Mail API.</div>
 <li><a href="../package-summary.html">Package</a></li>
 <li><a href="../../../javax/mail/Message.html" title="class in javax.mail">Class</a></li>
 <li class="navBarCell1Rev">Use</li>
-<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../overview-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../index-files/index-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>

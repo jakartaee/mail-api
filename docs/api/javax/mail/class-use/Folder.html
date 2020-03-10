@@ -35,7 +35,7 @@
 <li><a href="../package-summary.html">Package</a></li>
 <li><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Class</a></li>
 <li class="navBarCell1Rev">Use</li>
-<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../overview-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../index-files/index-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
@@ -189,13 +189,13 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">IMAPStore.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPStore.html#getFolder-java.lang.String-">getFolder</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<td class="colLast"><span class="typeNameLabel">IMAPStore.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPStore.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Get named folder.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">IMAPFolder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPFolder.html#getFolder-java.lang.String-">getFolder</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<td class="colLast"><span class="typeNameLabel">IMAPFolder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPFolder.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Get the named subfolder.</div>
 </td>
 </tr>
@@ -227,20 +227,20 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
-<td class="colLast"><span class="typeNameLabel">IMAPStore.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPStore.html#getUserNamespaces-java.lang.String-">getUserNamespaces</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;user)</code>
+<td class="colLast"><span class="typeNameLabel">IMAPStore.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPStore.html#getUserNamespaces-java.lang.String-">getUserNamespaces</a></span>(java.lang.String&nbsp;user)</code>
 <div class="block">Using the IMAP NAMESPACE command (RFC 2342), return a set
  of folders representing the User's namespaces.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
-<td class="colLast"><span class="typeNameLabel">IMAPFolder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPFolder.html#list-java.lang.String-">list</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;pattern)</code>
+<td class="colLast"><span class="typeNameLabel">IMAPFolder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPFolder.html#list-java.lang.String-">list</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">List all subfolders matching the specified pattern.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
-<td class="colLast"><span class="typeNameLabel">IMAPFolder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPFolder.html#listSubscribed-java.lang.String-">listSubscribed</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;pattern)</code>
+<td class="colLast"><span class="typeNameLabel">IMAPFolder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/imap/IMAPFolder.html#listSubscribed-java.lang.String-">listSubscribed</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">List all subscribed subfolders matching the specified pattern.</div>
 </td>
 </tr>
@@ -347,15 +347,15 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">POP3Store.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/pop3/POP3Store.html#getFolder-java.lang.String-">getFolder</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
-<div class="block">Only the name "INBOX" is supported.</div>
+<td class="colLast"><span class="typeNameLabel">POP3Folder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/pop3/POP3Folder.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
+<div class="block">Always throws <code>MessagingException</code> because no POP3 folders
+ can contain subfolders.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">POP3Folder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/pop3/POP3Folder.html#getFolder-java.lang.String-">getFolder</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
-<div class="block">Always throws <code>MessagingException</code> because no POP3 folders
- can contain subfolders.</div>
+<td class="colLast"><span class="typeNameLabel">POP3Store.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/pop3/POP3Store.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
+<div class="block">Only the name "INBOX" is supported.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -368,7 +368,7 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
-<td class="colLast"><span class="typeNameLabel">POP3Folder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/pop3/POP3Folder.html#list-java.lang.String-">list</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;pattern)</code>
+<td class="colLast"><span class="typeNameLabel">POP3Folder.</span><code><span class="memberNameLink"><a href="../../../com/sun/mail/pop3/POP3Folder.html#list-java.lang.String-">list</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">Always throws <code>MessagingException</code> because no POP3 folders
  can contain subfolders.</div>
 </td>
@@ -444,18 +444,6 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">ReadOnlyFolderException.</span><code><span class="memberNameLink"><a href="../../../javax/mail/ReadOnlyFolderException.html#getFolder--">getFolder</a></span>()</code>
-<div class="block">Returns the Folder object.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">Message.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Message.html#getFolder--">getFolder</a></span>()</code>
-<div class="block">Get the folder from which this message was obtained.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
 <td class="colLast"><span class="typeNameLabel">FolderNotFoundException.</span><code><span class="memberNameLink"><a href="../../../javax/mail/FolderNotFoundException.html#getFolder--">getFolder</a></span>()</code>
 <div class="block">Returns the offending Folder object.</div>
 </td>
@@ -467,14 +455,26 @@ Classes specific to Internet mail systems.</div>
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
+<td class="colLast"><span class="typeNameLabel">ReadOnlyFolderException.</span><code><span class="memberNameLink"><a href="../../../javax/mail/ReadOnlyFolderException.html#getFolder--">getFolder</a></span>()</code>
+<div class="block">Returns the Folder object.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
+<td class="colLast"><span class="typeNameLabel">Message.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Message.html#getFolder--">getFolder</a></span>()</code>
+<div class="block">Get the folder from which this message was obtained.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>abstract <a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">Store.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Store.html#getFolder-java.lang.String-">getFolder</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<td class="colLast"><span class="typeNameLabel">Store.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Store.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Return the Folder object corresponding to the given name.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>abstract <a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
-<td class="colLast"><span class="typeNameLabel">Folder.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Folder.html#getFolder-java.lang.String-">getFolder</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<td class="colLast"><span class="typeNameLabel">Folder.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Folder.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Return the Folder object corresponding to the given name.</div>
 </td>
 </tr>
@@ -512,7 +512,7 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
-<td class="colLast"><span class="typeNameLabel">Store.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Store.html#getUserNamespaces-java.lang.String-">getUserNamespaces</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;user)</code>
+<td class="colLast"><span class="typeNameLabel">Store.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Store.html#getUserNamespaces-java.lang.String-">getUserNamespaces</a></span>(java.lang.String&nbsp;user)</code>
 <div class="block">Return a set of folders representing the namespaces for
  <code>user</code>.</div>
 </td>
@@ -526,7 +526,7 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>abstract <a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
-<td class="colLast"><span class="typeNameLabel">Folder.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Folder.html#list-java.lang.String-">list</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;pattern)</code>
+<td class="colLast"><span class="typeNameLabel">Folder.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Folder.html#list-java.lang.String-">list</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">Returns a list of Folders belonging to this Folder's namespace
  that match the specified pattern.</div>
 </td>
@@ -540,7 +540,7 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
-<td class="colLast"><span class="typeNameLabel">Folder.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Folder.html#listSubscribed-java.lang.String-">listSubscribed</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;pattern)</code>
+<td class="colLast"><span class="typeNameLabel">Folder.</span><code><span class="memberNameLink"><a href="../../../javax/mail/Folder.html#listSubscribed-java.lang.String-">listSubscribed</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">Returns a list of subscribed Folders belonging to this Folder's
  namespace that match the specified pattern.</div>
 </td>
@@ -604,15 +604,15 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="rowColor">
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/FolderClosedException.html#FolderClosedException-javax.mail.Folder-java.lang.String-">FolderClosedException</a></span>(<a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
-                     <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message)</code>
+                     java.lang.String&nbsp;message)</code>
 <div class="block">Constructs a FolderClosedException with the specified
  detail message.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/FolderClosedException.html#FolderClosedException-javax.mail.Folder-java.lang.String-java.lang.Exception-">FolderClosedException</a></span>(<a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
-                     <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message,
-                     <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;e)</code>
+                     java.lang.String&nbsp;message,
+                     java.lang.Exception&nbsp;e)</code>
 <div class="block">Constructs a FolderClosedException with the specified
  detail message and embedded exception.</div>
 </td>
@@ -624,21 +624,21 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="altColor">
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/FolderNotFoundException.html#FolderNotFoundException-javax.mail.Folder-java.lang.String-">FolderNotFoundException</a></span>(<a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
-                       <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;s)</code>
+                       java.lang.String&nbsp;s)</code>
 <div class="block">Constructs a FolderNotFoundException with the specified
  detail message.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/FolderNotFoundException.html#FolderNotFoundException-javax.mail.Folder-java.lang.String-java.lang.Exception-">FolderNotFoundException</a></span>(<a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
-                       <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;s,
-                       <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;e)</code>
+                       java.lang.String&nbsp;s,
+                       java.lang.Exception&nbsp;e)</code>
 <div class="block">Constructs a FolderNotFoundException with the specified
  detail message and embedded exception.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/FolderNotFoundException.html#FolderNotFoundException-java.lang.String-javax.mail.Folder-">FolderNotFoundException</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;s,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/FolderNotFoundException.html#FolderNotFoundException-java.lang.String-javax.mail.Folder-">FolderNotFoundException</a></span>(java.lang.String&nbsp;s,
                        <a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)</code>
 <div class="block">Constructs a FolderNotFoundException with the specified detail message
  and the specified folder.</div>
@@ -658,15 +658,15 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tr class="rowColor">
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/ReadOnlyFolderException.html#ReadOnlyFolderException-javax.mail.Folder-java.lang.String-">ReadOnlyFolderException</a></span>(<a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
-                       <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message)</code>
+                       java.lang.String&nbsp;message)</code>
 <div class="block">Constructs a ReadOnlyFolderException with the specified
  detail message.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/ReadOnlyFolderException.html#ReadOnlyFolderException-javax.mail.Folder-java.lang.String-java.lang.Exception-">ReadOnlyFolderException</a></span>(<a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
-                       <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message,
-                       <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;e)</code>
+                       java.lang.String&nbsp;message,
+                       java.lang.Exception&nbsp;e)</code>
 <div class="block">Constructs a ReadOnlyFolderException with the specified
  detail message and embedded exception.</div>
 </td>
@@ -729,7 +729,7 @@ Classes specific to Internet mail systems.</div>
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/event/FolderEvent.html#FolderEvent-java.lang.Object-javax.mail.Folder-javax.mail.Folder-int-">FolderEvent</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;source,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/event/FolderEvent.html#FolderEvent-java.lang.Object-javax.mail.Folder-javax.mail.Folder-int-">FolderEvent</a></span>(java.lang.Object&nbsp;source,
            <a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;oldFolder,
            <a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;newFolder,
            int&nbsp;type)</code>
@@ -737,7 +737,7 @@ Classes specific to Internet mail systems.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/event/FolderEvent.html#FolderEvent-java.lang.Object-javax.mail.Folder-int-">FolderEvent</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;source,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/event/FolderEvent.html#FolderEvent-java.lang.Object-javax.mail.Folder-int-">FolderEvent</a></span>(java.lang.Object&nbsp;source,
            <a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
            int&nbsp;type)</code>
 <div class="block">Constructor.</div>
@@ -766,7 +766,7 @@ Classes specific to Internet mail systems.</div>
 <tbody>
 <tr class="altColor">
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../javax/mail/internet/MimeMessage.html#MimeMessage-javax.mail.Folder-java.io.InputStream-int-">MimeMessage</a></span>(<a href="../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder,
-           <a href="http://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;is,
+           java.io.InputStream&nbsp;is,
            int&nbsp;msgnum)</code>
 <div class="block">Constructs a MimeMessage by reading and parsing the data from the
  specified MIME InputStream.</div>
@@ -808,7 +808,7 @@ Classes specific to Internet mail systems.</div>
 <li><a href="../package-summary.html">Package</a></li>
 <li><a href="../../../javax/mail/Folder.html" title="class in javax.mail">Class</a></li>
 <li class="navBarCell1Rev">Use</li>
-<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../overview-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../index-files/index-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>

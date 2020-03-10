@@ -1,7 +1,7 @@
 			COMPATIBILITY NOTES
 			===================
 
-		    Jakarta Mail API 1.6.4 release
+		    Jakarta Mail API 1.6.5 release
 		    ------------------------------
 
 The Jakarta Mail 1.6 specification is fully compatible with the JavaMail

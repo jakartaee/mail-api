@@ -266,7 +266,7 @@ If pipelining is supported, when fetching a message with the RETR command,
 the LIST command will be sent as well, and the result will be used to size
 the I/O buffer, greatly reducing memory usage when fetching messages.
 </P>
-<A NAME="properties"><STRONG>Properties</STRONG></A>
+<A ID="properties"><STRONG>Properties</STRONG></A>
 <P>
 The POP3 protocol provider supports the following properties,
 which may be set in the Jakarta Mail <code>Session</code> object.
@@ -283,7 +283,8 @@ to set the <CODE>mail.pop3.port</CODE> property, which is of type int.
 Note that if you're using the "pop3s" protocol to access POP3 over SSL,
 all the properties would be named "mail.pop3s.*".
 </P>
-<TABLE BORDER SUMMARY="POP3 properties">
+<TABLE BORDER="1">
+<CAPTION>POP3 properties</CAPTION>
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -291,26 +292,26 @@ all the properties would be named "mail.pop3s.*".
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.user">mail.pop3.user</A></TD>
+<TD><A ID="mail.pop3.user">mail.pop3.user</A></TD>
 <TD>String</TD>
 <TD>Default user name for POP3.</TD>
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.host">mail.pop3.host</A></TD>
+<TD><A ID="mail.pop3.host">mail.pop3.host</A></TD>
 <TD>String</TD>
 <TD>The POP3 server to connect to.</TD>
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.port">mail.pop3.port</A></TD>
+<TD><A ID="mail.pop3.port">mail.pop3.port</A></TD>
 <TD>int</TD>
 <TD>The POP3 server port to connect to, if the connect() method doesn't
 explicitly specify one. Defaults to 110.</TD>
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.connectiontimeout">mail.pop3.connectiontimeout</A></TD>
+<TD><A ID="mail.pop3.connectiontimeout">mail.pop3.connectiontimeout</A></TD>
 <TD>int</TD>
 <TD>Socket connection timeout value in milliseconds.
 This timeout is implemented by java.net.Socket.
@@ -318,7 +319,7 @@ Default is infinite timeout.</TD>
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.timeout">mail.pop3.timeout</A></TD>
+<TD><A ID="mail.pop3.timeout">mail.pop3.timeout</A></TD>
 <TD>int</TD>
 <TD>Socket read timeout value in milliseconds.
 This timeout is implemented by java.net.Socket.
@@ -326,7 +327,7 @@ Default is infinite timeout.</TD>
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.writetimeout">mail.pop3.writetimeout</A></TD>
+<TD><A ID="mail.pop3.writetimeout">mail.pop3.writetimeout</A></TD>
 <TD>int</TD>
 <TD>Socket write timeout value in milliseconds.
 This timeout is implemented by using a
@@ -337,7 +338,7 @@ Default is infinite timeout.</TD>
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.rsetbeforequit">mail.pop3.rsetbeforequit</A></TD>
+<TD><A ID="mail.pop3.rsetbeforequit">mail.pop3.rsetbeforequit</A></TD>
 <TD>boolean</TD>
 <TD>
 Send a POP3 RSET command when closing the folder, before sending the
@@ -349,7 +350,7 @@ is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.message.class">mail.pop3.message.class</A></TD>
+<TD><A ID="mail.pop3.message.class">mail.pop3.message.class</A></TD>
 <TD>String</TD>
 <TD>
 Class name of a subclass of <code>com.sun.mail.pop3.POP3Message</code>.
@@ -361,7 +362,7 @@ throws MessagingException</code>.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.localaddress">mail.pop3.localaddress</A></TD>
+<TD><A ID="mail.pop3.localaddress">mail.pop3.localaddress</A></TD>
 <TD>String</TD>
 <TD>
 Local address (host name) to bind to when creating the POP3 socket.
@@ -372,7 +373,7 @@ where it's important to pick a particular local address to bind to.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.localport">mail.pop3.localport</A></TD>
+<TD><A ID="mail.pop3.localport">mail.pop3.localport</A></TD>
 <TD>int</TD>
 <TD>
 Local port number to bind to when creating the POP3 socket.
@@ -381,7 +382,7 @@ Defaults to the port number picked by the Socket class.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.apop.enable">mail.pop3.apop.enable</A></TD>
+<TD><A ID="mail.pop3.apop.enable">mail.pop3.apop.enable</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, use APOP instead of USER/PASS to login to the
@@ -392,7 +393,100 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.socketFactory">mail.pop3.socketFactory</A></TD>
+<TD><A ID="mail.pop3.auth.mechanisms">mail.pop3.auth.mechanisms</A></TD>
+<TD>String</TD>
+<TD>
+If set, lists the authentication mechanisms to consider, and the order
+in which to consider them.  Only mechanisms supported by the server and
+supported by the current implementation will be used.
+The default is <code>"LOGIN PLAIN DIGEST-MD5 NTLM"</code>, which includes all
+the authentication mechanisms supported by the current implementation
+except XOAUTH2.
+</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.auth.login.disable">mail.pop3.auth.login.disable</A></TD>
+<TD>boolean</TD>
+<TD>If true, prevents use of the <code>USER</code> and <code>PASS</code>
+commands.
+Default is false.</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.auth.plain.disable">mail.pop3.auth.plain.disable</A></TD>
+<TD>boolean</TD>
+<TD>If true, prevents use of the <code>AUTH PLAIN</code> command.
+Default is false.</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.auth.digest-md5.disable">mail.pop3.auth.digest-md5.disable</A></TD>
+<TD>boolean</TD>
+<TD>If true, prevents use of the <code>AUTH DIGEST-MD5</code> command.
+Default is false.</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.auth.ntlm.disable">mail.pop3.auth.ntlm.disable</A></TD>
+<TD>boolean</TD>
+<TD>If true, prevents use of the <code>AUTH NTLM</code> command.
+Default is false.</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.auth.ntlm.domain">mail.pop3.auth.ntlm.domain</A></TD>
+<TD>String</TD>
+<TD>
+The NTLM authentication domain.
+</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.auth.ntlm.flags">mail.pop3.auth.ntlm.flags</A></TD>
+<TD>int</TD>
+<TD>
+NTLM protocol-specific flags.
+See <A HREF="http://curl.haxx.se/rfc/ntlm.html#theNtlmFlags" TARGET="_top">
+http://curl.haxx.se/rfc/ntlm.html#theNtlmFlags</A> for details.
+</TD>
+</TR>
+
+<!--
+<TR>
+<TD><A ID="mail.pop3.auth.ntlm.unicode">mail.pop3.auth.ntlm.unicode</A></TD>
+<TD>boolean</TD>
+<TD>
+Set this to "true" if the username or password may use
+Unicode UTF-8 encoded characters.  Default is "true".
+Currently has no effect.
+</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.auth.ntlm.lmcompat">mail.pop3.auth.ntlm.lmcompat</A></TD>
+<TD>int</TD>
+<TD>
+Sets the LM compatibility level, as described here:
+<A HREF="http://curl.haxx.se/rfc/ntlm.html#ntlmVersion2" TARGET="_top">
+http://curl.haxx.se/rfc/ntlm.html#ntlmVersion2</A>
+Defaults to "3".  Currently not used.
+</TD>
+</TR>
+-->
+
+<TR>
+<TD><A ID="mail.pop3.auth.xoauth2.disable">mail.pop3.auth.xoauth2.disable</A></TD>
+<TD>boolean</TD>
+<TD>If true, prevents use of the <code>AUTHENTICATE XOAUTH2</code> command.
+Because the OAuth 2.0 protocol requires a special access token instead of
+a password, this mechanism is disabled by default.  Enable it by explicitly
+setting this property to "false" or by setting the "mail.pop3.auth.mechanisms"
+property to "XOAUTH2".</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.pop3.socketFactory">mail.pop3.socketFactory</A></TD>
 <TD>SocketFactory</TD>
 <TD>
 If set to a class that implements the
@@ -404,7 +498,7 @@ instance of a class, not a name, and must be set using the
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.socketFactory.class">mail.pop3.socketFactory.class</A></TD>
+<TD><A ID="mail.pop3.socketFactory.class">mail.pop3.socketFactory.class</A></TD>
 <TD>String</TD>
 <TD>
 If set, specifies the name of a class that implements the
@@ -414,7 +508,7 @@ will be used to create POP3 sockets.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.socketFactory.fallback">mail.pop3.socketFactory.fallback</A></TD>
+<TD><A ID="mail.pop3.socketFactory.fallback">mail.pop3.socketFactory.fallback</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, failure to create a socket using the specified
@@ -425,7 +519,7 @@ Defaults to true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.socketFactory.port">mail.pop3.socketFactory.port</A></TD>
+<TD><A ID="mail.pop3.socketFactory.port">mail.pop3.socketFactory.port</A></TD>
 <TD>int</TD>
 <TD>
 Specifies the port to connect to when using the specified socket
@@ -435,7 +529,7 @@ If not set, the default port will be used.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.enable">mail.pop3.ssl.enable</A></TD>
+<TD><A ID="mail.pop3.ssl.enable">mail.pop3.ssl.enable</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, use SSL to connect and use the SSL port by default.
@@ -444,7 +538,7 @@ Defaults to false for the "pop3" protocol and true for the "pop3s" protocol.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.checkserveridentity">mail.pop3.ssl.checkserveridentity</A></TD>
+<TD><A ID="mail.pop3.ssl.checkserveridentity">mail.pop3.ssl.checkserveridentity</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, check the server identity as specified by
@@ -456,7 +550,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.trust">mail.pop3.ssl.trust</A></TD>
+<TD><A ID="mail.pop3.ssl.trust">mail.pop3.ssl.trust</A></TD>
 <TD>String</TD>
 <TD>
 If set, and a socket factory hasn't been specified, enables use of a
@@ -468,7 +562,7 @@ Otherwise, trust depends on the certificate the server presents.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.socketFactory">mail.pop3.ssl.socketFactory</A></TD>
+<TD><A ID="mail.pop3.ssl.socketFactory">mail.pop3.ssl.socketFactory</A></TD>
 <TD>SSLSocketFactory</TD>
 <TD>
 If set to a class that extends the
@@ -480,7 +574,7 @@ instance of a class, not a name, and must be set using the
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.socketFactory.class">mail.pop3.ssl.socketFactory.class</A></TD>
+<TD><A ID="mail.pop3.ssl.socketFactory.class">mail.pop3.ssl.socketFactory.class</A></TD>
 <TD>String</TD>
 <TD>
 If set, specifies the name of a class that extends the
@@ -490,7 +584,7 @@ will be used to create POP3 SSL sockets.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.socketFactory.port">mail.pop3.ssl.socketFactory.port</A></TD>
+<TD><A ID="mail.pop3.ssl.socketFactory.port">mail.pop3.ssl.socketFactory.port</A></TD>
 <TD>int</TD>
 <TD>
 Specifies the port to connect to when using the specified socket
@@ -500,7 +594,7 @@ If not set, the default port will be used.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.protocols">mail.pop3.ssl.protocols</A></TD>
+<TD><A ID="mail.pop3.ssl.protocols">mail.pop3.ssl.protocols</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the SSL protocols that will be enabled for SSL connections.
@@ -510,7 +604,7 @@ to the <code>javax.net.ssl.SSLSocket.setEnabledProtocols</code> method.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.ssl.ciphersuites">mail.pop3.ssl.ciphersuites</A></TD>
+<TD><A ID="mail.pop3.ssl.ciphersuites">mail.pop3.ssl.ciphersuites</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the SSL cipher suites that will be enabled for SSL connections.
@@ -520,7 +614,7 @@ to the <code>javax.net.ssl.SSLSocket.setEnabledCipherSuites</code> method.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.starttls.enable">mail.pop3.starttls.enable</A></TD>
+<TD><A ID="mail.pop3.starttls.enable">mail.pop3.starttls.enable</A></TD>
 <TD>boolean</TD>
 <TD>
 If true, enables the use of the <code>STLS</code> command (if
@@ -537,7 +631,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.starttls.required">mail.pop3.starttls.required</A></TD>
+<TD><A ID="mail.pop3.starttls.required">mail.pop3.starttls.required</A></TD>
 <TD>boolean</TD>
 <TD>
 If true, requires the use of the <code>STLS</code> command.
@@ -548,7 +642,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.proxy.host">mail.pop3.proxy.host</A></TD>
+<TD><A ID="mail.pop3.proxy.host">mail.pop3.proxy.host</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the host name of an HTTP web proxy server that will be used for
@@ -557,7 +651,7 @@ connections to the mail server.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.proxy.port">mail.pop3.proxy.port</A></TD>
+<TD><A ID="mail.pop3.proxy.port">mail.pop3.proxy.port</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the port number for the HTTP web proxy server.
@@ -566,7 +660,7 @@ Defaults to port 80.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.proxy.user">mail.pop3.proxy.user</A></TD>
+<TD><A ID="mail.pop3.proxy.user">mail.pop3.proxy.user</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the user name to use to authenticate with the HTTP web proxy server.
@@ -575,7 +669,7 @@ By default, no authentication is done.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.proxy.password">mail.pop3.proxy.password</A></TD>
+<TD><A ID="mail.pop3.proxy.password">mail.pop3.proxy.password</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the password to use to authenticate with the HTTP web proxy server.
@@ -584,7 +678,7 @@ By default, no authentication is done.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.socks.host">mail.pop3.socks.host</A></TD>
+<TD><A ID="mail.pop3.socks.host">mail.pop3.socks.host</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the host name of a SOCKS5 proxy server that will be used for
@@ -593,7 +687,7 @@ connections to the mail server.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.socks.port">mail.pop3.socks.port</A></TD>
+<TD><A ID="mail.pop3.socks.port">mail.pop3.socks.port</A></TD>
 <TD>string</TD>
 <TD>
 Specifies the port number for the SOCKS5 proxy server.
@@ -603,7 +697,7 @@ the standard port number of 1080.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.disabletop">mail.pop3.disabletop</A></TD>
+<TD><A ID="mail.pop3.disabletop">mail.pop3.disabletop</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, the POP3 TOP command will not be used to fetch
@@ -615,7 +709,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.disablecapa">mail.pop3.disablecapa</A></TD>
+<TD><A ID="mail.pop3.disablecapa">mail.pop3.disablecapa</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, the POP3 CAPA command will not be used to fetch
@@ -627,7 +721,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.forgettopheaders">mail.pop3.forgettopheaders</A></TD>
+<TD><A ID="mail.pop3.forgettopheaders">mail.pop3.forgettopheaders</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, the headers that might have been retrieved using
@@ -646,7 +740,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.filecache.enable">mail.pop3.filecache.enable</A></TD>
+<TD><A ID="mail.pop3.filecache.enable">mail.pop3.filecache.enable</A></TD>
 <TD>boolean</TD>
 <TD>
 If set to true, the POP3 provider will cache message data in a temporary
@@ -659,7 +753,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.filecache.dir">mail.pop3.filecache.dir</A></TD>
+<TD><A ID="mail.pop3.filecache.dir">mail.pop3.filecache.dir</A></TD>
 <TD>String</TD>
 <TD>
 If the file cache is enabled, this property can be used to override the
@@ -668,7 +762,7 @@ default directory used by the JDK for temporary files.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.cachewriteto">mail.pop3.cachewriteto</A></TD>
+<TD><A ID="mail.pop3.cachewriteto">mail.pop3.cachewriteto</A></TD>
 <TD>boolean</TD>
 <TD>
 Controls the behavior of the
@@ -683,11 +777,11 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.keepmessagecontent">mail.pop3.keepmessagecontent</A></TD>
+<TD><A ID="mail.pop3.keepmessagecontent">mail.pop3.keepmessagecontent</A></TD>
 <TD>boolean</TD>
 <TD>
 The content of a message is cached when it is first fetched.
-Normally this cache uses a <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/ref/SoftReference.html?is-external=true" title="class or interface in java.lang.ref"><code>SoftReference</code></a>
+Normally this cache uses a <code>SoftReference</code>
 to refer to the cached content.  This allows the cached content to be purged
 if memory is low, in which case the content will be fetched again if it's
 needed.
@@ -701,7 +795,7 @@ Defaults to false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.pop3.finalizecleanclose">mail.pop3.finalizecleanclose</A></TD>
+<TD><A ID="mail.pop3.finalizecleanclose">mail.pop3.finalizecleanclose</A></TD>
 <TD>boolean</TD>
 <TD>
 When the finalizer for POP3Store or POP3Folder is called,
@@ -728,9 +822,10 @@ appropriate <code>Store</code> object, and from that acquire
 In addition to printing debugging output as controlled by the
 <a href="../../../../javax/mail/Session.html" title="class in javax.mail"><code>Session</code></a> configuration,
 the com.sun.mail.pop3 provider logs the same information using
-<a href="http://docs.oracle.com/javase/8/docs/api/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging"><code>Logger</code></a> as described in the following table:
+<code>Logger</code> as described in the following table:
 </P>
-<TABLE BORDER SUMMARY="POP3 Loggers">
+<TABLE BORDER="1">
+<CAPTION>POP3 Loggers</CAPTION>
 <TR>
 <TH>Logger Name</TH>
 <TH>Logging Level</TH>

@@ -91,7 +91,7 @@ provides classes that model a mail system.</div>
 <tr class="altColor">
 <td class="colFirst"><a href="../../javax/mail/EncodingAware.html" title="interface in javax.mail">EncodingAware</a></td>
 <td class="colLast">
-<div class="block">A <a href="http://docs.oracle.com/javase/8/docs/api/javax/activation/DataSource.html?is-external=true" title="class or interface in javax.activation"><code>DataSource</code></a> that also implements
+<div class="block">A <code>DataSource</code> that also implements
  <code>EncodingAware</code> may specify the Content-Transfer-Encoding
  to use for its data.</div>
 </td>
@@ -463,7 +463,7 @@ The <A HREF="https://javaee.github.io/jakartamail/" TARGET="_top">
 Jakarta Mail web site</A>
 contains many additional resources.
 </P>
-<A NAME="properties"><STRONG>Properties</STRONG></A>
+<A ID="properties"><STRONG>Properties</STRONG></A>
 <P>
 The Jakarta Mail API supports the following standard properties,
 which may be set in the <code>Session</code> object, or in the
@@ -477,7 +477,8 @@ how the string is interpreted.  For example, use
 <P>
 to set the <code>mail.debug</code> property, which is of type boolean.
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail properties">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail properties</CAPTION>
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -485,7 +486,7 @@ to set the <code>mail.debug</code> property, which is of type boolean.
 </TR>
 
 <TR>
-<TD><A NAME="mail.debug">mail.debug</A></TD>
+<TD><A ID="mail.debug">mail.debug</A></TD>
 <TD>boolean</TD>
 <TD>
 The initial debug mode.
@@ -494,7 +495,7 @@ Default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.from">mail.from</A></TD>
+<TD><A ID="mail.from">mail.from</A></TD>
 <TD>String</TD>
 <TD>
 The return email address of the current user, used by the
@@ -503,7 +504,7 @@ The return email address of the current user, used by the
 </TR>
 
 <TR>
-<TD><A NAME="mail.mime.address.strict">mail.mime.address.strict</A></TD>
+<TD><A ID="mail.mime.address.strict">mail.mime.address.strict</A></TD>
 <TD>boolean</TD>
 <TD>
 The MimeMessage class uses the <code>InternetAddress</code> method
@@ -514,7 +515,7 @@ method.  The default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.host">mail.host</A></TD>
+<TD><A ID="mail.host">mail.host</A></TD>
 <TD>String</TD>
 <TD>
 The default host name of the mail server for both Stores and Transports.
@@ -523,7 +524,7 @@ Used if the <code>mail.<i>protocol</i>.host</code> property isn't set.
 </TR>
 
 <TR>
-<TD><A NAME="mail.store.protocol">mail.store.protocol</A></TD>
+<TD><A ID="mail.store.protocol">mail.store.protocol</A></TD>
 <TD>String</TD>
 <TD>
 Specifies the default message access protocol.  The
@@ -534,7 +535,7 @@ provider in the configuration files is returned.
 </TR>
 
 <TR>
-<TD><A NAME="mail.transport.protocol">mail.transport.protocol</A></TD>
+<TD><A ID="mail.transport.protocol">mail.transport.protocol</A></TD>
 <TD>String</TD>
 <TD>
 Specifies the default message transport protocol.  The
@@ -545,7 +546,7 @@ provider in the configuration files is returned.
 </TR>
 
 <TR>
-<TD><A NAME="mail.user">mail.user</A></TD>
+<TD><A ID="mail.user">mail.user</A></TD>
 <TD>String</TD>
 <TD>
 The default user name to use when connecting to the mail server.
@@ -554,7 +555,7 @@ Used if the <code>mail.<i>protocol</i>.user</code> property isn't set.
 </TR>
 
 <TR>
-<TD><A NAME="mail.protocol.class">mail.<i>protocol</i>.class</A></TD>
+<TD><A ID="mail.protocol.class">mail.<i>protocol</i>.class</A></TD>
 <TD>String</TD>
 <TD>
 Specifies the fully qualified class name of the provider for the
@@ -566,7 +567,7 @@ in a configuration file.
 </TR>
 
 <TR>
-<TD><A NAME="mail.protocol.host">mail.<i>protocol</i>.host</A></TD>
+<TD><A ID="mail.protocol.host">mail.<i>protocol</i>.host</A></TD>
 <TD>String</TD>
 <TD>
 The host name of the mail server for the specified protocol.
@@ -575,7 +576,7 @@ Overrides the <code>mail.host</code> property.
 </TR>
 
 <TR>
-<TD><A NAME="mail.protocol.port">mail.<i>protocol</i>.port</A></TD>
+<TD><A ID="mail.protocol.port">mail.<i>protocol</i>.port</A></TD>
 <TD>int</TD>
 <TD>
 The port number of the mail server for the specified protocol.
@@ -584,7 +585,7 @@ If not specified the protocol's default port number is used.
 </TR>
 
 <TR>
-<TD><A NAME="mail.protocol.user">mail.<i>protocol</i>.user</A></TD>
+<TD><A ID="mail.protocol.user">mail.<i>protocol</i>.user</A></TD>
 <TD>String</TD>
 <TD>
 The user name to use when connecting to mail servers
@@ -596,12 +597,13 @@ Overrides the <code>mail.user</code> property.
 </TABLE>
 
 <P>
-The following properties are supported by the reference implementation (RI) of
+The following properties are supported by the EE4J implementation of
 Jakarta Mail, but are not currently a required part of the specification.
 The names, types, defaults, and semantics of these properties may
 change in future releases.
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail RI properties">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail implementation properties</CAPTION>
 <TR>
 <TH>Name</TH>
 <TH>Type</TH>
@@ -609,7 +611,7 @@ change in future releases.
 </TR>
 
 <TR>
-<TD><A NAME="mail.debug.auth">mail.debug.auth</A></TD>
+<TD><A ID="mail.debug.auth">mail.debug.auth</A></TD>
 <TD>boolean</TD>
 <TD>
 Include protocol authentication commands (including usernames and passwords)
@@ -619,7 +621,7 @@ Default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.debug.auth.username">mail.debug.auth.username</A></TD>
+<TD><A ID="mail.debug.auth.username">mail.debug.auth.username</A></TD>
 <TD>boolean</TD>
 <TD>
 Include the user name in non-protocol debug output.
@@ -628,7 +630,7 @@ Default is true.
 </TR>
 
 <TR>
-<TD><A NAME="mail.debug.auth.password">mail.debug.auth.password</A></TD>
+<TD><A ID="mail.debug.auth.password">mail.debug.auth.password</A></TD>
 <TD>boolean</TD>
 <TD>
 Include the password in non-protocol debug output.
@@ -637,7 +639,7 @@ Default is false.
 </TR>
 
 <TR>
-<TD><A NAME="mail.transport.protocol.address-type">mail.transport.protocol.<i>address-type</i></A></TD>
+<TD><A ID="mail.transport.protocol.address-type">mail.transport.protocol.<i>address-type</i></A></TD>
 <TD>String</TD>
 <TD>
 Specifies the default message transport protocol for the specified address type.
@@ -654,7 +656,7 @@ protocol is used instead of the "smtp" protocol by setting the property
 </TR>
 
 <TR>
-<TD><A NAME="mail.event.scope">mail.event.scope</A></TD>
+<TD><A ID="mail.event.scope">mail.event.scope</A></TD>
 <TD>String</TD>
 <TD>
 Controls the scope of events.  (See the javax.mail.event package.)
@@ -669,7 +671,7 @@ event queue processed by a single thread for the current application.
 </TR>
 
 <TR>
-<TD><A NAME="mail.event.executor">mail.event.executor</A></TD>
+<TD><A ID="mail.event.executor">mail.event.executor</A></TD>
 <TD>java.util.concurrent.Executor</TD>
 <TD>
 By default, a new Thread is created for each event queue.
@@ -685,7 +687,7 @@ event queue is no longer in use.
 
 <P>
 The Jakarta Mail API also supports several System properties;
-see the <a href="../../javax/mail/internet/package-summary.html"><code>javax.mail.internet</code></a> package documentation
+see the <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/javax/mail/internet/package-summary.html?is-external=true"><code>javax.mail.internet</code></a> package documentation
 for details.
 </P>
 <P>
@@ -705,16 +707,17 @@ standard Jakarta Mail APIs.
 <P>
 The protocol providers also support properties that are specific to
 those providers.  The package documentation for the
-<a href="../../com/sun/mail/imap/package-summary.html"><code>IMAP</code></a>, <a href="../../com/sun/mail/pop3/package-summary.html"><code>POP3</code></a>,
-and <a href="../../com/sun/mail/smtp/package-summary.html"><code>SMTP</code></a> packages provide details.
+<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/package-summary.html?is-external=true"><code>IMAP</code></a>, <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/pop3/package-summary.html?is-external=true"><code>POP3</code></a>,
+and <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/smtp/package-summary.html?is-external=true"><code>SMTP</code></a> packages provide details.
 </P>
 <P>
 In addition to printing debugging output as controlled by the
 <a href="../../javax/mail/Session.html" title="class in javax.mail"><code>Session</code></a> configuration, the current
 implementation of classes in this package log the same information using
-<a href="http://docs.oracle.com/javase/8/docs/api/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging"><code>Logger</code></a> as described in the following table:
+<code>Logger</code> as described in the following table:
 </P>
-<TABLE BORDER SUMMARY="Jakarta Mail Loggers">
+<TABLE BORDER="1">
+<CAPTION>Jakarta Mail Loggers</CAPTION>
 <TR>
 <TH>Logger Name</TH>
 <TH>Logging Level</TH>
