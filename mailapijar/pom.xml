@@ -49,6 +49,9 @@
 	<mail.bundle.symbolicName>
 	    jakarta.mail-api
 	</mail.bundle.symbolicName>
+	<mail.moduleName>
+	    jakarta.mail
+	</mail.moduleName>
     </properties>
 
     <build>
@@ -143,6 +146,13 @@
 		    <excludes>
 			<exclude>com/**</exclude>
 		    </excludes>
+		    <archive>
+			<manifestEntries>
+			    <Automatic-Module-Name>
+				${mail.moduleName}
+			    </Automatic-Module-Name>
+ 			</manifestEntries>
+ 		    </archive>
                 </configuration>
             </plugin>
         </plugins>
