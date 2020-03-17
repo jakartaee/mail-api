@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,11 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 import java.util.Date;
 import java.io.*;
-import javax.mail.search.SearchTerm;
+import jakarta.mail.search.SearchTerm;
 
 /**
  * This class models an email message. This is an abstract class.  
@@ -51,7 +51,7 @@ import javax.mail.search.SearchTerm;
  * @author John Mani
  * @author Bill Shannon
  * @author Max Spivak
- * @see	   javax.mail.Part
+ * @see	   jakarta.mail.Part
  */
 
 public abstract class Message implements Part {
@@ -193,9 +193,9 @@ public abstract class Message implements Part {
      *
      * </pre></blockquote>
      *
-     * @see javax.mail.Message#getRecipients
-     * @see javax.mail.Message#setRecipients
-     * @see javax.mail.Message#addRecipients
+     * @see jakarta.mail.Message#getRecipients
+     * @see jakarta.mail.Message#setRecipients
+     * @see jakarta.mail.Message#addRecipients
      */
     public static class RecipientType implements Serializable {
 	/**
@@ -498,7 +498,7 @@ public abstract class Message implements Part {
      * to do that. <p>
      *
      * @return		Flags object containing the flags for this message
-     * @see 		javax.mail.Flags
+     * @see 		jakarta.mail.Flags
      * @see 		#setFlags
      * @exception       MessagingException for failures
      */
@@ -512,13 +512,13 @@ public abstract class Message implements Part {
      *
      * @param flag	the flag
      * @return		value of the specified flag for this message
-     * @see 		javax.mail.Flags.Flag
-     * @see		javax.mail.Flags.Flag#ANSWERED
-     * @see		javax.mail.Flags.Flag#DELETED
-     * @see		javax.mail.Flags.Flag#DRAFT
-     * @see		javax.mail.Flags.Flag#FLAGGED
-     * @see		javax.mail.Flags.Flag#RECENT
-     * @see		javax.mail.Flags.Flag#SEEN
+     * @see 		jakarta.mail.Flags.Flag
+     * @see		jakarta.mail.Flags.Flag#ANSWERED
+     * @see		jakarta.mail.Flags.Flag#DELETED
+     * @see		jakarta.mail.Flags.Flag#DRAFT
+     * @see		jakarta.mail.Flags.Flag#FLAGGED
+     * @see		jakarta.mail.Flags.Flag#RECENT
+     * @see		jakarta.mail.Flags.Flag#SEEN
      * @exception       MessagingException for failures
      */
     public boolean isSet(Flags.Flag flag) throws MessagingException {
@@ -542,7 +542,7 @@ public abstract class Message implements Part {
      * @exception	IllegalStateException if this message is
      *			obtained from a READ_ONLY folder.
      * @exception       MessagingException for other failures
-     * @see		javax.mail.event.MessageChangedEvent
+     * @see		jakarta.mail.event.MessageChangedEvent
      */
     public abstract void setFlags(Flags flag, boolean set)
 				throws MessagingException;
@@ -564,7 +564,7 @@ public abstract class Message implements Part {
      * @exception	IllegalStateException if this message is
      *			obtained from a READ_ONLY folder.
      * @exception       MessagingException for other failures
-     * @see		javax.mail.event.MessageChangedEvent
+     * @see		jakarta.mail.event.MessageChangedEvent
      */
     public void setFlag(Flags.Flag flag, boolean set)
 				throws MessagingException {
@@ -696,7 +696,7 @@ public abstract class Message implements Part {
      * @return		true if the Message matches this search
      *			criterion, false otherwise.
      * @exception       MessagingException for failures
-     * @see		javax.mail.search.SearchTerm
+     * @see		jakarta.mail.search.SearchTerm
      */
     public boolean match(SearchTerm term) throws MessagingException {
 	return term.match(this);

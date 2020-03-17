@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,18 +20,18 @@
 
 -->
 
-<TITLE>javax.mail package</TITLE>
+<TITLE>jakarta.mail package</TITLE>
 </HEAD>
 <BODY BGCOLOR="white">
 
 <P>
 The Jakarta Mail API
 provides classes that model a mail system.
-The <code>javax.mail</code> package defines classes that are common to
+The <code>jakarta.mail</code> package defines classes that are common to
 all mail systems.
-The <code>javax.mail.internet</code> package defines classes that are specific
+The <code>jakarta.mail.internet</code> package defines classes that are specific
 to mail systems based on internet standards such as MIME, SMTP, POP3, and IMAP.
-The Jakarta Mail API includes the <code>javax.mail</code> package and subpackages.
+The Jakarta Mail API includes the <code>jakarta.mail</code> package and subpackages.
 </P>
 <P>
 For an overview of the Jakarta Mail API, read the
@@ -257,8 +257,8 @@ Transport object that implements this protocol when the address is of the
 specified type (e.g., "rfc822" for standard internet addresses).
 By default the first Transport configured for that address type is used.
 This property can be used to override the behavior of the
-{@link javax.mail.Transport#send send} method of the
-{@link javax.mail.Transport Transport} class so that (for example) the "smtps"
+{@link jakarta.mail.Transport#send send} method of the
+{@link jakarta.mail.Transport Transport} class so that (for example) the "smtps"
 protocol is used instead of the "smtp" protocol by setting the property
 <code>mail.transport.protocol.rfc822</code> to <code>"smtps"</code>.
 </TD>
@@ -268,7 +268,7 @@ protocol is used instead of the "smtp" protocol by setting the property
 <TD><A ID="mail.event.scope">mail.event.scope</A></TD>
 <TD>String</TD>
 <TD>
-Controls the scope of events.  (See the javax.mail.event package.)
+Controls the scope of events.  (See the jakarta.mail.event package.)
 By default, a separate event queue and thread is used for events for each
 Store, Transport, or Folder.
 If this property is set to "session", all such events are put in a single
@@ -296,7 +296,7 @@ event queue is no longer in use.
 
 <P>
 The Jakarta Mail API also supports several System properties;
-see the {@link javax.mail.internet} package documentation
+see the {@link jakarta.mail.internet} package documentation
 for details.
 </P>
 <P>
@@ -321,7 +321,7 @@ and {@link com.sun.mail.smtp SMTP} packages provide details.
 </P>
 <P>
 In addition to printing debugging output as controlled by the
-{@link javax.mail.Session Session} configuration, the current
+{@link jakarta.mail.Session Session} configuration, the current
 implementation of classes in this package log the same information using
 {@link java.util.logging.Logger} as described in the following table:
 </P>
@@ -334,13 +334,13 @@ implementation of classes in this package log the same information using
 </TR>
 
 <TR>
-<TD>javax.mail</TD>
+<TD>jakarta.mail</TD>
 <TD>CONFIG</TD>
 <TD>Configuration of the Session</TD>
 </TR>
 
 <TR>
-<TD>javax.mail</TD>
+<TD>jakarta.mail</TD>
 <TD>FINE</TD>
 <TD>General debugging output</TD>
 </TR>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2020 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2016, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -14,6 +14,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
+
 package com.sun.mail.util.logging;
 
 import java.io.ByteArrayInputStream;
@@ -317,7 +318,8 @@ abstract class AbstractLogging {
              */
             if (f.getName().indexOf('$') < 0 && !k.isPrimitive()
                     && !k.getName().startsWith("java.")
-                    && !k.getName().startsWith("javax.")) {
+                    && !k.getName().startsWith("javax.")
+                    && !k.getName().startsWith("jakarta.")) {
                 fail(f.toString());
             }
         }
@@ -365,7 +367,7 @@ abstract class AbstractLogging {
     private boolean isFromJakartaMail(Class<?> k, boolean include) throws Exception {
         for (Class<?> t = k; t != null; t = t.getSuperclass()) {
             final String n = t.getName();
-            if (n.startsWith("javax.mail.")) {
+            if (n.startsWith("jakarta.mail.")) {
                 return include;
             }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,8 +23,8 @@ import java.io.IOException;
  * that only throw IOException.  The getContent method will catch this
  * exception and translate it back to MessageRemovedException.
  *
- * @see	   javax.mail.Message#isExpunged()
- * @see	   javax.mail.Message#getMessageNumber()
+ * @see	   jakarta.mail.Message#isExpunged()
+ * @see	   jakarta.mail.Message#getMessageNumber()
  * @author Bill Shannon
  */
 

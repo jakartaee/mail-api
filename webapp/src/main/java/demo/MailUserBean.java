@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2001, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package demo;
 
 import java.util.*;
-import javax.mail.*;
+import jakarta.mail.*;
 import javax.naming.*;
 
 /**
@@ -31,7 +31,7 @@ public class MailUserBean {
     public MailUserBean(){}
 
     /**
-     * Returns the javax.mail.Folder object.
+     * Returns the jakarta.mail.Folder object.
      */
     public Folder getFolder() {
 	return folder;

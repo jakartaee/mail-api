@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 import java.lang.*;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.Executor;
-import javax.mail.search.SearchTerm;
-import javax.mail.event.*;
+import jakarta.mail.search.SearchTerm;
+import jakarta.mail.event.*;
 
 /**
  * Folder is an abstract class that represents a folder for mail
@@ -393,7 +393,7 @@ public abstract class Folder implements AutoCloseable {
      * @exception 	MessagingException for failures
      * @see 		#HOLDS_FOLDERS
      * @see		#HOLDS_MESSAGES
-     * @see		javax.mail.event.FolderEvent
+     * @see		jakarta.mail.event.FolderEvent
      */
     public abstract boolean create(int type) throws MessagingException;
 
@@ -546,7 +546,7 @@ public abstract class Folder implements AutoCloseable {
      * @exception	IllegalStateException if this folder is not in 
      *			the closed state.
      * @exception       MessagingException for other failures
-     * @see		javax.mail.event.FolderEvent
+     * @see		jakarta.mail.event.FolderEvent
      */
     public abstract boolean delete(boolean recurse) 
 				throws MessagingException;
@@ -566,7 +566,7 @@ public abstract class Folder implements AutoCloseable {
      * @exception	IllegalStateException if this folder is not in 
      *			the closed state.
      * @exception       MessagingException for other failures
-     * @see		javax.mail.event.FolderEvent
+     * @see		jakarta.mail.event.FolderEvent
      */
     public abstract boolean renameTo(Folder f) throws MessagingException;
 
@@ -603,7 +603,7 @@ public abstract class Folder implements AutoCloseable {
      * @see 		#READ_ONLY
      * @see 		#READ_WRITE
      * @see 		#getType()
-     * @see 		javax.mail.event.ConnectionEvent
+     * @see 		jakarta.mail.event.ConnectionEvent
      */
     public abstract void open(int mode) throws MessagingException;
 
@@ -618,7 +618,7 @@ public abstract class Folder implements AutoCloseable {
      * @param expunge	expunges all deleted messages if this flag is true
      * @exception	IllegalStateException if this folder is not opened
      * @exception       MessagingException for other failures
-     * @see 		javax.mail.event.ConnectionEvent
+     * @see 		jakarta.mail.event.ConnectionEvent
      */
     public abstract void close(boolean expunge) throws MessagingException;
 
@@ -637,7 +637,7 @@ public abstract class Folder implements AutoCloseable {
      *
      * @exception	IllegalStateException if this folder is not opened
      * @exception       MessagingException for other failures
-     * @see 		javax.mail.event.ConnectionEvent
+     * @see 		jakarta.mail.event.ConnectionEvent
      * @since		JavaMail 1.6
      */
     @Override
@@ -1060,7 +1060,7 @@ public abstract class Folder implements AutoCloseable {
      *			or if it has been opened READ_ONLY.
      * @exception 	MessagingException for other failures
      * @see		Message#setFlags
-     * @see		javax.mail.event.MessageChangedEvent
+     * @see		jakarta.mail.event.MessageChangedEvent
      */
     public synchronized void setFlags(Message[] msgs,
 			Flags flag, boolean value) throws  MessagingException {
@@ -1103,7 +1103,7 @@ public abstract class Folder implements AutoCloseable {
      *			message numbers are out of range.
      * @exception 	MessagingException for other failures
      * @see		Message#setFlags
-     * @see		javax.mail.event.MessageChangedEvent
+     * @see		jakarta.mail.event.MessageChangedEvent
      */
     public synchronized void setFlags(int start, int end,
 			Flags flag, boolean value) throws MessagingException {
@@ -1145,7 +1145,7 @@ public abstract class Folder implements AutoCloseable {
      *			in the given array is out of range.
      * @exception 	MessagingException for other failures
      * @see		Message#setFlags
-     * @see		javax.mail.event.MessageChangedEvent
+     * @see		jakarta.mail.event.MessageChangedEvent
      */
     public synchronized void setFlags(int[] msgnums,
 			Flags flag, boolean value) throws MessagingException {
@@ -1227,7 +1227,7 @@ public abstract class Folder implements AutoCloseable {
      * @exception	IllegalStateException if this folder is not opened.
      * @exception       MessagingException for other failures
      * @see		Message#isExpunged
-     * @see		javax.mail.event.MessageCountEvent
+     * @see		jakarta.mail.event.MessageCountEvent
      */
     public abstract Message[] expunge() throws MessagingException;
 
@@ -1244,13 +1244,13 @@ public abstract class Folder implements AutoCloseable {
      *
      * @param term	the search criterion
      * @return 		array of matching messages 
-     * @exception       javax.mail.search.SearchException if the search 
+     * @exception       jakarta.mail.search.SearchException if the search 
      *			term is too complex for the implementation to handle.
      * @exception	FolderNotFoundException if this folder does 
      *			not exist.
      * @exception	IllegalStateException if this folder is not opened.
      * @exception       MessagingException for other failures
-     * @see		javax.mail.search.SearchTerm
+     * @see		jakarta.mail.search.SearchTerm
      */
     public Message[] search(SearchTerm term) throws MessagingException {
 	return search(term, getMessages());
@@ -1279,11 +1279,11 @@ public abstract class Folder implements AutoCloseable {
      * @param term	the search criterion
      * @param msgs 	the messages to be searched
      * @return 		array of matching messages 
-     * @exception       javax.mail.search.SearchException if the search 
+     * @exception       jakarta.mail.search.SearchException if the search 
      *			term is too complex for the implementation to handle.
      * @exception	IllegalStateException if this folder is not opened
      * @exception       MessagingException for other failures
-     * @see		javax.mail.search.SearchTerm
+     * @see		jakarta.mail.search.SearchTerm
      */
     public Message[] search(SearchTerm term, Message[] msgs)
 				throws MessagingException {
@@ -1331,7 +1331,7 @@ public abstract class Folder implements AutoCloseable {
      * to an internal list of ConnectionListeners.
      *
      * @param l 	the Listener for Connection events
-     * @see		javax.mail.event.ConnectionEvent
+     * @see		jakarta.mail.event.ConnectionEvent
      */
     public synchronized void
     addConnectionListener(ConnectionListener l) { 
@@ -1366,7 +1366,7 @@ public abstract class Folder implements AutoCloseable {
      * in a separate thread, thus avoiding potential deadlock problems.
      *
      * @param type	the ConnectionEvent type
-     * @see		javax.mail.event.ConnectionEvent
+     * @see		jakarta.mail.event.ConnectionEvent
      */
     protected void notifyConnectionListeners(int type) {
    	if (connectionListeners != null) {
@@ -1398,7 +1398,7 @@ public abstract class Folder implements AutoCloseable {
      * to an internal list of FolderListeners.
      *
      * @param l 	the Listener for Folder events
-     * @see		javax.mail.event.FolderEvent
+     * @see		jakarta.mail.event.FolderEvent
      */
     public synchronized void addFolderListener(FolderListener l) { 
    	if (folderListeners == null)
@@ -1479,7 +1479,7 @@ public abstract class Folder implements AutoCloseable {
      * to an internal list of MessageCountListeners.
      *
      * @param l 	the Listener for MessageCount events
-     * @see		javax.mail.event.MessageCountEvent
+     * @see		jakarta.mail.event.MessageCountEvent
      */
     public synchronized void addMessageCountListener(MessageCountListener l) { 
    	if (messageCountListeners == null)
@@ -1568,7 +1568,7 @@ public abstract class Folder implements AutoCloseable {
      * to an internal list of MessageChangedListeners.
      *
      * @param l 	the Listener for MessageChanged events
-     * @see		javax.mail.event.MessageChangedEvent
+     * @see		jakarta.mail.event.MessageChangedEvent
      */
     public synchronized void
 			addMessageChangedListener(MessageChangedListener l) { 

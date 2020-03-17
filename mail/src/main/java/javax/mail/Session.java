@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 import java.lang.reflect.*;
 import java.io.*;
@@ -143,7 +143,7 @@ import com.sun.mail.util.DefaultProvider;
  * <pre>
  * package com.example;
  *
- * import javax.mail.Provider;
+ * import jakarta.mail.Provider;
  *
  * public class MyProvider extends Provider {
  *     public MyProvider() {
@@ -152,7 +152,7 @@ import com.sun.mail.util.DefaultProvider;
  *     }
  * }
  * </pre>
- * Then include a file named <code>META-INF/services/javax.mail.Provider</code>
+ * Then include a file named <code>META-INF/services/jakarta.mail.Provider</code>
  * in your jar file that lists the name of your Provider class:
  * <pre>
  * com.example.MyProvider
@@ -164,14 +164,14 @@ import com.sun.mail.util.DefaultProvider;
  *
  * These resource files map transport address types to the transport
  * protocol.  The <code>getType</code> method of
- * <code>javax.mail.Address</code> returns the address type.  The
+ * <code>jakarta.mail.Address</code> returns the address type.  The
  * <code>javamail.address.map</code> file maps the transport type to the
  * protocol.  The file format is a series of name-value pairs.  Each key
  * name should correspond to an address type that is currently installed
  * on the system; there should also be an entry for each
- * <code>javax.mail.Address</code> implementation that is present if it is
+ * <code>jakarta.mail.Address</code> implementation that is present if it is
  * to be used.  For example, the
- * <code>javax.mail.internet.InternetAddress</code> method
+ * <code>jakarta.mail.internet.InternetAddress</code> method
  * <code>getType</code> returns "rfc822". Each referenced protocol should
  * be installed on the system.  For the case of <code>news</code>, below,
  * the client should install a Transport provider supporting the nntp
@@ -274,7 +274,7 @@ public final class Session {
      *			the application when a user name and password is
      *			needed.
      * @return		a new Session object
-     * @see	javax.mail.Authenticator
+     * @see	jakarta.mail.Authenticator
      */
     public static Session getInstance(Properties props,
 					Authenticator authenticator) {
@@ -579,7 +579,7 @@ public final class Session {
      * @param	url	URLName that represents the desired Store
      * @return		a closed Store object
      * @see		#getFolder(URLName)
-     * @see		javax.mail.URLName
+     * @see		jakarta.mail.URLName
      * @exception	NoSuchProviderException If a provider for the given
      *			URLName is not found.
      */
@@ -644,7 +644,7 @@ public final class Session {
      * @param	url	URLName that represents the desired folder
      * @return		Folder
      * @see		#getStore(URLName)
-     * @see		javax.mail.URLName
+     * @see		jakarta.mail.URLName
      * @exception	NoSuchProviderException If a provider for the given
      *			URLName is not found.
      * @exception	MessagingException if the Folder could not be 
@@ -703,7 +703,7 @@ public final class Session {
      *
      * @param	url	URLName that represents the desired Transport
      * @return		a closed Transport object
-     * @see		javax.mail.URLName
+     * @see		jakarta.mail.URLName
      * @exception	NoSuchProviderException If a provider for the given
      *			URLName is not found.
      */
@@ -733,7 +733,7 @@ public final class Session {
      *
      * @param	address	an address for which a Transport is needed
      * @return	A Transport object
-     * @see javax.mail.Address
+     * @see jakarta.mail.Address
      * @exception	NoSuchProviderException If provider for the 
      *			Address type is not found
      */
@@ -845,7 +845,7 @@ public final class Session {
 
 	// construct an instance of the class
 	try {
-	    Class<?>[] c = {javax.mail.Session.class, javax.mail.URLName.class};
+	    Class<?>[] c = {jakarta.mail.Session.class, jakarta.mail.URLName.class};
 	    Constructor<?> cons = serviceClass.getConstructor(c);
 
 	    Object[] o = {this, url};

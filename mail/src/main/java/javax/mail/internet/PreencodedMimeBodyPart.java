@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,11 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail.internet;
+package jakarta.mail.internet;
 
 import java.io.*;
 import java.util.Enumeration;
-import javax.mail.*;
+import jakarta.mail.*;
 
 import com.sun.mail.util.LineOutputStream;
 
@@ -64,9 +64,9 @@ public class PreencodedMimeBodyPart extends MimeBodyPart {
      *
      * @exception IOException	if an error occurs writing to the
      *				stream or if an error is generated
-     *				by the javax.activation layer.
+     *				by the jakarta.activation layer.
      * @exception MessagingException for other failures
-     * @see javax.activation.DataHandler#writeTo
+     * @see jakarta.activation.DataHandler#writeTo
      */
     @Override
     public void writeTo(OutputStream os)

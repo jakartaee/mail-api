@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,9 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 
 /**
  * MultipartDataSource is a <code>DataSource</code> that contains body
@@ -32,7 +32,7 @@ import javax.activation.DataSource;
  * preparse multipart bodies, for example an IMAP provider.
  *
  * @author	John Mani
- * @see		javax.activation.DataSource
+ * @see		jakarta.activation.DataSource
  */
 
 public interface MultipartDataSource extends DataSource {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,10 +18,9 @@ package com.sun.mail.dsn;
 
 import java.io.*;
 import java.util.Properties;
-import java.awt.datatransfer.DataFlavor;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.activation.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 
 /**
@@ -39,22 +38,22 @@ public class message_deliverystatus implements DataContentHandler {
 	"Delivery Status");
 
     /**
-     * return the DataFlavors for this <code>DataContentHandler</code>
-     * @return The DataFlavors.
+     * return the ActivationDataFlavors for this <code>DataContentHandler</code>
+     * @return The ActivationDataFlavors.
      */
-    public DataFlavor[] getTransferDataFlavors() {
-	return new DataFlavor[] { ourDataFlavor };
+    public ActivationDataFlavor[] getTransferDataFlavors() {
+	return new ActivationDataFlavor[] { ourDataFlavor };
     }
 
     /**
-     * return the Transfer Data of type DataFlavor from InputStream
-     * @param df The DataFlavor.
+     * return the Transfer Data of type ActivationDataFlavor from InputStream
+     * @param df The ActivationDataFlavor.
      * @param ds The DataSource corresponding to the data.
      * @return a Message object
      */
-    public Object getTransferData(DataFlavor df, DataSource ds)
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
 				throws IOException {
-	// make sure we can handle this DataFlavor
+	// make sure we can handle this ActivationDataFlavor
 	if (ourDataFlavor.equals(df))
 	    return getContent(ds);
 	else
@@ -70,7 +69,7 @@ public class message_deliverystatus implements DataContentHandler {
 	    /*
 	    Session session;
 	    if (ds instanceof MessageAware) {
-		javax.mail.MessageContext mc =
+		jakarta.mail.MessageContext mc =
 			((MessageAware)ds).getMessageContext();
 		session = mc.getSession();
 	    } else {

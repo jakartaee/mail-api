@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,11 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 import java.io.*;
 import java.util.Enumeration;
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 /**
  * The <code>Part</code> interface is the common base interface for 
@@ -44,7 +44,7 @@ import javax.activation.DataHandler;
  * <ul>
  * <li> As a DataHandler - using the <code>getDataHandler()</code> method.
  * The "content" of a Part is also available through a 
- * <code>javax.activation.DataHandler</code> object. The DataHandler 
+ * <code>jakarta.activation.DataHandler</code> object. The DataHandler 
  * object allows clients to discover the operations available on the
  * content, and to instantiate the appropriate component to perform
  * those operations. 
@@ -109,7 +109,7 @@ public interface Part {
      *
      * @return		The ContentType of this part
      * @exception	MessagingException for failures
-     * @see		javax.activation.DataHandler
+     * @see		jakarta.activation.DataHandler
      */
     public String getContentType() throws MessagingException;
 
@@ -241,10 +241,10 @@ public interface Part {
      * @return an InputStream
      * @exception	IOException this is typically thrown by the 
      *			DataHandler. Refer to the documentation for 
-     *			javax.activation.DataHandler for more details.
+     *			jakarta.activation.DataHandler for more details.
      * @exception	MessagingException for other failures
      * @see #getDataHandler
-     * @see javax.activation.DataHandler#getInputStream
+     * @see jakarta.activation.DataHandler#getInputStream
      */
     public InputStream getInputStream() 
 		throws IOException, MessagingException;
@@ -273,10 +273,10 @@ public interface Part {
      * @return		Object
      * @exception	IOException this is typically thrown by the 
      *			DataHandler. Refer to the documentation for 
-     *			javax.activation.DataHandler for more details.
+     *			jakarta.activation.DataHandler for more details.
      * @exception 	MessagingException for other failures
      *
-     * @see javax.activation.DataHandler#getContent
+     * @see jakarta.activation.DataHandler#getContent
      */
     public Object getContent() throws IOException, MessagingException;
 
@@ -355,11 +355,11 @@ public interface Part {
      * @param	os	the stream to write to
      * @exception IOException		if an error occurs writing to the 
      *					stream or if an error is generated
-     *					by the javax.activation layer.
+     *					by the jakarta.activation layer.
      * @exception MessagingException	if an error occurs fetching the
      *					data to be written
      *
-     * @see javax.activation.DataHandler#writeTo
+     * @see jakarta.activation.DataHandler#writeTo
      */
     public void writeTo(OutputStream os) throws IOException, MessagingException;
 

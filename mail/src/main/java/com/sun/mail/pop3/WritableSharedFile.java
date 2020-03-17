@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,7 +19,7 @@ package com.sun.mail.pop3;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import javax.mail.util.SharedFileInputStream;
+import jakarta.mail.util.SharedFileInputStream;
 
 /**
  * A subclass of SharedFileInputStream that also allows writing.

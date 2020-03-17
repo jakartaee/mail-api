@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,9 +19,9 @@
 
 <!--
     This project builds the Jakarta Mail API jar file, which contains only
-    the javax.mail.* API definitions and is *only* intended to be used
+    the jakarta.mail.* API definitions and is *only* intended to be used
     for programs to compile against.  Note that it includes none of the
-    implementation-specific classes that the javax.mail.* classes rely on.
+    implementation-specific classes that the jakarta.mail.* classes rely on.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -31,7 +31,7 @@
     <parent>
 	<groupId>com.sun.mail</groupId>
 	<artifactId>all</artifactId>
-	<version>1.6.5</version>
+	<version>2.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>jakarta.mail</groupId>
@@ -44,7 +44,7 @@
 	    jakarta.mail
 	</mail.extensionName>
 	<mail.packages.export>
-	    javax.mail.*; version=${mail.spec.version}
+	    jakarta.mail.*; version=${mail.spec.version}
 	</mail.packages.export>
 	<mail.bundle.symbolicName>
 	    jakarta.mail-api

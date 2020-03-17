@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,16 +14,16 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 /**
  * An interface optionally implemented by <code>DataSources</code> to
  * supply information to a <code>DataContentHandler</code> about the
  * message context in which the data content object is operating.
  *
- * @see javax.mail.MessageContext
- * @see javax.activation.DataSource
- * @see javax.activation.DataContentHandler
+ * @see jakarta.mail.MessageContext
+ * @see jakarta.activation.DataSource
+ * @see jakarta.activation.DataContentHandler
  * @since	JavaMail 1.1
  */
 public interface MessageAware {

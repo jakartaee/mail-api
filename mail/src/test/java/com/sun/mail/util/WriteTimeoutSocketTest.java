@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
-import javax.mail.*;
-import javax.mail.internet.MimeMessage;
-import javax.mail.util.ByteArrayDataSource;
-import javax.activation.DataHandler;
+import jakarta.mail.*;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.util.ByteArrayDataSource;
+import jakarta.activation.DataHandler;
 import javax.net.ssl.*;
 
 import com.sun.mail.imap.IMAPHandler;

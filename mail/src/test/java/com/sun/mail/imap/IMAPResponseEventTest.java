@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -21,10 +21,10 @@ import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.event.StoreListener;
-import javax.mail.event.StoreEvent;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.event.StoreListener;
+import jakarta.mail.event.StoreEvent;
 
 import com.sun.mail.test.TestServer;
 

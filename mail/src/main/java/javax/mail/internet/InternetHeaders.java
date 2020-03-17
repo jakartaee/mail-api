@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,11 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail.internet;
+package jakarta.mail.internet;
 
 import java.io.*;
 import java.util.*;
-import javax.mail.*;
+import jakarta.mail.*;
 import com.sun.mail.util.LineInputStream;
 import com.sun.mail.util.PropUtil;
 
@@ -28,7 +28,7 @@ import com.sun.mail.util.PropUtil;
  * until the blank line that indicates end of header. The input stream
  * is positioned at the start of the body. The lines are stored 
  * within the object and can be extracted as either Strings or
- * {@link javax.mail.Header} objects. <p>
+ * {@link jakarta.mail.Header} objects. <p>
  *
  * This class is mostly intended for service providers. MimeMessage
  * and MimeBody use this class for holding their headers.
@@ -52,7 +52,7 @@ import com.sun.mail.util.PropUtil;
  * will cause a line containing only whitespace to be considered
  * a blank line terminating the header.
  *
- * @see	javax.mail.internet.MimeUtility
+ * @see	jakarta.mail.internet.MimeUtility
  * @author John Mani
  * @author Bill Shannon
  */
@@ -598,7 +598,7 @@ public class InternetHeaders {
 
     /**
      * Return all the headers as an Enumeration of
-     * {@link javax.mail.Header} objects.
+     * {@link jakarta.mail.Header} objects.
      *
      * @return	Enumeration of Header objects	
      */
@@ -607,7 +607,7 @@ public class InternetHeaders {
     }
 
     /**
-     * Return all matching {@link javax.mail.Header} objects.
+     * Return all matching {@link jakarta.mail.Header} objects.
      *
      * @param	names	the headers to return
      * @return	Enumeration of matching Header objects	
@@ -617,7 +617,7 @@ public class InternetHeaders {
     }
 
     /**
-     * Return all non-matching {@link javax.mail.Header} objects.
+     * Return all non-matching {@link jakarta.mail.Header} objects.
      *
      * @param	names	the headers to not return
      * @return	Enumeration of non-matching Header objects	

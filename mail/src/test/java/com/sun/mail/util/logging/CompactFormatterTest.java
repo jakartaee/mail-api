@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2013, 2018 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -14,6 +14,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
+
 package com.sun.mail.util.logging;
 
 import java.io.*;
@@ -23,8 +24,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeUtility;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeUtility;
 import org.junit.*;
 import static org.junit.Assert.*;
 

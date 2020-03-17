@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,10 +14,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail.event;
+package jakarta.mail.event;
 
 import java.util.*;
-import javax.mail.*;
+import jakarta.mail.*;
 
 /**
  * This class notifies changes in the number of messages in a folder. <p>
@@ -29,8 +29,8 @@ import javax.mail.*;
  * <A HREF="http://www.ietf.org/rfc/rfc3501.txt" TARGET="_top">RFC 3501</A>
  * for details.
  * A client may want to "poll" the folder by occasionally calling the
- * {@link javax.mail.Folder#getMessageCount getMessageCount} or
- * {@link javax.mail.Folder#isOpen isOpen} methods
+ * {@link jakarta.mail.Folder#getMessageCount getMessageCount} or
+ * {@link jakarta.mail.Folder#isOpen isOpen} methods
  * to solicit any such notifications.
  *
  * @author John Mani

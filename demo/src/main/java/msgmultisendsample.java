@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +10,9 @@
 
 import java.util.*;
 import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.activation.*;
 
 /**
  * msgmultisendsample creates a simple multipart/mixed message and sends it.

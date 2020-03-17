@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package javax.mail;
+package jakarta.mail;
 
 /**
  * The context in which a piece of Message content is contained.  A
@@ -25,9 +25,9 @@ package javax.mail;
  * <code>DataContentHandler</code> to pass on information about the
  * context in which a data content object is operating.
  *
- * @see javax.mail.MessageAware
- * @see javax.activation.DataSource
- * @see javax.activation.DataContentHandler
+ * @see jakarta.mail.MessageAware
+ * @see jakarta.activation.DataSource
+ * @see jakarta.activation.DataContentHandler
  * @since	JavaMail 1.1
  */
 public class MessageContext {
@@ -72,8 +72,8 @@ public class MessageContext {
      * objects until it comes to a Message object, or null.
      *
      * @return	the containing Message, or null if none
-     * @see javax.mail.BodyPart#getParent
-     * @see javax.mail.Multipart#getParent
+     * @see jakarta.mail.BodyPart#getParent
+     * @see jakarta.mail.Multipart#getParent
      */
     private static Message getMessage(Part p) throws MessagingException {
 	while (p != null) {
