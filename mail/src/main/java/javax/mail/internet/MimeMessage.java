@@ -2207,10 +2207,10 @@ public class MimeMessage extends Message implements MimePart {
      * @since		JavaMail 1.4
      */
     protected void updateMessageID() throws MessagingException {
-    if(getHeader("Message-ID") == null)
-	setHeader("Message-ID", 
-		  "<" + UniqueValue.getUniqueMessageIDValue(session) + ">");
-          
+    if(getHeader("Message-ID") == null) {
+    	setHeader("Message-ID", 
+    			"<" + UniqueValue.getUniqueMessageIDValue(session) + ">");
+    }
     }	
 
     /**
