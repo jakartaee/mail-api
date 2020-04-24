@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -30,7 +30,6 @@ import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 import com.sun.mail.util.PropUtil;
@@ -557,7 +556,7 @@ public class Protocol {
 		try {
 			Field f = k.getDeclaredField("socket");
 			f.setAccessible(true);
-			Socket s = (Socket)f.get(socket);
+			Socket s = (Socket) f.get(socket);
 			SocketChannel ret = s.getChannel();
 			if (ret != null) {
 				return ret;

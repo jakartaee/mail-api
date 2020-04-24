@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,19 +19,14 @@ package com.sun.mail.iap;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.SocketOption;
-import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.nio.channels.spi.SelectorProvider;
 import java.util.Properties;
-import java.util.Set;
 
 import com.sun.mail.test.NullOutputStream;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -96,56 +91,73 @@ public final class ProtocolTest {
     @Test
     public void testLayer1Socket() throws IOException, ProtocolException {
         try (LayerAbstractSocket s = new Layer1of5()) {
-                assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
     
     @Test
     public void testLayer2Socket() throws IOException, ProtocolException {
         try (LayerAbstractSocket s = new Layer2of5()) {
-                assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
     
     @Test
     public void testLayer3Socket() throws IOException, ProtocolException {
         try (LayerAbstractSocket s = new Layer3of5()) {
-                assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
     
     @Test
     public void testLayer4Socket() throws IOException, ProtocolException {
         try (LayerAbstractSocket s = new Layer4of5()) {
-            assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
     
     @Test
     public void testLayer5Socket() throws IOException, ProtocolException {
         try (LayerAbstractSocket s = new Layer5of5()) {
-            assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
+    
     
     @Test
     public void testRenamed1Socket() throws IOException, ProtocolException {
         try (RenamedAbstractSocket s = new RenamedSocketLayer1of3()) {
-            assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
     
     @Test
     public void testRenamed2Socket() throws IOException, ProtocolException {
         try (RenamedAbstractSocket s = new RenamedSocketLayer2of3()) {
-                assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
     
     @Test
     public void testRenamed3Socket() throws IOException, ProtocolException {
         try (RenamedAbstractSocket s = new RenamedSocketLayer3of3()) {
-            assertTrue(findSocketChannel(s) instanceof FakeSocketChannel);
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
+        }
+    }
+    
+    @Test
+    public void testNullSocketsRenamed() throws IOException, ProtocolException {
+        try (RenamedAbstractSocket s = new NullSocketsRenamedSocket()) {
+            findSocketChannel(s);
+            assertTrue(s.foundChannel());
         }
     }
     
@@ -156,7 +168,8 @@ public final class ProtocolTest {
             //However, we would have fetch field value to inspect the object.
             //Most reads will not be what we are looking for so best to give up.
             //Feel free to change the policy later if needed.
-            assertNull(findSocketChannel(s));
+            findSocketChannel(s);
+            assertFalse(s.foundChannel());
         }
     }
     
@@ -167,7 +180,16 @@ public final class ProtocolTest {
             //However, we would have fetch field value to inspect the object.
             //Most reads will not be what we are looking for so best to give up.
             //Feel free to change the policy later if needed.
-            assertNull(findSocketChannel(s));
+            findSocketChannel(s);
+            assertFalse(s.foundChannel());
+        }
+    }
+    
+    @Test
+    public void testNamedNullAndHiddenSocket() throws IOException, ProtocolException {
+        try (HiddenAbstractSocket s = new NamedNullAndHiddenSocket()) {
+            findSocketChannel(s);
+            assertFalse(s.foundChannel());
         }
     }
     
@@ -193,8 +215,19 @@ public final class ProtocolTest {
     }
     
     private static abstract class RenamedAbstractSocket extends Socket {
-        @SuppressWarnings("unused") //Accessed via reflection.
         private Socket tekcos = new WrappedSocket();
+        
+        public boolean foundChannel() {
+            return WrappedSocket.foundChannel(tekcos);
+        }
+    }
+    
+    private static class NullSocketsRenamedSocket extends RenamedAbstractSocket {
+        @SuppressWarnings("unused") //Reflective access
+	private Socket socket;
+        @SuppressWarnings("unused") //Reflective access
+	private Socket tekcos;
+        
     }
     
     private static class Layer5of5 extends Layer4of5 {
@@ -209,16 +242,13 @@ public final class ProtocolTest {
     }
     
     private static abstract class LayerAbstractSocket extends Socket {
-        @SuppressWarnings("unused") //Accessed via reflection.
         private final Socket socket = new WrappedSocket();
-    }
-    
-    private static class WrappedSocket extends Socket {
-        @Override
-        public SocketChannel getChannel() {
-            return new FakeSocketChannel();
+        
+        public boolean foundChannel() {
+            return WrappedSocket.foundChannel(socket);
         }
     }
+    
     
     private static class HiddenSocket2of2 extends HiddenSocket1of2 {
     }
@@ -227,109 +257,31 @@ public final class ProtocolTest {
     }
     
     private static abstract class HiddenAbstractSocket extends Socket {
-        @SuppressWarnings("unused") //Need to be present in case of access via reflection.
         private final Object hidden = new WrappedSocket();
+        
+        public boolean foundChannel() {
+            return WrappedSocket.foundChannel(hidden);
+        }
     }
     
-    private static class FakeSocketChannel extends SocketChannel {
+    private static class NamedNullAndHiddenSocket extends HiddenAbstractSocket {
+    
+        @SuppressWarnings("unused") //Reflective access
+        private Socket socket;
+    }
+    
+    private static class WrappedSocket extends Socket {
+        private boolean found;
         
-        FakeSocketChannel() {
-            super((SelectorProvider) null);
+        public static boolean foundChannel(Object ws) {
+            return ws instanceof WrappedSocket
+                  && ((WrappedSocket) ws).found;
         }
-
+        
         @Override
-        public SocketChannel bind(SocketAddress local) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public <T> SocketChannel setOption(SocketOption<T> name, T value) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public SocketChannel shutdownInput() throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public SocketChannel shutdownOutput() throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Socket socket() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean isConnected() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean isConnectionPending() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean connect(SocketAddress remote) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean finishConnect() throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public SocketAddress getRemoteAddress() throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int read(ByteBuffer dst) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public long read(ByteBuffer[] dsts, int offset, int length) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int write(ByteBuffer src) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public long write(ByteBuffer[] srcs, int offset, int length) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public SocketAddress getLocalAddress() throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        protected void implCloseSelectableChannel() throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        protected void implConfigureBlocking(boolean block) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public <T> T getOption(SocketOption<T> name) throws IOException {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Set<SocketOption<?>> supportedOptions() {
-            throw new UnsupportedOperationException();
+        public SocketChannel getChannel() {
+            found = true;
+            return null;
         }
     }
 }
