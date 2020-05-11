@@ -153,7 +153,7 @@
 			    <groups>
 				<group>
 				    <title>Jakarta Mail API Packages</title>
-				    <packages>javax.*</packages>
+				    <packages>jakarta.*</packages>
 				</group>
 				<group>
 				    <title>Implementation-specific Packages</title>
