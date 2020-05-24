@@ -220,7 +220,7 @@ public class MboxMessage extends MimeMessage {
     /**
      * Set the specified flags on this message to the specified value.
      *
-     * @param flags	the flags to be set
+     * @param newFlags	the flags to be set
      * @param set	the value to be set
      */
     public void setFlags(Flags newFlags, boolean set)
