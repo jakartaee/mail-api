@@ -15,8 +15,8 @@ import java.util.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.mail.search.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
+import jakarta.servlet.jsp.*;
+import jakarta.servlet.jsp.tagext.*;
 
 /**
  * Custom tag for listing messages. The scripting variable is only

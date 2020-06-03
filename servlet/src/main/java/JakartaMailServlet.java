@@ -12,12 +12,11 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 import jakarta.mail.*;
 import jakarta.mail.Part;
 import jakarta.mail.internet.*;
-import jakarta.activation.*;
 
 
 /**

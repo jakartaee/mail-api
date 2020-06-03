@@ -10,11 +10,9 @@
 
 package demo;
 
-import java.util.*;
 import jakarta.mail.*;
-import jakarta.mail.internet.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
+import jakarta.servlet.jsp.*;
+import jakarta.servlet.jsp.tagext.*;
 
 /**
  * Custom tag for retrieving a message.
