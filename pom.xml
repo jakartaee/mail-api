@@ -71,7 +71,7 @@
     </organization>
 
     <properties>
-	<mail.version>2.0.0-RC5</mail.version>
+	<mail.version>${project.version}</mail.version>
 	<mail.spec.version>2.0</mail.spec.version>
 	<activation.version>2.0.0-RC3</activation.version>
 	<!-- defaults that are overridden in mail module -->
