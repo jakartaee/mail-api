@@ -761,7 +761,6 @@ public class IMAPProtocol extends Protocol {
 	Response r = null;
 	boolean done = false;
 
-	String type1Msg = null;
 	int flags = PropUtil.getIntProperty(props,
 	    "mail." + name + ".auth.ntlm.flags", 0);
 	boolean v2 = PropUtil.getBooleanProperty(props,
