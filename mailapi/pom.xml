@@ -184,6 +184,19 @@
 		    </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <javadocDirectory>${main.basedir}/mail/src/main/java</javadocDirectory>
+                    <bottom>
+<![CDATA[Copyright &#169; 2019, 2020 Eclipse Foundation.<br>
+    Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.
+]]>
+                    </bottom>
+                </configuration>
+            </plugin>
 	</plugins>
     </build>
 
