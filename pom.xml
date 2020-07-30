@@ -73,7 +73,7 @@
     <properties>
 	<mail.version>${project.version}</mail.version>
 	<mail.spec.version>2.0</mail.spec.version>
-	<activation.version>2.0.0-RC3</activation.version>
+	<activation.version>2.0.0</activation.version>
 	<!-- defaults that are overridden in mail module -->
 	<mail.extensionName>
 	    ${project.groupId}.${project.artifactId}
@@ -547,6 +547,47 @@
 			    </sources>
 			</configuration>
 		    </execution>
+		    <execution>
+			<id>add-resource</id>
+			<phase>generate-resources</phase>
+			<goals>
+			    <goal>add-resource</goal>
+			</goals>
+			<configuration>
+			    <resources>
+				<resource>
+				    <directory>${main.basedir}</directory>
+				    <targetPath>META-INF</targetPath>
+				    <includes>
+					<include>LICENSE.md</include>
+					<include>NOTICE.md</include>
+				    </includes>
+				</resource>
+			    </resources>
+			</configuration>
+		    </execution>
+		</executions>
+	    </plugin>
+
+	    <!--
+		Directory plugin to find parent root directory absolute path.
+		Sets ${main.basedir}, used above with build-helper-maven-plugin
+		to include LICENSE.md and NOTICE.md in jar files.
+	    -->
+	    <plugin>
+		<groupId>org.commonjava.maven.plugins</groupId>
+		<artifactId>directory-maven-plugin</artifactId>
+		<executions>
+		    <execution>
+			<id>directories</id>
+			<goals>
+			    <goal>highest-basedir</goal>
+			</goals>
+			<phase>initialize</phase>
+			<configuration>
+			    <property>main.basedir</property>
+			</configuration>
+		    </execution>
 		</executions>
 	    </plugin>
 
@@ -595,7 +636,7 @@
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-compiler-plugin</artifactId>
-		    <version>3.7.0</version>
+		    <version>3.8.1</version>
 		</plugin>
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
@@ -653,17 +694,11 @@
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-javadoc-plugin</artifactId>
-		    <version>3.1.1</version>
+		    <version>3.2.0</version>
 		    <configuration>
+                        <source>8</source>
 			<doclint>none</doclint>
-			<!-- make all the APIs available for javadoc -->
-			<additionalDependencies>
-			    <additionalDependency>
-				<groupId>com.sun.mail</groupId>
-				<artifactId>jakarta.mail</artifactId>
-				<version>${mail.version}</version>
-			    </additionalDependency>
-			</additionalDependencies>
+                        <detectJavaApiLink>false</detectJavaApiLink>
 			<sourceFileExcludes>
 			    <sourceFileExclude>
 				module-info.java
