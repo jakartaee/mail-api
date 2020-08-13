@@ -264,8 +264,16 @@
 			    <execution>
 				<id>default-compile</id>
 				<configuration>
-				    <source>1.8</source>
-				    <target>1.8</target>
+                                    <release>9</release>
+				</configuration>
+			    </execution>
+			    <execution>
+				<id>base-compile</id>
+				<goals>
+				    <goal>compile</goal>
+				</goals>
+				<configuration>
+				    <release>8</release>
 				    <excludes>
 					<exclude>module-info.java</exclude>
 				    </excludes>
@@ -278,18 +286,6 @@
 					<arg>-Werror</arg>
 					-->
 				    </compilerArgs>
-				</configuration>
-			    </execution>
-			    <execution>
-				<id>module-info-compile</id>
-				<goals>
-				    <goal>compile</goal>
-				</goals>
-				<configuration>
-				    <release>9</release>
-				    <includes>
-					<include>module-info.java</include>
-				    </includes>
 				</configuration>
 			    </execution>
 			    <execution>
@@ -450,11 +446,6 @@
 				https://issues.apache.org/jira/browse/MCOMPILER-209
 			    -->
 			    <useIncrementalCompilation>false</useIncrementalCompilation>
-			    <excludes>
-				<exclude>
-				  module-info.java
-				</exclude>
-			    </excludes>
 			</configuration>
 		    </execution>
 		    <execution>

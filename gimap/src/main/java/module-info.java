@@ -21,6 +21,7 @@ module com.sun.mail.gimap {
 	com.sun.mail.gimap.GmailProvider, com.sun.mail.gimap.GmailSSLProvider;
 
     requires jakarta.mail;
+    requires jakarta.activation;
     requires java.logging;
     requires java.security.sasl;
     requires com.sun.mail.imap;
