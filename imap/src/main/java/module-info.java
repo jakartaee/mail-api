@@ -22,6 +22,7 @@ module com.sun.mail.imap {
 	com.sun.mail.imap.IMAPProvider, com.sun.mail.imap.IMAPSSLProvider;
 
     requires jakarta.mail;
+    requires jakarta.activation;
     requires java.logging;
     requires java.security.sasl;
 }
