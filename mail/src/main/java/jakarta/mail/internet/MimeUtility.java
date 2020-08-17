@@ -1291,20 +1291,14 @@ public class MimeUtility {
 	    try {
 		defaultJavaCharset = System.getProperty("file.encoding", 
 							"8859_1");
-	    } catch (SecurityException sex) {
-		
-		class NullInputStream extends InputStream {
-		    @Override
-		    public int read() {
-			return 0;
-		    }
+		} catch (final SecurityException sex) {
+			// fall back to ISO-Latin-1
+			// don't use actual system encoding, because this might be
+			// something completely different, like EBCDIC (IBM-037)
+			if (defaultJavaCharset == null) {
+				defaultJavaCharset = "8859_1";
+			}
 		}
-		InputStreamReader reader = 
-			new InputStreamReader(new NullInputStream());
-		defaultJavaCharset = reader.getEncoding();
-		if (defaultJavaCharset == null)
-		    defaultJavaCharset = "8859_1";
-	    }
 	}
 
 	return defaultJavaCharset;
