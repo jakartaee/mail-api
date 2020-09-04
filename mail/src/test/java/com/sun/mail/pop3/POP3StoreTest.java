@@ -19,6 +19,7 @@ package com.sun.mail.pop3;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.mail.AuthenticationFailedException;
 import javax.mail.Folder;
 import javax.mail.Session;
 import javax.mail.Store;
@@ -26,6 +27,7 @@ import javax.mail.Store;
 import com.sun.mail.test.TestServer;
 
 import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
@@ -108,6 +110,149 @@ public final class POP3StoreTest {
             if (server != null) {
                 server.quit();
             }
+        }
+    }
+
+    /**
+     * Check whether POP3 XOAUTH2 connection can be established using single line authentication format (default)
+     */
+    @Test
+    public void testXOAUTH2POP3Connection() {
+        TestServer server = null;
+
+        try {
+            final POP3Handler handler = new POP3HandlerXOAUTH();
+            server = new TestServer(handler);
+            server.start();
+
+            final Properties properties = new Properties();
+            properties.setProperty("mail.pop3.host", "localhost");
+            properties.setProperty("mail.pop3.port", "" + server.getPort());
+            properties.setProperty("mail.pop3.auth.mechanisms", "XOAUTH2");
+
+            final Session session = Session.getInstance(properties);
+
+            final POP3Store store = (POP3Store) session.getStore("pop3");
+            try {
+                store.protocolConnect("localhost", server.getPort(), "test", "test");
+            } catch (Exception ex) {
+                System.out.println(ex);
+                ex.printStackTrace();
+                fail(ex.toString());
+            } finally {
+                store.close();
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } finally {
+            if (server != null) {
+                server.quit();
+            }
+        }
+    }
+
+    /**
+     * Check whether POP3 XOAUTH2 connection can be established using single line authentication format
+     * when the authentication format has ben set
+     * using: mail.pop3.xoauth.two.line.authentication.format property
+     */
+    @Test
+    public void testXOAUTH2POP3ConnectionWithSingleLineAuthenticationFlag() {
+        TestServer server = null;
+
+        try {
+            final POP3Handler handler = new POP3HandlerXOAUTH();
+            server = new TestServer(handler);
+            server.start();
+
+            final Properties properties = new Properties();
+            properties.setProperty("mail.pop3.host", "localhost");
+            properties.setProperty("mail.pop3.port", "" + server.getPort());
+            properties.setProperty("mail.pop3.auth.mechanisms", "XOAUTH2");
+            properties.setProperty("mail.pop3.disablecapa", "false");
+            properties.setProperty("mail.pop3.xoauth.two.line.authentication.format", "false");
+
+            final Session session = Session.getInstance(properties);
+
+            final POP3Store store = (POP3Store) session.getStore("pop3");
+            try {
+                store.protocolConnect("localhost", server.getPort(), "test", "test");
+            } catch (Exception ex) {
+                System.out.println(ex);
+                ex.printStackTrace();
+                fail(ex.toString());
+            } finally {
+                store.close();
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } finally {
+            if (server != null) {
+                server.quit();
+            }
+        }
+    }
+
+    /**
+     * Check whether POP3 XOAUTH2 authentication method is invoked using two line authentication format
+     * using: mail.pop3.xoauth.two.line.authentication.format property
+     */
+    @Test
+    public void testXOAUTH2POP3ConnectionWithTwoLineAuthenticationFlag() {
+        TestServer server = null;
+
+        try {
+            final POP3Handler handler = new POP3HandlerXOAUTH();
+            server = new TestServer(handler);
+            server.start();
+
+            final Properties properties = new Properties();
+            properties.setProperty("mail.pop3.host", "localhost");
+            properties.setProperty("mail.pop3.port", "" + server.getPort());
+            properties.setProperty("mail.pop3.auth.mechanisms", "XOAUTH2");
+            properties.setProperty("mail.pop3.disablecapa", "false");
+            properties.setProperty("mail.pop3.xoauth.two.line.authentication.format", "true");
+
+            final Session session = Session.getInstance(properties);
+
+            final POP3Store store = (POP3Store) session.getStore("pop3");
+            try {
+                store.protocolConnect("localhost", server.getPort(), "test", "test");
+            } catch (Exception ex) {
+                assertTrue(ex instanceof AuthenticationFailedException);
+                assertTrue("We are expecting an exception here as the test server " +
+                    "do not allow for two lane authentication format ", ex.toString().contains("unknown command"));
+            } finally {
+                store.close();
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } finally {
+            if (server != null) {
+                server.quit();
+            }
+        }
+    }
+
+     /**
+     * Custom handler of AUTH command.
+     *
+     * @author Mateusz Marzęcki
+     */
+     private static class POP3HandlerXOAUTH extends POP3Handler {
+        @Override
+        public void auth() throws IOException {
+            this.println("+OK POP3 server ready");
+        }
+
+        @Override
+        public void capa() throws IOException {
+            this.writer.println("+OK");
+            this.writer.println("SASL PLAIN XOAUTH2");
+            this.println(".");
         }
     }
 
