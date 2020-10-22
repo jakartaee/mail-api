@@ -75,7 +75,7 @@ var activeTableTab = "activeTableTab";
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields.inherited.from.class.javax.mail.Folder">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#fields.inherited.from.class.jakarta.mail.Folder">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">javax.mail.Folder</a></li>
+<li><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">jakarta.mail.Folder</a></li>
 <li>
 <ul class="inheritance">
 <li>com.sun.mail.pop3.POP3Folder</li>
@@ -119,7 +119,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">POP3Folder</span>
-extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></pre>
+extends <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></pre>
 <div class="block">A POP3 Folder (can only be "INBOX").
 
  See the <a href="package-summary.html">com.sun.mail.pop3</a> package
@@ -137,11 +137,11 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </a>
 <h3>Field Summary</h3>
 <ul class="blockList">
-<li class="blockList"><a name="fields.inherited.from.class.javax.mail.Folder">
+<li class="blockList"><a name="fields.inherited.from.class.jakarta.mail.Folder">
 <!--   -->
 </a>
-<h3>Fields inherited from class&nbsp;javax.mail.<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></h3>
-<code><a href="../../../../javax/mail/Folder.html#HOLDS_FOLDERS">HOLDS_FOLDERS</a>, <a href="../../../../javax/mail/Folder.html#HOLDS_MESSAGES">HOLDS_MESSAGES</a>, <a href="../../../../javax/mail/Folder.html#mode">mode</a>, <a href="../../../../javax/mail/Folder.html#READ_ONLY">READ_ONLY</a>, <a href="../../../../javax/mail/Folder.html#READ_WRITE">READ_WRITE</a></code></li>
+<h3>Fields inherited from class&nbsp;jakarta.mail.<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></h3>
+<code><a href="../../../../jakarta/mail/Folder.html#HOLDS_FOLDERS">HOLDS_FOLDERS</a>, <a href="../../../../jakarta/mail/Folder.html#HOLDS_MESSAGES">HOLDS_MESSAGES</a>, <a href="../../../../jakarta/mail/Folder.html#mode">mode</a>, <a href="../../../../jakarta/mail/Folder.html#READ_ONLY">READ_ONLY</a>, <a href="../../../../jakarta/mail/Folder.html#READ_WRITE">READ_WRITE</a></code></li>
 </ul>
 </li>
 </ul>
@@ -179,7 +179,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#appendMessages-javax.mail.Message:A-">appendMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#appendMessages-jakarta.mail.Message:A-">appendMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)</code>
 <div class="block">Always throws <code>MethodNotSupportedException</code>
  because the POP3 protocol doesn't support appending messages.</div>
 </td>
@@ -199,7 +199,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../../com/sun/mail/pop3/POP3Message.html" title="class in com.sun.mail.pop3">POP3Message</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#createMessage-javax.mail.Folder-int-">createMessage</a></span>(<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;f,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#createMessage-jakarta.mail.Folder-int-">createMessage</a></span>(<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;f,
              int&nbsp;msgno)</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
@@ -218,7 +218,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#expunge--">expunge</a></span>()</code>
 <div class="block">Always throws <code>MethodNotSupportedException</code>
  because the POP3 protocol doesn't support expunging messages
@@ -229,8 +229,8 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#fetch-javax.mail.Message:A-javax.mail.FetchProfile-">fetch</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-     <a href="../../../../javax/mail/FetchProfile.html" title="class in javax.mail">FetchProfile</a>&nbsp;fp)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-">fetch</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+     <a href="../../../../jakarta/mail/FetchProfile.html" title="class in jakarta.mail">FetchProfile</a>&nbsp;fp)</code>
 <div class="block">Prefetch information about POP3 messages.</div>
 </td>
 </tr>
@@ -241,7 +241,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </td>
 </tr>
 <tr id="i9" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Always throws <code>MessagingException</code> because no POP3 folders
  can contain subfolders.</div>
@@ -254,7 +254,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </td>
 </tr>
 <tr id="i11" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#getMessage-int-">getMessage</a></span>(int&nbsp;msgno)</code>
 <div class="block">Get the Message object corresponding to the given message
  number.</div>
@@ -275,13 +275,13 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </td>
 </tr>
 <tr id="i14" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#getParent--">getParent</a></span>()</code>
 <div class="block">Returns the parent folder of this folder.</div>
 </td>
 </tr>
 <tr id="i15" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#getPermanentFlags--">getPermanentFlags</a></span>()</code>
 <div class="block">Always returns an empty <code>Flags</code> object because
  the POP3 protocol doesn't support any permanent flags.</div>
@@ -315,7 +315,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#getUID-javax.mail.Message-">getUID</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#getUID-jakarta.mail.Message-">getUID</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;msg)</code>
 <div class="block">Return the unique ID string for this message, or null if
  not available.</div>
 </td>
@@ -334,7 +334,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </td>
 </tr>
 <tr id="i23" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#list-java.lang.String-">list</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">Always throws <code>MessagingException</code> because no POP3 folders
  can contain subfolders.</div>
@@ -348,8 +348,8 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </tr>
 <tr id="i25" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#notifyMessageChangedListeners-int-javax.mail.Message-">notifyMessageChangedListeners</a></span>(int&nbsp;type,
-                             <a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;m)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#notifyMessageChangedListeners-int-jakarta.mail.Message-">notifyMessageChangedListeners</a></span>(int&nbsp;type,
+                             <a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;m)</code>
 <div class="block">Notify all MessageChangedListeners.</div>
 </td>
 </tr>
@@ -362,18 +362,18 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 </tr>
 <tr id="i27" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#renameTo-javax.mail.Folder-">renameTo</a></span>(<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;f)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/pop3/POP3Folder.html#renameTo-jakarta.mail.Folder-">renameTo</a></span>(<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;f)</code>
 <div class="block">Always throws <code>MethodNotSupportedException</code>
  because the POP3 protocol doesn't support multiple folders.</div>
 </td>
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.javax.mail.Folder">
+<li class="blockList"><a name="methods.inherited.from.class.jakarta.mail.Folder">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;javax.mail.<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></h3>
-<code><a href="../../../../javax/mail/Folder.html#addConnectionListener-javax.mail.event.ConnectionListener-">addConnectionListener</a>, <a href="../../../../javax/mail/Folder.html#addFolderListener-javax.mail.event.FolderListener-">addFolderListener</a>, <a href="../../../../javax/mail/Folder.html#addMessageChangedListener-javax.mail.event.MessageChangedListener-">addMessageChangedListener</a>, <a href="../../../../javax/mail/Folder.html#addMessageCountListener-javax.mail.event.MessageCountListener-">addMessageCountListener</a>, <a href="../../../../javax/mail/Folder.html#close--">close</a>, <a href="../../../../javax/mail/Folder.html#copyMessages-javax.mail.Message:A-javax.mail.Folder-">copyMessages</a>, <a href="../../../../javax/mail/Folder.html#getDeletedMessageCount--">getDeletedMessageCount</a>, <a href="../../../../javax/mail/Folder.html#getMessages--">getMessages</a>, <a href="../../../../javax/mail/Folder.html#getMessages-int:A-">getMessages</a>, <a href="../../../../javax/mail/Folder.html#getMessages-int-int-">getMessages</a>, <a href="../../../../javax/mail/Folder.html#getMode--">getMode</a>, <a href="../../../../javax/mail/Folder.html#getNewMessageCount--">getNewMessageCount</a>, <a href="../../../../javax/mail/Folder.html#getStore--">getStore</a>, <a href="../../../../javax/mail/Folder.html#getUnreadMessageCount--">getUnreadMessageCount</a>, <a href="../../../../javax/mail/Folder.html#getURLName--">getURLName</a>, <a href="../../../../javax/mail/Folder.html#isSubscribed--">isSubscribed</a>, <a href="../../../../javax/mail/Folder.html#list--">list</a>, <a href="../../../../javax/mail/Folder.html#listSubscribed--">listSubscribed</a>, <a href="../../../../javax/mail/Folder.html#listSubscribed-java.lang.String-">listSubscribed</a>, <a href="../../../../javax/mail/Folder.html#notifyConnectionListeners-int-">notifyConnectionListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyFolderListeners-int-">notifyFolderListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyFolderRenamedListeners-javax.mail.Folder-">notifyFolderRenamedListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyMessageAddedListeners-javax.mail.Message:A-">notifyMessageAddedListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyMessageRemovedListeners-boolean-javax.mail.Message:A-">notifyMessageRemovedListeners</a>, <a href="../../../../javax/mail/Folder.html#removeConnectionListener-javax.mail.event.ConnectionListener-">removeConnectionListener</a>, <a href="../../../../javax/mail/Folder.html#removeFolderListener-javax.mail.event.FolderListener-">removeFolderListener</a>, <a href="../../../../javax/mail/Folder.html#removeMessageChangedListener-javax.mail.event.MessageChangedListener-">removeMessageChangedListener</a>, <a href="../../../../javax/mail/Folder.html#removeMessageCountListener-javax.mail.event.MessageCountListener-">removeMessageCountListener</a>, <a href="../../../../javax/mail/Folder.html#search-javax.mail.search.SearchTerm-">search</a>, <a href="../../../../javax/mail/Folder.html#search-javax.mail.search.SearchTerm-javax.mail.Message:A-">search</a>, <a href="../../../../javax/mail/Folder.html#setFlags-int:A-javax.mail.Flags-boolean-">setFlags</a>, <a href="../../../../javax/mail/Folder.html#setFlags-int-int-javax.mail.Flags-boolean-">setFlags</a>, <a href="../../../../javax/mail/Folder.html#setFlags-javax.mail.Message:A-javax.mail.Flags-boolean-">setFlags</a>, <a href="../../../../javax/mail/Folder.html#setSubscribed-boolean-">setSubscribed</a>, <a href="../../../../javax/mail/Folder.html#toString--">toString</a></code></li>
+<h3>Methods inherited from class&nbsp;jakarta.mail.<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></h3>
+<code><a href="../../../../jakarta/mail/Folder.html#addConnectionListener-jakarta.mail.event.ConnectionListener-">addConnectionListener</a>, <a href="../../../../jakarta/mail/Folder.html#addFolderListener-jakarta.mail.event.FolderListener-">addFolderListener</a>, <a href="../../../../jakarta/mail/Folder.html#addMessageChangedListener-jakarta.mail.event.MessageChangedListener-">addMessageChangedListener</a>, <a href="../../../../jakarta/mail/Folder.html#addMessageCountListener-jakarta.mail.event.MessageCountListener-">addMessageCountListener</a>, <a href="../../../../jakarta/mail/Folder.html#close--">close</a>, <a href="../../../../jakarta/mail/Folder.html#copyMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">copyMessages</a>, <a href="../../../../jakarta/mail/Folder.html#getDeletedMessageCount--">getDeletedMessageCount</a>, <a href="../../../../jakarta/mail/Folder.html#getMessages--">getMessages</a>, <a href="../../../../jakarta/mail/Folder.html#getMessages-int:A-">getMessages</a>, <a href="../../../../jakarta/mail/Folder.html#getMessages-int-int-">getMessages</a>, <a href="../../../../jakarta/mail/Folder.html#getMode--">getMode</a>, <a href="../../../../jakarta/mail/Folder.html#getNewMessageCount--">getNewMessageCount</a>, <a href="../../../../jakarta/mail/Folder.html#getStore--">getStore</a>, <a href="../../../../jakarta/mail/Folder.html#getUnreadMessageCount--">getUnreadMessageCount</a>, <a href="../../../../jakarta/mail/Folder.html#getURLName--">getURLName</a>, <a href="../../../../jakarta/mail/Folder.html#isSubscribed--">isSubscribed</a>, <a href="../../../../jakarta/mail/Folder.html#list--">list</a>, <a href="../../../../jakarta/mail/Folder.html#listSubscribed--">listSubscribed</a>, <a href="../../../../jakarta/mail/Folder.html#listSubscribed-java.lang.String-">listSubscribed</a>, <a href="../../../../jakarta/mail/Folder.html#notifyConnectionListeners-int-">notifyConnectionListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyFolderListeners-int-">notifyFolderListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyFolderRenamedListeners-jakarta.mail.Folder-">notifyFolderRenamedListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyMessageAddedListeners-jakarta.mail.Message:A-">notifyMessageAddedListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyMessageRemovedListeners-boolean-jakarta.mail.Message:A-">notifyMessageRemovedListeners</a>, <a href="../../../../jakarta/mail/Folder.html#removeConnectionListener-jakarta.mail.event.ConnectionListener-">removeConnectionListener</a>, <a href="../../../../jakarta/mail/Folder.html#removeFolderListener-jakarta.mail.event.FolderListener-">removeFolderListener</a>, <a href="../../../../jakarta/mail/Folder.html#removeMessageChangedListener-jakarta.mail.event.MessageChangedListener-">removeMessageChangedListener</a>, <a href="../../../../jakarta/mail/Folder.html#removeMessageCountListener-jakarta.mail.event.MessageCountListener-">removeMessageCountListener</a>, <a href="../../../../jakarta/mail/Folder.html#search-jakarta.mail.search.SearchTerm-">search</a>, <a href="../../../../jakarta/mail/Folder.html#search-jakarta.mail.search.SearchTerm-jakarta.mail.Message:A-">search</a>, <a href="../../../../jakarta/mail/Folder.html#setFlags-int:A-jakarta.mail.Flags-boolean-">setFlags</a>, <a href="../../../../jakarta/mail/Folder.html#setFlags-int-int-jakarta.mail.Flags-boolean-">setFlags</a>, <a href="../../../../jakarta/mail/Folder.html#setFlags-jakarta.mail.Message:A-jakarta.mail.Flags-boolean-">setFlags</a>, <a href="../../../../jakarta/mail/Folder.html#setSubscribed-boolean-">setSubscribed</a>, <a href="../../../../jakarta/mail/Folder.html#toString--">toString</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -421,13 +421,13 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>getName</h4>
 <pre>public&nbsp;java.lang.String&nbsp;getName()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#getName--">Folder</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#getName--">Folder</a></code></span></div>
 <div class="block">Returns the name of this Folder. <p>
 
  This method can be invoked on a closed Folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getName--">getName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getName--">getName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>name of the Folder</dd>
 </dl>
@@ -440,7 +440,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>getFullName</h4>
 <pre>public&nbsp;java.lang.String&nbsp;getFullName()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#getFullName--">Folder</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#getFullName--">Folder</a></code></span></div>
 <div class="block">Returns the full name of this Folder. If the folder resides under
  the root hierarchy of this Store, the returned name is relative
  to the root. Otherwise an absolute name, starting with the 
@@ -449,7 +449,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  This method can be invoked on a closed Folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getFullName--">getFullName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getFullName--">getFullName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>full name of the Folder</dd>
 </dl>
@@ -461,8 +461,8 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <ul class="blockList">
 <li class="blockList">
 <h4>getParent</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;getParent()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#getParent--">Folder</a></code></span></div>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;getParent()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#getParent--">Folder</a></code></span></div>
 <div class="block">Returns the parent folder of this folder.
  This method can be invoked on a closed Folder. If this folder
  is the top of a folder hierarchy, this method returns null. <p>
@@ -471,7 +471,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  returns a new distinct Folder object.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getParent--">getParent</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getParent--">getParent</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Parent folder</dd>
 </dl>
@@ -488,11 +488,11 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  any other name.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#exists--">exists</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#exists--">exists</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true for INBOX, false otherwise</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#create-int-"><code>Folder.create(int)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#create-int-"><code>Folder.create(int)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -502,22 +502,22 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <ul class="blockList">
 <li class="blockList">
 <h4>list</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]&nbsp;list(java.lang.String&nbsp;pattern)
-              throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>[]&nbsp;list(java.lang.String&nbsp;pattern)
+              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always throws <code>MessagingException</code> because no POP3 folders
  can contain subfolders.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#list-java.lang.String-">list</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#list-java.lang.String-">list</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>pattern</code> - the match pattern</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of matching Folder objects. An empty
                         array is returned if no matching Folders exist.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - always</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - always</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#listSubscribed-java.lang.String-"><code>Folder.listSubscribed(java.lang.String)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#listSubscribed-java.lang.String-"><code>Folder.listSubscribed(java.lang.String)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -531,7 +531,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <div class="block">Always returns a NUL character because POP3 doesn't support a hierarchy.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getSeparator--">getSeparator</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getSeparator--">getSeparator</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>NUL</dd>
 </dl>
@@ -547,12 +547,12 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <div class="block">Always returns Folder.HOLDS_MESSAGES.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getType--">getType</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getType--">getType</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Folder.HOLDS_MESSAGES</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
-<a href="../../../../javax/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -563,22 +563,22 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>create</h4>
 <pre>public&nbsp;boolean&nbsp;create(int&nbsp;type)
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always returns <code>false</code>; the POP3 protocol doesn't
  support creating folders.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#create-int-">create</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#create-int-">create</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>type</code> - The type of this folder.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>false</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
-<a href="../../../../javax/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a>, 
-<a href="../../../../javax/mail/event/FolderEvent.html" title="class in javax.mail.event"><code>FolderEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a>, 
+<a href="../../../../jakarta/mail/event/FolderEvent.html" title="class in jakarta.mail.event"><code>FolderEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -589,18 +589,18 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>hasNewMessages</h4>
 <pre>public&nbsp;boolean&nbsp;hasNewMessages()
-                       throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                       throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always returns <code>false</code>; the POP3 protocol provides
  no way to determine when a new message arrives.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#hasNewMessages--">hasNewMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#hasNewMessages--">hasNewMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>false</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -610,19 +610,19 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <ul class="blockList">
 <li class="blockList">
 <h4>getFolder</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;getFolder(java.lang.String&nbsp;name)
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;getFolder(java.lang.String&nbsp;name)
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always throws <code>MessagingException</code> because no POP3 folders
  can contain subfolders.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getFolder-java.lang.String-">getFolder</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getFolder-java.lang.String-">getFolder</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>name</code> - name of the Folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Folder object</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - always</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - always</dd>
 </dl>
 </li>
 </ul>
@@ -633,51 +633,51 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>delete</h4>
 <pre>public&nbsp;boolean&nbsp;delete(boolean&nbsp;recurse)
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always throws <code>MethodNotSupportedException</code>
  because the POP3 protocol doesn't allow the INBOX to
  be deleted.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#delete-boolean-">delete</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#delete-boolean-">delete</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>recurse</code> - also delete subfolders?</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the Folder is deleted successfully</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MethodNotSupportedException.html" title="class in javax.mail">MethodNotSupportedException</a></code> - always</dd>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/MethodNotSupportedException.html" title="class in jakarta.mail">MethodNotSupportedException</a></code> - always</dd>
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/event/FolderEvent.html" title="class in javax.mail.event"><code>FolderEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/event/FolderEvent.html" title="class in jakarta.mail.event"><code>FolderEvent</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="renameTo-javax.mail.Folder-">
+<a name="renameTo-jakarta.mail.Folder-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>renameTo</h4>
-<pre>public&nbsp;boolean&nbsp;renameTo(<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;f)
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;boolean&nbsp;renameTo(<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;f)
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always throws <code>MethodNotSupportedException</code>
  because the POP3 protocol doesn't support multiple folders.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#renameTo-javax.mail.Folder-">renameTo</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#renameTo-jakarta.mail.Folder-">renameTo</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>f</code> - a folder representing the new name for this Folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the Folder is renamed successfully</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MethodNotSupportedException.html" title="class in javax.mail">MethodNotSupportedException</a></code> - always</dd>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/MethodNotSupportedException.html" title="class in jakarta.mail">MethodNotSupportedException</a></code> - always</dd>
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/event/FolderEvent.html" title="class in javax.mail.event"><code>FolderEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/event/FolderEvent.html" title="class in jakarta.mail.event"><code>FolderEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -688,23 +688,23 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>open</h4>
 <pre>public&nbsp;void&nbsp;open(int&nbsp;mode)
-          throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+          throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Throws <code>FolderNotFoundException</code> unless this
  folder is named "INBOX".</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#open-int-">open</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#open-int-">open</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>mode</code> - open the Folder READ_ONLY or READ_WRITE</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if not INBOX</dd>
-<dd><code><a href="../../../../javax/mail/AuthenticationFailedException.html" title="class in javax.mail">AuthenticationFailedException</a></code> - authentication failures</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - other open failures</dd>
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if not INBOX</dd>
+<dd><code><a href="../../../../jakarta/mail/AuthenticationFailedException.html" title="class in jakarta.mail">AuthenticationFailedException</a></code> - authentication failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - other open failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#READ_ONLY"><code>Folder.READ_ONLY</code></a>, 
-<a href="../../../../javax/mail/Folder.html#READ_WRITE"><code>Folder.READ_WRITE</code></a>, 
-<a href="../../../../javax/mail/Folder.html#getType--"><code>Folder.getType()</code></a>, 
-<a href="../../../../javax/mail/event/ConnectionEvent.html" title="class in javax.mail.event"><code>ConnectionEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#READ_ONLY"><code>Folder.READ_ONLY</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#READ_WRITE"><code>Folder.READ_WRITE</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#getType--"><code>Folder.getType()</code></a>, 
+<a href="../../../../jakarta/mail/event/ConnectionEvent.html" title="class in jakarta.mail.event"><code>ConnectionEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -715,8 +715,8 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>close</h4>
 <pre>public&nbsp;void&nbsp;close(boolean&nbsp;expunge)
-           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#close-boolean-">Folder</a></code></span></div>
+           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#close-boolean-">Folder</a></code></span></div>
 <div class="block">Close this Folder. This method is valid only on open Folders. <p>
 
  A CLOSED ConnectionEvent is delivered to any ConnectionListeners
@@ -725,13 +725,13 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  MessagingException.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#close-boolean-">close</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#close-boolean-">close</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>expunge</code> - expunges all deleted messages if this flag is true</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/event/ConnectionEvent.html" title="class in javax.mail.event"><code>ConnectionEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/event/ConnectionEvent.html" title="class in jakarta.mail.event"><code>ConnectionEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -742,11 +742,11 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>isOpen</h4>
 <pre>public&nbsp;boolean&nbsp;isOpen()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#isOpen--">Folder</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#isOpen--">Folder</a></code></span></div>
 <div class="block">Indicates whether this Folder is in the 'open' state.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#isOpen--">isOpen</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#isOpen--">isOpen</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if this Folder is in the 'open' state.</dd>
 </dl>
@@ -758,12 +758,12 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <ul class="blockList">
 <li class="blockList">
 <h4>getPermanentFlags</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;getPermanentFlags()</pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;getPermanentFlags()</pre>
 <div class="block">Always returns an empty <code>Flags</code> object because
  the POP3 protocol doesn't support any permanent flags.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getPermanentFlags--">getPermanentFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getPermanentFlags--">getPermanentFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>empty Flags object</dd>
 </dl>
@@ -776,21 +776,21 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>getMessageCount</h4>
 <pre>public&nbsp;int&nbsp;getMessageCount()
-                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Will not change while the folder is open because the POP3
  protocol doesn't support notification of new messages
  arriving in open folders.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getMessageCount--">getMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getMessageCount--">getMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>total number of messages. -1 may be returned
                         by certain implementations if this method is
                         invoked on a closed folder.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -800,9 +800,9 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <ul class="blockList">
 <li class="blockList">
 <h4>getMessage</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;getMessage(int&nbsp;msgno)
-                   throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#getMessage-int-">Folder</a></code></span></div>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;getMessage(int&nbsp;msgno)
+                   throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#getMessage-int-">Folder</a></code></span></div>
 <div class="block">Get the Message object corresponding to the given message
  number.  A Message object's message number is the relative
  position of this Message in its Folder. Messages are numbered
@@ -824,56 +824,56 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  references to messages. Use Message objects instead.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getMessage-int-">getMessage</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getMessage-int-">getMessage</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgno</code> - the message number</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the Message object</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#getMessageCount--"><code>Folder.getMessageCount()</code></a>, 
-<a href="../../../../javax/mail/Folder.html#fetch-javax.mail.Message:A-javax.mail.FetchProfile-"><code>Folder.fetch(javax.mail.Message[], javax.mail.FetchProfile)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#getMessageCount--"><code>Folder.getMessageCount()</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-"><code>Folder.fetch(jakarta.mail.Message[], jakarta.mail.FetchProfile)</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="createMessage-javax.mail.Folder-int-">
+<a name="createMessage-jakarta.mail.Folder-int-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>createMessage</h4>
-<pre>protected&nbsp;<a href="../../../../com/sun/mail/pop3/POP3Message.html" title="class in com.sun.mail.pop3">POP3Message</a>&nbsp;createMessage(<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;f,
+<pre>protected&nbsp;<a href="../../../../com/sun/mail/pop3/POP3Message.html" title="class in com.sun.mail.pop3">POP3Message</a>&nbsp;createMessage(<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;f,
                                     int&nbsp;msgno)
-                             throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                             throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code></dd>
 </dl>
 </li>
 </ul>
-<a name="appendMessages-javax.mail.Message:A-">
+<a name="appendMessages-jakarta.mail.Message:A-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>appendMessages</h4>
-<pre>public&nbsp;void&nbsp;appendMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)
-                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;void&nbsp;appendMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)
+                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always throws <code>MethodNotSupportedException</code>
  because the POP3 protocol doesn't support appending messages.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#appendMessages-javax.mail.Message:A-">appendMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#appendMessages-jakarta.mail.Message:A-">appendMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgs</code> - array of Messages to be appended</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MethodNotSupportedException.html" title="class in javax.mail">MethodNotSupportedException</a></code> - always</dd>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/MethodNotSupportedException.html" title="class in jakarta.mail">MethodNotSupportedException</a></code> - always</dd>
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the append failed.</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the append failed.</dd>
 </dl>
 </li>
 </ul>
@@ -883,8 +883,8 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <ul class="blockList">
 <li class="blockList">
 <h4>expunge</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;expunge()
-                  throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;expunge()
+                  throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Always throws <code>MethodNotSupportedException</code>
  because the POP3 protocol doesn't support expunging messages
  without closing the folder; call the <a href="../../../../com/sun/mail/pop3/POP3Folder.html#close-boolean-"><code>close</code></a> method
@@ -892,29 +892,29 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  instead.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#expunge--">expunge</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#expunge--">expunge</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of expunged Message objects</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MethodNotSupportedException.html" title="class in javax.mail">MethodNotSupportedException</a></code> - always</dd>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does not
+<dd><code><a href="../../../../jakarta/mail/MethodNotSupportedException.html" title="class in jakarta.mail">MethodNotSupportedException</a></code> - always</dd>
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does not
                         exist</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Message.html#isExpunged--"><code>Message.isExpunged()</code></a>, 
-<a href="../../../../javax/mail/event/MessageCountEvent.html" title="class in javax.mail.event"><code>MessageCountEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Message.html#isExpunged--"><code>Message.isExpunged()</code></a>, 
+<a href="../../../../jakarta/mail/event/MessageCountEvent.html" title="class in jakarta.mail.event"><code>MessageCountEvent</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="fetch-javax.mail.Message:A-javax.mail.FetchProfile-">
+<a name="fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>fetch</h4>
-<pre>public&nbsp;void&nbsp;fetch(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-                  <a href="../../../../javax/mail/FetchProfile.html" title="class in javax.mail">FetchProfile</a>&nbsp;fp)
-           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;void&nbsp;fetch(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+                  <a href="../../../../jakarta/mail/FetchProfile.html" title="class in jakarta.mail">FetchProfile</a>&nbsp;fp)
+           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Prefetch information about POP3 messages.
  If the FetchProfile contains <code>UIDFolder.FetchProfileItem.UID</code>,
  POP3 UIDs for all messages in the folder are fetched using the POP3
@@ -924,23 +924,23 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  and LIST commands.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#fetch-javax.mail.Message:A-javax.mail.FetchProfile-">fetch</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-">fetch</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgs</code> - fetch items for these messages</dd>
 <dd><code>fp</code> - the FetchProfile</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
-<a name="getUID-javax.mail.Message-">
+<a name="getUID-jakarta.mail.Message-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getUID</h4>
-<pre>public&nbsp;java.lang.String&nbsp;getUID(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;msg)
-                        throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;java.lang.String&nbsp;getUID(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;msg)
+                        throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Return the unique ID string for this message, or null if
  not available.  Uses the POP3 UIDL command.</div>
 <dl>
@@ -949,7 +949,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>unique ID string</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
@@ -960,7 +960,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>getSize</h4>
 <pre>public&nbsp;int&nbsp;getSize()
-            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+            throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Return the size of this folder, as was returned by the POP3 STAT
  command when this folder was opened.</div>
 <dl>
@@ -968,7 +968,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <dd>folder size</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalStateException</code> - if the folder isn't open</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -979,7 +979,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>getSizes</h4>
 <pre>public&nbsp;int[]&nbsp;getSizes()
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Return the sizes of all messages in this folder, as returned
  by the POP3 LIST command.  Each entry in the array corresponds
  to a message; entry <i>i</i> corresponds to message number <i>i+1</i>.</div>
@@ -988,7 +988,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <dd>array of message sizes</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalStateException</code> - if the folder isn't open</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.3.3</dd>
 </dl>
@@ -1001,7 +1001,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <li class="blockList">
 <h4>listCommand</h4>
 <pre>public&nbsp;java.io.InputStream&nbsp;listCommand()
-                                throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a>,
+                                throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a>,
                                        java.io.IOException</pre>
 <div class="block">Return the raw results of the POP3 LIST command with no arguments.</div>
 <dl>
@@ -1010,7 +1010,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalStateException</code> - if the folder isn't open</dd>
 <dd><code>java.io.IOException</code> - for I/O errors talking to the server</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other errors</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other errors</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.3.3</dd>
 </dl>
@@ -1027,21 +1027,21 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <div class="block">Close the folder when we're finalized.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#finalize--">finalize</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#finalize--">finalize</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.Throwable</code></dd>
 </dl>
 </li>
 </ul>
-<a name="notifyMessageChangedListeners-int-javax.mail.Message-">
+<a name="notifyMessageChangedListeners-int-jakarta.mail.Message-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>notifyMessageChangedListeners</h4>
 <pre>protected&nbsp;void&nbsp;notifyMessageChangedListeners(int&nbsp;type,
-                                             <a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;m)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#notifyMessageChangedListeners-int-javax.mail.Message-">Folder</a></code></span></div>
+                                             <a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;m)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#notifyMessageChangedListeners-int-jakarta.mail.Message-">Folder</a></code></span></div>
 <div class="block">Notify all MessageChangedListeners. Folder implementations are
  expected to use this method to broadcast MessageChanged events. <p>
 
@@ -1052,7 +1052,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
  in a separate thread, thus avoiding potential deadlock problems.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#notifyMessageChangedListeners-int-javax.mail.Message-">notifyMessageChangedListeners</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#notifyMessageChangedListeners-int-jakarta.mail.Message-">notifyMessageChangedListeners</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>type</code> - the MessageChangedEvent type</dd>
 <dd><code>m</code> - the message that changed</dd>
@@ -1113,7 +1113,7 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields.inherited.from.class.javax.mail.Folder">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#fields.inherited.from.class.jakarta.mail.Folder">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
@@ -1128,6 +1128,6 @@ extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail"
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2019 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2019, 2020 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
 </body>
 </html>

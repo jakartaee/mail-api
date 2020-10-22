@@ -147,7 +147,7 @@ POP3 supports only a single folder named "INBOX".
 </P>
 <P>
 POP3 supports <strong>no</strong> permanent flags (see
-<a href="../../../../javax/mail/Folder.html#getPermanentFlags--"><code>Folder.getPermanentFlags()</code></a>).
+<a href="../../../../jakarta/mail/Folder.html#getPermanentFlags--"><code>Folder.getPermanentFlags()</code></a>).
 In particular, the <code>Flags.Flag.RECENT</code> flag will never be set
 for POP3
 messages.  It's up to the application to determine which messages in a
@@ -187,7 +187,7 @@ are error-prone at best.
 </P>
 <P>
 The POP3 provider supports the POP3 UIDL command, see
-<a href="../../../../com/sun/mail/pop3/POP3Folder.html#getUID-javax.mail.Message-"><code>POP3Folder.getUID()</code></a>.
+<a href="../../../../com/sun/mail/pop3/POP3Folder.html#getUID-jakarta.mail.Message-"><code>POP3Folder.getUID()</code></a>.
 You can use it as follows:
 </P>
 <BLOCKQUOTE><PRE>
@@ -811,7 +811,7 @@ Defaults to false, the connection is not closed cleanly.
 <P>
 In general, applications should not need to use the classes in this
 package directly.  Instead, they should use the APIs defined by
-<code>javax.mail</code> package (and subpackages).  Applications should
+<code>jakarta.mail</code> package (and subpackages).  Applications should
 never construct instances of <code>POP3Store</code> or
 <code>POP3Folder</code> directly.  Instead, they should use the
 <code>Session</code> method <code>getStore</code> to acquire an
@@ -820,7 +820,7 @@ appropriate <code>Store</code> object, and from that acquire
 </P>
 <P>
 In addition to printing debugging output as controlled by the
-<a href="../../../../javax/mail/Session.html" title="class in javax.mail"><code>Session</code></a> configuration,
+<a href="../../../../jakarta/mail/Session.html" title="class in jakarta.mail"><code>Session</code></a> configuration,
 the com.sun.mail.pop3 provider logs the same information using
 <code>Logger</code> as described in the following table:
 </P>
@@ -905,6 +905,6 @@ current APIs.
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2019 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2019, 2020 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
 </body>
 </html>

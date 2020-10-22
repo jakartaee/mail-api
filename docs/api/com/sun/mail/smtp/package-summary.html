@@ -162,14 +162,14 @@ When sending a message, detailed information on each address that
 fails is available in an
 <a href="../../../../com/sun/mail/smtp/SMTPAddressFailedException.html" title="class in com.sun.mail.smtp"><code>SMTPAddressFailedException</code></a>
 chained off the top level
-<a href="../../../../javax/mail/SendFailedException.html" title="class in javax.mail"><code>SendFailedException</code></a>
+<a href="../../../../jakarta/mail/SendFailedException.html" title="class in jakarta.mail"><code>SendFailedException</code></a>
 that is thrown.
 In addition, if the <code>mail.smtp.reportsuccess</code> property
 is set, an
 <a href="../../../../com/sun/mail/smtp/SMTPAddressSucceededException.html" title="class in com.sun.mail.smtp"><code>SMTPAddressSucceededException</code></a>
 will be included in the list for each address that is successful.
 Note that this will cause a top level
-<a href="../../../../javax/mail/SendFailedException.html" title="class in javax.mail"><code>SendFailedException</code></a>
+<a href="../../../../jakarta/mail/SendFailedException.html" title="class in jakarta.mail"><code>SendFailedException</code></a>
 to be thrown even though the send was successful.
 </P>
 <P>
@@ -637,9 +637,9 @@ If set to true, causes the transport to include an
 <a href="../../../../com/sun/mail/smtp/SMTPAddressSucceededException.html" title="class in com.sun.mail.smtp"><code>SMTPAddressSucceededException</code></a>
 for each address that is successful.
 Note also that this will cause a
-<a href="../../../../javax/mail/SendFailedException.html" title="class in javax.mail"><code>SendFailedException</code></a>
+<a href="../../../../jakarta/mail/SendFailedException.html" title="class in jakarta.mail"><code>SendFailedException</code></a>
 to be thrown from the
-<a href="../../../../com/sun/mail/smtp/SMTPTransport.html#sendMessage-javax.mail.Message-javax.mail.Address:A-"><code>sendMessage</code></a>
+<a href="../../../../com/sun/mail/smtp/SMTPTransport.html#sendMessage-jakarta.mail.Message-jakarta.mail.Address:A-"><code>sendMessage</code></a>
 method of
 <a href="../../../../com/sun/mail/smtp/SMTPTransport.html" title="class in com.sun.mail.smtp"><code>SMTPTransport</code></a>
 even if all addresses were correct and the message was sent
@@ -879,7 +879,7 @@ and other RFCs that define specific extensions.
 <TD>boolean</TD>
 <TD>
 If set to true, use the RSET command instead of the NOOP command
-in the <a href="../../../../javax/mail/Service.html#isConnected--"><code>isConnected</code></a> method.
+in the <a href="../../../../jakarta/mail/Service.html#isConnected--"><code>isConnected</code></a> method.
 In some cases sendmail will respond slowly after many NOOP commands;
 use of RSET avoids this sendmail issue.
 Defaults to false.
@@ -892,7 +892,7 @@ Defaults to false.
 <TD>
 If set to true (the default), insist on a 250 response code from the NOOP
 command to indicate success.  The NOOP command is used by the
-<a href="../../../../javax/mail/Service.html#isConnected--"><code>isConnected</code></a> method to determine
+<a href="../../../../jakarta/mail/Service.html#isConnected--"><code>isConnected</code></a> method to determine
 if the connection is still alive.
 Some older servers return the wrong response code on success, some
 servers don't implement the NOOP command at all and so always return
@@ -912,7 +912,7 @@ broken in this way.
 <P>
 In general, applications should not need to use the classes in this
 package directly.  Instead, they should use the APIs defined by
-<code>javax.mail</code> package (and subpackages).  Applications should
+<code>jakarta.mail</code> package (and subpackages).  Applications should
 never construct instances of <code>SMTPTransport</code> directly.
 Instead, they should use the
 <code>Session</code> method <code>getTransport</code> to acquire an
@@ -920,7 +920,7 @@ appropriate <code>Transport</code> object.
 </P>
 <P>
 In addition to printing debugging output as controlled by the
-<a href="../../../../javax/mail/Session.html" title="class in javax.mail"><code>Session</code></a> configuration,
+<a href="../../../../jakarta/mail/Session.html" title="class in jakarta.mail"><code>Session</code></a> configuration,
 the com.sun.mail.smtp provider logs the same information using
 <code>Logger</code> as described in the following table:
 </P>
@@ -1004,6 +1004,6 @@ current APIs.
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2019 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2019, 2020 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
 </body>
 </html>

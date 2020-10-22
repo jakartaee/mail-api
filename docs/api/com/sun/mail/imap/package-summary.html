@@ -255,17 +255,17 @@ method using the capability name defined by the extension
 The IMAP UIDPLUS extension
 (<A HREF="http://www.ietf.org/rfc/rfc4315.txt" TARGET="_top">RFC 4315</A>)
 is supported via the IMAPFolder methods
-<a href="../../../../com/sun/mail/imap/IMAPFolder.html#addMessages-javax.mail.Message:A-"><code>addMessages</code></a>,
-<a href="../../../../com/sun/mail/imap/IMAPFolder.html#appendUIDMessages-javax.mail.Message:A-"><code>appendUIDMessages</code></a>, and
-<a href="../../../../com/sun/mail/imap/IMAPFolder.html#copyUIDMessages-javax.mail.Message:A-javax.mail.Folder-"><code>copyUIDMessages</code></a>.
+<a href="../../../../com/sun/mail/imap/IMAPFolder.html#addMessages-jakarta.mail.Message:A-"><code>addMessages</code></a>,
+<a href="../../../../com/sun/mail/imap/IMAPFolder.html#appendUIDMessages-jakarta.mail.Message:A-"><code>appendUIDMessages</code></a>, and
+<a href="../../../../com/sun/mail/imap/IMAPFolder.html#copyUIDMessages-jakarta.mail.Message:A-jakarta.mail.Folder-"><code>copyUIDMessages</code></a>.
 </P>
 <STRONG>MOVE Support</STRONG>
 <P>
 The IMAP MOVE extension
 (<A HREF="http://www.ietf.org/rfc/rfc6851.txt" TARGET="_top">RFC 6851</A>)
 is supported via the IMAPFolder methods
-<a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveMessages-javax.mail.Message:A-javax.mail.Folder-"><code>moveMessages</code></a> and
-<a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveUIDMessages-javax.mail.Message:A-javax.mail.Folder-"><code>moveUIDMessages</code></a>.
+<a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveMessages-jakarta.mail.Message:A-jakarta.mail.Folder-"><code>moveMessages</code></a> and
+<a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveUIDMessages-jakarta.mail.Message:A-jakarta.mail.Folder-"><code>moveUIDMessages</code></a>.
 </P>
 <STRONG>SASL Support</STRONG>
 <P>
@@ -323,10 +323,10 @@ implementations of the IMAP protocol provider.
 The IMAP QUOTA extension
 (<A HREF="http://www.ietf.org/rfc/rfc2087.txt" TARGET="_top">RFC 2087</A>)
 is supported via the
-<a href="../../../../javax/mail/QuotaAwareStore.html" title="interface in javax.mail"><code>QuotaAwareStore</code></a> interface implemented by
+<a href="../../../../jakarta/mail/QuotaAwareStore.html" title="interface in jakarta.mail"><code>QuotaAwareStore</code></a> interface implemented by
 <a href="../../../../com/sun/mail/imap/IMAPStore.html" title="class in com.sun.mail.imap"><code>IMAPStore</code></a>, and the
 <a href="../../../../com/sun/mail/imap/IMAPFolder.html#getQuota--"><code>IMAPFolder getQuota</code></a> and
-<a href="../../../../com/sun/mail/imap/IMAPFolder.html#setQuota-javax.mail.Quota-"><code>IMAPFolder setQuota</code></a> methods.
+<a href="../../../../com/sun/mail/imap/IMAPFolder.html#setQuota-jakarta.mail.Quota-"><code>IMAPFolder setQuota</code></a> methods.
 <STRONG>ACL Support</STRONG>
 <P>
 The IMAP ACL extension
@@ -373,12 +373,12 @@ Using a
 values also allows the server to report any changes in messages since the last
 resynchronization.
 The changes are reported as a list of
-<a href="../../../../javax/mail/event/MailEvent.html" title="class in javax.mail.event"><code>MailEvent</code></a> instances.
+<a href="../../../../jakarta/mail/event/MailEvent.html" title="class in jakarta.mail.event"><code>MailEvent</code></a> instances.
 The special
 <a href="../../../../com/sun/mail/imap/MessageVanishedEvent.html" title="class in com.sun.mail.imap"><code>MessageVanishedEvent</code></a> reports on
 UIDs of messages that have been removed since the last resynchronization.
 A
-<a href="../../../../javax/mail/event/MessageChangedEvent.html" title="class in javax.mail.event"><code>MessageChangedEvent</code></a> reports on
+<a href="../../../../jakarta/mail/event/MessageChangedEvent.html" title="class in jakarta.mail.event"><code>MessageChangedEvent</code></a> reports on
 changes to flags of messages.
 For example:
 </P>
@@ -405,7 +405,7 @@ The IMAP WITHIN search extension
 is supported via the
 <a href="../../../../com/sun/mail/imap/YoungerTerm.html" title="class in com.sun.mail.imap"><code>YoungerTerm</code></a> and
 <a href="../../../../com/sun/mail/imap/OlderTerm.html" title="class in com.sun.mail.imap"><code>OlderTerm</code></a> 
-<a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search"><code>SearchTerms</code></a>, which can be used as follows:
+<a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search"><code>SearchTerms</code></a>, which can be used as follows:
 </P>
 <PRE>
         // search for messages delivered in the last day
@@ -1025,13 +1025,13 @@ in future releases.
 <TD><A ID="mail.imap.throwsearchexception">mail.imap.throwsearchexception</A></TD>
 <TD>boolean</TD>
 <TD>
-If set to true and a <a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search"><code>SearchTerm</code></a>
+If set to true and a <a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search"><code>SearchTerm</code></a>
 passed to the
-<a href="../../../../javax/mail/Folder.html#search-javax.mail.search.SearchTerm-"><code>Folder.search</code></a>
+<a href="../../../../jakarta/mail/Folder.html#search-jakarta.mail.search.SearchTerm-"><code>Folder.search</code></a>
 method is too complex for the IMAP protocol, throw a
-<a href="../../../../javax/mail/search/SearchException.html" title="class in javax.mail.search"><code>SearchException</code></a>.
+<a href="../../../../jakarta/mail/search/SearchException.html" title="class in jakarta.mail.search"><code>SearchException</code></a>.
 For example, the IMAP protocol only supports less-than and greater-than
-comparisons for a <a href="../../../../javax/mail/search/SizeTerm.html" title="class in javax.mail.search"><code>SizeTerm</code></a>.
+comparisons for a <a href="../../../../jakarta/mail/search/SizeTerm.html" title="class in jakarta.mail.search"><code>SizeTerm</code></a>.
 If false, the search will be done locally by fetching the required
 message data and comparing it locally.
 Defaults to false.
@@ -1134,7 +1134,7 @@ Defaults to false.
 <P>
 In general, applications should not need to use the classes in this
 package directly.  Instead, they should use the APIs defined by the
-<code>javax.mail</code> package (and subpackages).  Applications should
+<code>jakarta.mail</code> package (and subpackages).  Applications should
 never construct instances of <code>IMAPStore</code> or
 <code>IMAPFolder</code> directly.  Instead, they should use the
 <code>Session</code> method <code>getStore</code> to acquire an
@@ -1144,7 +1144,7 @@ appropriate <code>Store</code> object, and from that acquire
 <STRONG>Loggers</STRONG>
 <P>
 In addition to printing debugging output as controlled by the
-<a href="../../../../javax/mail/Session.html" title="class in javax.mail"><code>Session</code></a> configuration,
+<a href="../../../../jakarta/mail/Session.html" title="class in jakarta.mail"><code>Session</code></a> configuration,
 the com.sun.mail.imap provider logs the same information using
 <code>Logger</code> as described in the following table:
 </P>
@@ -1254,6 +1254,6 @@ current APIs.
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2019 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2019, 2020 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
 </body>
 </html>

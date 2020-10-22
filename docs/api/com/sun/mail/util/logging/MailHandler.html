@@ -188,9 +188,9 @@ extends java.util.logging.Handler</pre>
  of the attachment formatter)
 
  <li>&lt;handler-name&gt;.authenticator name of an
- <a href="../../../../../javax/mail/Authenticator.html" title="class in javax.mail">Authenticator</a> class used to provide login credentials
+ <a href="../../../../../jakarta/mail/Authenticator.html" title="class in jakarta.mail">Authenticator</a> class used to provide login credentials
  to the email server or string literal that is the password used with the
- <a href="../../../../../javax/mail/Authenticator.html#getDefaultUserName--">default</a> user name.
+ <a href="../../../../../jakarta/mail/Authenticator.html#getDefaultUserName--">default</a> user name.
  (default is <code>null</code>)
 
  <li>&lt;handler-name&gt;.capacity the max number of
@@ -210,7 +210,7 @@ extends java.util.logging.Handler</pre>
  <li>&lt;handler-name&gt;.encoding the name of the Java
  character set to use for the
  email message. (defaults to <code>null</code>, the
- <a href="../../../../../javax/mail/internet/MimeUtility.html#getDefaultJavaCharset--">default</a>
+ <a href="../../../../../jakarta/mail/internet/MimeUtility.html#getDefaultJavaCharset--">default</a>
  platform encoding).
 
  <li>&lt;handler-name&gt;.errorManager name of an
@@ -245,11 +245,11 @@ extends java.util.logging.Handler</pre>
  addresses which will be from addresses. Typically, this is set to the email
  address identifying the user running the application.  The empty string can
  be used to override the default behavior and specify no from address.
- (defaults to the <a href="../../../../../javax/mail/Message.html#setFrom--">local address</a>)
+ (defaults to the <a href="../../../../../jakarta/mail/Message.html#setFrom--">local address</a>)
 
  <li>&lt;handler-name&gt;.mail.host the host name or IP
  address of the email server. (defaults to <code>null</code>, use
- <a href="../../../../../javax/mail/Service.html#protocolConnect-java.lang.String-int-java.lang.String-java.lang.String-">default</a>
+ <a href="../../../../../jakarta/mail/Service.html#protocolConnect-java.lang.String-int-java.lang.String-java.lang.String-">default</a>
  <code>Java Mail</code> behavior)
 
  <li>&lt;handler-name&gt;.mail.reply.to a comma separated
@@ -263,7 +263,7 @@ extends java.util.logging.Handler</pre>
  recipients that provide support for the application, system, and/or
  supporting infrastructure.  The empty string can be used to specify no
  send-to address which overrides the default behavior.  (defaults to
- <a href="../../../../../javax/mail/internet/InternetAddress.html#getLocalAddress-javax.mail.Session-">local address</a>.)
+ <a href="../../../../../jakarta/mail/internet/InternetAddress.html#getLocalAddress-jakarta.mail.Session-">local address</a>.)
 
  <li>&lt;handler-name&gt;.mail.sender a single address
  identifying sender of the email; never equal to the from address.  Typically,
@@ -391,12 +391,12 @@ extends java.util.logging.Handler</pre>
  <p>
  <b>Error Handling:</b>
  If the transport of an email message fails, the email is converted to
- a <a href="../../../../../javax/mail/internet/MimeMessage.html#writeTo-java.io.OutputStream-">raw</a>
+ a <a href="../../../../../jakarta/mail/internet/MimeMessage.html#writeTo-java.io.OutputStream-">raw</a>
  string
  and is then passed as the <code>msg</code> parameter to
  reportError along with the exception
  describing the cause of the failure.  This allows custom error managers to
- store, <a href="../../../../../javax/mail/internet/MimeMessage.html#MimeMessage-javax.mail.Session-java.io.InputStream-">reconstruct</a>, and resend the
+ store, <a href="../../../../../jakarta/mail/internet/MimeMessage.html#MimeMessage-jakarta.mail.Session-java.io.InputStream-">reconstruct</a>, and resend the
  original MimeMessage.  The message parameter string is <b>not</b> a raw email
  if it starts with value returned from <code>Level.SEVERE.getName()</code>.
  Custom error managers can use the following test to determine if the
@@ -496,7 +496,7 @@ extends java.util.logging.Handler</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../javax/mail/Authenticator.html" title="class in javax.mail">Authenticator</a></code></td>
+<td class="colFirst"><code><a href="../../../../../jakarta/mail/Authenticator.html" title="class in jakarta.mail">Authenticator</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/sun/mail/util/logging/MailHandler.html#getAuthenticator--">getAuthenticator</a></span>()</code>
 <div class="block">Gets the <code>Authenticator</code> used to login to the email server.</div>
 </td>
@@ -637,7 +637,7 @@ extends java.util.logging.Handler</pre>
 </tr>
 <tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/sun/mail/util/logging/MailHandler.html#setAuthenticator-javax.mail.Authenticator-">setAuthenticator</a></span>(<a href="../../../../../javax/mail/Authenticator.html" title="class in javax.mail">Authenticator</a>&nbsp;auth)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/sun/mail/util/logging/MailHandler.html#setAuthenticator-jakarta.mail.Authenticator-">setAuthenticator</a></span>(<a href="../../../../../jakarta/mail/Authenticator.html" title="class in jakarta.mail">Authenticator</a>&nbsp;auth)</code>
 <div class="block">Sets the <code>Authenticator</code> used to login to the email server.</div>
 </td>
 </tr>
@@ -1288,7 +1288,7 @@ extends java.util.logging.Handler</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getAuthenticator</h4>
-<pre>public final&nbsp;<a href="../../../../../javax/mail/Authenticator.html" title="class in javax.mail">Authenticator</a>&nbsp;getAuthenticator()</pre>
+<pre>public final&nbsp;<a href="../../../../../jakarta/mail/Authenticator.html" title="class in jakarta.mail">Authenticator</a>&nbsp;getAuthenticator()</pre>
 <div class="block">Gets the <code>Authenticator</code> used to login to the email server.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -1300,13 +1300,13 @@ extends java.util.logging.Handler</pre>
 </dl>
 </li>
 </ul>
-<a name="setAuthenticator-javax.mail.Authenticator-">
+<a name="setAuthenticator-jakarta.mail.Authenticator-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setAuthenticator</h4>
-<pre>public final&nbsp;void&nbsp;setAuthenticator(<a href="../../../../../javax/mail/Authenticator.html" title="class in javax.mail">Authenticator</a>&nbsp;auth)</pre>
+<pre>public final&nbsp;void&nbsp;setAuthenticator(<a href="../../../../../jakarta/mail/Authenticator.html" title="class in jakarta.mail">Authenticator</a>&nbsp;auth)</pre>
 <div class="block">Sets the <code>Authenticator</code> used to login to the email server.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1702,6 +1702,6 @@ extends java.util.logging.Handler</pre>
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2019 Eclipse Foundation.     Use is subject to     <a href="../../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2019, 2020 Eclipse Foundation.     Use is subject to     <a href="../../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
 </body>
 </html>
