@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">javax.mail.Folder</a></li>
+<li><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">jakarta.mail.Folder</a></li>
 <li>
 <ul class="inheritance">
 <li>com.sun.mail.imap.IMAPFolder</li>
@@ -114,7 +114,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ResponseHandler.html?is-external=true" title="class or interface in com.sun.mail.iap">ResponseHandler</a>, java.lang.AutoCloseable, <a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></dd>
+<dd>com.sun.mail.iap.ResponseHandler, <a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a>, java.lang.AutoCloseable</dd>
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
@@ -123,8 +123,8 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">IMAPFolder</span>
-extends <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>
-implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a>, <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ResponseHandler.html?is-external=true" title="class or interface in com.sun.mail.iap">ResponseHandler</a></pre>
+extends <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>
+implements <a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a>, com.sun.mail.iap.ResponseHandler</pre>
 <div class="block">This class implements an IMAP folder. <p>
 
  A closed IMAPFolder object shares a protocol connection with its IMAPStore
@@ -135,7 +135,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
  use the methods on this class. <p>
 
  The <a href="../../../../com/sun/mail/imap/IMAPFolder.html#getQuota--"><code>getQuota</code></a> and
- <a href="../../../../com/sun/mail/imap/IMAPFolder.html#setQuota-javax.mail.Quota-"><code>setQuota</code></a> methods support the IMAP QUOTA extension.
+ <a href="../../../../com/sun/mail/imap/IMAPFolder.html#setQuota-jakarta.mail.Quota-"><code>setQuota</code></a> methods support the IMAP QUOTA extension.
  Refer to <A HREF="http://www.ietf.org/rfc/rfc2087.txt">RFC 2087</A>
  for more information. <p>
 
@@ -219,7 +219,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#attributes">attributes</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#availableFlags">availableFlags</a></span></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -235,11 +235,11 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#isNamespace">isNamespace</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/util/MailLogger.html?is-external=true" title="class or interface in com.sun.mail.util">MailLogger</a></code></td>
+<td class="colFirst"><code>protected com.sun.mail.util.MailLogger</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#logger">logger</a></span></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/MessageCache.html?is-external=true" title="class or interface in com.sun.mail.imap">MessageCache</a></code></td>
+<td class="colFirst"><code>protected com.sun.mail.imap.MessageCache</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#messageCache">messageCache</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -251,11 +251,11 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#name">name</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#permanentFlags">permanentFlags</a></span></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a></code></td>
+<td class="colFirst"><code>protected com.sun.mail.imap.protocol.IMAPProtocol</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#protocol">protocol</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -276,18 +276,18 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a name="fields.inherited.from.class.javax.mail.Folder">
+<li class="blockList"><a name="fields.inherited.from.class.jakarta.mail.Folder">
 <!--   -->
 </a>
-<h3>Fields inherited from class&nbsp;javax.mail.<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></h3>
-<code><a href="../../../../javax/mail/Folder.html#HOLDS_FOLDERS">HOLDS_FOLDERS</a>, <a href="../../../../javax/mail/Folder.html#HOLDS_MESSAGES">HOLDS_MESSAGES</a>, <a href="../../../../javax/mail/Folder.html#mode">mode</a>, <a href="../../../../javax/mail/Folder.html#READ_ONLY">READ_ONLY</a>, <a href="../../../../javax/mail/Folder.html#READ_WRITE">READ_WRITE</a>, <a href="../../../../javax/mail/Folder.html#store">store</a></code></li>
+<h3>Fields inherited from class&nbsp;jakarta.mail.<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></h3>
+<code><a href="../../../../jakarta/mail/Folder.html#HOLDS_FOLDERS">HOLDS_FOLDERS</a>, <a href="../../../../jakarta/mail/Folder.html#HOLDS_MESSAGES">HOLDS_MESSAGES</a>, <a href="../../../../jakarta/mail/Folder.html#mode">mode</a>, <a href="../../../../jakarta/mail/Folder.html#READ_ONLY">READ_ONLY</a>, <a href="../../../../jakarta/mail/Folder.html#READ_WRITE">READ_WRITE</a>, <a href="../../../../jakarta/mail/Folder.html#store">store</a></code></li>
 </ul>
 <ul class="blockList">
-<li class="blockList"><a name="fields.inherited.from.class.javax.mail.UIDFolder">
+<li class="blockList"><a name="fields.inherited.from.class.jakarta.mail.UIDFolder">
 <!--   -->
 </a>
-<h3>Fields inherited from interface&nbsp;javax.mail.<a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></h3>
-<code><a href="../../../../javax/mail/UIDFolder.html#LASTUID">LASTUID</a>, <a href="../../../../javax/mail/UIDFolder.html#MAXUID">MAXUID</a></code></li>
+<h3>Fields inherited from interface&nbsp;jakarta.mail.<a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a></h3>
+<code><a href="../../../../jakarta/mail/UIDFolder.html#LASTUID">LASTUID</a>, <a href="../../../../jakarta/mail/UIDFolder.html#MAXUID">MAXUID</a></code></li>
 </ul>
 </li>
 </ul>
@@ -305,7 +305,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected </code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#IMAPFolder-com.sun.mail.imap.protocol.ListInfo-com.sun.mail.imap.IMAPStore-">IMAPFolder</a></span>(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/ListInfo.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">ListInfo</a>&nbsp;li,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#IMAPFolder-com.sun.mail.imap.protocol.ListInfo-com.sun.mail.imap.IMAPStore-">IMAPFolder</a></span>(com.sun.mail.imap.protocol.ListInfo&nbsp;li,
           <a href="../../../../com/sun/mail/imap/IMAPStore.html" title="class in com.sun.mail.imap">IMAPStore</a>&nbsp;store)</code>
 <div class="block">Constructor used to create an existing folder.</div>
 </td>
@@ -343,13 +343,13 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#addMessageCountListener-javax.mail.event.MessageCountListener-">addMessageCountListener</a></span>(<a href="../../../../javax/mail/event/MessageCountListener.html" title="interface in javax.mail.event">MessageCountListener</a>&nbsp;l)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#addMessageCountListener-jakarta.mail.event.MessageCountListener-">addMessageCountListener</a></span>(<a href="../../../../jakarta/mail/event/MessageCountListener.html" title="interface in jakarta.mail.event">MessageCountListener</a>&nbsp;l)</code>
 <div class="block">Add a listener for MessageCount events on this Folder.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#addMessages-javax.mail.Message:A-">addMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)</code>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#addMessages-jakarta.mail.Message:A-">addMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)</code>
 <div class="block">Append the given messages into this folder.</div>
 </td>
 </tr>
@@ -362,13 +362,13 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#appendMessages-javax.mail.Message:A-">appendMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#appendMessages-jakarta.mail.Message:A-">appendMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)</code>
 <div class="block">Append the given messages into this folder.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/AppendUID.html?is-external=true" title="class or interface in com.sun.mail.imap">AppendUID</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#appendUIDMessages-javax.mail.Message:A-">appendUIDMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)</code>
+<td class="colFirst"><code>com.sun.mail.imap.AppendUID[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#appendUIDMessages-jakarta.mail.Message:A-">appendUIDMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)</code>
 <div class="block">Append the given messages into this folder.</div>
 </td>
 </tr>
@@ -396,16 +396,16 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#copyMessages-javax.mail.Message:A-javax.mail.Folder-">copyMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-            <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#copyMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">copyMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+            <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)</code>
 <div class="block">Copy the specified messages from this folder, to the
  specified destination.</div>
 </td>
 </tr>
 <tr id="i12" class="altColor">
-<td class="colFirst"><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/AppendUID.html?is-external=true" title="class or interface in com.sun.mail.imap">AppendUID</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#copyUIDMessages-javax.mail.Message:A-javax.mail.Folder-">copyUIDMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-               <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)</code>
+<td class="colFirst"><code>com.sun.mail.imap.AppendUID[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#copyUIDMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">copyUIDMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+               <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)</code>
 <div class="block">Copy the specified messages from this folder, to the
  specified destination.</div>
 </td>
@@ -448,21 +448,21 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i20" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#expunge--">expunge</a></span>()</code>
 <div class="block">Expunge all messages marked as DELETED.</div>
 </td>
 </tr>
 <tr id="i21" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#expunge-javax.mail.Message:A-">expunge</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)</code>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#expunge-jakarta.mail.Message:A-">expunge</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)</code>
 <div class="block">Expunge the indicated messages, which must have been marked as DELETED.</div>
 </td>
 </tr>
 <tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#fetch-javax.mail.Message:A-javax.mail.FetchProfile-">fetch</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-     <a href="../../../../javax/mail/FetchProfile.html" title="class in javax.mail">FetchProfile</a>&nbsp;fp)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-">fetch</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+     <a href="../../../../jakarta/mail/FetchProfile.html" title="class in jakarta.mail">FetchProfile</a>&nbsp;fp)</code>
 <div class="block">Prefetch attributes, based on the given FetchProfile.</div>
 </td>
 </tr>
@@ -499,7 +499,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i28" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getFolder-java.lang.String-">getFolder</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Get the named subfolder.</div>
 </td>
@@ -517,7 +517,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i31" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getMessage-int-">getMessage</a></span>(int&nbsp;msgnum)</code>
 <div class="block">Get the specified message.</div>
 </td>
@@ -529,7 +529,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i33" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getMessageByUID-long-">getMessageByUID</a></span>(long&nbsp;uid)</code>
 <div class="block">Get the Message corresponding to the given UID.</div>
 </td>
@@ -541,7 +541,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i35" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getMessages--">getMessages</a></span>()</code>
 <div class="block">Get all Message objects from this Folder.</div>
 </td>
@@ -553,20 +553,20 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i37" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getMessagesByUID-long:A-">getMessagesByUID</a></span>(long[]&nbsp;uids)</code>
 <div class="block">Get the Messages specified by the given array.</div>
 </td>
 </tr>
 <tr id="i38" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getMessagesByUID-long-long-">getMessagesByUID</a></span>(long&nbsp;start,
                 long&nbsp;end)</code>
 <div class="block">Get the Messages specified by the given range.</div>
 </td>
 </tr>
 <tr id="i39" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getMessagesByUIDChangedSince-long-long-long-">getMessagesByUIDChangedSince</a></span>(long&nbsp;start,
                             long&nbsp;end,
                             long&nbsp;modseq)</code>
@@ -586,25 +586,25 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i42" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getParent--">getParent</a></span>()</code>
 <div class="block">Get this folder's parent.</div>
 </td>
 </tr>
 <tr id="i43" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a></code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getPermanentFlags--">getPermanentFlags</a></span>()</code>
 <div class="block">Return the permanent flags supported by the server.</div>
 </td>
 </tr>
 <tr id="i44" class="altColor">
-<td class="colFirst"><code>protected <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a></code></td>
+<td class="colFirst"><code>protected com.sun.mail.imap.protocol.IMAPProtocol</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getProtocol--">getProtocol</a></span>()</code>
 <div class="block">Return the IMAPProtocol object for this folder.</div>
 </td>
 </tr>
 <tr id="i45" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Quota.html" title="class in javax.mail">Quota</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Quota.html" title="class in jakarta.mail">Quota</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getQuota--">getQuota</a></span>()</code>
 <div class="block">Get the quotas for the quotaroot associated with this
  folder.</div>
@@ -617,15 +617,15 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i47" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getSortedMessages-com.sun.mail.imap.SortTerm:A-">getSortedMessages</a></span>(<a href="../../../../com/sun/mail/imap/SortTerm.html" title="class in com.sun.mail.imap">SortTerm</a>[]&nbsp;term)</code>
 <div class="block">Sort the messages in the folder according to the sort criteria.</div>
 </td>
 </tr>
 <tr id="i48" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getSortedMessages-com.sun.mail.imap.SortTerm:A-javax.mail.search.SearchTerm-">getSortedMessages</a></span>(<a href="../../../../com/sun/mail/imap/SortTerm.html" title="class in com.sun.mail.imap">SortTerm</a>[]&nbsp;term,
-                 <a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search">SearchTerm</a>&nbsp;sterm)</code>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getSortedMessages-com.sun.mail.imap.SortTerm:A-jakarta.mail.search.SearchTerm-">getSortedMessages</a></span>(<a href="../../../../com/sun/mail/imap/SortTerm.html" title="class in com.sun.mail.imap">SortTerm</a>[]&nbsp;term,
+                 <a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search">SearchTerm</a>&nbsp;sterm)</code>
 <div class="block">Sort the messages in the folder according to the sort criteria.</div>
 </td>
 </tr>
@@ -636,7 +636,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i50" class="altColor">
-<td class="colFirst"><code>protected <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a></code></td>
+<td class="colFirst"><code>protected com.sun.mail.imap.protocol.IMAPProtocol</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getStoreProtocol--">getStoreProtocol</a></span>()</code>
 <div class="block">Get this folder's Store's protocol connection.</div>
 </td>
@@ -649,7 +649,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i52" class="altColor">
 <td class="colFirst"><code>long</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getUID-javax.mail.Message-">getUID</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;message)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#getUID-jakarta.mail.Message-">getUID</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;message)</code>
 <div class="block">Get the UID for the specified message.</div>
 </td>
 </tr>
@@ -684,7 +684,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i57" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#handleResponse-com.sun.mail.iap.Response-">handleResponse</a></span>(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/Response.html?is-external=true" title="class or interface in com.sun.mail.iap">Response</a>&nbsp;r)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#handleResponse-com.sun.mail.iap.Response-">handleResponse</a></span>(com.sun.mail.iap.Response&nbsp;r)</code>
 <div class="block">The response handler.</div>
 </td>
 </tr>
@@ -738,7 +738,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i65" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#list-java.lang.String-">list</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">List all subfolders matching the specified pattern.</div>
 </td>
@@ -750,23 +750,23 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i67" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#listSubscribed-java.lang.String-">listSubscribed</a></span>(java.lang.String&nbsp;pattern)</code>
 <div class="block">List all subscribed subfolders matching the specified pattern.</div>
 </td>
 </tr>
 <tr id="i68" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveMessages-javax.mail.Message:A-javax.mail.Folder-">moveMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-            <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">moveMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+            <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)</code>
 <div class="block">Move the specified messages from this folder, to the
  specified destination.</div>
 </td>
 </tr>
 <tr id="i69" class="rowColor">
-<td class="colFirst"><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/AppendUID.html?is-external=true" title="class or interface in com.sun.mail.imap">AppendUID</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveUIDMessages-javax.mail.Message:A-javax.mail.Folder-">moveUIDMessages</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-               <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)</code>
+<td class="colFirst"><code>com.sun.mail.imap.AppendUID[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#moveUIDMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">moveUIDMessages</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+               <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)</code>
 <div class="block">Move the specified messages from this folder, to the
  specified destination.</div>
 </td>
@@ -790,7 +790,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </td>
 </tr>
 <tr id="i73" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../javax/mail/event/MailEvent.html" title="class in javax.mail.event">MailEvent</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../jakarta/mail/event/MailEvent.html" title="class in jakarta.mail.event">MailEvent</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#open-int-com.sun.mail.imap.ResyncData-">open</a></span>(int&nbsp;mode,
     <a href="../../../../com/sun/mail/imap/ResyncData.html" title="class in com.sun.mail.imap">ResyncData</a>&nbsp;rd)</code>
 <div class="block">Open this folder in the given mode, with the given
@@ -805,7 +805,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i75" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#releaseStoreProtocol-com.sun.mail.imap.protocol.IMAPProtocol-">releaseStoreProtocol</a></span>(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a>&nbsp;p)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#releaseStoreProtocol-com.sun.mail.imap.protocol.IMAPProtocol-">releaseStoreProtocol</a></span>(com.sun.mail.imap.protocol.IMAPProtocol&nbsp;p)</code>
 <div class="block">Release the store protocol object.</div>
 </td>
 </tr>
@@ -825,51 +825,51 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i78" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#renameTo-javax.mail.Folder-">renameTo</a></span>(<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;f)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#renameTo-jakarta.mail.Folder-">renameTo</a></span>(<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;f)</code>
 <div class="block">Rename this folder.</div>
 </td>
 </tr>
 <tr id="i79" class="rowColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#search-javax.mail.search.SearchTerm-">search</a></span>(<a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search">SearchTerm</a>&nbsp;term)</code>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#search-jakarta.mail.search.SearchTerm-">search</a></span>(<a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search">SearchTerm</a>&nbsp;term)</code>
 <div class="block">Search whole folder for messages matching the given term.</div>
 </td>
 </tr>
 <tr id="i80" class="altColor">
-<td class="colFirst"><code><a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#search-javax.mail.search.SearchTerm-javax.mail.Message:A-">search</a></span>(<a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search">SearchTerm</a>&nbsp;term,
-      <a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)</code>
+<td class="colFirst"><code><a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#search-jakarta.mail.search.SearchTerm-jakarta.mail.Message:A-">search</a></span>(<a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search">SearchTerm</a>&nbsp;term,
+      <a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)</code>
 <div class="block">Search the folder for messages matching the given term.</div>
 </td>
 </tr>
 <tr id="i81" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setFlags-int:A-javax.mail.Flags-boolean-">setFlags</a></span>(int[]&nbsp;msgnums,
-        <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;flag,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setFlags-int:A-jakarta.mail.Flags-boolean-">setFlags</a></span>(int[]&nbsp;msgnums,
+        <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;flag,
         boolean&nbsp;value)</code>
 <div class="block">Set the specified flags for the given array of message numbers.</div>
 </td>
 </tr>
 <tr id="i82" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setFlags-int-int-javax.mail.Flags-boolean-">setFlags</a></span>(int&nbsp;start,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setFlags-int-int-jakarta.mail.Flags-boolean-">setFlags</a></span>(int&nbsp;start,
         int&nbsp;end,
-        <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;flag,
+        <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;flag,
         boolean&nbsp;value)</code>
 <div class="block">Set the specified flags for the given range of message numbers.</div>
 </td>
 </tr>
 <tr id="i83" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setFlags-javax.mail.Message:A-javax.mail.Flags-boolean-">setFlags</a></span>(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-        <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;flag,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setFlags-jakarta.mail.Message:A-jakarta.mail.Flags-boolean-">setFlags</a></span>(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+        <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;flag,
         boolean&nbsp;value)</code>
 <div class="block">Set the specified flags for the given array of messages.</div>
 </td>
 </tr>
 <tr id="i84" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setQuota-javax.mail.Quota-">setQuota</a></span>(<a href="../../../../javax/mail/Quota.html" title="class in javax.mail">Quota</a>&nbsp;quota)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#setQuota-jakarta.mail.Quota-">setQuota</a></span>(<a href="../../../../jakarta/mail/Quota.html" title="class in jakarta.mail">Quota</a>&nbsp;quota)</code>
 <div class="block">Set the quotas for the quotaroot specified in the quota argument.</div>
 </td>
 </tr>
@@ -881,17 +881,17 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </tr>
 <tr id="i86" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#throwClosedException-com.sun.mail.iap.ConnectionException-">throwClosedException</a></span>(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ConnectionException.html?is-external=true" title="class or interface in com.sun.mail.iap">ConnectionException</a>&nbsp;cex)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/sun/mail/imap/IMAPFolder.html#throwClosedException-com.sun.mail.iap.ConnectionException-">throwClosedException</a></span>(com.sun.mail.iap.ConnectionException&nbsp;cex)</code>
 <div class="block">Throw the appropriate 'closed' exception.</div>
 </td>
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.javax.mail.Folder">
+<li class="blockList"><a name="methods.inherited.from.class.jakarta.mail.Folder">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;javax.mail.<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></h3>
-<code><a href="../../../../javax/mail/Folder.html#addConnectionListener-javax.mail.event.ConnectionListener-">addConnectionListener</a>, <a href="../../../../javax/mail/Folder.html#addFolderListener-javax.mail.event.FolderListener-">addFolderListener</a>, <a href="../../../../javax/mail/Folder.html#addMessageChangedListener-javax.mail.event.MessageChangedListener-">addMessageChangedListener</a>, <a href="../../../../javax/mail/Folder.html#close--">close</a>, <a href="../../../../javax/mail/Folder.html#finalize--">finalize</a>, <a href="../../../../javax/mail/Folder.html#getMessages-int:A-">getMessages</a>, <a href="../../../../javax/mail/Folder.html#getMessages-int-int-">getMessages</a>, <a href="../../../../javax/mail/Folder.html#getMode--">getMode</a>, <a href="../../../../javax/mail/Folder.html#getStore--">getStore</a>, <a href="../../../../javax/mail/Folder.html#getURLName--">getURLName</a>, <a href="../../../../javax/mail/Folder.html#list--">list</a>, <a href="../../../../javax/mail/Folder.html#listSubscribed--">listSubscribed</a>, <a href="../../../../javax/mail/Folder.html#notifyConnectionListeners-int-">notifyConnectionListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyFolderListeners-int-">notifyFolderListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyFolderRenamedListeners-javax.mail.Folder-">notifyFolderRenamedListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyMessageAddedListeners-javax.mail.Message:A-">notifyMessageAddedListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyMessageChangedListeners-int-javax.mail.Message-">notifyMessageChangedListeners</a>, <a href="../../../../javax/mail/Folder.html#notifyMessageRemovedListeners-boolean-javax.mail.Message:A-">notifyMessageRemovedListeners</a>, <a href="../../../../javax/mail/Folder.html#removeConnectionListener-javax.mail.event.ConnectionListener-">removeConnectionListener</a>, <a href="../../../../javax/mail/Folder.html#removeFolderListener-javax.mail.event.FolderListener-">removeFolderListener</a>, <a href="../../../../javax/mail/Folder.html#removeMessageChangedListener-javax.mail.event.MessageChangedListener-">removeMessageChangedListener</a>, <a href="../../../../javax/mail/Folder.html#removeMessageCountListener-javax.mail.event.MessageCountListener-">removeMessageCountListener</a>, <a href="../../../../javax/mail/Folder.html#toString--">toString</a></code></li>
+<h3>Methods inherited from class&nbsp;jakarta.mail.<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></h3>
+<code><a href="../../../../jakarta/mail/Folder.html#addConnectionListener-jakarta.mail.event.ConnectionListener-">addConnectionListener</a>, <a href="../../../../jakarta/mail/Folder.html#addFolderListener-jakarta.mail.event.FolderListener-">addFolderListener</a>, <a href="../../../../jakarta/mail/Folder.html#addMessageChangedListener-jakarta.mail.event.MessageChangedListener-">addMessageChangedListener</a>, <a href="../../../../jakarta/mail/Folder.html#close--">close</a>, <a href="../../../../jakarta/mail/Folder.html#finalize--">finalize</a>, <a href="../../../../jakarta/mail/Folder.html#getMessages-int:A-">getMessages</a>, <a href="../../../../jakarta/mail/Folder.html#getMessages-int-int-">getMessages</a>, <a href="../../../../jakarta/mail/Folder.html#getMode--">getMode</a>, <a href="../../../../jakarta/mail/Folder.html#getStore--">getStore</a>, <a href="../../../../jakarta/mail/Folder.html#getURLName--">getURLName</a>, <a href="../../../../jakarta/mail/Folder.html#list--">list</a>, <a href="../../../../jakarta/mail/Folder.html#listSubscribed--">listSubscribed</a>, <a href="../../../../jakarta/mail/Folder.html#notifyConnectionListeners-int-">notifyConnectionListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyFolderListeners-int-">notifyFolderListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyFolderRenamedListeners-jakarta.mail.Folder-">notifyFolderRenamedListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyMessageAddedListeners-jakarta.mail.Message:A-">notifyMessageAddedListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyMessageChangedListeners-int-jakarta.mail.Message-">notifyMessageChangedListeners</a>, <a href="../../../../jakarta/mail/Folder.html#notifyMessageRemovedListeners-boolean-jakarta.mail.Message:A-">notifyMessageRemovedListeners</a>, <a href="../../../../jakarta/mail/Folder.html#removeConnectionListener-jakarta.mail.event.ConnectionListener-">removeConnectionListener</a>, <a href="../../../../jakarta/mail/Folder.html#removeFolderListener-jakarta.mail.event.FolderListener-">removeFolderListener</a>, <a href="../../../../jakarta/mail/Folder.html#removeMessageChangedListener-jakarta.mail.event.MessageChangedListener-">removeMessageChangedListener</a>, <a href="../../../../jakarta/mail/Folder.html#removeMessageCountListener-jakarta.mail.event.MessageCountListener-">removeMessageCountListener</a>, <a href="../../../../jakarta/mail/Folder.html#toString--">toString</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -956,7 +956,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>availableFlags</h4>
-<pre>protected&nbsp;<a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a> availableFlags</pre>
+<pre>protected&nbsp;<a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a> availableFlags</pre>
 </li>
 </ul>
 <a name="permanentFlags">
@@ -965,7 +965,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>permanentFlags</h4>
-<pre>protected&nbsp;<a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a> permanentFlags</pre>
+<pre>protected&nbsp;<a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a> permanentFlags</pre>
 </li>
 </ul>
 <a name="exists">
@@ -1001,7 +1001,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>protocol</h4>
-<pre>protected volatile&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a> protocol</pre>
+<pre>protected volatile&nbsp;com.sun.mail.imap.protocol.IMAPProtocol protocol</pre>
 </li>
 </ul>
 <a name="messageCache">
@@ -1010,7 +1010,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>messageCache</h4>
-<pre>protected&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/MessageCache.html?is-external=true" title="class or interface in com.sun.mail.imap">MessageCache</a> messageCache</pre>
+<pre>protected&nbsp;com.sun.mail.imap.MessageCache messageCache</pre>
 </li>
 </ul>
 <a name="messageCacheLock">
@@ -1050,7 +1050,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockListLast">
 <li class="blockList">
 <h4>logger</h4>
-<pre>protected&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/util/MailLogger.html?is-external=true" title="class or interface in com.sun.mail.util">MailLogger</a> logger</pre>
+<pre>protected&nbsp;com.sun.mail.util.MailLogger logger</pre>
 </li>
 </ul>
 </li>
@@ -1088,7 +1088,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockListLast">
 <li class="blockList">
 <h4>IMAPFolder</h4>
-<pre>protected&nbsp;IMAPFolder(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/ListInfo.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">ListInfo</a>&nbsp;li,
+<pre>protected&nbsp;IMAPFolder(com.sun.mail.imap.protocol.ListInfo&nbsp;li,
                      <a href="../../../../com/sun/mail/imap/IMAPStore.html" title="class in com.sun.mail.imap">IMAPStore</a>&nbsp;store)</pre>
 <div class="block">Constructor used to create an existing folder.</div>
 <dl>
@@ -1113,10 +1113,10 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>checkExists</h4>
 <pre>protected&nbsp;void&nbsp;checkExists()
-                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -1136,10 +1136,10 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>checkOpened</h4>
 <pre>protected&nbsp;void&nbsp;checkOpened()
-                    throws <a href="../../../../javax/mail/FolderClosedException.html" title="class in javax.mail">FolderClosedException</a></pre>
+                    throws <a href="../../../../jakarta/mail/FolderClosedException.html" title="class in jakarta.mail">FolderClosedException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderClosedException.html" title="class in javax.mail">FolderClosedException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/FolderClosedException.html" title="class in jakarta.mail">FolderClosedException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -1150,10 +1150,10 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>checkRange</h4>
 <pre>protected&nbsp;void&nbsp;checkRange(int&nbsp;msgno)
-                   throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                   throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -1167,7 +1167,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <div class="block">Get the name of this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getName--">getName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getName--">getName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>name of the Folder</dd>
 </dl>
@@ -1183,7 +1183,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <div class="block">Get the fullname of this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getFullName--">getFullName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getFullName--">getFullName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>full name of the Folder</dd>
 </dl>
@@ -1195,16 +1195,16 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getParent</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;getParent()
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;getParent()
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get this folder's parent.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getParent--">getParent</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getParent--">getParent</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Parent folder</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
@@ -1215,18 +1215,18 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>exists</h4>
 <pre>public&nbsp;boolean&nbsp;exists()
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Check whether this folder really exists on the server.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#exists--">exists</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#exists--">exists</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the folder exists, otherwise false</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - typically if the connection 
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - typically if the connection 
                         to the server is lost.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#create-int-"><code>Folder.create(int)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#create-int-"><code>Folder.create(int)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1236,23 +1236,23 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>list</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]&nbsp;list(java.lang.String&nbsp;pattern)
-              throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>[]&nbsp;list(java.lang.String&nbsp;pattern)
+              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">List all subfolders matching the specified pattern.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#list-java.lang.String-">list</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#list-java.lang.String-">list</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>pattern</code> - the match pattern</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of matching Folder objects. An empty
                         array is returned if no matching Folders exist.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#listSubscribed-java.lang.String-"><code>Folder.listSubscribed(java.lang.String)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#listSubscribed-java.lang.String-"><code>Folder.listSubscribed(java.lang.String)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1262,12 +1262,12 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>listSubscribed</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>[]&nbsp;listSubscribed(java.lang.String&nbsp;pattern)
-                        throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>[]&nbsp;listSubscribed(java.lang.String&nbsp;pattern)
+                        throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">List all subscribed subfolders matching the specified pattern.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#listSubscribed-java.lang.String-">listSubscribed</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#listSubscribed-java.lang.String-">listSubscribed</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>pattern</code> - the match pattern</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -1275,11 +1275,11 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
                         empty array is returned if no matching
                         subscribed folders exist.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#list-java.lang.String-"><code>Folder.list(java.lang.String)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#list-java.lang.String-"><code>Folder.list(java.lang.String)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1290,17 +1290,17 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getSeparator</h4>
 <pre>public&nbsp;char&nbsp;getSeparator()
-                  throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                  throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the separator character.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getSeparator--">getSeparator</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getSeparator--">getSeparator</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Hierarchy separator character</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if the implementation
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if the implementation
                         requires the folder to exist, but it does not</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -1311,20 +1311,20 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getType</h4>
 <pre>public&nbsp;int&nbsp;getType()
-            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+            throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the type of this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getType--">getType</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getType--">getType</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>integer with appropriate bits set</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code></dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
-<a href="../../../../javax/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1338,7 +1338,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <div class="block">Check whether this folder is subscribed.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#isSubscribed--">isSubscribed</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#isSubscribed--">isSubscribed</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if this Folder is subscribed</dd>
 </dl>
@@ -1351,19 +1351,19 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>setSubscribed</h4>
 <pre>public&nbsp;void&nbsp;setSubscribed(boolean&nbsp;subscribe)
-                   throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                   throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Subscribe/Unsubscribe this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#setSubscribed-boolean-">setSubscribed</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#setSubscribed-boolean-">setSubscribed</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>subscribe</code> - true to subscribe, false to unsubscribe</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MethodNotSupportedException.html" title="class in javax.mail">MethodNotSupportedException</a></code> - if this store
+<dd><code><a href="../../../../jakarta/mail/MethodNotSupportedException.html" title="class in jakarta.mail">MethodNotSupportedException</a></code> - if this store
                         does not support subscription</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -1374,21 +1374,21 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>create</h4>
 <pre>public&nbsp;boolean&nbsp;create(int&nbsp;type)
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Create this folder, with the specified type.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#create-int-">create</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#create-int-">create</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>type</code> - The type of this folder.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the creation succeeds, else false.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
-<a href="../../../../javax/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a>, 
-<a href="../../../../javax/mail/event/FolderEvent.html" title="class in javax.mail.event"><code>FolderEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#HOLDS_FOLDERS"><code>Folder.HOLDS_FOLDERS</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#HOLDS_MESSAGES"><code>Folder.HOLDS_MESSAGES</code></a>, 
+<a href="../../../../jakarta/mail/event/FolderEvent.html" title="class in jakarta.mail.event"><code>FolderEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1399,17 +1399,17 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>hasNewMessages</h4>
 <pre>public&nbsp;boolean&nbsp;hasNewMessages()
-                       throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                       throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Check whether this folder has new messages.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#hasNewMessages--">hasNewMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#hasNewMessages--">hasNewMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the Store has new Messages</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -1419,18 +1419,18 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getFolder</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;getFolder(java.lang.String&nbsp;name)
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;getFolder(java.lang.String&nbsp;name)
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the named subfolder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getFolder-java.lang.String-">getFolder</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getFolder-java.lang.String-">getFolder</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>name</code> - name of the Folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Folder object</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
@@ -1441,46 +1441,46 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>delete</h4>
 <pre>public&nbsp;boolean&nbsp;delete(boolean&nbsp;recurse)
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Delete this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#delete-boolean-">delete</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#delete-boolean-">delete</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>recurse</code> - also delete subfolders?</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the Folder is deleted successfully</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/event/FolderEvent.html" title="class in javax.mail.event"><code>FolderEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/event/FolderEvent.html" title="class in jakarta.mail.event"><code>FolderEvent</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="renameTo-javax.mail.Folder-">
+<a name="renameTo-jakarta.mail.Folder-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>renameTo</h4>
-<pre>public&nbsp;boolean&nbsp;renameTo(<a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;f)
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;boolean&nbsp;renameTo(<a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;f)
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Rename this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#renameTo-javax.mail.Folder-">renameTo</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#renameTo-jakarta.mail.Folder-">renameTo</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>f</code> - a folder representing the new name for this Folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the Folder is renamed successfully</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/event/FolderEvent.html" title="class in javax.mail.event"><code>FolderEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/event/FolderEvent.html" title="class in jakarta.mail.event"><code>FolderEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1491,22 +1491,22 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>open</h4>
 <pre>public&nbsp;void&nbsp;open(int&nbsp;mode)
-          throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+          throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Open this folder in the given mode.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#open-int-">open</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#open-int-">open</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>mode</code> - open the Folder READ_ONLY or READ_WRITE</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#READ_ONLY"><code>Folder.READ_ONLY</code></a>, 
-<a href="../../../../javax/mail/Folder.html#READ_WRITE"><code>Folder.READ_WRITE</code></a>, 
-<a href="../../../../javax/mail/Folder.html#getType--"><code>Folder.getType()</code></a>, 
-<a href="../../../../javax/mail/event/ConnectionEvent.html" title="class in javax.mail.event"><code>ConnectionEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#READ_ONLY"><code>Folder.READ_ONLY</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#READ_WRITE"><code>Folder.READ_WRITE</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#getType--"><code>Folder.getType()</code></a>, 
+<a href="../../../../jakarta/mail/event/ConnectionEvent.html" title="class in jakarta.mail.event"><code>ConnectionEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1516,9 +1516,9 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>open</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../javax/mail/event/MailEvent.html" title="class in javax.mail.event">MailEvent</a>&gt;&nbsp;open(int&nbsp;mode,
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../jakarta/mail/event/MailEvent.html" title="class in jakarta.mail.event">MailEvent</a>&gt;&nbsp;open(int&nbsp;mode,
                                       <a href="../../../../com/sun/mail/imap/ResyncData.html" title="class in com.sun.mail.imap">ResyncData</a>&nbsp;rd)
-                               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Open this folder in the given mode, with the given
  resynchronization data.</div>
 <dl>
@@ -1528,30 +1528,30 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a List of MailEvent instances, or null if none</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the open fails</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the open fails</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.1</dd>
 </dl>
 </li>
 </ul>
-<a name="fetch-javax.mail.Message:A-javax.mail.FetchProfile-">
+<a name="fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>fetch</h4>
-<pre>public&nbsp;void&nbsp;fetch(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-                  <a href="../../../../javax/mail/FetchProfile.html" title="class in javax.mail">FetchProfile</a>&nbsp;fp)
-           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;void&nbsp;fetch(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+                  <a href="../../../../jakarta/mail/FetchProfile.html" title="class in jakarta.mail">FetchProfile</a>&nbsp;fp)
+           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Prefetch attributes, based on the given FetchProfile.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#fetch-javax.mail.Message:A-javax.mail.FetchProfile-">fetch</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-">fetch</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgs</code> - fetch items for these messages</dd>
 <dd><code>fp</code> - the FetchProfile</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -1594,33 +1594,33 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 </dl>
 </li>
 </ul>
-<a name="setFlags-javax.mail.Message:A-javax.mail.Flags-boolean-">
+<a name="setFlags-jakarta.mail.Message:A-jakarta.mail.Flags-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setFlags</h4>
-<pre>public&nbsp;void&nbsp;setFlags(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-                     <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;flag,
+<pre>public&nbsp;void&nbsp;setFlags(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+                     <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;flag,
                      boolean&nbsp;value)
-              throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Set the specified flags for the given array of messages.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#setFlags-javax.mail.Message:A-javax.mail.Flags-boolean-">setFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#setFlags-jakarta.mail.Message:A-jakarta.mail.Flags-boolean-">setFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgs</code> - the array of message objects</dd>
 <dd><code>flag</code> - Flags object containing the flags to be set</dd>
 <dd><code>value</code> - set the flags to this boolean value</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Message.html#setFlags-javax.mail.Flags-boolean-"><code>Message.setFlags(javax.mail.Flags, boolean)</code></a>, 
-<a href="../../../../javax/mail/event/MessageChangedEvent.html" title="class in javax.mail.event"><code>MessageChangedEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Message.html#setFlags-jakarta.mail.Flags-boolean-"><code>Message.setFlags(jakarta.mail.Flags, boolean)</code></a>, 
+<a href="../../../../jakarta/mail/event/MessageChangedEvent.html" title="class in jakarta.mail.event"><code>MessageChangedEvent</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="setFlags-int-int-javax.mail.Flags-boolean-">
+<a name="setFlags-int-int-jakarta.mail.Flags-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -1628,49 +1628,49 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <h4>setFlags</h4>
 <pre>public&nbsp;void&nbsp;setFlags(int&nbsp;start,
                      int&nbsp;end,
-                     <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;flag,
+                     <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;flag,
                      boolean&nbsp;value)
-              throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Set the specified flags for the given range of message numbers.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#setFlags-int-int-javax.mail.Flags-boolean-">setFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#setFlags-int-int-jakarta.mail.Flags-boolean-">setFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>start</code> - the number of the first message</dd>
 <dd><code>end</code> - the number of the last message</dd>
 <dd><code>flag</code> - Flags object containing the flags to be set</dd>
 <dd><code>value</code> - set the flags to this boolean value</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Message.html#setFlags-javax.mail.Flags-boolean-"><code>Message.setFlags(javax.mail.Flags, boolean)</code></a>, 
-<a href="../../../../javax/mail/event/MessageChangedEvent.html" title="class in javax.mail.event"><code>MessageChangedEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Message.html#setFlags-jakarta.mail.Flags-boolean-"><code>Message.setFlags(jakarta.mail.Flags, boolean)</code></a>, 
+<a href="../../../../jakarta/mail/event/MessageChangedEvent.html" title="class in jakarta.mail.event"><code>MessageChangedEvent</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="setFlags-int:A-javax.mail.Flags-boolean-">
+<a name="setFlags-int:A-jakarta.mail.Flags-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setFlags</h4>
 <pre>public&nbsp;void&nbsp;setFlags(int[]&nbsp;msgnums,
-                     <a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;flag,
+                     <a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;flag,
                      boolean&nbsp;value)
-              throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Set the specified flags for the given array of message numbers.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#setFlags-int:A-javax.mail.Flags-boolean-">setFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#setFlags-int:A-jakarta.mail.Flags-boolean-">setFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgnums</code> - the array of message numbers</dd>
 <dd><code>flag</code> - Flags object containing the flags to be set</dd>
 <dd><code>value</code> - set the flags to this boolean value</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Message.html#setFlags-javax.mail.Flags-boolean-"><code>Message.setFlags(javax.mail.Flags, boolean)</code></a>, 
-<a href="../../../../javax/mail/event/MessageChangedEvent.html" title="class in javax.mail.event"><code>MessageChangedEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Message.html#setFlags-jakarta.mail.Flags-boolean-"><code>Message.setFlags(jakarta.mail.Flags, boolean)</code></a>, 
+<a href="../../../../jakarta/mail/event/MessageChangedEvent.html" title="class in jakarta.mail.event"><code>MessageChangedEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1681,17 +1681,17 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>close</h4>
 <pre>public&nbsp;void&nbsp;close(boolean&nbsp;expunge)
-           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Close this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#close-boolean-">close</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#close-boolean-">close</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>expunge</code> - expunges all deleted messages if this flag is true</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/event/ConnectionEvent.html" title="class in javax.mail.event"><code>ConnectionEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/event/ConnectionEvent.html" title="class in jakarta.mail.event"><code>ConnectionEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1702,11 +1702,11 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>forceClose</h4>
 <pre>public&nbsp;void&nbsp;forceClose()
-                throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Close this folder without waiting for the server.</div>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
@@ -1720,7 +1720,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <div class="block">Check whether this connection is really open.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#isOpen--">isOpen</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#isOpen--">isOpen</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if this Folder is in the 'open' state.</dd>
 </dl>
@@ -1732,11 +1732,11 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getPermanentFlags</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Flags.html" title="class in javax.mail">Flags</a>&nbsp;getPermanentFlags()</pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Flags.html" title="class in jakarta.mail">Flags</a>&nbsp;getPermanentFlags()</pre>
 <div class="block">Return the permanent flags supported by the server.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getPermanentFlags--">getPermanentFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getPermanentFlags--">getPermanentFlags</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>permanent flags, or null if not known</dd>
 </dl>
@@ -1749,19 +1749,19 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getMessageCount</h4>
 <pre>public&nbsp;int&nbsp;getMessageCount()
-                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the total message count.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getMessageCount--">getMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getMessageCount--">getMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>total number of messages. -1 may be returned
                         by certain implementations if this method is
                         invoked on a closed folder.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -1772,19 +1772,19 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getNewMessageCount</h4>
 <pre>public&nbsp;int&nbsp;getNewMessageCount()
-                       throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                       throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the new message count.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getNewMessageCount--">getNewMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getNewMessageCount--">getNewMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>number of new messages. -1 may be returned
                         by certain implementations if this method is
                         invoked on a closed folder.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -1795,19 +1795,19 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getUnreadMessageCount</h4>
 <pre>public&nbsp;int&nbsp;getUnreadMessageCount()
-                          throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                          throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the unread message count.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getUnreadMessageCount--">getUnreadMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getUnreadMessageCount--">getUnreadMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>total number of unread messages. -1 may be returned
                         by certain implementations if this method is
                         invoked on a closed folder.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -1818,19 +1818,19 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getDeletedMessageCount</h4>
 <pre>public&nbsp;int&nbsp;getDeletedMessageCount()
-                           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the deleted message count.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getDeletedMessageCount--">getDeletedMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getDeletedMessageCount--">getDeletedMessageCount</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>number of deleted messages. -1 may be returned
                         by certain implementations if this method is
                         invoked on a closed folder.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -1840,23 +1840,23 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getMessage</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;getMessage(int&nbsp;msgnum)
-                   throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;getMessage(int&nbsp;msgnum)
+                   throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the specified message.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getMessage-int-">getMessage</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getMessage-int-">getMessage</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgnum</code> - the message number</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the Message object</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#getMessageCount--"><code>Folder.getMessageCount()</code></a>, 
-<a href="../../../../javax/mail/Folder.html#fetch-javax.mail.Message:A-javax.mail.FetchProfile-"><code>Folder.fetch(javax.mail.Message[], javax.mail.FetchProfile)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#getMessageCount--"><code>Folder.getMessageCount()</code></a>, 
+<a href="../../../../jakarta/mail/Folder.html#fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-"><code>Folder.fetch(jakarta.mail.Message[], jakarta.mail.FetchProfile)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -1866,8 +1866,8 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getMessages</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;getMessages()
-                      throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;getMessages()
+                      throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get all Message objects from this Folder. Returns an empty array
  if the folder is empty.
 
@@ -1882,48 +1882,48 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
  to get Message objects from 1 till the message count.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#getMessages--">getMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#getMessages--">getMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of Message objects, empty array if folder
                         is empty.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#fetch-javax.mail.Message:A-javax.mail.FetchProfile-"><code>Folder.fetch(javax.mail.Message[], javax.mail.FetchProfile)</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#fetch-jakarta.mail.Message:A-jakarta.mail.FetchProfile-"><code>Folder.fetch(jakarta.mail.Message[], jakarta.mail.FetchProfile)</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="appendMessages-javax.mail.Message:A-">
+<a name="appendMessages-jakarta.mail.Message:A-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>appendMessages</h4>
-<pre>public&nbsp;void&nbsp;appendMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)
-                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;void&nbsp;appendMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)
+                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Append the given messages into this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#appendMessages-javax.mail.Message:A-">appendMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#appendMessages-jakarta.mail.Message:A-">appendMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgs</code> - array of Messages to be appended</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does 
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does 
                         not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the append failed.</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the append failed.</dd>
 </dl>
 </li>
 </ul>
-<a name="appendUIDMessages-javax.mail.Message:A-">
+<a name="appendUIDMessages-jakarta.mail.Message:A-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>appendUIDMessages</h4>
-<pre>public&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/AppendUID.html?is-external=true" title="class or interface in com.sun.mail.imap">AppendUID</a>[]&nbsp;appendUIDMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)
-                              throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;com.sun.mail.imap.AppendUID[]&nbsp;appendUIDMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)
+                                                throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Append the given messages into this folder.
  Return array of AppendUID objects containing
  UIDs of these messages in the destination folder.
@@ -1941,20 +1941,20 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of AppendUID objects</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.4</dd>
 </dl>
 </li>
 </ul>
-<a name="addMessages-javax.mail.Message:A-">
+<a name="addMessages-jakarta.mail.Message:A-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addMessages</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;addMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)
-                      throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;addMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)
+                      throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Append the given messages into this folder.
  Return array of Message objects representing
  the messages in the destination folder.  Note
@@ -1973,47 +1973,47 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the messages in this folder</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.4</dd>
 </dl>
 </li>
 </ul>
-<a name="copyMessages-javax.mail.Message:A-javax.mail.Folder-">
+<a name="copyMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>copyMessages</h4>
-<pre>public&nbsp;void&nbsp;copyMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-                         <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)
-                  throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;void&nbsp;copyMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+                         <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)
+                  throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Copy the specified messages from this folder, to the
  specified destination.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#copyMessages-javax.mail.Message:A-javax.mail.Folder-">copyMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#copyMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">copyMessages</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>msgs</code> - the array of message objects</dd>
 <dd><code>folder</code> - the folder to copy the messages to</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if the destination
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if the destination
                         folder does not exist.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Folder.html#appendMessages-javax.mail.Message:A-"><code>Folder.appendMessages(javax.mail.Message[])</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Folder.html#appendMessages-jakarta.mail.Message:A-"><code>Folder.appendMessages(jakarta.mail.Message[])</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="copyUIDMessages-javax.mail.Message:A-javax.mail.Folder-">
+<a name="copyUIDMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>copyUIDMessages</h4>
-<pre>public&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/AppendUID.html?is-external=true" title="class or interface in com.sun.mail.imap">AppendUID</a>[]&nbsp;copyUIDMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-                                   <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)
-                            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;com.sun.mail.imap.AppendUID[]&nbsp;copyUIDMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+                                                     <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)
+                                              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Copy the specified messages from this folder, to the
  specified destination.
  Return array of AppendUID objects containing
@@ -2033,21 +2033,21 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of AppendUID objects</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.1</dd>
 </dl>
 </li>
 </ul>
-<a name="moveMessages-javax.mail.Message:A-javax.mail.Folder-">
+<a name="moveMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>moveMessages</h4>
-<pre>public&nbsp;void&nbsp;moveMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-                         <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)
-                  throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;void&nbsp;moveMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+                         <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)
+                  throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Move the specified messages from this folder, to the
  specified destination.
 
@@ -2058,21 +2058,21 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dd><code>msgs</code> - the messages to move</dd>
 <dd><code>folder</code> - the folder to move the messages to</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.4</dd>
 </dl>
 </li>
 </ul>
-<a name="moveUIDMessages-javax.mail.Message:A-javax.mail.Folder-">
+<a name="moveUIDMessages-jakarta.mail.Message:A-jakarta.mail.Folder-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>moveUIDMessages</h4>
-<pre>public&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/AppendUID.html?is-external=true" title="class or interface in com.sun.mail.imap">AppendUID</a>[]&nbsp;moveUIDMessages(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs,
-                                   <a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a>&nbsp;folder)
-                            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;com.sun.mail.imap.AppendUID[]&nbsp;moveUIDMessages(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs,
+                                                     <a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a>&nbsp;folder)
+                                              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Move the specified messages from this folder, to the
  specified destination.
  Return array of AppendUID objects containing
@@ -2094,7 +2094,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of AppendUID objects</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.4</dd>
 </dl>
@@ -2106,32 +2106,32 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>expunge</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;expunge()
-                  throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;expunge()
+                  throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Expunge all messages marked as DELETED.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#expunge--">expunge</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#expunge--">expunge</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of expunged Message objects</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderNotFoundException.html" title="class in javax.mail">FolderNotFoundException</a></code> - if this folder does not
+<dd><code><a href="../../../../jakarta/mail/FolderNotFoundException.html" title="class in jakarta.mail">FolderNotFoundException</a></code> - if this folder does not
                         exist</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/Message.html#isExpunged--"><code>Message.isExpunged()</code></a>, 
-<a href="../../../../javax/mail/event/MessageCountEvent.html" title="class in javax.mail.event"><code>MessageCountEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/Message.html#isExpunged--"><code>Message.isExpunged()</code></a>, 
+<a href="../../../../jakarta/mail/event/MessageCountEvent.html" title="class in jakarta.mail.event"><code>MessageCountEvent</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="expunge-javax.mail.Message:A-">
+<a name="expunge-jakarta.mail.Message:A-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>expunge</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;expunge(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)
-                  throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;expunge(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)
+                  throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Expunge the indicated messages, which must have been marked as DELETED.
 
  Depends on the UIDPLUS extension -
@@ -2142,18 +2142,18 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the expunged messages</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
-<a name="search-javax.mail.search.SearchTerm-">
+<a name="search-jakarta.mail.search.SearchTerm-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>search</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;search(<a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search">SearchTerm</a>&nbsp;term)
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;search(<a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search">SearchTerm</a>&nbsp;term)
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Search whole folder for messages matching the given term.
  If the property <code>mail.imap.throwsearchexception</code> is true,
  and the search term is too complex for the IMAP protocol,
@@ -2162,46 +2162,46 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
  the client.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#search-javax.mail.search.SearchTerm-">search</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#search-jakarta.mail.search.SearchTerm-">search</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>term</code> - the search term</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the messages that match</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/search/SearchException.html" title="class in javax.mail.search">SearchException</a></code> - if mail.imap.throwsearchexception is
+<dd><code><a href="../../../../jakarta/mail/search/SearchException.html" title="class in jakarta.mail.search">SearchException</a></code> - if mail.imap.throwsearchexception is
                         true and the search is too complex for the IMAP protocol</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search"><code>SearchTerm</code></a></dd>
+<dd><a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search"><code>SearchTerm</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="search-javax.mail.search.SearchTerm-javax.mail.Message:A-">
+<a name="search-jakarta.mail.search.SearchTerm-jakarta.mail.Message:A-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>search</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;search(<a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search">SearchTerm</a>&nbsp;term,
-                        <a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;msgs)
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;search(<a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search">SearchTerm</a>&nbsp;term,
+                        <a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;msgs)
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Search the folder for messages matching the given term. Returns
  array of matching messages. Returns an empty array if no matching
  messages are found.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#search-javax.mail.search.SearchTerm-javax.mail.Message:A-">search</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#search-jakarta.mail.search.SearchTerm-jakarta.mail.Message:A-">search</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>term</code> - the search criterion</dd>
 <dd><code>msgs</code> - the messages to be searched</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of matching messages</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/search/SearchException.html" title="class in javax.mail.search">SearchException</a></code> - if the search 
+<dd><code><a href="../../../../jakarta/mail/search/SearchException.html" title="class in jakarta.mail.search">SearchException</a></code> - if the search 
                         term is too complex for the implementation to handle.</dd>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search"><code>SearchTerm</code></a></dd>
+<dd><a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search"><code>SearchTerm</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -2211,8 +2211,8 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getSortedMessages</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;getSortedMessages(<a href="../../../../com/sun/mail/imap/SortTerm.html" title="class in com.sun.mail.imap">SortTerm</a>[]&nbsp;term)
-                            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;getSortedMessages(<a href="../../../../com/sun/mail/imap/SortTerm.html" title="class in com.sun.mail.imap">SortTerm</a>[]&nbsp;term)
+                            throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Sort the messages in the folder according to the sort criteria.
  The messages are returned in the sorted order, but the order of
  the messages in the folder is not changed. <p>
@@ -2225,21 +2225,21 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the messages in sorted order</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.4.4</dd>
 </dl>
 </li>
 </ul>
-<a name="getSortedMessages-com.sun.mail.imap.SortTerm:A-javax.mail.search.SearchTerm-">
+<a name="getSortedMessages-com.sun.mail.imap.SortTerm:A-jakarta.mail.search.SearchTerm-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getSortedMessages</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;getSortedMessages(<a href="../../../../com/sun/mail/imap/SortTerm.html" title="class in com.sun.mail.imap">SortTerm</a>[]&nbsp;term,
-                                   <a href="../../../../javax/mail/search/SearchTerm.html" title="class in javax.mail.search">SearchTerm</a>&nbsp;sterm)
-                            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;getSortedMessages(<a href="../../../../com/sun/mail/imap/SortTerm.html" title="class in com.sun.mail.imap">SortTerm</a>[]&nbsp;term,
+                                   <a href="../../../../jakarta/mail/search/SearchTerm.html" title="class in jakarta.mail.search">SearchTerm</a>&nbsp;sterm)
+                            throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Sort the messages in the folder according to the sort criteria.
  The messages are returned in the sorted order, but the order of
  the messages in the folder is not changed.  Only messages matching
@@ -2254,31 +2254,31 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the messages in sorted order</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.4.4</dd>
 </dl>
 </li>
 </ul>
-<a name="addMessageCountListener-javax.mail.event.MessageCountListener-">
+<a name="addMessageCountListener-jakarta.mail.event.MessageCountListener-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addMessageCountListener</h4>
-<pre>public&nbsp;void&nbsp;addMessageCountListener(<a href="../../../../javax/mail/event/MessageCountListener.html" title="interface in javax.mail.event">MessageCountListener</a>&nbsp;l)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../javax/mail/Folder.html#addMessageCountListener-javax.mail.event.MessageCountListener-">Folder</a></code></span></div>
+<pre>public&nbsp;void&nbsp;addMessageCountListener(<a href="../../../../jakarta/mail/event/MessageCountListener.html" title="interface in jakarta.mail.event">MessageCountListener</a>&nbsp;l)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../jakarta/mail/Folder.html#addMessageCountListener-jakarta.mail.event.MessageCountListener-">Folder</a></code></span></div>
 <div class="block">Add a listener for MessageCount events on this Folder. <p>
 
  The implementation provided here adds this listener
  to an internal list of MessageCountListeners.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../javax/mail/Folder.html#addMessageCountListener-javax.mail.event.MessageCountListener-">addMessageCountListener</a></code>&nbsp;in class&nbsp;<code><a href="../../../../javax/mail/Folder.html" title="class in javax.mail">Folder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/Folder.html#addMessageCountListener-jakarta.mail.event.MessageCountListener-">addMessageCountListener</a></code>&nbsp;in class&nbsp;<code><a href="../../../../jakarta/mail/Folder.html" title="class in jakarta.mail">Folder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>l</code> - the Listener for MessageCount events</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/event/MessageCountEvent.html" title="class in javax.mail.event"><code>MessageCountEvent</code></a></dd>
+<dd><a href="../../../../jakarta/mail/event/MessageCountEvent.html" title="class in jakarta.mail.event"><code>MessageCountEvent</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -2289,15 +2289,15 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getUIDValidity</h4>
 <pre>public&nbsp;long&nbsp;getUIDValidity()
-                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Returns the UIDValidity for this folder.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/UIDFolder.html#getUIDValidity--">getUIDValidity</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/UIDFolder.html#getUIDValidity--">getUIDValidity</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>UIDValidity</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
@@ -2308,7 +2308,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getUIDNext</h4>
 <pre>public&nbsp;long&nbsp;getUIDNext()
-                throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Returns the predicted UID that will be assigned to the
  next message that is appended to this folder.
  If the folder is closed, the STATUS command is used to
@@ -2323,11 +2323,11 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
  should return this value when a folder is opened. <p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/UIDFolder.html#getUIDNext--">getUIDNext</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/UIDFolder.html#getUIDNext--">getUIDNext</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the UIDNEXT value, or -1 if unknown</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.3.3</dd>
 </dl>
@@ -2339,20 +2339,20 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getMessageByUID</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;getMessageByUID(long&nbsp;uid)
-                        throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;getMessageByUID(long&nbsp;uid)
+                        throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the Message corresponding to the given UID.
  If no such message exists, <code> null </code> is returned.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/UIDFolder.html#getMessageByUID-long-">getMessageByUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/UIDFolder.html#getMessageByUID-long-">getMessageByUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>uid</code> - UID for the desired message</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the Message object. <code>null</code> is returned
                         if no message corresponding to this UID is obtained.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
@@ -2362,24 +2362,24 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getMessagesByUID</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;getMessagesByUID(long&nbsp;start,
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;getMessagesByUID(long&nbsp;start,
                                   long&nbsp;end)
-                           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the Messages specified by the given range. <p>
  Returns Message objects for all valid messages in this range.
  Returns an empty array if no messages are found.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/UIDFolder.html#getMessagesByUID-long-long-">getMessagesByUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/UIDFolder.html#getMessagesByUID-long-long-">getMessagesByUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>start</code> - start UID</dd>
 <dd><code>end</code> - end UID</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of Message objects</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../javax/mail/UIDFolder.html#LASTUID"><code>UIDFolder.LASTUID</code></a></dd>
+<dd><a href="../../../../jakarta/mail/UIDFolder.html#LASTUID"><code>UIDFolder.LASTUID</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -2389,8 +2389,8 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getMessagesByUID</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;getMessagesByUID(long[]&nbsp;uids)
-                           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;getMessagesByUID(long[]&nbsp;uids)
+                           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the Messages specified by the given array. <p>
 
  <code>uids.length()</code> elements are returned.
@@ -2398,34 +2398,34 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
  is returned for that element.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/UIDFolder.html#getMessagesByUID-long:A-">getMessagesByUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/UIDFolder.html#getMessagesByUID-long:A-">getMessagesByUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>uids</code> - array of UIDs</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of Message objects</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
-<a name="getUID-javax.mail.Message-">
+<a name="getUID-jakarta.mail.Message-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getUID</h4>
-<pre>public&nbsp;long&nbsp;getUID(<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>&nbsp;message)
-            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;long&nbsp;getUID(<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>&nbsp;message)
+            throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the UID for the specified message.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../javax/mail/UIDFolder.html#getUID-javax.mail.Message-">getUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../javax/mail/UIDFolder.html" title="interface in javax.mail">UIDFolder</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/UIDFolder.html#getUID-jakarta.mail.Message-">getUID</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../jakarta/mail/UIDFolder.html" title="interface in jakarta.mail">UIDFolder</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>message</code> - Message from this folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>UID for this message</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for other failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for other failures</dd>
 </dl>
 </li>
 </ul>
@@ -2436,7 +2436,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getUIDNotSticky</h4>
 <pre>public&nbsp;boolean&nbsp;getUIDNotSticky()
-                        throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                        throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Servers that support the UIDPLUS extension
  (<A HREF="http://www.ietf.org/rfc/rfc4315.txt">RFC 4315</A>)
  may indicate that this folder does not support persistent UIDs;
@@ -2446,7 +2446,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if UIDs are not sticky</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dd><code>java.lang.IllegalStateException</code> - if the folder isn't open</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.6.0</dd>
@@ -2462,13 +2462,13 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getHighestModSeq</h4>
 <pre>public&nbsp;long&nbsp;getHighestModSeq()
-                      throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                      throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Returns the HIGHESTMODSEQ for this folder.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the HIGHESTMODSEQ value</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.1</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -2482,10 +2482,10 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getMessagesByUIDChangedSince</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Message.html" title="class in javax.mail">Message</a>[]&nbsp;getMessagesByUIDChangedSince(long&nbsp;start,
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Message.html" title="class in jakarta.mail">Message</a>[]&nbsp;getMessagesByUIDChangedSince(long&nbsp;start,
                                               long&nbsp;end,
                                               long&nbsp;modseq)
-                                       throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                                       throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the messages that have been changed since the given MODSEQ value.
  Also, prefetch the flags for the messages. <p>
 
@@ -2498,7 +2498,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the changed messages</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.1</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -2512,8 +2512,8 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getQuota</h4>
-<pre>public&nbsp;<a href="../../../../javax/mail/Quota.html" title="class in javax.mail">Quota</a>[]&nbsp;getQuota()
-                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;<a href="../../../../jakarta/mail/Quota.html" title="class in jakarta.mail">Quota</a>[]&nbsp;getQuota()
+                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the quotas for the quotaroot associated with this
  folder.  Note that many folders may have the same quotaroot.
  Quotas are controlled on the basis of a quotaroot, not
@@ -2529,19 +2529,19 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dd>array of Quota objects for the quotaroots associated with
                 this folder</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         QUOTA extension</dd>
 </dl>
 </li>
 </ul>
-<a name="setQuota-javax.mail.Quota-">
+<a name="setQuota-jakarta.mail.Quota-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setQuota</h4>
-<pre>public&nbsp;void&nbsp;setQuota(<a href="../../../../javax/mail/Quota.html" title="class in javax.mail">Quota</a>&nbsp;quota)
-              throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+<pre>public&nbsp;void&nbsp;setQuota(<a href="../../../../jakarta/mail/Quota.html" title="class in jakarta.mail">Quota</a>&nbsp;quota)
+              throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Set the quotas for the quotaroot specified in the quota argument.
  Typically this will be one of the quotaroots associated with this
  folder, as obtained from the <code>getQuota</code> method, but it
@@ -2550,7 +2550,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>quota</code> - the quota to set</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         QUOTA extension</dd>
 </dl>
 </li>
@@ -2562,13 +2562,13 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getACL</h4>
 <pre>public&nbsp;<a href="../../../../com/sun/mail/imap/ACL.html" title="class in com.sun.mail.imap">ACL</a>[]&nbsp;getACL()
-             throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+             throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the access control list entries for this folder.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of access control list entries</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ACL extension</dd>
 </dl>
 </li>
@@ -2580,14 +2580,14 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>addACL</h4>
 <pre>public&nbsp;void&nbsp;addACL(<a href="../../../../com/sun/mail/imap/ACL.html" title="class in com.sun.mail.imap">ACL</a>&nbsp;acl)
-            throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+            throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Add an access control list entry to the access control list
  for this folder.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>acl</code> - the access control list entry to add</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ACL extension</dd>
 </dl>
 </li>
@@ -2599,14 +2599,14 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>removeACL</h4>
 <pre>public&nbsp;void&nbsp;removeACL(java.lang.String&nbsp;name)
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Remove any access control list entry for the given identifier
  from the access control list for this folder.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>name</code> - the identifier for which to remove all ACL entries</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ACL extension</dd>
 </dl>
 </li>
@@ -2618,7 +2618,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>addRights</h4>
 <pre>public&nbsp;void&nbsp;addRights(<a href="../../../../com/sun/mail/imap/ACL.html" title="class in com.sun.mail.imap">ACL</a>&nbsp;acl)
-               throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+               throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Add the rights specified in the ACL to the entry for the
  identifier specified in the ACL.  If an entry for the identifier
  doesn't already exist, add one.</div>
@@ -2626,7 +2626,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>acl</code> - the identifer and rights to add</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ACL extension</dd>
 </dl>
 </li>
@@ -2638,14 +2638,14 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>removeRights</h4>
 <pre>public&nbsp;void&nbsp;removeRights(<a href="../../../../com/sun/mail/imap/ACL.html" title="class in com.sun.mail.imap">ACL</a>&nbsp;acl)
-                  throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                  throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Remove the rights specified in the ACL from the entry for the
  identifier specified in the ACL.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>acl</code> - the identifer and rights to remove</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ACL extension</dd>
 </dl>
 </li>
@@ -2657,7 +2657,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>listRights</h4>
 <pre>public&nbsp;<a href="../../../../com/sun/mail/imap/Rights.html" title="class in com.sun.mail.imap">Rights</a>[]&nbsp;listRights(java.lang.String&nbsp;name)
-                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get all the rights that may be allowed to the given identifier.
  Rights are grouped per RFC 2086 and each group is returned as an
  element of the array.  The first element of the array is the set
@@ -2676,7 +2676,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dd>array of Rights objects representing possible
                         rights for the identifier</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ACL extension</dd>
 </dl>
 </li>
@@ -2688,13 +2688,13 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>myRights</h4>
 <pre>public&nbsp;<a href="../../../../com/sun/mail/imap/Rights.html" title="class in com.sun.mail.imap">Rights</a>&nbsp;myRights()
-                throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the rights allowed to the currently authenticated user.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the rights granted to the current user</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ACL extension</dd>
 </dl>
 </li>
@@ -2706,14 +2706,14 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getAttributes</h4>
 <pre>public&nbsp;java.lang.String[]&nbsp;getAttributes()
-                                 throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                                 throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Get the attributes that the IMAP server returns with the
  LIST response.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>array of attributes for this folder</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.3.3</dd>
 </dl>
@@ -2726,7 +2726,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>idle</h4>
 <pre>public&nbsp;void&nbsp;idle()
-          throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+          throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Use the IMAP IDLE command (see
  <A HREF="http://www.ietf.org/rfc/rfc2177.txt">RFC 2177</A>),
  if supported by the server, to enter idle mode so that the server
@@ -2744,7 +2744,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
  method again.  The default delay is 10 milliseconds.</div>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         IDLE extension</dd>
 <dd><code>java.lang.IllegalStateException</code> - if the folder isn't open</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -2759,7 +2759,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>idle</h4>
 <pre>public&nbsp;void&nbsp;idle(boolean&nbsp;once)
-          throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+          throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Like <a href="../../../../com/sun/mail/imap/IMAPFolder.html#idle--"><code>idle()</code></a>, but if <code>once</code> is true, abort the
  IDLE command after the first notification, to allow the caller
  to process any notification synchronously.</div>
@@ -2767,7 +2767,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>once</code> - only do one notification?</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         IDLE extension</dd>
 <dd><code>java.lang.IllegalStateException</code> - if the folder isn't open</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -2782,7 +2782,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>id</h4>
 <pre>public&nbsp;java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;id(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;clientParams)
-                                                    throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                                                    throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Send the IMAP ID command (if supported by the server) and return
  the result from the server.  The ID command identfies the client
  to the server and returns information about the server to the client.
@@ -2794,7 +2794,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a Map of keys and values identifying the server</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - if the server doesn't support the
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - if the server doesn't support the
                                         ID extension</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.1</dd>
@@ -2808,7 +2808,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>getStatusItem</h4>
 <pre>public&nbsp;long&nbsp;getStatusItem(java.lang.String&nbsp;item)
-                   throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                   throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Use the IMAP STATUS command to get the indicated item.
  The STATUS item may be a standard item such as "RECENT" or "UNSEEN",
  or may be a server-specific item.
@@ -2820,7 +2820,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the value of the STATUS item, or -1</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for errors</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for errors</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>JavaMail 1.5.2</dd>
 </dl>
@@ -2832,12 +2832,12 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>handleResponse</h4>
-<pre>public&nbsp;void&nbsp;handleResponse(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/Response.html?is-external=true" title="class or interface in com.sun.mail.iap">Response</a>&nbsp;r)</pre>
+<pre>public&nbsp;void&nbsp;handleResponse(com.sun.mail.iap.Response&nbsp;r)</pre>
 <div class="block">The response handler. This is the callback routine that is 
  invoked by the protocol layer.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ResponseHandler.html?is-external=true#handleResponse-com.sun.mail.iap.Response-" title="class or interface in com.sun.mail.iap">handleResponse</a></code>&nbsp;in interface&nbsp;<code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ResponseHandler.html?is-external=true" title="class or interface in com.sun.mail.iap">ResponseHandler</a></code></dd>
+<dd><code>handleResponse</code>&nbsp;in interface&nbsp;<code>com.sun.mail.iap.ResponseHandler</code></dd>
 </dl>
 </li>
 </ul>
@@ -2847,8 +2847,8 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getStoreProtocol</h4>
-<pre>protected&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a>&nbsp;getStoreProtocol()
-                                 throws <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></pre>
+<pre>protected&nbsp;com.sun.mail.imap.protocol.IMAPProtocol&nbsp;getStoreProtocol()
+                                                            throws com.sun.mail.iap.ProtocolException</pre>
 <div class="block">Get this folder's Store's protocol connection.
 
  When acquiring a store protocol object, it is important to
@@ -2871,7 +2871,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the IMAPProtocol for the Store's connection</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></code> - for protocol errors</dd>
+<dd><code>com.sun.mail.iap.ProtocolException</code> - for protocol errors</dd>
 </dl>
 </li>
 </ul>
@@ -2881,16 +2881,16 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>throwClosedException</h4>
-<pre>protected&nbsp;void&nbsp;throwClosedException(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ConnectionException.html?is-external=true" title="class or interface in com.sun.mail.iap">ConnectionException</a>&nbsp;cex)
-                             throws <a href="../../../../javax/mail/FolderClosedException.html" title="class in javax.mail">FolderClosedException</a>,
-                                    <a href="../../../../javax/mail/StoreClosedException.html" title="class in javax.mail">StoreClosedException</a></pre>
+<pre>protected&nbsp;void&nbsp;throwClosedException(com.sun.mail.iap.ConnectionException&nbsp;cex)
+                             throws <a href="../../../../jakarta/mail/FolderClosedException.html" title="class in jakarta.mail">FolderClosedException</a>,
+                                    <a href="../../../../jakarta/mail/StoreClosedException.html" title="class in jakarta.mail">StoreClosedException</a></pre>
 <div class="block">Throw the appropriate 'closed' exception.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>cex</code> - the ConnectionException</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/FolderClosedException.html" title="class in javax.mail">FolderClosedException</a></code> - if the folder is closed</dd>
-<dd><code><a href="../../../../javax/mail/StoreClosedException.html" title="class in javax.mail">StoreClosedException</a></code> - if the store is closed</dd>
+<dd><code><a href="../../../../jakarta/mail/FolderClosedException.html" title="class in jakarta.mail">FolderClosedException</a></code> - if the folder is closed</dd>
+<dd><code><a href="../../../../jakarta/mail/StoreClosedException.html" title="class in jakarta.mail">StoreClosedException</a></code> - if the store is closed</dd>
 </dl>
 </li>
 </ul>
@@ -2900,8 +2900,8 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>getProtocol</h4>
-<pre>protected&nbsp;<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a>&nbsp;getProtocol()
-                            throws <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></pre>
+<pre>protected&nbsp;com.sun.mail.imap.protocol.IMAPProtocol&nbsp;getProtocol()
+                                                       throws com.sun.mail.iap.ProtocolException</pre>
 <div class="block">Return the IMAPProtocol object for this folder. <p>
 
  This method will block if necessary to wait for an IDLE
@@ -2910,7 +2910,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the IMAPProtocol object used when the folder is open</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></code> - for protocol errors</dd>
+<dd><code>com.sun.mail.iap.ProtocolException</code> - for protocol errors</dd>
 </dl>
 </li>
 </ul>
@@ -2921,7 +2921,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>doCommand</h4>
 <pre>public&nbsp;java.lang.Object&nbsp;doCommand(<a href="../../../../com/sun/mail/imap/IMAPFolder.ProtocolCommand.html" title="interface in com.sun.mail.imap">IMAPFolder.ProtocolCommand</a>&nbsp;cmd)
-                           throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                           throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <div class="block">Execute a user-supplied IMAP command.  The command is executed
  in the appropriate context with the necessary locks held and
  using the appropriate <code>IMAPProtocol</code> object. <p>
@@ -3013,7 +3013,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the result of the command</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code> - for failures</dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code> - for failures</dd>
 </dl>
 </li>
 </ul>
@@ -3025,10 +3025,10 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <h4>doOptionalCommand</h4>
 <pre>public&nbsp;java.lang.Object&nbsp;doOptionalCommand(java.lang.String&nbsp;err,
                                           <a href="../../../../com/sun/mail/imap/IMAPFolder.ProtocolCommand.html" title="interface in com.sun.mail.imap">IMAPFolder.ProtocolCommand</a>&nbsp;cmd)
-                                   throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                                   throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -3039,10 +3039,10 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>doCommandIgnoreFailure</h4>
 <pre>public&nbsp;java.lang.Object&nbsp;doCommandIgnoreFailure(<a href="../../../../com/sun/mail/imap/IMAPFolder.ProtocolCommand.html" title="interface in com.sun.mail.imap">IMAPFolder.ProtocolCommand</a>&nbsp;cmd)
-                                        throws <a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></pre>
+                                        throws <a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../javax/mail/MessagingException.html" title="class in javax.mail">MessagingException</a></code></dd>
+<dd><code><a href="../../../../jakarta/mail/MessagingException.html" title="class in jakarta.mail">MessagingException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -3053,10 +3053,10 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>doProtocolCommand</h4>
 <pre>protected&nbsp;java.lang.Object&nbsp;doProtocolCommand(<a href="../../../../com/sun/mail/imap/IMAPFolder.ProtocolCommand.html" title="interface in com.sun.mail.imap">IMAPFolder.ProtocolCommand</a>&nbsp;cmd)
-                                      throws <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></pre>
+                                      throws com.sun.mail.iap.ProtocolException</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></code></dd>
+<dd><code>com.sun.mail.iap.ProtocolException</code></dd>
 </dl>
 </li>
 </ul>
@@ -3066,7 +3066,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <ul class="blockList">
 <li class="blockList">
 <h4>releaseStoreProtocol</h4>
-<pre>protected&nbsp;void&nbsp;releaseStoreProtocol(<a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/imap/protocol/IMAPProtocol.html?is-external=true" title="class or interface in com.sun.mail.imap.protocol">IMAPProtocol</a>&nbsp;p)</pre>
+<pre>protected&nbsp;void&nbsp;releaseStoreProtocol(com.sun.mail.imap.protocol.IMAPProtocol&nbsp;p)</pre>
 <div class="block">Release the store protocol object.  If we borrowed a protocol
  object from the connection pool, give it back.  If we used our
  own protocol object, nothing to do.
@@ -3102,7 +3102,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <li class="blockList">
 <h4>keepConnectionAlive</h4>
 <pre>protected&nbsp;void&nbsp;keepConnectionAlive(boolean&nbsp;keepStoreAlive)
-                            throws <a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></pre>
+                            throws com.sun.mail.iap.ProtocolException</pre>
 <div class="block">Issue a noop command for the connection if the connection has not been
  used in more than a second. If <code>keepStoreAlive</code> is true,
  also issue a noop over the store's connection.
@@ -3113,7 +3113,7 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>keepStoreAlive</code> - keep the Store alive too?</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="http://eclipse-ee4j.github.io/mail/jakarta.mail/apidocs/com/sun/mail/iap/ProtocolException.html?is-external=true" title="class or interface in com.sun.mail.iap">ProtocolException</a></code> - for protocol errors</dd>
+<dd><code>com.sun.mail.iap.ProtocolException</code> - for protocol errors</dd>
 </dl>
 </li>
 </ul>
@@ -3227,6 +3227,6 @@ implements <a href="../../../../javax/mail/UIDFolder.html" title="interface in j
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2019 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2019, 2020 Eclipse Foundation.     Use is subject to     <a href="../../../../doc-files/speclicense.html" target="_top">license terms</a>.</small></p>
 </body>
 </html>

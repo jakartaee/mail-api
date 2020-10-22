@@ -1,8 +1,16 @@
 			COMPATIBILITY NOTES
 			===================
 
-		    Jakarta Mail API 1.6.5 release
+		    Jakarta Mail API ${mail.version} release
 		    ------------------------------
+
+-- Jakarta Mail 2.0.0 --
+
+The Jakarta Mail 2.0 specification is the successor of the Jakarta
+Mail 1.6 specification. Except new package namespace - jakarta.mail
+there are no changes.
+
+-- Jakarta Mail 1.6.x --
 
 The Jakarta Mail 1.6 specification is fully compatible with the JavaMail
 1.5 specification, with the exceptions listed below.
