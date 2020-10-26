@@ -89,7 +89,7 @@ jakarta.mail.jar file.
 
 |Item|Description|
 |:---|:----------|
-|[jakarta.mail.jar](https://github.com/eclipse-ee4j/mail/releases/download/2.0.0/jakarta.mail.jar)|The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
+|[jakarta.mail.jar](https://github.com/eclipse-ee4j/mail/releases/download/2.0.0-RELEASE/jakarta.mail-2.0.0.jar)|The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
 |[README.txt](docs/README.txt)|Overview of the release|
 |[NOTES.txt](docs/NOTES.txt)|Additional notes about using Jakarta Mail|
 |[SSLNOTES.txt](docs/SSLNOTES.txt)|Notes on using SSL/TLS with Jakarta Mail|
@@ -153,7 +153,7 @@ the JavaMail API specification:
 # <a name="Samples"></a>Samples
 
 Some sample programs showing how to use the Jakarta Mail APIs are available
-[here](https://github.com/eclipse-ee4j/mail/releases/download/2.0.0/jakartamail-samples.zip).
+[here](https://github.com/eclipse-ee4j/mail/releases/download/2.0.0-RELEASE/jakartamail-samples.zip).
 
 # <a name="Help"></a>Help
 
