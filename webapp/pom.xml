@@ -39,10 +39,10 @@
 		<configuration>
 		    <warName>webapp</warName>
 		    <packagingExcludes>
-			WEB-INF/lib/activation*.jar,
-			WEB-INF/lib/javax.mail*.jar,
-			WEB-INF/lib/jsp*.jar,
-			WEB-INF/lib/servlet*.jar
+			WEB-INF/lib/jakarta.activation*.jar,
+			WEB-INF/lib/jakarta.mail*.jar,
+			WEB-INF/lib/jakarta.servlet.jsp*.jar,
+			WEB-INF/lib/jakarta.servlet*.jar
 		    </packagingExcludes>
 		    <outputFileNameMapping>
 			@{artifactId}@.@{extension}@
@@ -58,8 +58,8 @@
             <artifactId>taglib</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
