@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,7 +18,6 @@ package jakarta.mail.internet;
 
 import com.sun.mail.test.AsciiStringInputStream;
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.Enumeration;
 
@@ -31,6 +30,7 @@ import static jakarta.mail.internet.MimeMessage.RecipientType.*;
 import org.junit.*;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -70,6 +70,34 @@ public class MimeMessageTest {
 	assertEquals("To: is set", addr, m.getRecipients(TO)[0].toString());
 	m.setRecipient(TO, (Address)null);
 	assertArrayEquals("To: is removed", null, m.getRecipients(TO));
+    }
+
+    /**
+     * Test that setFrom with a null address removes the header.
+     * (Bug E 456)
+     */
+    @Test
+    public void testSetFromStringNull() throws Exception {
+        String addr = "joe@example.com";
+        MimeMessage m = new MimeMessage(s);
+        m.setFrom(new InternetAddress(addr));
+        assertEquals("From: is set", addr, m.getFrom()[0].toString());
+        m.setFrom((Address) null);
+        assertArrayEquals("From: is removed", null, m.getFrom());
+    }
+
+    /**
+     * Test that setSender with a null address removes the header.
+     * (Bug E 456)
+     */
+    @Test
+    public void testSetSenderStringNull() throws Exception {
+        String addr = "joe@example.com";
+        MimeMessage m = new MimeMessage(s);
+        m.setSender(new InternetAddress(addr));
+        assertEquals("Sender: is set", addr, m.getSender().toString());
+        m.setSender((Address) null);
+        assertNull("Sender: is removed", m.getSender());
     }
 
     /**
