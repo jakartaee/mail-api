@@ -25,6 +25,8 @@ longer available.
 The following bugs have been fixed in the 1.6.6 release.
 
 E  464	use EPL v2 licensed dependencies
+E  456	MimeMessage.setFrom(null) fails instead of removing the header
+
 
 		  CHANGES IN THE 1.6.5 RELEASE
 		  ----------------------------
