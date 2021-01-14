@@ -62,14 +62,18 @@
     </build>
 
     <dependencies>
+	<!--
+	    Even though gimap.jar works with either the full jakarta.mail.jar
+	    or th mailapi.jar, we want to get the API definitions from
+	    mailapi.jar.
+	-->
         <dependency>
             <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
+            <artifactId>mailapi</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>imap</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -41,4 +41,5 @@
 	    com.sun.mail.iap; version=${mail.osgiversion}
 	</mail.packages.export>
     </properties>
+
 </project>

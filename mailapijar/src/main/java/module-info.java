@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,10 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-module com.sun.mail.pop3 {
-    exports com.sun.mail.pop3;
-    provides javax.mail.Provider with
-	com.sun.mail.pop3.POP3Provider, com.sun.mail.pop3.POP3SSLProvider;
+module jakarta.mail {
 
-    requires transitive jakarta.mail;
+    exports javax.mail;
+    exports javax.mail.event;
+    exports javax.mail.internet;
+    exports javax.mail.search;
+    exports javax.mail.util;
+
+    requires transitive jakarta.activation;
+    requires transitive java.logging;
 }

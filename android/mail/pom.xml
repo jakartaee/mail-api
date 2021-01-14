@@ -93,7 +93,7 @@
 				    <version>${mail.version}</version>
 				    <classifier>sources</classifier>
 				    <outputDirectory>
-					${project.build.directory}/sources
+					${project.build.directory}/generated-sources/sources
 				    </outputDirectory>
 				</artifactItem>
 			    </artifactItems>
@@ -112,6 +112,7 @@
 			${project.build.outputDirectory}
 		    </outputDirectory>
 		    <excludes>
+                        module-info.*,
 			com/sun/mail/handlers/handler_base.*,
 			com/sun/mail/handlers/image_*,
 			com/sun/mail/auth/OAuth2Sasl*,
@@ -119,6 +120,25 @@
 			com/sun/mail/smtp/SMTPSaslAuthenticator*
 		    </excludes>
 		</configuration>
+	    </plugin>
+	    <plugin>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<executions>
+		    <execution>
+			<id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+			<configuration>
+			    <source>1.7</source>
+			    <target>1.7</target>
+			    <fork>true</fork>
+                            <includes>
+                                <include>com/sun/mail/handlers/handler_base.java</include>
+                            </includes>
+			</configuration>
+		    </execution>
+		</executions>
 	    </plugin>
 	    <plugin>
 		<artifactId>maven-jar-plugin</artifactId>
@@ -143,9 +163,7 @@
 	<dependency>
 	    <groupId>junit</groupId>
 	    <artifactId>junit</artifactId>
-	    <version>4.12</version>
 	    <scope>test</scope>
-	    <optional>true</optional>
 	</dependency>
     </dependencies>
 </project>

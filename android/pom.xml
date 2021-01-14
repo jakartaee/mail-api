@@ -50,6 +50,8 @@
 	-->
 	<android.api.level>19</android.api.level>
 	<android.version>4.4_r1</android.version>
+        <!-- must compile with src/bin level 1.7-->
+        <mail.recompile.skip>true</mail.recompile.skip>
     </properties>
 
     <build>
