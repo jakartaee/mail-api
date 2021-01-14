@@ -67,73 +67,63 @@
 	</findbugs.exclude>
     </properties>
 
-    <profiles>
-	<!--
-	    A special profile for compiling with the real JDK 1.7 compiler.
-	    Exclude MailSessionDefinition and MailSessionDefinitions since
-	    the former requires JDK 1.8 and the latter depends on the former.
-	-->
-	<profile>
-	    <id>1.7</id>
-	    <activation>
-		<jdk>1.7</jdk>
-	    </activation>
-	    <build>
-		<plugins>
-		    <plugin>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<executions>
-			    <execution>
-				<id>default-compile</id>
-				<configuration>
-				    <excludes>
-					<exclude>
-					  jakarta/mail/MailSessionDefinition.java
-					</exclude>
-					<exclude>
-					  jakarta/mail/MailSessionDefinitions.java
-					</exclude>
-					<exclude>
-					  module-info.java
-					</exclude>
-				    </excludes>
-				</configuration>
-			    </execution>
-			</executions>
-		    </plugin>
-		</plugins>
-	    </build>
-	</profile>
-
-    </profiles>
-
     <build>
 	<resources>
 	    <resource>
 		<directory>src/main/resources</directory>
 		<filtering>true</filtering>
+                <excludes>
+                    <exclude>jakarta/mail/Version.java</exclude>
+                </excludes>
 	    </resource>
 	</resources>
 	<plugins>
-	    <!--
-		Configure compiler plugin to print lint warnings.
-		Need to exclude options warning because bootstrap
-		classpath isn't set (on purpose).
-		Need to exclude path warnings because Maven includes
-		source directories that don't exist (e.g., generated-sources).
-	    -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/generated-sources/version</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>jakarta/mail/Version.java</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--
+                Use 1.8 compiler to compile MailServiceDefinition & MailServiceDefinitions
+                which depend on the Repeatable annotation available from Java SE 8
+            -->
 	    <plugin>
 		<artifactId>maven-compiler-plugin</artifactId>
-		<configuration>
-		    <compilerArgs>
-			<arg>-Xlint</arg>
-			<arg>-Xlint:-options</arg>
-			<arg>-Xlint:-path</arg>
-			<!--<arg>-Werror</arg>-->
-		    </compilerArgs>
-		    <showDeprecation>true</showDeprecation>
-		    <showWarnings>true</showWarnings>
-		</configuration>
+                <executions>
+                    <execution>
+                        <id>base-compile-8</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <release>8</release>
+                            <includes>
+                                <include>jakarta/mail/MailSessionDefinition.java</include>
+                                <include>jakarta/mail/MailSessionDefinitions.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
 	    </plugin>
 
 	    <!--
@@ -150,32 +140,11 @@
 		</configuration>
 	    </plugin>
 
-	    <!--
-		Add the Automatic-Module-Name manifest header for JDK 9.
-	    -->
-	    <plugin>
-		<artifactId>maven-jar-plugin</artifactId>
-		<configuration>
-		    <archive>
-			<manifestEntries>
-			    <Automatic-Module-Name>
-				${mail.moduleName}
-			    </Automatic-Module-Name>
-			</manifestEntries>
-		    </archive>
-		</configuration>
-	    </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <docfilessubdirs>true</docfilessubdirs>
-                    <javadocDirectory>${main.basedir}/mail/src/main/java</javadocDirectory>
-                    <bottom>
-<![CDATA[Copyright &#169; 2019, 2020 Eclipse Foundation.<br>
-    Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.
-]]>
-                    </bottom>
+                    <bottom>${mail.javadoc.bottom}</bottom>
                 </configuration>
             </plugin>
         </plugins>
@@ -189,9 +158,7 @@
 	<dependency>
 	    <groupId>junit</groupId>
 	    <artifactId>junit</artifactId>
-	    <version>4.13.1</version>
 	    <scope>test</scope>
-	    <optional>true</optional>
 	</dependency>
     </dependencies>
 </project>

@@ -37,28 +37,105 @@
     <build>
         <plugins>
 	    <!--
-		To allow us to generate javadocs that only include some
-		classes in certain packages, we need to copy the sources
-		to another location and run javadoc against that subset
-		of the sources.  This ant task does the copy.
+		To allow us to generate aggregated javadocs that only include some
+		classes in certain packages from certain modules, we need to copy the sources
+		to another location and run javadoc against that set
+		of the sources. This gets sources.
 	    -->
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- download the sources -->
+                        <id>get-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.sun.mail</groupId>
+                                    <artifactId>jakarta.mail</artifactId>
+                                    <version>${mail.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>
+                                        ${project.build.directory}/javadoc-sources/jakarta.mail
+                                    </outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.sun.mail</groupId>
+                                    <artifactId>dsn</artifactId>
+                                    <version>${mail.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>
+                                        ${project.build.directory}/javadoc-sources/com.sun.mail.dsn
+                                    </outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.sun.mail</groupId>
+                                    <artifactId>gimap</artifactId>
+                                    <version>${mail.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>
+                                        ${project.build.directory}/javadoc-sources/com.sun.mail.gimap
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--
+                We want to produce aggregated javadoc for multiple JPMS modules. To do that
+                we have to pass 'module-source-path' to javadoc tool to make it module aware.
+                While we can pass that option to javadoc through maven-javadoc-plugin
+                using 'additionalOptions', the plugin also sets 'sourcepath' option,
+                which is in conflict with 'module-source-path' (as of maven-javadoc-plugin:3.2.0).
+                Ant task is used here to get around that limitation for the time being.
+            -->
 	    <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-		<inherited>false</inherited>
                 <executions>
 		    <execution>
 			<phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
 			<configuration>
-			    <tasks>
+                            <target>
+                                <replace file="${project.build.directory}/javadoc-sources/com.sun.mail.gimap/module-info.java"
+                                         token="requires static com.sun.mail.imap;"
+                                         value=""/>
+                                <mkdir dir="${project.build.directory}/javadoc-ant"/>
+                                <javadoc destdir="${project.build.directory}/site/apidocs"
+                                         modulesourcepath="${project.build.directory}/javadoc-sources/"
+                                         modulepath="${com.sun.activation:jakarta.activation:jar}"
+                                         author="false"
+                                         docfilessubdirs="true"
+                                         failonerror="true"
+                                         overview="${project.build.directory}/javadoc-sources/jakarta.mail/overview.html"
+                                         serialwarn="true"
+                                         source="11"
+                                         splitindex="true"
+                                         use="true"
+                                         >
+                                    <arg value="-J-Xmx256m" />
+                                    <arg value="-Xdoclint:none" />
+                                    <arg value="-notimestamp" />
+                                    <arg value="-quiet" />
+                                    <arg line="-windowtitle '${mail.javadoc.title}'" />
+                                    <doctitle>${mail.javadoc.title}</doctitle>
+                                    <bottom>${mail.javadoc.bottom}</bottom>
+                                    <header>${mail.javadoc.impl.header}</header>
+                                    <group title="Jakarta Mail API Packages" packages="jakarta.mail.*"/>
+                                    <group title="Implementation-specific Packages" packages="com.sun.mail.*"/>
 
-				<copy todir="target/javadoc">
-				    <fileset dir="../mail/src/main/java">
-					<include name="**/*.html"/>
+                                    <fileset dir="${project.build.directory}/javadoc-sources/jakarta.mail">
 					<include name="jakarta/mail/**"/>
 				    </fileset>
-				    <fileset dir="../mail/src/main/java"
+                                    <fileset dir="${project.build.directory}/javadoc-sources/jakarta.mail"
 					includes="
-			com/sun/mail/imap/package.html,
 			com/sun/mail/imap/IMAPFolder.java,
 			com/sun/mail/imap/IMAPMessage.java,
 			com/sun/mail/imap/IMAPStore.java,
@@ -90,91 +167,20 @@
 			com/sun/mail/util/ReadableMime.java,
 			com/sun/mail/util/logging/*.java
 					"/>
-				    <fileset dir="../dsn/src/main/java"
+                                    <fileset dir="${project.build.directory}/javadoc-sources/com.sun.mail.dsn"
 					includes="
-			com/sun/mail/dsn/package.html,
 			com/sun/mail/dsn/DeliveryStatus.java,
 			com/sun/mail/dsn/DispositionNotification.java,
 			com/sun/mail/dsn/MessageHeaders.java,
 			com/sun/mail/dsn/MultipartReport.java,
 			com/sun/mail/dsn/Report.java
 					"/>
-				    <fileset dir="../gimap/src/main/java"
+                                    <fileset dir="${project.build.directory}/javadoc-sources/com.sun.mail.gimap"
 					includes="
-			com/sun/mail/gimap/package.html,
 			com/sun/mail/gimap/*.java
 					"/>
-				</copy>
-
-			    </tasks>
-			</configuration>
-			<goals>
-			    <goal>run</goal>
-			</goals>
-		    </execution>
-                </executions>
-            </plugin>                                 
-
-	    <plugin>
-		<artifactId>maven-javadoc-plugin</artifactId>
-		<inherited>false</inherited>
-                <executions>
-		    <execution>
-			<phase>package</phase>
-			<goals>
-			    <goal>javadoc</goal>
-			</goals>
-			<configuration>
-			    <additionalJOption>-J-Xmx256m</additionalJOption>
-			    <author>false</author>
-			    <description>
-				Jakarta Mail API documentation
-			    </description>
-			    <doctitle>
-				Jakarta Mail API documentation
-			    </doctitle>
-			    <windowtitle>
-				Jakarta Mail API documentation
-			    </windowtitle>
-			    <splitindex>true</splitindex>
-			    <use>true</use>
-			    <notimestamp>true</notimestamp>
-			    <serialwarn>true</serialwarn>
-			    <quiet>true</quiet>
-			    <overview>
-				${basedir}/target/javadoc/overview.html
-			    </overview>
-			    <bottom>
-<![CDATA[Copyright &#169; 2019, 2020 Eclipse Foundation.
-    Use is subject to
-    <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.
-]]>
-			    </bottom>
-			    <groups>
-				<group>
-				    <title>Jakarta Mail API Packages</title>
-				    <packages>jakarta.*</packages>
-				</group>
-				<group>
-				    <title>Implementation-specific Packages</title>
-				    <packages>com.sun.*</packages>
-				</group>
-			    </groups>
-			    <!--
-				Force javadoc to produce non-module docs
-				since the module definition isn't part of
-				the API specification.
-			    -->
-			    <source>8</source>
-			    <sourceFileExcludes>
-				<sourceFileExclude>module-info.java</sourceFileExclude>
-				<sourceFileExclude>com/sun/mail/imap/protocol/**</sourceFileExclude>
-				<sourceFileExclude>com/sun/mail/gimap/protocol/**</sourceFileExclude>
-			    </sourceFileExcludes>
-			    <!-- force the doc-files directory to be copied -->
-			    <docfilessubdirs>true</docfilessubdirs>
-			    <detectJavaApiLink>false</detectJavaApiLink>
-			    <sourcepath>${basedir}/target/javadoc</sourcepath>
+                                </javadoc>
+                            </target>
 			</configuration>
 		    </execution>
                 </executions>
