@@ -4,6 +4,8 @@ copyright-exclude
 /META-INF/javamail
 /META-INF/mailcap
 /README
+/NOTICE
+/Jenkinsfile
 doc/release/
 doc/spec/
 /LICENSE.txt
@@ -13,7 +15,6 @@ LICENSE.md
 .hgignore
 client/src/main/java/simple.mailcap
 mail/src/oldtest/java/javax/mail/internet/encodedheaders.data
-mail/src/oldtest/java/javax/mail/internet/decodetest
 mail.sig
 webapp/build.bat
 webapp/webapp.README.txt
@@ -27,5 +28,7 @@ mail/src/test/resources/javax/mail/internet/tokenlist
 mail/src/test/resources/javax/mail/internet/addrlist
 mail/src/test/resources/javax/mail/internet/MailDateFormat_old.ser
 mail/src/test/resources/javax/mail/internet/MailDateFormat_new.ser
+mail/src/test/resources/com/sun/mail/test/keystore.jks
 mail/src/main/java/doc-files/speclicense.html
 android/activation/src/main/resources/META-INF/mimetypes.default
+docker/JTReportParser/
