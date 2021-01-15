@@ -3,27 +3,39 @@ Jakarta Mail for Android
 
 Jakarta Mail for Android is now available!
 
-Android does not provide a Java Compatible runtime and so can't run the
-standard Jakarta Mail distribution.  Instead, a special version of
-Jakarta Mail is available for Android.  This special version of Jakarta
-Mail depends on a special version of Jakarta Activation.
+As of Jakarta Mail 2.0.0, standard Jakarta Mail distribution can run on Android.
 
-This version is available from the java.net maven repository.
+This version is available from the maven central repository.
 You can try out this version by adding the following to your
 build.gradle file for your Android application:
 
     android {
         packagingOptions {
-            pickFirst 'META-INF/LICENSE.txt' // picks the Jakarta Mail license file
+            pickFirst 'META-INF/LICENSE.md' // picks the Jakarta Mail license file
         }
     }
     
     dependencies {
-        // use whatever the current version is...
-        compile 'com.sun.mail:android-mail:1.6.4'
-        compile 'com.sun.mail:android-activation:1.6.4'
+        // use whatever the current 2.x version is...
+        compile 'com.sun.mail:jakarta-mail:2.0.0'
+        compile 'com.sun.activation:jakarta-activation:2.0.0'
     }
 
+Previous versions of Jakarta Mail, ie 1.6.5, do not run on Android `as is`, therefore,
+a special version of Jakarta Mail is available.  This special version of Jakarta
+Mail depends on a special version of Jakarta Activation.
+
+    android {
+        packagingOptions {
+            pickFirst 'META-INF/LICENSE.md' // picks the Jakarta Mail license file
+        }
+    }
+    
+    dependencies {
+        // use whatever the current 1.x version is...
+        compile 'com.sun.mail:android-mail:1.6.5'
+        compile 'com.sun.mail:android-activation:1.6.5'
+    }
 
 One of the standard Java features not supported on Android is SASL.  That means
 none of the "mail._protocol_.sasl.*" properties will have any effect.  One of
@@ -37,4 +49,4 @@ which corresponds to
 currently the oldest supported version of Android.
 
 If you discover problems, please report them to
-[javamail_ww@oracle.com](mailto:javamail_ww@oracle.com).
+[mail-dev@eclipse.org](mailto:mail-dev@eclipse.org).
