@@ -71,14 +71,6 @@
 		<artifactId>maven-dependency-plugin</artifactId>
 		<executions>
 		    <execution>
-			<!-- download the binaries -->
-			<id>get-binaries</id>
-			<phase>compile</phase>
-			<goals>
-			    <goal>unpack</goal>
-			</goals>
-		    </execution>
-		    <execution>
 			<!-- download the sources -->
 			<id>get-sources</id>
 			<phase>compile</phase>
@@ -121,6 +113,10 @@
 		    </excludes>
 		</configuration>
 	    </plugin>
+            <!--
+                Using pre-compiled classes causes VerifyError on Android 11,
+                see https://github.com/eclipse-ee4j/mail/issues/489
+            -->
 	    <plugin>
 		<artifactId>maven-compiler-plugin</artifactId>
 		<executions>
@@ -133,9 +129,6 @@
 			    <source>1.7</source>
 			    <target>1.7</target>
 			    <fork>true</fork>
-                            <includes>
-                                <include>com/sun/mail/handlers/handler_base.java</include>
-                            </includes>
 			</configuration>
 		    </execution>
 		</executions>
