@@ -44,6 +44,26 @@
 	</findbugs.exclude>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>base-compile-7</id>
+                        <configuration>
+                            <skipMain>false</skipMain>
+                            <compilerArgs>
+                                <arg>-h</arg>
+                                <arg>${project.build.directory}/native</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>com.sun.mail</groupId>

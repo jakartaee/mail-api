@@ -132,7 +132,7 @@
                                     <group title="Implementation-specific Packages" packages="com.sun.mail.*"/>
 
                                     <fileset dir="${project.build.directory}/javadoc-sources/jakarta.mail">
-					<include name="jakarta/mail/**"/>
+					<include name="jakarta/mail/**/*.java"/>
 				    </fileset>
                                     <fileset dir="${project.build.directory}/javadoc-sources/jakarta.mail"
 					includes="
