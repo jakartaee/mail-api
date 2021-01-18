@@ -27,7 +27,7 @@ spec:
     resources:
       limits:
         memory: "5Gi"
-        cpu: "1"
+        cpu: "1.0"
   - name: james-mail
     image: jakartaee/cts-mailserver:0.1
     command:
@@ -42,17 +42,17 @@ spec:
     imagePullPolicy: Always
     resources:
       limits:
-        memory: "2.5Gi"
-        cpu: ".75"
+        memory: "3.0Gi"
+        cpu: "1.0"
 """
     }
   }
   parameters {
     string(name: 'JAF_BUNDLE_URL',
-           defaultValue: 'http://central.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar',
+           defaultValue: 'https://repo1.maven.org/maven2/com/sun/activation/jakarta.activation/2.0.0-RC3/jakarta.activation-2.0.0-RC3.jar',
            description: 'URL required for downloading JAF implementation jar' )
     string(name: 'MAIL_TCK_BUNDLE_URL',
-           defaultValue: 'https://jenkins.eclipse.org/mail/job/mail-tck/job/master/lastSuccessfulBuild/artifact/bundles/mail-tck-1.6.0.zip',
+           defaultValue: 'https://ci.eclipse.org/mail/job/mail-tck/job/2.0.0/lastSuccessfulBuild/artifact/bundles/mail-tck-2.0.0-rc1.zip',
            description: 'URL required for downloading Jakarta Mail TCK zip' )
   }
   environment {

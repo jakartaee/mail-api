@@ -14,35 +14,18 @@ from a Folder, and content from Messages.
 To run the demo:
 ================
 
-    1.  If you're using JDK 1.1.x, download the latest version of the JFC
-	(Swing) APIs from http://java.sun.com/products/jfc/download.html.
-	The SimpleClient uses at least version 1.1 of Swing.
+    1.  Set your CLASSPATH to include the "jakarta.mail.jar",
+        "jakarta.activation.jar", and the current directory.  For example:
 
-	If you're using JDK 1.2 (J2SE 1.2) or newer, Swing is included
-	and no separate download is necessary.
+	export CLASSPATH=/u/me/download/jakarta.mail.jar:/u/me/download/jakarta.activation.jar:.
 
-	We *strongly* encourage you to use the latest version of J2SE,
-	which you can download from http://java.sun.com/j2se/.
+    2.  Go to the demo/client directory
 
-    2.  Set your CLASSPATH to include the "mail.jar", "activation.jar",
-	and (if you're using JDK 1.1.x and downloaded Swing separately)
-	"swingall.jar", and the current directory.  For example:
-
-	For JDK 1.1 on UNIX:
-
-	export CLASSPATH=/u/me/download/mail.jar:/u/me/download/activation.jar:/u/me/download/swingall.jar:.
-
-	For JDK 1.2 and newer on UNIX:
-
-	export CLASSPATH=/u/me/download/mail.jar:/u/me/download/activation.jar:.
-
-    3.  Go to the demo/client directory
-
-    4.  Compile all the files using your Java compiler.  For example:
+    3.  Compile all the files using your Java compiler.  For example:
 
 	  javac *.java
 
-    5.  Run the demo. For example:
+    4.  Run the demo. For example:
 
 	  java SimpleClient -L imap://username:password@hostname/
 
@@ -77,7 +60,7 @@ Main Classes:
 			     a FolderViewer.  Otherwise it will add the
 			     subfolders to the tree.
 
-	SimpleAuthenticator = subclass of javax.mail.Authenticator. If
+	SimpleAuthenticator = subclass of jakarta.mail.Authenticator. If
 			     the Store is missing the username or the
 			     password, this authenticator will be used.
 			     It displays a dialog requesting the
@@ -92,22 +75,22 @@ Viewing Folders:
 			     knows how to get displayable information
 			     from a Message.
 
-JAF Viewers:
+Jakarta Activation Viewers:
 
 	MessageViewer   =    Uses the content of the DataHandler.  The
-			     content will be a javax.mail.Message
+			     content will be a jakarta.mail.Message
 			     object.  Displays the headers and then
-			     uses the JAF to find another viewer for
+			     uses Jakarta Activation to find another viewer for
 			     the content type of the Message.  (either
 			     multipart/mixed, image/gif, or text/plain)
 
 	MultipartViewer =    Uses the content of the DataHandler.  The
-			     content will be a javax.mail.Multipart
-			     object.  Uses the JAF to find another
+			     content will be a jakarta.mail.Multipart
+			     object.  Uses Jakarta Activation to find another
 			     viewer for the first BodyPart's content.
 			     Also puts Buttons (as "attachments") for
 			     the rest of the BodyParts.  When the
-			     Button are pressed, it uses the JAF to
+			     Button are pressed, it uses Jakarta Activation to
 			     find a viewer for the BodyPart's content,
 			     and displays it in a separate frame (using
 			     ComponentFrame).

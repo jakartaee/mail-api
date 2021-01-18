@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,10 +16,8 @@
 
 module com.sun.mail.pop3 {
     exports com.sun.mail.pop3;
-    provides javax.mail.Provider with
+    provides jakarta.mail.Provider with
 	com.sun.mail.pop3.POP3Provider, com.sun.mail.pop3.POP3SSLProvider;
 
-    requires jakarta.mail;
-    requires java.logging;
-    requires java.security.sasl;
+    requires transitive jakarta.mail;
 }

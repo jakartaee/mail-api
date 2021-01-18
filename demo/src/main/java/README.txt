@@ -288,7 +288,7 @@ but if in doubt, read the source code.
 
 	Search the given folder for messages matching the
 	given criteria.  Illustrates the use of the
-	javax.mail.search package.
+	jakarta.mail.search package.
 
    Usage:
 	java search -L <url> -T <prot> -H <host> -U <user> -P <passwd>

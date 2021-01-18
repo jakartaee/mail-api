@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -15,19 +15,19 @@
  */
 
 module jakarta.mail {
-    exports javax.mail;
-    exports javax.mail.event;
-    exports javax.mail.internet;
-    exports javax.mail.search;
-    exports javax.mail.util;
+    exports jakarta.mail;
+    exports jakarta.mail.event;
+    exports jakarta.mail.internet;
+    exports jakarta.mail.search;
+    exports jakarta.mail.util;
     exports com.sun.mail.util;
     exports com.sun.mail.auth;
     exports com.sun.mail.handlers;
 
     requires transitive jakarta.activation;
-    requires java.logging;
+    requires transitive java.logging;
     requires java.xml;		// for text/xml handler
     requires java.desktop;	// for image/jpeg handler
-    requires java.security.sasl; // for OAuth2 support
-    uses javax.mail.Provider;
+    requires transitive java.security.sasl; // for OAuth2 support
+    uses jakarta.mail.Provider;
 }

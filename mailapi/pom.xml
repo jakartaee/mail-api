@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -32,7 +32,7 @@
     <parent>
 	<groupId>com.sun.mail</groupId>
 	<artifactId>all</artifactId>
-	<version>1.6.5</version>
+	<version>2.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.mail</groupId>
@@ -42,7 +42,7 @@
 
     <properties>
 	<mail.packages.export>
-	    javax.mail.*; version=${mail.spec.version},
+	    jakarta.mail.*; version=${mail.spec.version},
 	    com.sun.mail.util; version=${mail.osgiversion},
 	    com.sun.mail.auth; version=${mail.osgiversion},
 	    com.sun.mail.handlers; version=${mail.osgiversion}
@@ -50,7 +50,7 @@
 	<mail.bundle.symbolicName>
 	    jakarta.mail.api
 	</mail.bundle.symbolicName>
-	<mail.extraClasses>javax/**</mail.extraClasses>
+	<mail.extraClasses>jakarta/**</mail.extraClasses>
     </properties>
 
     <profiles>
@@ -71,10 +71,10 @@
 				<configuration>
 				    <excludes>
 					<exclude>
-					  javax/mail/MailSessionDefinition.java
+					  jakarta/mail/MailSessionDefinition.java
 					</exclude>
 					<exclude>
-					  javax/mail/MailSessionDefinitions.java
+					  jakarta/mail/MailSessionDefinitions.java
 					</exclude>
 					<exclude>
 					  module-info.java
@@ -95,14 +95,6 @@
 		<artifactId>maven-dependency-plugin</artifactId>
 		<executions>
 		    <execution>
-			<!-- download the binaries -->
-			<id>get-binaries</id>
-			<phase>generate-sources</phase>
-			<goals>
-			    <goal>unpack</goal>
-			</goals>
-		    </execution>
-		    <execution>
 			<!-- download the sources -->
 			<id>get-sources</id>
 			<phase>generate-sources</phase>
@@ -117,71 +109,68 @@
 				    <version>${mail.version}</version>
 				    <classifier>sources</classifier>
 				    <outputDirectory>
-					${project.build.directory}/sources
+					${project.build.directory}/generated-sources/sources
 				    </outputDirectory>
 				</artifactItem>
 			    </artifactItems>
-			</configuration>
-		    </execution>
-		</executions>
-		<configuration>
-		    <artifactItems>
-			<artifactItem>
-			    <groupId>com.sun.mail</groupId>
-			    <artifactId>jakarta.mail</artifactId>
-			    <version>${mail.version}</version>
-			</artifactItem>
-		    </artifactItems>
-		    <outputDirectory>
-			${project.build.outputDirectory}
-		    </outputDirectory>
 		    <!--
-			Include all the implementation source files so that
-			javadoc run as part of "deploy" will find all the
-			required classes.
+                        Don't include the provider classes in the jar file.
 
 			Don't include the metadata files from the original
 			jar file.
 		    -->
-		    <excludes>
-			META-INF/hk2-locator/**,
-			META-INF/services/**,
-			META-INF/maven/**,
-			META-INF/javamail.**,
-			META-INF/gfprobe-provider.xml
-		    </excludes>
-		</configuration>
-	    </plugin>
+                            <excludes>
+                                module-info.*,
+                                **/iap/**,
+                                **/imap/**,
+                                **/smtp/**,
+                                **/pop3/**,
+                                META-INF/hk2-locator/**,
+                                META-INF/services/**,
+                                META-INF/maven/**,
+                                META-INF/javamail.**,
+                                META-INF/gfprobe-provider.xml
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-	    <!--
-		 Skip compiling since the dependency plugin pulled in
-		 the sources and class files.
-	    -->
+            <!--
+                Use 1.8 compiler to compile MailServiceDefinition & MailServiceDefinitions
+                which depend on the Repeatable annotation available from Java SE 8
+            -->
 	    <plugin>
 		<artifactId>maven-compiler-plugin</artifactId>
 		<executions>
 		    <execution>
-			<id>default-compile</id>
+			<id>base-compile-8</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
 			<configuration>
-			    <skipMain>true</skipMain>
+                            <release>8</release>
+                            <includes>
+                                <include>jakarta/mail/MailSessionDefinition.java</include>
+                                <include>jakarta/mail/MailSessionDefinitions.java</include>
+                            </includes>
 			</configuration>
 		    </execution>
 		</executions>
 	    </plugin>
 
-	    <!--
-		Don't include the provider classes in the jar file.
-	    -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <finalName>${project.artifactId}</finalName>
-		    <excludes>
-			<exclude>com/sun/mail/smtp/**</exclude>
-			<exclude>com/sun/mail/imap/**</exclude>
-			<exclude>com/sun/mail/iap/**</exclude>
-			<exclude>com/sun/mail/pop3/**</exclude>
-		    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <bottom>${mail.javadoc.bottom}</bottom>
+                    <javadocDirectory>${project.build.directory}/generated-sources/sources</javadocDirectory>
                 </configuration>
             </plugin>
 	</plugins>

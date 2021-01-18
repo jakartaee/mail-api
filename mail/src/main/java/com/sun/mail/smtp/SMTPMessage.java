@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,8 +17,8 @@
 package com.sun.mail.smtp;
 
 import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 /**
  * This class is a specialization of the MimeMessage class that allows
@@ -31,7 +31,7 @@ import javax.mail.internet.*;
  * documentation for further information on the SMTP protocol provider. <p>
  *
  * @author Bill Shannon
- * @see	javax.mail.internet.MimeMessage
+ * @see	jakarta.mail.internet.MimeMessage
  */
 
 public class SMTPMessage extends MimeMessage {

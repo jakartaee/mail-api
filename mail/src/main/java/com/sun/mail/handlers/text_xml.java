@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,10 +19,10 @@ package com.sun.mail.handlers;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.activation.ActivationDataFlavor;
-import javax.activation.DataSource;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.ParseException;
+import jakarta.activation.ActivationDataFlavor;
+import jakarta.activation.DataSource;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.ParseException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;

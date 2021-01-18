@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,10 +17,9 @@
 package com.sun.mail.dsn;
 
 import java.io.*;
-import java.awt.datatransfer.DataFlavor;
-import javax.activation.*;
-import javax.mail.MessagingException;
-import javax.mail.internet.*;
+import jakarta.activation.*;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.*;
 
 
 /**
@@ -37,22 +36,22 @@ public class multipart_report implements DataContentHandler {
 	    "Multipart Report");
 
     /**
-     * Return the DataFlavors for this <code>DataContentHandler</code>.
+     * Return the ActivationDataFlavors for this <code>DataContentHandler</code>.
      *
-     * @return The DataFlavors
+     * @return The ActivationDataFlavors
      */
-    public DataFlavor[] getTransferDataFlavors() { // throws Exception;
-	return new DataFlavor[] { myDF };
+    public ActivationDataFlavor[] getTransferDataFlavors() { // throws Exception;
+	return new ActivationDataFlavor[] { myDF };
     }
 
     /**
-     * Return the Transfer Data of type DataFlavor from InputStream.
+     * Return the Transfer Data of type ActivationDataFlavor from InputStream.
      *
-     * @param df The DataFlavor
+     * @param df The ActivationDataFlavor
      * @param ds The DataSource corresponding to the data
      * @return String object
      */
-    public Object getTransferData(DataFlavor df, DataSource ds)
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
 				throws IOException {
 	// use myDF.equals to be sure to get ActivationDataFlavor.equals,
 	// which properly ignores Content-Type parameters in comparison

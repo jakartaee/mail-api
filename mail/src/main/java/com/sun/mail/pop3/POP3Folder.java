@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,8 @@
 
 package com.sun.mail.pop3;
 
-import javax.mail.*;
-import javax.mail.event.*;
+import jakarta.mail.*;
+import jakarta.mail.event.*;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.EOFException;
@@ -37,7 +37,7 @@ import java.util.List;
  * documentation for further information on the POP3 protocol provider. <p>
  *
  * @author      Bill Shannon
- * @author	John Mani (ported to the javax.mail APIs)
+ * @author	John Mani (ported to the jakarta.mail APIs)
  */
 public class POP3Folder extends Folder {
 

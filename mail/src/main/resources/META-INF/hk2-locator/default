@@ -6,4 +6,4 @@
 #
 [com.sun.mail.util.logging.MailHandler]
 contract={java.util.logging.Handler}
-scope=javax.inject.Singleton
+scope=jakarta.inject.Singleton

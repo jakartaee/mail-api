@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.MailDateFormat;
-import javax.mail.internet.MimeUtility;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.MailDateFormat;
+import jakarta.mail.internet.MimeUtility;
 import com.sun.mail.iap.*;
 import com.sun.mail.util.PropUtil;
 

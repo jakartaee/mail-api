@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,9 +23,9 @@ import java.lang.reflect.*;
 import java.util.logging.Level;
 import java.nio.charset.StandardCharsets;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.mail.search.*;
 
 import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.MailLogger;
@@ -761,7 +761,6 @@ public class IMAPProtocol extends Protocol {
 	Response r = null;
 	boolean done = false;
 
-	String type1Msg = null;
 	int flags = PropUtil.getIntProperty(props,
 	    "mail." + name + ".auth.ntlm.flags", 0);
 	boolean v2 = PropUtil.getBooleanProperty(props,

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,8 +17,7 @@
 package com.sun.mail.handlers;
 
 import java.io.IOException;
-import java.awt.datatransfer.DataFlavor;
-import javax.activation.*;
+import jakarta.activation.*;
 
 /**
  * Base class for other DataContentHandlers.
@@ -48,30 +47,30 @@ public abstract class handler_base implements DataContentHandler {
     }
 
     /**
-     * Return the DataFlavors for this <code>DataContentHandler</code>.
+     * Return the ActivationDataFlavors for this <code>DataContentHandler</code>.
      *
-     * @return The DataFlavors
+     * @return The ActivationDataFlavors
      */
     @Override
-    public DataFlavor[] getTransferDataFlavors() {
+    public ActivationDataFlavor[] getTransferDataFlavors() {
 	ActivationDataFlavor[] adf = getDataFlavors();
 	if (adf.length == 1)	// the common case
-	    return new DataFlavor[] { adf[0] };
-	DataFlavor[] df = new DataFlavor[adf.length];
+	    return new ActivationDataFlavor[] { adf[0] };
+	ActivationDataFlavor[] df = new ActivationDataFlavor[adf.length];
 	System.arraycopy(adf, 0, df, 0, adf.length);
 	return df;
     }
 
     /**
-     * Return the Transfer Data of type DataFlavor from InputStream.
+     * Return the Transfer Data of type ActivationDataFlavor from InputStream.
      *
-     * @param	df	The DataFlavor
+     * @param	df	The ActivationDataFlavor
      * @param	ds	The DataSource corresponding to the data
      * @return	the object
      * @exception	IOException	for errors reading the data
      */
     @Override
-    public Object getTransferData(DataFlavor df, DataSource ds) 
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds) 
 			throws IOException {
 	ActivationDataFlavor[] adf = getDataFlavors();
 	for (int i = 0; i < adf.length; i++) {

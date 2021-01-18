@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,9 +18,9 @@ package com.sun.mail.dsn;
 
 import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.InternetHeaders;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.InternetHeaders;
 
 import org.junit.*;
 import static org.junit.Assert.assertTrue;

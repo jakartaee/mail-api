@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,10 +18,9 @@ package com.sun.mail.handlers;
 
 import java.io.*;
 import java.util.*;
-import java.awt.datatransfer.DataFlavor;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.util.ByteArrayDataSource;
+import jakarta.activation.*;
+import jakarta.mail.*;
+import jakarta.mail.util.ByteArrayDataSource;
 import javax.xml.transform.stream.*;
 
 import org.junit.Test;
@@ -55,7 +54,7 @@ public class TextXmlTest {
 
     private static void testStreamToString(String mimeType) throws Exception {
 	DataContentHandler dch = new text_xml();
-	DataFlavor df = new ActivationDataFlavor(String.class, mimeType, "XML");
+	ActivationDataFlavor df = new ActivationDataFlavor(String.class, mimeType, "XML");
 	DataSource ds = new ByteArrayDataSource(xmlBytes, mimeType);
 	Object content = dch.getContent(ds);
 	assertEquals(String.class, content.getClass());
@@ -69,7 +68,7 @@ public class TextXmlTest {
     @Test
     public void testStreamToSource() throws Exception {
 	DataContentHandler dch = new text_xml();
-	DataFlavor df = new ActivationDataFlavor(StreamSource.class,
+	ActivationDataFlavor df = new ActivationDataFlavor(StreamSource.class,
 						    "text/xml", "XML stream");
 	DataSource ds = new ByteArrayDataSource(xmlBytes, "text/xml");
 	Object content = dch.getTransferData(df, ds);

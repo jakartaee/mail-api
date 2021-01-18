@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import javax.mail.*;
-import javax.mail.event.*;
+import jakarta.mail.*;
+import jakarta.mail.event.*;
 
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.protocol.*;
