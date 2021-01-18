@@ -26,6 +26,7 @@ The following bugs have been fixed in the 2.0.1 release.
 
 E  403	Android SocketChannel workaround not working around
 E  456	MimeMessage.setFrom(null) fails instead of removing the header
+E  461	OAuth2 POP3 Support for Microsoft
 E  473	Several modules are not included in build when JDK11 is used
 E  493	javamail.providers file missing from provider jars after 1.6.5
 
