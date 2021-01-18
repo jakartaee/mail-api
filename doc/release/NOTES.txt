@@ -9,7 +9,7 @@ Welcome to the ${mail.version} release of the Jakarta Mail API implementation.
 Please refer to CHANGES.txt for a list of the changes since the 
 previous release.
 
-Please see the FAQ at https://eclipse-ee4j.github.io/jakartamail/FAQ
+Please see the FAQ at https://eclipse-ee4j.github.io/mail/FAQ
 
 Protocol Providers
 ------------------
@@ -137,12 +137,12 @@ Your problem:	How do I create a message with an attachment?
 Our response:	Create a message with a MimeMultipart content.  See the
 		sendfile.html and msgmultisendsample.java demo programs.
 
-Please check the FAQ at https://eclipse-ee4j.github.io/jakartamail/FAQ
+Please check the FAQ at https://eclipse-ee4j.github.io/mail/FAQ
 before submitting bug reports.
 
 Send your bug reports to:
 
-	javamail_ww@oracle.com
+	mail-dev@eclipse.org
 
 
 
@@ -195,9 +195,9 @@ How to give feedback
 
 Please send your feedback to this email-address:
 
-	javamail_ww@oracle.com
+	mail-dev@eclipse.org
 
-Check out our website at https://eclipse-ee4j.github.io/jakartamail/.
+Check out our website at https://eclipse-ee4j.github.io/mail/.
 
 You can also find help on StackOverflow:
 
