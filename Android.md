@@ -49,4 +49,4 @@ which corresponds to
 currently the oldest supported version of Android.
 
 If you discover problems, please report them to
-[mail-dev@eclipse.org](mailto:mail-dev@eclipse.org).
+[mail-dev@eclipse.org](https://accounts.eclipse.org/mailing-list/mail-dev).

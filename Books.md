@@ -2,7 +2,7 @@
 
 You might find these books useful.
 If you know of other books we should list, please let us know at
-<a href="mailto:javamail_ww@oracle.com">javamail_ww@oracle.com</a>.
+<a href="https://accounts.eclipse.org/mailing-list/mail-dev">mai-dev@eclipse.org</a>.
 
 * <a href="http://www.amazon.com/exec/obidos/ISBN=1449367240/javasoftsunmicroA">
   JavaMail API</a>, by Elliotte Rusty Harold.

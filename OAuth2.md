@@ -57,7 +57,7 @@ described on the Outlook.com page.
 OAuth2 is also supported with SMTP; change "imap" to "smtp" in the
 property names.  OAuth2 is **not** supported for pop3.
 
-Please send feedback to <javamail_ww@oracle.com>.
+Please send feedback to [mail-dev@eclipse.org](https://accounts.eclipse.org/mailing-list/mail-dev).
 
 
 JavaMail 1.5.2 and later
@@ -66,7 +66,7 @@ JavaMail 1.5.2 and later
 Starting with JavaMail 1.5.2, support for
 [OAuth2 authentication](https://developers.google.com/gmail/xoauth2_protocol)
 via the [SASL](http://www.ietf.org/rfc/rfc4422.txt) XOAUTH2 mechanism
-is included. Please send feedback to <javamail_ww@oracle.com>.
+is included. Please send feedback to [mail-dev@eclipse.org](https://accounts.eclipse.org/mailing-list/mail-dev).
 
 The SASL XOAUTH2 provider will be
 [added to the Java security configuration](http://docs.oracle.com/javase/7/docs/api/java/security/Security.html#addProvider(java.security.Provider))
