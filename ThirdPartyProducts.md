@@ -3,7 +3,7 @@
 <FONT SIZE="-1">(Last updated Oct 16, 2017)</FONT>
 
 Links to third-party products related to the Jakarta Mail APIs. Send us
-a note at <A HREF="mailto:javamail_ww@oracle.com">javamail_ww@oracle.com</A>
+a note at <A HREF="https://accounts.eclipse.org/mailing-list/mail-dev">mail-dev@eclipse.org</A>
 if you want your product listed here.
 
 * Sending emails in Java should be easier. Jodd provides some nice

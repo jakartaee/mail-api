@@ -2,8 +2,8 @@ How to Contribute to Jakarta Mail
 =================================
 
 If you're interested in contributing fixes, enhancements, etc. to
-Jakarta Mail, please contact us at <javamail_ww@oracle.com> before you
-start.  We can give you advice you might need to make it easier to
+Jakarta Mail, please contact us at [mail-dev@eclipse.org](https://accounts.eclipse.org/mailing-list/mail-dev)
+before you start.  We can give you advice you might need to make it easier to
 contribute, and we can better coordinate contributions with other
 planned or ongoing work on Jakarta Mail.
 

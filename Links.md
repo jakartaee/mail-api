@@ -3,7 +3,7 @@
 Here are some links to sites with lots of good information on Internet
 mail and some articles on the Jakarta Mail API. If you know of other good
 sources of such information, please let us know at <a
-href="mailto:javamail_ww@oracle.com">javamail_ww@oracle.com</a>.
+href="https://accounts.eclipse.org/mailing-list/mail-dev">mail-dev@eclipse.org</a>.
 
 * <a href="https://blogs.oracle.com/geertjan/entry/javamail_client_on_the_netbeans">
   JavaMail Client on the NetBeans Platform</a> by Geertjan Wielenga
