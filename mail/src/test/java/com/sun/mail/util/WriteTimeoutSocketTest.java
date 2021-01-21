@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,8 +18,10 @@ package com.sun.mail.util;
 
 import java.lang.reflect.*;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.net.Socket;
 import java.util.Properties;
 import java.util.List;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ import org.junit.Rule;
 import org.junit.rules.Timeout;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test that write timeouts work.
@@ -204,6 +207,41 @@ public final class WriteTimeoutSocketTest {
                 server.quit();
             }
         }
+    }
+    
+    @Test
+    public void testFileDescriptor$() throws Exception {
+    	try (PublicFileSocket ps = new PublicFileSocket()) {
+            assertNotNull(ps.getFileDescriptor$());
+    	}
+
+    	testFileDescriptor$(new PublicFileSocket());
+    	testFileDescriptor$(new PublicFileSocket1of3());
+    	testFileDescriptor$(new PublicFileSocket2of3());
+    	testFileDescriptor$(new PublicFileSocket3of3());
+    }
+    
+    private void testFileDescriptor$(Socket s) throws Exception {
+    	try (WriteTimeoutSocket ws = new WriteTimeoutSocket(s, 1000)) {
+            assertNotNull(ws.getFileDescriptor$());
+    	} finally {
+            s.close();
+    	}
+    }
+    
+    private static class PublicFileSocket extends Socket {
+    	public FileDescriptor getFileDescriptor$() {
+            return new FileDescriptor();
+    	}
+    }
+    
+    private static class PublicFileSocket1of3 extends PublicFileSocket {
+    }
+    
+    private static class PublicFileSocket2of3 extends PublicFileSocket1of3 {
+    }
+    
+    private static class PublicFileSocket3of3 extends PublicFileSocket2of3 {
     }
 
     /**
