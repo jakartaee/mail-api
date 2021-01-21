@@ -73,7 +73,7 @@
 		    <execution>
 			<!-- download the sources -->
 			<id>get-sources</id>
-			<phase>compile</phase>
+			<phase>generate-sources</phase>
 			<goals>
 			    <goal>unpack</goal>
 			</goals>
