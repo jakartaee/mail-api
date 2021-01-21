@@ -12,6 +12,7 @@ build.gradle file for your Android application:
     android {
         packagingOptions {
             pickFirst 'META-INF/LICENSE.md' // picks the Jakarta Mail license file
+            pickFirst 'META-INF/NOTICE.md' // picks the Jakarta Mail notice file
         }
     }
     
@@ -28,6 +29,7 @@ Mail depends on a special version of Jakarta Activation.
     android {
         packagingOptions {
             pickFirst 'META-INF/LICENSE.md' // picks the Jakarta Mail license file
+            pickFirst 'META-INF/NOTICE.md' // picks the Jakarta Mail notice file
         }
     }
     
