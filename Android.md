@@ -18,8 +18,8 @@ build.gradle file for your Android application:
     
     dependencies {
         // use whatever the current 2.x version is...
-        compile 'com.sun.mail:jakarta-mail:2.0.0'
-        compile 'com.sun.activation:jakarta-activation:2.0.0'
+        compile 'com.sun.mail:jakarta.mail:2.0.0'
+        compile 'com.sun.activation:jakarta.activation:2.0.0'
     }
 
 Previous versions of Jakarta Mail, ie 1.6.5, do not run on Android `as is`, therefore,
