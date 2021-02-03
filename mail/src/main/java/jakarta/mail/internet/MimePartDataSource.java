@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,12 +16,22 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.*;
-import jakarta.activation.*;
-import java.io.*;
+import static jakarta.mail.internet.MimeBodyPart.IGNORE_MULTIPART_ENCODING;
+
+import jakarta.activation.DataSource;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.MessageAware;
+import jakarta.mail.MessageContext;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.UnknownServiceException;
-import com.sun.mail.util.PropUtil;
+
 import com.sun.mail.util.FolderClosedIOException;
+import com.sun.mail.util.PropUtil;
 
 /**
  * A utility class that implements a DataSource out of
@@ -33,6 +43,8 @@ import com.sun.mail.util.FolderClosedIOException;
  */
 
 public class MimePartDataSource implements DataSource, MessageAware {
+
+    protected boolean ignoreMultipartEncoding = IGNORE_MULTIPART_ENCODING;
     /**
      * The MimePart that provides the data for this DataSource.
      *
@@ -48,7 +60,13 @@ public class MimePartDataSource implements DataSource, MessageAware {
      * @param	part	the MimePart
      */
     public MimePartDataSource(MimePart part) {
-	this.part = part;
+        this.part = part;
+	    this.context = new MessageContext(part);
+	    Session session = context.getSession();
+	    if (session != null) {
+	        this.ignoreMultipartEncoding = PropUtil.getBooleanProperty(session.getProperties(),
+	                "mail.mime.ignoremultipartencoding", ignoreMultipartEncoding);
+	    }
     }
 
     /**
@@ -80,7 +98,7 @@ public class MimePartDataSource implements DataSource, MessageAware {
 		throw new MessagingException("Unknown part");
 	    
 	    String encoding =
-		MimeBodyPart.restrictEncoding(part, part.getEncoding());
+		MimeBodyPart.restrictEncoding(part, part.getEncoding(), ignoreMultipartEncoding);
 	    if (encoding != null)
 		return MimeUtility.decode(is, encoding);
 	    else
@@ -145,9 +163,7 @@ public class MimePartDataSource implements DataSource, MessageAware {
      * @since JavaMail 1.1
      */
     @Override
-    public synchronized MessageContext getMessageContext() {
-	if (context == null)
-	    context = new MessageContext(part);
-	return context;
+    public MessageContext getMessageContext() {
+        return context;
     }
 }

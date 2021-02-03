@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -177,6 +177,63 @@ public class MimeBodyPartTest {
 	assertEquals("empty C-T-E data", "test\n", mbp.getContent());
     }
 
+    @Test
+    public void sessionProperties() throws MessagingException, IOException {
+        Properties prop = new Properties();
+        MimeMessage orig = buildFromProperties(prop);
+        MimeMultipart omp = (MimeMultipart)orig.getContent();
+        MimeBodyPart obp = (MimeBodyPart)omp.getBodyPart(0);
+        // No properties added, so default will be checked
+        // MimeMessage
+        assertTrue(orig.setDefaultTextCharset);
+        assertTrue(orig.setContentTypeFileName);
+        assertFalse(orig.encodeFileName);
+        assertFalse(orig.decodeFileName);
+        assertTrue(orig.ignoreMultipartEncoding);
+        assertTrue(orig.allowutf8);
+        assertTrue(orig.cacheMultipart);
+        // MimeBodyPart
+        assertTrue(obp.setDefaultTextCharset);
+        assertTrue(obp.setContentTypeFileName);
+        assertFalse(obp.encodeFileName);
+        assertFalse(obp.decodeFileName);
+        assertTrue(obp.ignoreMultipartEncoding);
+        assertTrue(obp.allowutf8);
+        assertTrue(obp.cacheMultipart);
+        // Change the properties in opposite way
+        prop.put("mail.mime.setdefaulttextcharset", Boolean.FALSE);
+        prop.put("mail.mime.setcontenttypefilename", Boolean.FALSE);
+        prop.put("mail.mime.encodefilename", Boolean.TRUE);
+        prop.put("mail.mime.decodefilename", Boolean.TRUE);
+        prop.put("mail.mime.ignoremultipartencoding", Boolean.FALSE);
+        prop.put("mail.mime.allowutf8", Boolean.FALSE);
+        prop.put("mail.mime.cachemultipart", Boolean.FALSE);
+        orig = buildFromProperties(prop);
+        omp = (MimeMultipart)orig.getContent();
+        obp = (MimeBodyPart)omp.getBodyPart(0);
+        // MimeMessage
+        assertFalse(orig.setDefaultTextCharset);
+        assertFalse(orig.setContentTypeFileName);
+        assertTrue(orig.encodeFileName);
+        assertTrue(orig.decodeFileName);
+        assertFalse(orig.ignoreMultipartEncoding);
+        assertFalse(orig.allowutf8);
+        assertFalse(orig.cacheMultipart);
+        // MimeBodyPart
+        assertFalse(obp.setDefaultTextCharset);
+        assertFalse(obp.setContentTypeFileName);
+        assertTrue(obp.encodeFileName);
+        assertTrue(obp.decodeFileName);
+        assertFalse(obp.ignoreMultipartEncoding);
+        assertFalse(obp.allowutf8);
+        assertFalse(obp.cacheMultipart);
+    }
+    
+    private MimeMessage buildFromProperties(Properties prop) throws MessagingException, IOException {
+        Session s = Session.getInstance(prop);
+        MimeMessage orig = createMessage(s);
+        return orig;
+    }
 
     private static MimeMessage createMessage(Session s)
 				throws MessagingException {

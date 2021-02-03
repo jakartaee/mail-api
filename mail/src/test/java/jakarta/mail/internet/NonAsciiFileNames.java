@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -42,7 +42,7 @@ public class NonAsciiFileNames {
 	MimeBodyPart mbp = new MimeBodyPart();
 	mbp.setText("test\n");
 	mbp.setFileName("test\u00a1\u00a2\u00a3");
-	MimeBodyPart.updateHeaders(mbp);
+	MimeBodyPart.updateHeaders(mbp, true, true, false);
 
 	String s = mbp.getHeader("Content-Disposition", null);
 	assertTrue("Content-Disposition filename", s.indexOf("filename*") >= 0);
@@ -60,7 +60,7 @@ public class NonAsciiFileNames {
 	mbp.setText("test\n");
 	mbp.setHeader("Content-Type", "text/x-test");
 	mbp.setFileName("test\u00a1\u00a2\u00a3");
-	MimeBodyPart.updateHeaders(mbp);
+	MimeBodyPart.updateHeaders(mbp, true, true, false);
 
 	String s = mbp.getHeader("Content-Disposition", null);
 	assertTrue("Content-Disposition filename", s.indexOf("filename*") >= 0);
