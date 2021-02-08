@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2020 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -62,7 +62,8 @@ public class MailHandlerTest extends AbstractLogging {
     /**
      * A host name that can not be resolved.
      */
-    private static final String UNKNOWN_HOST = "bad-host-name";
+    private static volatile String UNKNOWN_HOST;
+
     /**
      * Stores a writable directory that is in the class path and visible to the
      * context class loader.
@@ -77,7 +78,7 @@ public class MailHandlerTest extends AbstractLogging {
     public static void setUpClass() throws Exception {
         checkJVMOptions();
         OPEN_PORT = findOpenPort();
-        checkUnknownHost();
+        UNKNOWN_HOST = findUnknownHost();
         assertTrue(findClassPathDir().isDirectory());
     }
 
@@ -116,8 +117,9 @@ public class MailHandlerTest extends AbstractLogging {
 
     private static void checkUnknownHost() throws Exception {
         try {
-            InetAddress.getByName(UNKNOWN_HOST);
-            throw new AssertionError(UNKNOWN_HOST);
+            String host = UNKNOWN_HOST;
+            InetAddress a = InetAddress.getByName(host);
+            throw new AssertionError(toFailString(host, a));
         } catch (UnknownHostException expect) {
         }
     }
@@ -453,11 +455,11 @@ public class MailHandlerTest extends AbstractLogging {
         instance.setLevel(lvl);
         boolean result = false;
         boolean expect = true;
-        if (record == null || record.getLevel().intValue() < lvl.intValue() 
+        if (record == null || record.getLevel().intValue() < lvl.intValue()
         		|| Level.OFF.intValue() == lvl.intValue()) {
             expect = false;
         }
-        
+
         result = instance.isLoggable(record);
         assertEquals(lvl.getName(), expect, result);
 
@@ -473,6 +475,96 @@ public class MailHandlerTest extends AbstractLogging {
         assertEquals(true, instance.isLoggable(new LogRecord(Level.SEVERE, "")));
 
         assertEquals(em.exceptions.isEmpty(), true);
+    }
+
+    @Test
+    public void testDeclaredClasses() throws Exception {
+    	//MailHandler init will pin all classes that it may use.
+    	//Check that classes are pinned in static fields or
+    	//that there is a field that is designed to hold a declared type.
+    	//This includes public properties of the Handler class too.
+        for (Class<?> k : MailHandler.class.getDeclaredClasses()) {
+    		boolean found = false;
+
+    		//Has a getter method matching type.
+        	for (Method m : Handler.class.getDeclaredMethods()) {
+        		if (!Modifier.isPublic(m.getModifiers())) {
+        			continue;
+        		}
+
+        		if (m.getReturnType().isAssignableFrom(k)) {
+        			found = true;
+        			break;
+        		}
+        	}
+
+        	if (found) {
+        		continue;
+        	}
+
+    		//Has a field that holds the type.
+        	for (Field f : MailHandler.class.getDeclaredFields()) {
+        		Class<?> t = f.getType();
+        		if (t == Object.class) {
+        			continue;
+        		}
+
+        		if (t.isAssignableFrom(k)) {
+        			//Check for static field holding declared class.
+        			if (Modifier.isStatic(f.getModifiers())
+        					&& Modifier.isFinal(f.getModifiers())) {
+        				f.setAccessible(true);
+        				Object o = f.get((Object) null);
+        				if (o == null || o.getClass() != k) {
+        					continue;
+        				}
+        			}
+
+        			found = true;
+        			break;
+        		}
+
+        		//Instance arrays can hold declared classes.
+        		//Static array checking is not implemented at
+        		//this time.
+        		if (!Modifier.isStatic(f.getModifiers())) {
+	        		while (t.isArray()) {
+	        			t = t.getComponentType();
+	        		}
+
+	        		if (t != Object.class && t.isAssignableFrom(k)) {
+	        			found = true;
+	        			break;
+	        		}
+        		}
+        	}
+
+        	if (!found) {
+    			fail(k.toString());
+    		}
+        }
+    }
+
+    @Test
+    public void testEquals() {
+    	MailHandler h = new MailHandler();
+    	assertFalse(h.equals((Object) null));
+    	assertNotEquals(h, new MailHandler());
+    	assertTrue(h.equals(h));
+    }
+
+    @Test
+    public void testHashCode() {
+    	CompactFormatter cf = new CompactFormatter();
+    	assertEquals(System.identityHashCode(cf), cf.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+    	MailHandler h = new MailHandler();
+    	String s = h.toString();
+    	assertTrue(s, s.startsWith(MailHandler.class.getName()));
+    	assertTrue(s, s.endsWith(Integer.toHexString(h.hashCode())));
     }
 
     @Test
@@ -601,7 +693,7 @@ public class MailHandlerTest extends AbstractLogging {
 
         instance.close();
     }
-    
+
     @Test
     public void testPublishNull() {
     	MailHandler instance = new MailHandler();
@@ -615,8 +707,8 @@ public class MailHandlerTest extends AbstractLogging {
         }
         assertTrue(em.exceptions.isEmpty());
     }
-    
-    
+
+
     @Test
     public void testPublishNullAsTrue() {
     	MailHandler instance = new MailHandler() {
@@ -956,6 +1048,59 @@ public class MailHandlerTest extends AbstractLogging {
         }
 
         assertEquals(true, em.exceptions.isEmpty());
+    }
+
+    @Test
+    public void testSingleSortComparator() {
+    	MailHandler instance = new MailHandler(createInitProperties(""));
+        instance.setComparator(new SequenceComparator());
+        instance.setErrorManager(new InternalErrorManager());
+        try {
+            instance.publish(new LogRecord(Level.SEVERE, ""));
+        } finally {
+            instance.close();
+        }
+
+        InternalErrorManager em = internalErrorManagerFrom(instance);
+        for (Throwable t : em.exceptions) {
+            if (isConnectOrTimeout(t)) {
+                continue;
+            } else {
+                dump(t);
+                fail(t.toString());
+            }
+        }
+        assertFalse(em.exceptions.isEmpty());
+    }
+
+    @Test
+    public void testSingleSortViolateContract() {
+    	MailHandler instance = new MailHandler(createInitProperties(""));
+        instance.setComparator(new GreaterComparator());
+        instance.setErrorManager(new InternalErrorManager());
+        try {
+            instance.publish(new LogRecord(Level.SEVERE, ""));
+        } finally {
+            instance.close();
+        }
+
+        boolean seenError = false;
+        InternalErrorManager em = internalErrorManagerFrom(instance);
+        for (Throwable t : em.exceptions) {
+            if (isConnectOrTimeout(t)) {
+                continue;
+            } else if (t.getClass() == IllegalArgumentException.class
+            		&& t.getMessage().contains(instance.getComparator()
+            				.getClass().getName())) {
+                seenError = true; //See Arrays.sort(T[], Comparator<? super T>)
+                continue; //expect.
+            }else {
+                dump(t);
+                fail(t.toString());
+            }
+        }
+        assertTrue("Exception was not thrown.", seenError);
+        assertFalse(em.exceptions.isEmpty());
     }
 
     @Test
@@ -1619,23 +1764,41 @@ public class MailHandlerTest extends AbstractLogging {
             @Override
             public String getHead(Handler h) {
                 assert h instanceof MailHandler : h;
-                try {
-                    ((MailHandler) h).push();
-                } catch (Throwable T) {
-                    fail(T.toString());
-                }
+                pushTest((MailHandler) h);
                 return super.getHead(h);
             }
 
             @Override
             public String getTail(Handler h) {
-                assert h instanceof MailHandler : h;
-                try {
-                    ((MailHandler) h).push();
-                } catch (Throwable T) {
-                    fail(T.toString());
-                }
+            	assert h instanceof MailHandler : h;
+            	pushTest((MailHandler) h);
                 return super.getTail(h);
+            }
+
+            private void pushTest(MailHandler h) {
+            	try {
+            		h.setPushLevel(Level.ALL);
+            		fail("Push level mutable during push");
+            	} catch(IllegalStateException expect) {
+            	}
+
+            	try {
+            		h.setPushFilter((Filter) null);
+            		fail("Push filter mutable during push");
+            	} catch(IllegalStateException expect) {
+            	}
+
+            	try {
+            		h.setPushFilter(new ErrorFilter());
+            		fail("Push filter mutable during push");
+            	} catch(IllegalStateException expect) {
+            	}
+
+	            try {
+	                h.push();
+	            } catch (Throwable T) {
+	                fail(T.toString());
+	            }
             }
         };
 
@@ -1667,23 +1830,40 @@ public class MailHandlerTest extends AbstractLogging {
 
             @Override
             public String getHead(Handler h) {
-                assert h instanceof MailHandler : h;
-                MailHandler mh = (MailHandler) h;
-                Formatter[] f = mh.getAttachmentNames();
-                try {
-                    mh.setAttachmentNames(f);
-                    fail("Mutable formatter.");
-                } catch (IllegalStateException pass) {
-                } catch (Throwable T) {
-                    fail(T.toString());
-                }
+            	assert h instanceof MailHandler : h;
+        		nameTest((MailHandler) h);
                 return super.getHead(h);
             }
 
             @Override
             public String getTail(Handler h) {
-                getHead(h);
+            	assert h instanceof MailHandler : h;
+            	nameTest((MailHandler) h);
                 return super.getTail(h);
+            }
+
+            private void nameTest(MailHandler h) {
+	            Formatter[] f = h.getAttachmentNames();
+	            try {
+	                h.setAttachmentNames(f);
+	                fail("Mutable formatter");
+	            } catch (IllegalStateException pass) {
+	            } catch (Throwable T) {
+	                fail(T.toString());
+	            }
+
+	            try {
+	            	String[] names = new String[f.length];
+	            	for (int i = 0; i < names.length; ++i) {
+	            		names[i] = f[i].toString();
+	            	}
+	                h.setAttachmentNames(names);
+	                fail("Mutable names");
+	            } catch (IllegalStateException pass) {
+	            } catch (Throwable T) {
+	                fail(T.toString());
+	            }
+
             }
         };
 
@@ -3586,33 +3766,50 @@ public class MailHandlerTest extends AbstractLogging {
         props.remove("mail.cc");
         props.remove("mail.bcc");
 
+        //Ensure from can be computed.
+        Message m = new MimeMessage(Session.getInstance(props));
+        m.setFrom();
+
         //User didn't specify so auto compute addresses.
         assertNull(props.getProperty("mail.from"));
         assertNull(props.get("mail.from"));
-
         assertNull(props.getProperty("mail.to"));
         assertNull(props.get("mail.to"));
+        props.put("$expect$.mail.from", m.getFrom()[0].toString());
+        props.put("$expect$.mail.to", m.getFrom()[0].toString());
         testDefaultRecipient(props);
 
         //User override of TO and FROM addresses.
         props.setProperty("mail.from", "");
         props.setProperty("mail.to", "");
+        props.remove("$expect$.mail.from");
+        props.remove("$expect$.mail.to");
         testDefaultRecipient(props);
 
         //Fixed TO and FROM.
         props.setProperty("mail.from", "localhost@localdomain");
         props.setProperty("mail.to", "otherhost@localdomain");
+        props.put("$expect$.mail.from", props.getProperty("mail.from"));
+        props.put("$expect$.mail.to", props.getProperty("mail.to"));
         testDefaultRecipient(props);
 
         //Compute TO and FROM with a fixed CC and BCC.
         props.remove("mail.from");
         props.remove("mail.to");
+        props.remove("$expect$.mail.from");
+        props.remove("$expect$.mail.to");
         assertNull(props.getProperty("mail.to"));
         assertNull(props.get("mail.to"));
         props.setProperty("mail.cc", "localhost@localdomain");
         props.setProperty("mail.bcc", "otherhost@localdomain");
+        props.put("$expect$.mail.from", m.getFrom()[0].toString());
+        props.put("$expect$.mail.to", m.getFrom()[0].toString());
+        props.put("$expect$.mail.cc", props.getProperty("mail.cc"));
+        props.put("$expect$.mail.bcc", props.getProperty("mail.bcc"));
         testDefaultRecipient(props);
     }
+
+
 
     private void testDefaultRecipient(Properties addresses) throws Exception {
 
@@ -3637,17 +3834,13 @@ public class MailHandlerTest extends AbstractLogging {
             protected void error(MimeMessage msg, Throwable t, int code) {
                 Session s = new MessageContext(msg).getSession();
                 try {
-                    Address[] local = new Address[]{
-                        InternetAddress.getLocalAddress(s)};
-                    Address[] expectFrom = parseKey(s, "mail.from");
-                    Address[] expectTo = parseKey(s, "mail.to");
-                    Address[] expectCc = parseKey(s, "mail.cc");
-                    Address[] expectBcc = parseKey(s, "mail.bcc");
+                    Address[] expectFrom = parseKey(s, "$expect$.mail.from");
+                    Address[] expectTo = parseKey(s, "$expect$.mail.to");
+                    Address[] expectCc = parseKey(s, "$expect$.mail.cc");
+                    Address[] expectBcc = parseKey(s, "$expect$.mail.bcc");
 
-                    checkAddress(expectFrom == null ? local : expectFrom,
-                            msg.getFrom());
-                    checkAddress(expectTo == null ? local : expectTo,
-                            msg.getRecipients(Message.RecipientType.TO));
+                    checkAddress(expectFrom, msg.getFrom());
+                    checkAddress(expectTo, msg.getRecipients(Message.RecipientType.TO));
 
                     assertArrayEquals(expectCc,
                             msg.getRecipients(Message.RecipientType.CC));
@@ -3665,11 +3858,11 @@ public class MailHandlerTest extends AbstractLogging {
             }
 
             private void checkAddress(Address[] expect, Address[] found) {
-                if (expect.length == 0) {
-                    assertTrue(found == null || found.length == 0);
-                } else {
-                    assertArrayEquals(expect, found);
-                }
+            	if (expect == null) {
+            		assertNull(found);
+            	} else {
+            		assertArrayEquals(expect, found);
+            	}
             }
 
             private List<Address> asList(Address... a) {
@@ -3677,15 +3870,13 @@ public class MailHandlerTest extends AbstractLogging {
             }
         }
         MailHandler instance = createHandlerWithRecords();
-        Properties props = instance.getMailProperties();
-        props.putAll(addresses);
-        InternalErrorManager em = new DefaultRecipient(props);
+        InternalErrorManager em = new DefaultRecipient(addresses);
         instance.setErrorManager(em);
 
         assertNotNull(instance.getMailProperties());
         assertEquals(Properties.class, instance.getMailProperties().getClass());
 
-        instance.setMailProperties(props);
+        instance.setMailProperties(addresses);
         instance.close();
         for (Exception exception : em.exceptions) {
             final Throwable t = exception;
@@ -3697,6 +3888,42 @@ public class MailHandlerTest extends AbstractLogging {
             }
         }
 
+        assertFalse(em.exceptions.isEmpty());
+    }
+
+    @Test
+    public void testInvalidDefaultRecipient() throws Exception {
+        Properties props = createInitProperties("");
+        props.put("mail.from", ".invalid@@address.");
+        props.remove("mail.to");
+        props.remove("mail.cc");
+        props.remove("mail.bcc");
+
+        //Ensure from can not be computed.
+        assertNull(InternetAddress.getLocalAddress(Session.getInstance(props)));
+        MailHandler instance = createHandlerWithRecords();
+        instance.setErrorManager(new InternalErrorManager());
+        instance.setMailProperties(props);
+        instance.close();
+        InternalErrorManager em = internalErrorManagerFrom(instance);
+        for (Exception exception : em.exceptions) {
+        	if (exception instanceof MessagingException) {
+        		if (exception instanceof AddressException
+        				|| exception.getCause() instanceof AddressException) {
+        			continue;
+        		}
+
+        		if (exception.getMessage().contains("From")) {
+        			continue;
+        		}
+
+        		if (exception.getMessage().contains("No recipient addresses")) {
+        			continue;
+        		}
+        	}
+        	dump(exception);
+        	fail(exception.toString());
+        }
         assertFalse(em.exceptions.isEmpty());
     }
 
@@ -3937,6 +4164,14 @@ public class MailHandlerTest extends AbstractLogging {
             fail(re.toString());
         }
 
+        try {
+            instance.setAttachmentNames(new String[] {"foo.txt", ""});
+            fail("Empty name was allowed.");
+        } catch (IllegalArgumentException pass) {
+        } catch (RuntimeException re) {
+            fail(re.toString());
+        }
+
         instance.setAttachmentFormatters(
                 new Formatter[]{new SimpleFormatter(), new XMLFormatter()});
         try {
@@ -3990,9 +4225,7 @@ public class MailHandlerTest extends AbstractLogging {
             fail(re.toString());
         }
 
-        if (instance.getAttachmentFormatters().length > 0) {
-            instance.setAttachmentFormatters(new Formatter[0]);
-        }
+        instance.setAttachmentFormatters(new Formatter[0]);
 
         try {
             instance.setAttachmentNames(new Formatter[2]);
@@ -4017,6 +4250,14 @@ public class MailHandlerTest extends AbstractLogging {
         assertEquals(Formatter[].class, instance.getAttachmentNames().getClass());
         assertEquals(em.exceptions.isEmpty(), true);
         instance.close();
+
+        try {
+            instance.setAttachmentNames(new Formatter[0]);
+            fail("formatter mismatch.");
+        } catch (NullPointerException | IndexOutOfBoundsException pass) {
+        } catch (RuntimeException re) {
+            fail(re.toString());
+        }
     }
 
     @Test
@@ -4510,13 +4751,15 @@ public class MailHandlerTest extends AbstractLogging {
     public void testReportErrorUtf8Addresses() throws Exception {
         final String test = "test\u03b1";
         final String saddr = test + '@' + UNKNOWN_HOST;
-        final String sender = test + saddr;
+        final String sender = "send" + saddr;
+        final String reply = "reply" + saddr;
         Properties props = createInitProperties("");
         props.put("mail.to", saddr);
         props.put("mail.cc", saddr);
         props.put("mail.bcc", saddr);
         props.put("mail.from", saddr);
         props.put("mail.sender", sender);
+        props.put("mail.reply.to", reply);
         props.put("mail.mime.allowutf8",  "true");
         MailHandler instance = new MailHandler(props);
         instance.setEncoding("UTF-8");
@@ -4534,7 +4777,13 @@ public class MailHandlerTest extends AbstractLogging {
                     assertEquals(sender, toString(message.getSender()));
                     assertTrue(String.valueOf(message.getContent()).contains(sender));
 
+                    assertEquals(reply, toString(message.getReplyTo()[0]));
                     message.saveChanges();
+
+                    assertEquals(3, message.getAllRecipients().length);
+                    assertEquals(1, message.getFrom().length);
+                    assertNotNull(message.getSender());
+                    assertEquals(1, message.getReplyTo().length);
                 } catch (MessagingException | IOException E) {
                     fail(E.toString());
                 }
@@ -5529,6 +5778,32 @@ public class MailHandlerTest extends AbstractLogging {
     }
 
     @Test
+    public void testInternNonDiscriminating() throws Exception {
+    	assertNull(System.getSecurityManager());
+        final String p = MailHandler.class.getName();
+        Properties props = createInitProperties(p);
+        props.put(p.concat(".attachment.formatters"),
+        		InternFormatter.class.getName()  + ", "
+        		+ NonDiscriminatingFormatter1.class.getName() + ", "
+                + NonDiscriminatingFormatter2.class.getName() + ", "
+                + NonDiscriminatingFormatter3.class.getName()
+                );
+        MailHandler instance = testIntern(p, props);
+        instance.close();
+
+        InternalErrorManager em = internalErrorManagerFrom(instance);
+        for (Exception exception : em.exceptions) {
+            final Throwable t = exception;
+            if (t instanceof IllegalArgumentException
+                    && String.valueOf(t.getMessage()).contains("equal")) {
+                continue;
+            }
+            dump(t);
+        }
+        assertEquals(2, em.exceptions.size());
+    }
+
+    @Test
     public void testComparatorReverse() throws Exception {
         final String p = MailHandler.class.getName();
         Properties props = createInitProperties(p);
@@ -5656,6 +5931,9 @@ public class MailHandlerTest extends AbstractLogging {
             final String p = MailHandler.class.getName();
             Properties props = createInitProperties(p);
             props.put(p.concat(".subject"), p.concat(" test"));
+            props.put(p.concat(".attachment.formatters"),
+            		XMLFormatter.class.getName() + ", " + SimpleFormatter.class.getName());
+            props.put(p.concat(".attachment.names"), XMLFormatter.class.getName() + ", simple.txt");
             props.put(p.concat(".errorManager"), InternalErrorManager.class.getName());
             props.put(p.concat(".verify"), "limited");
 
@@ -5889,6 +6167,7 @@ public class MailHandlerTest extends AbstractLogging {
             props.put("mail.cc", "badAddress");
             props.put("subject", "test");
             props.put("mail.from", "badAddress");
+            props.put("mail.sender", "badAddress1, badAddress2");
             props.put("verify", "local");
 
             instance = new MailHandler(props);
@@ -6009,6 +6288,33 @@ public class MailHandlerTest extends AbstractLogging {
             } finally {
                 target.close();
             }
+
+            props.put(p.concat(".subject"), "");
+            read(manager, props);
+            target = new MailHandler();
+            try {
+                em = internalErrorManagerFrom(target);
+                for (Exception exception : em.exceptions) {
+                    dump(exception);
+                }
+                assertTrue(em.exceptions.isEmpty());
+            } finally {
+                target.close();
+            }
+
+            props.put(p.concat(".subject"), "null");
+            read(manager, props);
+            target = new MailHandler();
+            try {
+                em = internalErrorManagerFrom(target);
+                for (Exception exception : em.exceptions) {
+                    dump(exception);
+                }
+                assertTrue(em.exceptions.isEmpty());
+            } finally {
+                target.close();
+            }
+
 
             //test linkage error.
             props.put(p.concat(".subject"), ThrowFormatter.class.getName().toUpperCase(Locale.US));
@@ -6228,6 +6534,61 @@ public class MailHandlerTest extends AbstractLogging {
                     dump(exception);
                 }
                 assertTrue(em.exceptions.isEmpty());
+            } finally {
+                target.close();
+            }
+
+            //test empty.
+            props.put(p.concat(".attachment.formatters"), "");
+            props.put(p.concat(".attachment.names"), "");
+            read(manager, props);
+
+            target = new MailHandler();
+            try {
+                em = internalErrorManagerFrom(target);
+                for (Exception exception : em.exceptions) {
+                    dump(exception);
+                }
+                assertTrue(em.exceptions.isEmpty());
+            } finally {
+                target.close();
+            }
+
+            //test as empty.
+            props.put(p.concat(".attachment.formatters"), ",");
+            props.put(p.concat(".attachment.names"), ",");
+            read(manager, props);
+
+            target = new MailHandler();
+            try {
+                em = internalErrorManagerFrom(target);
+                for (Exception exception : em.exceptions) {
+                    dump(exception);
+                }
+                assertTrue(em.exceptions.isEmpty());
+            } finally {
+                target.close();
+            }
+
+            //test null uses SimpleFormatter
+            props.put(p.concat(".attachment.formatters"), "null");
+            props.put(p.concat(".attachment.names"), "null");
+            read(manager, props);
+
+            target = new MailHandler();
+            try {
+                em = internalErrorManagerFrom(target);
+                for (Exception exception : em.exceptions) {
+                	if (!(exception instanceof NullPointerException)) {
+                		dump(exception);
+                    }
+                }
+                assertEquals(1, target.getAttachmentFormatters().length);
+                assertEquals(SimpleFormatter.class, target.getAttachmentFormatters()[0].getClass());
+                assertEquals(1, target.getAttachmentNames().length);
+                String name = target.getAttachmentNames()[0].toString();
+                assertTrue(name, name.contains(SimpleFormatter.class.getName()));
+                assertEquals(2, em.exceptions.size());
             } finally {
                 target.close();
             }
@@ -6720,6 +7081,7 @@ public class MailHandlerTest extends AbstractLogging {
         if (p.length() != 0) {
             p = p.concat(".");
         }
+        props.put("mail.host", UNKNOWN_HOST);
         props.put(p.concat("mail.host"), UNKNOWN_HOST);
         props.put(p.concat("mail.smtp.host"), UNKNOWN_HOST);
         props.put(p.concat("mail.smtp.port"), Integer.toString(OPEN_PORT));
@@ -7036,6 +7398,35 @@ public class MailHandlerTest extends AbstractLogging {
         throw new ClassCastException(String.valueOf(em));
     }
 
+    private static String findUnknownHost() {
+        String host = MailHandlerTest.class.getName();
+        try {
+            host = MailHandlerTest.class.getName();
+            InetAddress.getByName(host);
+
+            host = "bad-host-name";
+            InetAddress.getByName(host);
+
+            host = UUID.randomUUID().toString();
+            InetAddress.getByName(host);
+
+            host = host.replace("-", "");
+            InetAddress.getByName(host);
+
+            host = new StringBuilder(host).reverse().toString();
+            InetAddress a = InetAddress.getByName(host);
+            throw new AssertionError(toFailString(host, a));
+        } catch (UnknownHostException expect) {
+           return host;
+        }
+    }
+
+    private static String toFailString(String host, InetAddress a) {
+        return host + "=" + a.getHostName()
+                    + "(" + a.getCanonicalHostName()
+                    + ")[" + a.getHostAddress() + "]";
+    }
+
     /**
      * http://www.iana.org/assignments/port-numbers
      *
@@ -7117,7 +7508,8 @@ public class MailHandlerTest extends AbstractLogging {
     public static class PushErrorManager extends MessageErrorManager {
 
         public PushErrorManager(MailHandler h) {
-            super(h.getMailProperties());
+            super(new LogManagerProperties(
+                    h.getMailProperties(), h.getClass().getName()));
         }
 
         protected PushErrorManager(Properties p) {
@@ -7136,7 +7528,7 @@ public class MailHandlerTest extends AbstractLogging {
                 assertNotNull(message.getHeader("Priority"));
                 assertEquals("urgent", message.getHeader("Priority")[0]);
                 assertEquals("auto-generated", message.getHeader("auto-submitted")[0]);
-                message.saveChanges();
+                message.saveChanges(); //Check for errors.
             } catch (RuntimeException | MessagingException RE) {
                 dump(RE);
                 fail(RE.toString());
@@ -7146,8 +7538,14 @@ public class MailHandlerTest extends AbstractLogging {
 
     public static final class VerifyErrorManager extends PushErrorManager {
 
+        private static Properties create() {
+            Properties p = new Properties();
+            p.setProperty("mail.host", UNKNOWN_HOST);
+            return p;
+        }
+
         public VerifyErrorManager() {
-            super(new Properties());
+            super(create());
         }
 
         @Override
@@ -7275,6 +7673,17 @@ public class MailHandlerTest extends AbstractLogging {
             return o1.toString().compareTo(o2.toString());
         }
     };
+
+    public static class GreaterComparator
+    		implements Comparator<LogRecord>, Serializable {
+
+    	private static final long serialVersionUID = 1L;
+
+		@SuppressWarnings("override") //JDK-6954234
+		public int compare(LogRecord o1, LogRecord o2) {
+		    return 1;
+		}
+	}
 
     public static class SequenceComparator
             implements Comparator<LogRecord>, Serializable {
@@ -7847,6 +8256,32 @@ public class MailHandlerTest extends AbstractLogging {
         }
     }
 
+    public static class NonDiscriminatingFormatter1 extends Formatter {
+
+
+		@Override //breaks with subclass
+		public boolean equals(Object obj) {
+			return obj instanceof NonDiscriminatingFormatter1;
+		}
+
+		@Override
+		public int hashCode() { //Align on same bucket.
+			return 31 * InternFormatter.class.hashCode();
+		}
+
+		@Override
+		public String format(LogRecord record) {
+			return "";
+		}
+
+    }
+
+    public static class NonDiscriminatingFormatter2 extends NonDiscriminatingFormatter1 {
+    }
+
+    public static class NonDiscriminatingFormatter3 extends NonDiscriminatingFormatter1 {
+    }
+
     public static final class StaticInitReAuthenticator extends jakarta.mail.Authenticator {
 
         static {
@@ -8208,15 +8643,22 @@ public class MailHandlerTest extends AbstractLogging {
         @Override
         public void error(String msg, Exception ex, int code) {
             try {
-                Session session = Session.getInstance(createInitProperties(""));
+            	Properties p = createInitProperties("");
+            	p.setProperty("mail.from", "foo@bar.com");
+                Session session = Session.getInstance(p);
                 session.setDebug(true);
                 Message m = new MimeMessage(session);
                 m.setFrom();
                 m.setRecipient(Message.RecipientType.TO, m.getFrom()[0]);
                 m.setText(MailDebugErrorManager.class.getName());
+                m.saveChanges();
+                m.writeTo(new ByteArrayOutputStream(1024));
                 Transport.send(m);
             } catch (Exception e) {
-                super.error(msg, e, code);
+            	if(!isConnectOrTimeout(e)) {
+            		dump(e);
+            		fail(e.toString());
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2013, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -134,6 +134,71 @@ public class SeverityComparatorTest extends AbstractLogging {
         assertEquals(0, a.compareThrowable((Throwable) null, (Throwable) null));
         assertTrue(a.compareThrowable(new Throwable(), (Throwable) null) > 0);
         assertTrue(a.compareThrowable((Throwable) null, new Throwable()) < 0);
+    }
+
+    @Test
+    public void testCompareNormalNormal() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new InterruptedException(), new InterruptedIOException()) == 0);
+        assertTrue(a.compareThrowable(new InterruptedIOException(), new InterruptedException()) == 0);
+        assertTrue(a.compareThrowable(new InterruptedException(), new Error()) < 0);
+
+    }
+
+    @Test
+    public void testCompareNormalError() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new InterruptedException(), new Error()) < 0);
+        assertTrue(a.compareThrowable(new Error(), new InterruptedException()) > 0);
+    }
+
+    @Test
+    public void testCompareNormalRuntimeException() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new InterruptedException(), new RuntimeException()) < 0);
+        assertTrue(a.compareThrowable(new RuntimeException(), new InterruptedException()) > 0);
+    }
+
+    @Test
+    public void testCompareNormalNonNormal() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new InterruptedException(), new Throwable()) < 0);
+        assertTrue(a.compareThrowable(new Throwable(), new InterruptedException()) > 0);
+    }
+
+    @Test
+    public void testCompareRuntimeRuntime() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new NullPointerException(), new IllegalArgumentException()) == 0);
+        assertTrue(a.compareThrowable(new IllegalArgumentException(), new NullPointerException()) == 0);
+    }
+
+    @Test
+    public void testCompareThrowableRuntime() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new Throwable(), new IllegalArgumentException()) < 0);
+        assertTrue(a.compareThrowable(new IllegalArgumentException(), new Throwable()) > 0);
+    }
+
+    @Test
+    public void testCompareThrowableError() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new Throwable(), new Error()) < 0);
+        assertTrue(a.compareThrowable(new Error(), new Throwable()) > 0);
+    }
+
+    @Test
+    public void testCompareRuntimeError() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new RuntimeException(), new Error()) < 0);
+        assertTrue(a.compareThrowable(new Error(), new RuntimeException()) > 0);
+    }
+
+    @Test
+    public void testCompareThrowableException() {
+        SeverityComparator a = new SeverityComparator();
+        assertTrue(a.compareThrowable(new Throwable(), new Exception()) == 0);
+        assertTrue(a.compareThrowable(new Exception(), new Throwable()) == 0);
     }
 
     @Test
@@ -1078,10 +1143,10 @@ public class SeverityComparatorTest extends AbstractLogging {
 
         //NPE checks.
         assertNotNull(a);
-        assertFalse(a.equals(null));
+        assertFalse(a.equals((Object) null));
 
         assertNotNull(b);
-        assertFalse(b.equals(null));
+        assertFalse(b.equals((Object) null));
 
         //Reflexive test.
         assertTrue(a.equals(a));
@@ -1090,6 +1155,10 @@ public class SeverityComparatorTest extends AbstractLogging {
         //Transitive test.
         assertTrue(a.equals(b));
         assertTrue(b.equals(a));
+
+        SubSeverityComparator c = new SubSeverityComparator();
+        assertFalse(c.equals(a));
+        assertFalse(a.equals(c));
     }
 
     @Test
@@ -1299,6 +1368,12 @@ public class SeverityComparatorTest extends AbstractLogging {
 
     private Throwable headWitChain(Throwable last) {
         return new WorkInterruptionException().initCause(last);
+    }
+
+    private static class SubSeverityComparator extends SeverityComparator {
+        private static final long serialVersionUID = 1L;
+        SubSeverityComparator() {
+        }
     }
 
     /**

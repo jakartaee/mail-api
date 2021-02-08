@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2013, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,6 +18,7 @@
 package com.sun.mail.util.logging;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.SocketException;
 import java.util.*;
@@ -103,6 +104,28 @@ public class CompactFormatterTest extends AbstractLogging {
     }
 
     @Test
+    public void testEquals() {
+    	CompactFormatter cf = new CompactFormatter();
+    	assertFalse(cf.equals((Object) null));
+    	assertNotEquals(cf, new CollectorFormatter());
+    	assertTrue(cf.equals(cf));
+    }
+
+    @Test
+    public void testHashCode() {
+    	CompactFormatter cf = new CompactFormatter();
+    	assertEquals(System.identityHashCode(cf), cf.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+    	CompactFormatter cf = new CompactFormatter();
+    	String s = cf.toString();
+    	assertTrue(s, s.startsWith(CompactFormatter.class.getName()));
+    	assertTrue(s, s.endsWith(Integer.toHexString(cf.hashCode())));
+    }
+
+    @Test
     public void testFormat() throws Exception {
         final String p = CompactFormatter.class.getName();
         Properties props = new Properties();
@@ -146,6 +169,27 @@ public class CompactFormatterTest extends AbstractLogging {
         CompactFormatter cf = new CompactFormatter();
         String result = cf.format(record);
         assertTrue(result, result.startsWith(record.getMessage()));
+        assertTrue(result, result.endsWith(LINE_SEP));
+    }
+
+    @Test
+    public void testFormatWithMessageUpperCase() {
+        LogRecord record = new LogRecord(Level.SEVERE, "message");
+        CompactFormatter cf = new CompactFormatter("%7$#.160S%n");
+        String result = cf.format(record);
+        String upper = record.getMessage().toUpperCase(Locale.US);
+        assertFalse(record.getMessage().equals(upper));
+        assertTrue(result, result.startsWith(upper));
+        assertTrue(result, result.endsWith(LINE_SEP));
+    }
+
+    @Test
+    public void testFormatWithMessageLeftJustifiedPad() {
+        LogRecord record = new LogRecord(Level.SEVERE, "message");
+        CompactFormatter cf = new CompactFormatter("%7$#-12.6s%n");
+        String result = cf.format(record);
+        assertTrue(result, result.startsWith("messag|"));
+        assertTrue(result, result.contains("\u0020\u0020\u0020\u0020\u0020\u0020"));
         assertTrue(result, result.endsWith(LINE_SEP));
     }
 
@@ -1322,6 +1366,21 @@ public class CompactFormatterTest extends AbstractLogging {
         cf.formatBackTrace(record);
     }
 
+    @Test(timeout = 30000)
+    public void testFormatBackTraceEvilIgnore() {
+        LogRecord record = new LogRecord(Level.SEVERE, "");
+        Throwable second = new Throwable();
+        Throwable first = new Throwable(second);
+        second.initCause(first); //Pure Evil.
+        first.setStackTrace(new StackTraceElement[0]);
+        second.setStackTrace(new StackTraceElement[]{
+            new StackTraceElement(CompactFormatterTest.class.getName(),
+            "dummy$bridge", null, -1)});
+        record.setThrown(first);
+        CompactFormatter cf = new CompactFormatter();
+        cf.formatBackTrace(record);
+    }
+
     @Test
     public void testApply() {
         CompactFormatter cf = new CompactFormatter();
@@ -1502,6 +1561,28 @@ public class CompactFormatterTest extends AbstractLogging {
         String n = UNKNOWN_CLASS_NAME;
         StackTraceElement s = new StackTraceElement(n, "foo", null, -1);
         assertTrue(s.toString(), cf.ignore(s));
+    }
+
+    @Test
+    public void testIsStaticUtilityNull() throws Exception {
+        testNullPointerFor("isStaticUtility");
+    }
+
+    @Test
+    public void testIsReflectionNull() throws Exception {
+        testNullPointerFor("isReflection");
+    }
+
+    private void testNullPointerFor(String method) throws Exception {
+        Method m = CompactFormatter.class
+                .getDeclaredMethod(method, StackTraceElement.class);
+        m.setAccessible(true);
+        try {
+            m.invoke(new CompactFormatter(), (StackTraceElement) null);
+            fail("Null was allowed.");
+        } catch (InvocationTargetException expect) {
+            assertEquals(NullPointerException.class, expect.getCause().getClass());
+        }
     }
 
     @Test
