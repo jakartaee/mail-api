@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2013, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -89,6 +90,24 @@ public class CollectorFormatterTest extends AbstractLogging {
         Class<?>[] declared = CollectorFormatter.class.getDeclaredClasses();
         assertEquals(Arrays.toString(declared), 0, declared.length);
     }
+
+    @Test
+    public void testEquals() {
+    	//CollectorFormatter must not be swapped with other instances.
+    	//The state is mutated with most method calls and therefore
+    	//This class should maintain identity equals to work correctly.
+    	CollectorFormatter cf = new CollectorFormatter();
+    	assertFalse(cf.equals((Object) null));
+    	assertNotEquals(cf, new CollectorFormatter());
+    	assertTrue(cf.equals(cf));
+    }
+
+    @Test
+    public void testHashCode() {
+    	CollectorFormatter cf = new CollectorFormatter();
+    	assertEquals(System.identityHashCode(cf), cf.hashCode());
+    }
+
 
     @Test
     public void testFormatHead() {
@@ -298,8 +317,8 @@ public class CollectorFormatterTest extends AbstractLogging {
     @Test(expected = NullPointerException.class)
     public void testFinishNull() {
         CollectorFormatter f = new CollectorFormatter();
-        String result = f.finish((String) null);
-        fail(result);
+        assertNotNull(f);
+        f.finish((String) null);
     }
 
     @Test
@@ -474,11 +493,10 @@ public class CollectorFormatterTest extends AbstractLogging {
 
         String now = f.getTail((Handler) null);
         Number num = NumberFormat.getIntegerInstance().parse(now);
-        assertFalse(Long.MIN_VALUE == num.longValue());
+        assertNotEquals(Long.MIN_VALUE, num.longValue());
         tickMilli();
         String next = f.getTail((Handler) null);
-        assertFalse(NumberFormat.getIntegerInstance().parse(now).longValue()
-                == Long.MIN_VALUE);
+        assertNotEquals(Long.MIN_VALUE, NumberFormat.getIntegerInstance().parse(now).longValue());
         assertFalse(now.equals(next));
     }
 
@@ -728,15 +746,26 @@ public class CollectorFormatterTest extends AbstractLogging {
         CollectorFormatter f = new CollectorFormatter("{3}", (Formatter) null,
                 (Comparator<LogRecord>) null);
 
+        assertEquals("0", f.toString());
         f.format(new LogRecord(Level.SEVERE, msg));
         f.format(new LogRecord(Level.SEVERE, msg));
         f.format(new LogRecord(Level.SEVERE, msg));
         f.format(new LogRecord(Level.SEVERE, msg));
 
         String result = f.toString();
+        assertEquals("4", result);
         assertEquals(result, f.toString());
         assertEquals(result, f.getTail((Handler) null));
         assertFalse(result.equals(f.toString()));
+    }
+
+    @Test
+    public void testToStringInvalidPattern() {
+        CollectorFormatter f = new CollectorFormatter("{5", (Formatter) null,
+                (Comparator<LogRecord>) null);
+        assertEquals(f.getClass().getName() + '@' +
+                Integer.toHexString(System.identityHashCode(f)),
+                f.toString());
     }
 
     @Test(expected = NullPointerException.class)
@@ -821,6 +850,126 @@ public class CollectorFormatterTest extends AbstractLogging {
     }
 
     @Test
+    public void testComparatorNullLiteral() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".comparator"), "null");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            LogRecord first = new LogRecord(Level.SEVERE, Level.SEVERE.getName());
+            LogRecord second = new LogRecord(Level.WARNING, Level.WARNING.getName());
+            cf.format(second);
+            cf.format(first);
+            String result = cf.getTail((Handler) null);
+            assertTrue(result, result.startsWith(Level.SEVERE.getName()));
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testComparatorNullLiteralReverseException() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".comparator"), "null");
+        props.put(p.concat(".comparator.reverse"), "true");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            fail(cf.toString());
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testComparatorDefaultReverseException() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".comparator.reverse"), "true");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            fail(cf.toString());
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test(expected = UndeclaredThrowableException.class)
+    public void testComparatorInvalidName() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".comparator"), "invalid class name");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            fail(cf.toString());
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test
+    public void testComparatorNull() throws Exception {
+        testComparatorNullOrEmpty((String) null);
+    }
+
+    @Test
+    public void testComparatorEmpty() throws Exception {
+        testComparatorNullOrEmpty("");
+    }
+
+    @Test(expected = ClassCastException.class)
+    public void testComparatorRuntimeException() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".comparator"), Object.class.getName());
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            fail(cf.toString());
+        } finally {
+            manager.reset();
+        }
+    }
+
+
+    private void testComparatorNullOrEmpty(String v) throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        if (v != null) {
+            props.put(p.concat(".comparator"), v);
+        }
+        props.put(p.concat(".format"), "{1}");
+        props.put(CompactFormatter.class.getName() + ".format", "%5$s");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            LogRecord first = new LogRecord(Level.SEVERE, "1");
+            first.setThrown(new Exception());
+            LogRecord second = new LogRecord(Level.SEVERE, "2");
+            second.setThrown(new Error());
+            LogRecord third = new LogRecord(Level.SEVERE, "3");
+            third.setThrown(new RuntimeException());
+            cf.format(first);
+            cf.format(second);
+            cf.format(third);
+            String result = cf.getTail((Handler) null);
+            assertEquals("2", result);
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test
     public void testFormat() throws Exception {
         final String p = CollectorFormatter.class.getName();
         Properties props = new Properties();
@@ -834,6 +983,71 @@ public class CollectorFormatterTest extends AbstractLogging {
             assertEquals("", cf.format(first));
             String result = cf.getTail((Handler) null);
             assertEquals(expect, result);
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test
+    public void testFormatInvalidName() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        final String expect = CollectorFormatterTest.class.getName();
+        props.put(p.concat(".format"), expect);
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            LogRecord first = new LogRecord(Level.SEVERE, Level.SEVERE.getName());
+            assertEquals("", cf.format(first));
+            String result = cf.getTail((Handler) null);
+            assertEquals(expect, result);
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test
+    public void testFormatInitEmpty() throws Exception {
+        testFormatInitNullOrEmpty("");
+    }
+
+    @Test
+    public void testFormatInitNull() throws Exception {
+        testFormatInitNullOrEmpty((String) null);
+    }
+
+    private void testFormatInitNullOrEmpty(String v) throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        if(v != null) {
+            props.put(p.concat(".format"), v);
+        }
+        props.put(p.concat(".formatter"), CompactFormatter.class.getName());
+        props.put(CompactFormatter.class.getName()+ ".format", "%5$s");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            LogRecord first = new LogRecord(Level.SEVERE, Level.SEVERE.getName());
+            assertEquals("", cf.format(first));
+            String result = cf.getTail((Handler) null);
+            assertEquals(Level.SEVERE.getName(), result.trim());
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test(expected = ClassCastException.class)
+    public void testFormatInitRuntimeException() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".formatter"), Object.class.getName());
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            fail(cf.toString());
         } finally {
             manager.reset();
         }
@@ -855,6 +1069,73 @@ public class CollectorFormatterTest extends AbstractLogging {
             assertEquals(result, cf.finish(xml.getHead((Handler) null))
                     + cf.finish(xml.format(first))
                     + cf.finish(xml.getTail((Handler) null)) + '\n');
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test
+    public void testFormatterInvalidName() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".formatter"), "invalid class name");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            fail(cf.toString());
+        } catch (UndeclaredThrowableException expect) {
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test
+    public void testFormatterNullLiteral() throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        Properties props = new Properties();
+        props.put(p.concat(".formatter"), "null");
+        props.put(p.concat(".format"), "{1}");
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            LogRecord first = new LogRecord(Level.SEVERE, Level.SEVERE.getName());
+            assertEquals("", cf.format(first));
+            String result = cf.getTail((Handler) null);
+            assertEquals(result, cf.finish(cf.formatMessage(first)));
+        } finally {
+            manager.reset();
+        }
+    }
+
+    @Test
+    public void testFormatterNull() throws Exception {
+        testFormatterNullOrEmpty((String) null);
+    }
+
+    @Test
+    public void testFormatterEmpty() throws Exception {
+        testFormatterNullOrEmpty("");
+    }
+
+    private void testFormatterNullOrEmpty(String v) throws Exception {
+        final String p = CollectorFormatter.class.getName();
+        final String expect = CompactFormatter.class.getName();
+        Properties props = new Properties();
+        if (v != null) {
+            props.put(p.concat(".formatter"), v);
+        }
+        props.put(p.concat(".format"), "{1}");
+        props.put(expect + ".format", expect);
+        LogManager manager = LogManager.getLogManager();
+        try {
+            read(manager, props);
+            CollectorFormatter cf = new CollectorFormatter();
+            LogRecord first = new LogRecord(Level.SEVERE, Level.SEVERE.getName());
+            assertEquals("", cf.format(first));
+            String result = cf.getTail((Handler) null);
+            assertEquals(expect, result);
         } finally {
             manager.reset();
         }
@@ -991,27 +1272,19 @@ public class CollectorFormatterTest extends AbstractLogging {
         assertEquals(f.formatMessage(r), output);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFormatIllegalPattern() {
         CollectorFormatter f = new CollectorFormatter("{9");
         f.format(new LogRecord(Level.SEVERE, ""));
-        try {
-            f.getTail((Handler) null);
-            fail("Expected format exception.");
-        } catch (IllegalArgumentException expect) {
-        }
+        f.getTail((Handler) null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFormatIllegalTargetPattern() {
         CollectorFormatter f = new CollectorFormatter("{1}",
                 new CompactFormatter("%1$#tc"), (Comparator<LogRecord>) null);
         f.format(new LogRecord(Level.SEVERE, ""));
-        try {
-            f.getTail((Handler) null);
-            fail("Expected format exception.");
-        } catch (java.util.IllegalFormatException expect) {
-        }
+        f.getTail((Handler) null);
     }
 
     @Test

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2015, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2015, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2015, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,6 +18,7 @@ package com.sun.mail.util.logging;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.*;
 import org.junit.*;
@@ -494,6 +495,8 @@ public class DurationFilterTest extends AbstractLogging {
     public void testEquals() {
         DurationFilter one = new DurationFilter();
         DurationFilter two = new DurationFilter();
+        assertFalse(one.equals((Object) null));
+        assertFalse(two.equals((Object) null));
         assertTrue(one.equals(one));
         assertTrue(two.equals(two));
         assertTrue(one.equals(two));
@@ -505,8 +508,45 @@ public class DurationFilterTest extends AbstractLogging {
         assertTrue(two.equals(two));
         assertFalse(one.equals(two));
         assertFalse(two.equals(one));
-        assertFalse(one.equals((Object) null));
-        assertFalse(two.equals((Object) null));
+
+        assertTrue(two.isLoggable(r));
+        assertTrue(two.equals(two));
+        assertTrue(one.equals(two));
+        assertTrue(two.equals(one));
+
+        assertTrue(two.isLoggable(r));
+        assertTrue(one.equals(one));
+        assertTrue(two.equals(two));
+        assertFalse(one.equals(two));
+        assertFalse(two.equals(one));
+
+
+        final long then = r.getMillis();
+        one = new DurationFilter();
+        two = new DurationFilter();
+        assertTrue(one.isLoggable(r));
+        setEpochMilli(r, then + 1);
+        assertTrue(one.isLoggable(r));
+        assertTrue(two.isLoggable(r));
+        setEpochMilli(r, then);
+        assertTrue(two.isLoggable(r));
+        assertFalse(one.equals(two));
+        assertFalse(two.equals(one));
+
+        one = new DurationFilter();
+        two = new DurationFilterExt();
+        assertFalse(one.equals(two));
+        assertFalse(two.equals(one));
+
+        one = new DurationFilter(1, 1);
+        two = new DurationFilter(2, 1);
+        assertFalse(one.equals(two));
+        assertFalse(two.equals(one));
+
+        one = new DurationFilter(1, 1);
+        two = new DurationFilter(1, 2);
+        assertFalse(one.equals(two));
+        assertFalse(two.equals(one));
     }
 
     @Test
@@ -601,6 +641,16 @@ public class DurationFilterTest extends AbstractLogging {
         testInitDuration("15*60*1000", 15L * 60L * 1000L);
         testInitDuration("15L * 60L * 1000L", 15L * 60L * 1000L);
         testInitDuration("15L*60L*1000L", 15L * 60L * 1000L);
+    }
+
+    @Test
+    public void testInitDurationPartExp() throws Exception {
+        testInitDuration("15*", 15L * 60L * 1000L);
+        testInitDuration("*15", 15L * 60L * 1000L);
+        testInitDuration("* 15", 15L * 60L * 1000L);
+        testInitDuration("15 *", 15L * 60L * 1000L);
+        testInitDuration(" * 15", 15L * 60L * 1000L);
+        testInitDuration("15 * ", 15L * 60L * 1000L);
     }
 
     @Test
@@ -706,6 +756,8 @@ public class DurationFilterTest extends AbstractLogging {
 
     private void testInitDuration(String d, long expect) throws Exception {
         testInit("duration", d, expect);
+        testInit("duration", d.toUpperCase(Locale.ENGLISH), expect);
+        testInit("duration", d.toLowerCase(Locale.ENGLISH), expect);
     }
 
     private void testInitRecords(String r, long expect) throws Exception {
