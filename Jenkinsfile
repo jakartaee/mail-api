@@ -64,6 +64,11 @@ spec:
       steps {
         container('mail-ci') {
           sh """
+            wget 'https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz' -O openjdk-11.tar.gz
+            tar -xzf openjdk-11.tar.gz
+            cd jdk-11
+            export JAVA_HOME=`pwd`
+            cd ..
             bash -x ${WORKSPACE}/docker/build_jakartamail.sh
           """
           archiveArtifacts artifacts: 'mail/target/*.jar'
