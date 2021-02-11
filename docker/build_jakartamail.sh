@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 #
-# Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,12 +14,6 @@
 #
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
-mvnq() {
-    # filter out progress reports (-B) and download details
-    mvn -B "$@" | grep -v '^\[INFO\] Download'
-}
-
-
 # Build
 # XXX - need to skip tests because they fail randomly on Jenkins
-mvnq -DskipTests -Pstaging clean install
+mvn -B -V -DskipTests -Pstaging clean install
