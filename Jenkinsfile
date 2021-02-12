@@ -49,10 +49,10 @@ spec:
   }
   parameters {
     string(name: 'JAF_BUNDLE_URL',
-           defaultValue: 'http://central.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.1/jakarta.activation-1.2.1.jar',
+           defaultValue: 'http://central.maven.org/maven2/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2.jar',
            description: 'URL required for downloading JAF implementation jar' )
     string(name: 'MAIL_TCK_BUNDLE_URL',
-           defaultValue: 'https://jenkins.eclipse.org/mail/job/mail-tck/job/master/lastSuccessfulBuild/artifact/bundles/mail-tck-1.6.0.zip',
+           defaultValue: 'https://download.eclipse.org/jakartaee/mail/1.6/jakarta-mail-tck-1.6.0.zip',
            description: 'URL required for downloading Jakarta Mail TCK zip' )
   }
   environment {
