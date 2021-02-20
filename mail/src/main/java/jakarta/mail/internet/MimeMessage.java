@@ -18,7 +18,6 @@ package jakarta.mail.internet;
 
 import jakarta.mail.*;
 import jakarta.activation.*;
-import java.lang.*;
 import java.io.*;
 import java.util.*;
 import java.text.ParseException;
@@ -2212,6 +2211,7 @@ public class MimeMessage extends Message implements MimePart {
      * to override only the algorithm for choosing a Message-ID.
      *
      * @exception  	MessagingException for failures
+     * @see InternetAddress#getLocalAddress
      * @since		JavaMail 1.4
      */
     protected void updateMessageID() throws MessagingException {

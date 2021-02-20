@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!--
 
-    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -291,6 +291,19 @@ to avoid sending the reply back to the sender.
 </TR>
 
 <TR>
+<TD><A ID="mail.mime.messageid.format">mail.mime.messageid.format</A></TD>
+<TD>boolean</TD>
+<TD>
+Sets the format of the
+{@link jakarta.mail.internet.MimeMessage#updateMessageID message id} of the
+MimeMessage class. If set to <code>"false"</code>, the format is compatible with
+older versions of JakartaMail.  If set to <code>"true"</code> the message id
+will contain a randomly generator UUID.  The default is <code>"true"</code> if
+not specified or format is invalid.
+</TD>
+</TR>
+
+<TR>
 <TD><A ID="mail.replyallcc">mail.replyallcc</A></TD>
 <TD>boolean</TD>
 <TD>
@@ -341,6 +354,18 @@ such as the <code>Subject</code> and <code>Content-Description</code>
 header fields, and long parameter values in structured headers such
 as <code>Content-Type</code> will be folded (broken into 76 character lines)
 when set and unfolded when read.  The default is true.
+</TD>
+</TR>
+
+<TR>
+<TD><A ID="mail.mime.multipart.boundary.format">mail.mime.multipart.boundary.format</A></TD>
+<TD>boolean</TD>
+<TD>
+Sets the format of the MimeMultipart boundary line. If set to 
+<code>"false"</code>, the format is compatible with older versions of
+JakartaMail.  If set to <code>"true"</code> the boundary line will contain a
+randomly generator UUID.  The default is <code>"true"</code> if not specified or
+format is invalid.
 </TD>
 </TR>
 
