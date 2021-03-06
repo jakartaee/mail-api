@@ -178,7 +178,8 @@ abstract class AbstractLogging {
         if (record == null) {
             throw new NullPointerException();
         }
-        LogRecord.class.getMethod("setLongThreadID").invoke(record);
+        LogRecord.class.getMethod("setLongThreadID", Long.TYPE)
+                .invoke(record, id);
     }
 
     /**
