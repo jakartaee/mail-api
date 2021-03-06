@@ -1198,6 +1198,12 @@ public class LogManagerPropertiesTest extends AbstractLogging {
             assertEquals(id, (long) LogManagerProperties.getLongThreadID(r1));
             assertEquals(id, (long) LogManagerProperties.getLongThreadID(r2));
         } catch (final NoSuchMethodException preJdkSixteen) {
+            try {
+              Method m = LogRecord.class.getMethod("getLongThreadID");
+              fail(m.toString());
+            } catch (NoSuchMethodException expect) {
+                assertNull(LogManagerProperties.getLongThreadID(r1));
+            }
         }
     }
 
