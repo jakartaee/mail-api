@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,6 +14,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
+
 package com.sun.mail.util.logging;
 
 import java.io.*;
@@ -405,15 +406,14 @@ public class LogManagerPropertiesTest extends AbstractLogging {
         }
     }
 
-    @Test
+    @Test(expected=NoSuchMethodException.class)
+    public void testGetLocalHostNoLoop() throws Exception {
+        LogManagerProperties.getLocalHost(new Object());
+    }
+
+    @Test(expected=NullPointerException.class)
     public void testGetLocalHostNull() throws Exception {
-        boolean fail = true;
-        try {
-            LogManagerProperties.getLocalHost((Service) null);
-        } catch (NullPointerException expected) {
-            fail = false;
-        }
-        Assert.assertFalse(fail);
+        LogManagerProperties.getLocalHost((Service) null);
     }
 
     @Test
@@ -476,6 +476,54 @@ public class LogManagerPropertiesTest extends AbstractLogging {
                     + ((20L * 1000L) + 345), ms);
         } catch (ClassNotFoundException | NoClassDefFoundError ignore) {
             assertFalse(ignore.toString(), hasJavaTimeModule());
+        }
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testParseDurationNull() throws Exception {
+        LogManagerProperties.parseDurationToMillis((CharSequence) null);
+    }
+
+    @Test
+    public void testParseDurationParseException() throws Exception {
+        try {
+            String name = LogManagerPropertiesTest.class.getName();
+            long ms = LogManagerProperties.parseDurationToMillis(name);
+            fail(Long.toString(ms));
+        } catch (ClassNotFoundException | NoClassDefFoundError ignore) {
+            assertFalse(ignore.toString(), hasJavaTimeModule());
+        } catch (RuntimeException expected) {
+            //Allow subclasses of DTPE
+            Class<?> k = Class.forName(
+                    "java.time.format.DateTimeParseException");
+            assertTrue(expected.toString(),
+                    k.isAssignableFrom(expected.getClass()));
+        }
+    }
+
+    @Test
+    public void testParseDurationParseOverflow() throws Exception {
+        testParseDurationNotExact("PT2562047788015H12M55.808S");
+    }
+
+    @Test
+    public void testParseDurationParseUnderflow() throws Exception {
+        testParseDurationNotExact("PT-2562047788015H-12M-55.809S");
+    }
+
+    public void testParseDurationNotExact(String underOrOver) throws Exception {
+        try {
+            long ms = LogManagerProperties.parseDurationToMillis(underOrOver);
+            fail(Long.toString(ms));
+        } catch (ClassNotFoundException | NoClassDefFoundError ignore) {
+            assertFalse(ignore.toString(), hasJavaTimeModule());
+        } catch (ArithmeticException expected) {
+        } catch (RuntimeException allowed) {
+            //Allow subclasses of DTPE
+            Class<?> k = Class.forName(
+                    "java.time.format.DateTimeParseException");
+            assertTrue(allowed.toString(),
+                    k.isAssignableFrom(allowed.getClass()));
         }
     }
 
@@ -1131,6 +1179,31 @@ public class LogManagerPropertiesTest extends AbstractLogging {
         } finally {
             setPending(null);
         }
+    }
+
+    @Test
+    public void testGetLongThreadID() throws Exception {
+        long id = Thread.currentThread().getId();
+        if (id <= Integer.MAX_VALUE) {
+           id = ((long) Integer.MAX_VALUE) + 1L;
+        } else {
+           id++;
+        }
+
+        LogRecord r1 = new LogRecord(Level.SEVERE, "");
+        LogRecord r2 = new LogRecord(Level.SEVERE, "");
+        try {
+            setLongThreadID(r1, id);
+            setLongThreadID(r2, id);
+            assertEquals(id, (long) LogManagerProperties.getLongThreadID(r1));
+            assertEquals(id, (long) LogManagerProperties.getLongThreadID(r2));
+        } catch (final NoSuchMethodException preJdkSixteen) {
+        }
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testGetLongThreadIDNull() throws Exception {
+        LogManagerProperties.getLongThreadID((LogRecord) null);
     }
 
     @Test

@@ -1043,22 +1043,105 @@ public class CompactFormatterTest extends AbstractLogging {
     }
 
     @Test
+    public void testFormatIntThreadIDReturnType() throws Exception {
+        LogRecord record = new LogRecord(Level.SEVERE, "");
+        setIntThreadID(record, 10);
+        CompactFormatter cf = new CompactFormatter("%10$d");
+        Number id = cf.formatThreadID(record);
+
+        //Default should be long or wider.
+        if (id.getClass() != Long.class) {
+            fail(id.getClass().toString());
+        }
+    }
+
+    @Test
+    public void testFormatLongThreadIDReturnType() throws Exception {
+        LogRecord record = new LogRecord(Level.SEVERE, "");
+        try {
+            setLongThreadID(record, 11L);
+            CompactFormatter cf = new CompactFormatter("%10$d");
+            Number id = cf.formatThreadID(record);
+            //Default should be long or wider.
+            if (id.getClass() != Long.class) {
+                fail(id.getClass().toString());
+            }
+        } catch (NoSuchMethodException JDK8245302) {
+            try {
+              Method m = LogRecord.class.getMethod("getLongThreadID");
+              fail(m.toString());
+            } catch (NoSuchMethodException expect) {
+            }
+        }
+    }
+
+    @Test
+    public void testFormatLongThreadID() throws Exception {
+        LogRecord record = new LogRecord(Level.SEVERE, "");
+        try {
+            long expected = 10L;
+            if (Thread.currentThread().getId() == expected) {
+                ++expected;
+            }
+            setLongThreadID(record, expected);
+            assertNotEquals(expected, Thread.currentThread().getId());
+
+            CompactFormatter cf = new CompactFormatter("%10$d");
+            String output = cf.format(record);
+            String expect = Long.toString(expected);
+            assertEquals(expect, output);
+
+            setLongThreadID(record, -1L);
+            output = cf.format(record);
+            expect = Long.toString(-1L);
+            assertEquals(expect, output);
+
+            //Test that downcast works right.
+            Number id = cf.formatThreadID(record);
+            assertEquals(-1, id.intValue());
+            assertEquals(expect, Long.toString(id.longValue()));
+
+            setLongThreadID(record, Long.MAX_VALUE >>> 1L);
+            output = cf.format(record);
+            expect = Long.toString(Long.MAX_VALUE >>> 1L);
+            assertEquals(expect, output);
+
+            int tid = getIntThreadID(record);
+            assertTrue(String.valueOf(tid), tid < 0);
+        } catch (NoSuchMethodException JDK8245302) {
+            try {
+              Method m = LogRecord.class.getMethod("getLongThreadID");
+              fail(m.toString());
+            } catch (NoSuchMethodException expect) {
+                assertNull(LogManagerProperties.getLongThreadID(record));
+            }
+        }
+    }
+
+
+    @Test
     public void testFormatThreadID() {
         CompactFormatter cf = new CompactFormatter("%10$d");
         LogRecord record = new LogRecord(Level.SEVERE, "");
-        record.setThreadID(10);
+        setIntThreadID(record, 10);
         String output = cf.format(record);
-        String expect = Long.toString(record.getThreadID());
+        String expect = Long.toString(getIntThreadID(record));
         assertEquals(expect, output);
 
-        record.setThreadID(-1); //Largest value for the CompactFormatter.
+        setIntThreadID(record, -1);
         output = cf.format(record);
-        expect = Long.toString((1L << 32L) - 1L);
-        assertEquals(expect, output);
+        Long ltid = LogManagerProperties.getLongThreadID(record);
+        if (ltid == null) {
+            expect = Long.toString((1L << 32L) - 1L);
+            assertEquals(expect, output);
+        } else {
+            expect = Long.toString(-1L);
+            assertEquals(expect, output);
+        }
 
         //Test that downcast works right.
         Number id = cf.formatThreadID(record);
-        assertEquals(record.getThreadID(), id.intValue());
+        assertEquals(getIntThreadID(record), id.intValue());
         assertEquals(expect, Long.toString(id.longValue()));
     }
 
@@ -1229,7 +1312,7 @@ public class CompactFormatterTest extends AbstractLogging {
         String p = "[%9$d][%1$tT][%10$d][%2$s] %5$s%n%6$s%n";
         LogRecord r = new LogRecord(Level.SEVERE, "Unable to send notification.");
         r.setSequenceNumber(125);
-        r.setThreadID(38);
+        setIntThreadID(r, 38);
         r.setSourceClassName("MyClass");
         r.setSourceMethodName("fatal");
         setEpochMilli(r, 1248203502449L);
