@@ -344,6 +344,7 @@ public class CompactFormatter extends java.util.logging.Formatter {
      * @throws NullPointerException if the given record is null.
      * @since JavaMail 1.5.4
      */
+    @SuppressWarnings("deprecation") //See JDK-8245302
     public Number formatThreadID(final LogRecord record) {
         Long id = LogManagerProperties.getLongThreadID(record);
         if (id == null) {
