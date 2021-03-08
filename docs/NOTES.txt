@@ -1,10 +1,10 @@
 			     NOTES
 			     =====
 
-		    Jakarta Mail API 1.6.5 release
+		    Jakarta Mail API 1.6.6 release
 		    ------------------------------
 
-Welcome to the 1.6.5 release of the Jakarta Mail API implementation. 
+Welcome to the 1.6.6 release of the Jakarta Mail API implementation.
 
 Please refer to CHANGES.txt for a list of the changes since the 
 previous release.
