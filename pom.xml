@@ -73,7 +73,7 @@
     <properties>
 	<mail.version>${project.version}</mail.version>
 	<mail.spec.version>2.0</mail.spec.version>
-	<activation.version>2.0.0</activation.version>
+	<activation.version>2.0.1</activation.version>
 	<!-- defaults that are overridden in mail module -->
 	<mail.extensionName>
 	    ${project.groupId}.${project.artifactId}
