@@ -22,6 +22,14 @@ and is also included in the
 
 # <a name="Latest_News"></a>Latest News
 
+## February 28, 2021 - Jakarta Mail 1.6.6 Final Release ##
+
+The 1.6.6 release is a bug fix release of the Jakarta Mail project
+in the 1.x line, and includes several bug fixes and enhancements.
+The main jar file is located at
+[com.sun.mail:jakarta.mail](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/1.6.6/jakarta.mail-1.6.6.jar).
+
+
 ## October 23, 2020 - Jakarta Mail 2.0.0 Final Release ##
 
 Jakarta Mail 2.0.0 release is the first release with package
