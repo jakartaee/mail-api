@@ -70,7 +70,7 @@
     </organization>
 
     <properties>
-	<mail.version>1.6.6-SNAPSHOT</mail.version>
+	<mail.version>${project.version}</mail.version>
 	<mail.spec.version>1.6</mail.spec.version>
 	<activation.version>1.2.1</activation.version>
 	<!-- defaults that are overridden in mail module -->
