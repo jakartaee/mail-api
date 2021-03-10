@@ -20,6 +20,13 @@ Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
 
+		  CHANGES IN THE 1.6.7 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 1.6.7 release.
+
+E  535	The final release of 1.6.6 identifies itself as 1.6.6-SNAPSHOT.
+
+
 		  CHANGES IN THE 1.6.6 RELEASE
 		  ----------------------------
 The following bugs have been fixed in the 1.6.6 release.
