@@ -64,6 +64,12 @@ your PATH and the JDK is in /usr/java:
     cd native
     mvn
 
+In distributions based on Debian you need to to have installed
+liblockfile-dev package and use the profile **linux** when executing
+mvn in the native folder:
+
+    mvn -Plinux
+
 You can override the default options for the compiler and linker for
 the native component by specifying Maven properties. The defaults
 correspond to this:
