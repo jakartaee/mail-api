@@ -17,6 +17,10 @@
 package com.sun.mail.iap;
 
 import java.util.Properties;
+
+import jakarta.mail.util.MailLogger;
+import jakarta.mail.util.PropUtil;
+
 import java.io.*;
 import java.nio.channels.SocketChannel;
 import java.net.*;
@@ -32,8 +36,6 @@ import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 import java.lang.reflect.Field;
 
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.SocketFetcher;
 import com.sun.mail.util.TraceInputStream;
 import com.sun.mail.util.TraceOutputStream;

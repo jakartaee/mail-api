@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -22,11 +22,10 @@ import java.util.logging.Level;
 import javax.security.sasl.*;
 import javax.security.auth.callback.*;
 import jakarta.mail.MessagingException;
-
-import com.sun.mail.util.MailLogger;
-import com.sun.mail.util.ASCIIUtility;
-import com.sun.mail.util.BASE64EncoderStream;
-import com.sun.mail.util.BASE64DecoderStream;
+import jakarta.mail.util.ASCIIUtility;
+import jakarta.mail.util.BASE64DecoderStream;
+import jakarta.mail.util.BASE64EncoderStream;
+import jakarta.mail.util.MailLogger;
 
 /**
  * This class contains a single method that does authentication using

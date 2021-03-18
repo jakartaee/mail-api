@@ -22,12 +22,13 @@ import java.lang.*;
 import java.io.*;
 import java.util.*;
 import java.text.ParseException;
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.ASCIIUtility;
-import com.sun.mail.util.MimeUtil;
-import com.sun.mail.util.MessageRemovedIOException;
-import com.sun.mail.util.FolderClosedIOException;
-import com.sun.mail.util.LineOutputStream;
+
+import jakarta.mail.util.ASCIIUtility;
+import jakarta.mail.util.FolderClosedIOException;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.MessageRemovedIOException;
+import jakarta.mail.util.MimeUtil;
+import jakarta.mail.util.PropUtil;
 import jakarta.mail.util.SharedByteArrayInputStream;
 
 /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -37,9 +37,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.sun.mail.util.BASE64DecoderStream;
-import com.sun.mail.util.BASE64EncoderStream;
-import com.sun.mail.util.MailLogger;
+import jakarta.mail.util.BASE64DecoderStream;
+import jakarta.mail.util.BASE64EncoderStream;
+import jakarta.mail.util.MailLogger;
 
 
 /**

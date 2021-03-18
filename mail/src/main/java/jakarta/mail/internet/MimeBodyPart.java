@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,15 +17,15 @@
 package jakarta.mail.internet;
 
 import jakarta.mail.*;
+import jakarta.mail.util.ASCIIUtility;
+import jakarta.mail.util.FolderClosedIOException;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.MessageRemovedIOException;
+import jakarta.mail.util.MimeUtil;
+import jakarta.mail.util.PropUtil;
 import jakarta.activation.*;
 import java.io.*;
 import java.util.*;
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.ASCIIUtility;
-import com.sun.mail.util.MimeUtil;
-import com.sun.mail.util.MessageRemovedIOException;
-import com.sun.mail.util.FolderClosedIOException;
-import com.sun.mail.util.LineOutputStream;
 
 /**
  * This class represents a MIME body part. It implements the 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,11 +16,11 @@
 
 package com.sun.mail.iap;
 
+import jakarta.mail.util.ASCIIUtility;
+
 import java.io.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
-
-import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class represents a response obtained from the input stream

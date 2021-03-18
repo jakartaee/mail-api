@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,6 +17,10 @@
 package jakarta.mail;
 
 import java.lang.reflect.*;
+
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.MailLogger;
+
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -32,8 +36,6 @@ import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.concurrent.Executor;
 
-import com.sun.mail.util.LineInputStream;
-import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.DefaultProvider;
 
 /**

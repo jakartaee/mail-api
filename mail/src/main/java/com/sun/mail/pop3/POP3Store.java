@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,6 +24,9 @@ import java.lang.reflect.*;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import jakarta.mail.util.MailLogger;
+import jakarta.mail.util.PropUtil;
+
 import java.io.File;
 import java.io.PrintStream;
 import java.io.IOException;
@@ -31,8 +34,6 @@ import java.io.EOFException;
 import java.util.Collections;
 import java.util.Map;
 
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.SocketConnectException;
 import com.sun.mail.util.MailConnectException;
 

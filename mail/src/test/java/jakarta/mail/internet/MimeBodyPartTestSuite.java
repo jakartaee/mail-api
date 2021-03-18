@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,11 +16,11 @@
 
 package jakarta.mail.internet;
 
+import jakarta.mail.util.ClassLoaderSuite;
+import jakarta.mail.util.ClassLoaderSuite.TestClass;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
-
-import com.sun.mail.test.ClassLoaderSuite;
-import com.sun.mail.test.ClassLoaderSuite.TestClass;
 
 /**
  * Suite of MimeBodyPart tests that need to be run in a separate class loader.

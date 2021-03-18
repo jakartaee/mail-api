@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,25 +17,25 @@
 package jakarta.mail.internet;
 
 import jakarta.mail.MessagingException;
+import jakarta.mail.util.ASCIIUtility;
+import jakarta.mail.util.BASE64DecoderStream;
+import jakarta.mail.util.BASE64EncoderStream;
+import jakarta.mail.util.BEncoderStream;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.LogOutputStream;
+import jakarta.mail.util.PropUtil;
+import jakarta.mail.util.QDecoderStream;
+import jakarta.mail.util.QEncoderStream;
+import jakarta.mail.util.QPDecoderStream;
+import jakarta.mail.util.QPEncoderStream;
+import jakarta.mail.util.UUDecoderStream;
+import jakarta.mail.util.UUEncoderStream;
 import jakarta.mail.EncodingAware;
 import jakarta.activation.*;
 import java.util.*;
 import java.io.*;
 import java.nio.charset.Charset;
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.ASCIIUtility;
-import com.sun.mail.util.BASE64DecoderStream;
-import com.sun.mail.util.BASE64EncoderStream;
-import com.sun.mail.util.BEncoderStream;
-import com.sun.mail.util.LineInputStream;
-import com.sun.mail.util.LineOutputStream;
-import com.sun.mail.util.LogOutputStream;
-import com.sun.mail.util.QDecoderStream;
-import com.sun.mail.util.QEncoderStream;
-import com.sun.mail.util.QPDecoderStream;
-import com.sun.mail.util.QPEncoderStream;
-import com.sun.mail.util.UUDecoderStream;
-import com.sun.mail.util.UUEncoderStream;
 
 /**
  * This is a utility class that provides various MIME related

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,6 +16,8 @@
 
 package com.sun.mail.auth;
 
+import jakarta.mail.util.ASCIIUtility;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -23,8 +25,6 @@ import java.security.Provider;
 import java.security.Security;
 import javax.security.sasl.*;
 import javax.security.auth.callback.*;
-
-import com.sun.mail.util.ASCIIUtility;
 
 /**
  * Jakarta Mail SASL client for OAUTH2.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
 import java.util.Locale;
 import java.nio.charset.StandardCharsets;
 import jakarta.mail.*;
-import com.sun.mail.util.PropUtil;
+import jakarta.mail.util.PropUtil;
 
 /**
  * This class represents an Internet email address using the syntax

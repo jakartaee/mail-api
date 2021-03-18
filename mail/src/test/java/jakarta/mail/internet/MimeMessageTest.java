@@ -16,7 +16,6 @@
 
 package jakarta.mail.internet;
 
-import com.sun.mail.test.AsciiStringInputStream;
 import java.io.*;
 import java.util.Properties;
 import java.util.Enumeration;
@@ -24,6 +23,8 @@ import java.util.Enumeration;
 import jakarta.activation.DataHandler;
 
 import jakarta.mail.*;
+import jakarta.mail.test.AsciiStringInputStream;
+
 import static jakarta.mail.Message.RecipientType.*;
 import static jakarta.mail.internet.MimeMessage.RecipientType.*;
 

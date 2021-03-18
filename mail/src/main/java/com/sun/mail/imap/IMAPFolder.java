@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -33,9 +33,9 @@ import jakarta.mail.*;
 import jakarta.mail.event.*;
 import jakarta.mail.internet.*;
 import jakarta.mail.search.*;
+import jakarta.mail.util.MailLogger;
+import jakarta.mail.util.PropUtil;
 
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.CRLFOutputStream;
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.protocol.*;

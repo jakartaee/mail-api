@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,6 +16,12 @@
 
 package com.sun.mail.imap.protocol;
 
+import jakarta.mail.util.ASCIIUtility;
+import jakarta.mail.util.BASE64DecoderStream;
+import jakarta.mail.util.BASE64EncoderStream;
+import jakarta.mail.util.MailLogger;
+import jakarta.mail.util.PropUtil;
+
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -24,11 +30,6 @@ import javax.security.auth.callback.*;
 
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.*;
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
-import com.sun.mail.util.ASCIIUtility;
-import com.sun.mail.util.BASE64EncoderStream;
-import com.sun.mail.util.BASE64DecoderStream;
 
 /**
  * This class contains a single method that does authentication using

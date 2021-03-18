@@ -18,19 +18,21 @@ package com.sun.mail.pop3;
 
 import java.util.*;
 import java.net.*;
+
+import jakarta.mail.util.ASCIIUtility;
+import jakarta.mail.util.BASE64DecoderStream;
+import jakarta.mail.util.BASE64EncoderStream;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.MailLogger;
+import jakarta.mail.util.PropUtil;
+
 import java.io.*;
 import java.security.*;
 import java.util.logging.Level;
 import java.nio.charset.StandardCharsets;
 import javax.net.ssl.SSLSocket;
 import com.sun.mail.auth.Ntlm;
-import com.sun.mail.util.ASCIIUtility;
-import com.sun.mail.util.BASE64DecoderStream;
-import com.sun.mail.util.BASE64EncoderStream;
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.SocketFetcher;
-import com.sun.mail.util.LineInputStream;
 import com.sun.mail.util.TraceInputStream;
 import com.sun.mail.util.TraceOutputStream;
 import com.sun.mail.util.SharedByteArrayOutputStream;

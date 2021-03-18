@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,8 +19,8 @@ package jakarta.mail.internet;
 import java.io.*;
 import java.util.*;
 import jakarta.mail.*;
-import com.sun.mail.util.LineInputStream;
-import com.sun.mail.util.PropUtil;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.PropUtil;
 
 /**
  * InternetHeaders is a utility class that manages RFC822 style

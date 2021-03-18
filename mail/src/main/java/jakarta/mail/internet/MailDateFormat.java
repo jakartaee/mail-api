@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,6 +16,8 @@
 
 package jakarta.mail.internet;
 
+import jakarta.mail.util.MailLogger;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
@@ -30,8 +32,6 @@ import java.text.NumberFormat;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
 import java.text.ParseException;
-
-import com.sun.mail.util.MailLogger;
 
 /**
  * Formats and parses date specification based on
