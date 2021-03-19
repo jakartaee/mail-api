@@ -34,7 +34,6 @@
     <name>Jakarta Mail API imap provider</name>
 
     <properties>
-	<mail.extraClasses>com/sun/mail/iap/**</mail.extraClasses>
 	<mail.packages.export>
 	    com.sun.mail.imap; version=${mail.osgiversion},
 	    com.sun.mail.imap.protocol; version=${mail.osgiversion},

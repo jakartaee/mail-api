@@ -151,7 +151,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
     <modules>
 	<module>mail</module>
 	<module>mailapi</module>
-	<module>mailapijar</module>
+	<module>impl-core</module>
 	<module>smtp</module>
 	<module>imap</module>
 	<module>gimap</module>
@@ -159,6 +159,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
 	<module>dsn</module>
 	<module>mailhandler</module>
 	<module>parent-distrib</module>
+	<module>mail-tests</module>
     </modules>
 
     <profiles>
@@ -594,7 +595,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-surefire-plugin</artifactId>
-		    <version>2.4.3</version>
+		    <version>3.0.0-M4</version>
 		</plugin>
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>

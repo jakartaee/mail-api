@@ -20,9 +20,6 @@ module jakarta.mail {
     exports jakarta.mail.internet;
     exports jakarta.mail.search;
     exports jakarta.mail.util;
-    exports com.sun.mail.util;
-    exports com.sun.mail.auth;
-    exports com.sun.mail.handlers;
 
     requires transitive jakarta.activation;
     requires transitive java.logging;

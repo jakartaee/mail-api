@@ -16,6 +16,15 @@
 
 module com.sun.mail.util.logging {
     exports com.sun.mail.util.logging;
+    exports com.sun.mail.util;
+    exports com.sun.mail.auth;
+    exports com.sun.mail.handlers;
+
+    requires transitive jakarta.activation;
+    requires transitive java.logging;
+    requires java.xml;      // for text/xml handler
+    requires java.desktop;  // for image/jpeg handler
+    requires transitive java.security.sasl; // for OAuth2 support
 
     requires transitive jakarta.mail;
 }
