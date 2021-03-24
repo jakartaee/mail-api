@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,25 +16,26 @@
 
 package com.sun.mail.util;
 
-import jakarta.mail.util.SharedByteArrayInputStream;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.IOException;
 
 /**
- * A ByteArrayOutputStream that allows us to share the byte array
- * rather than copy it.  Eventually could replace this with something
- * that doesn't require a single contiguous byte array.
+ * A special IOException that indicates a failure to decode data due
+ * to an error in the formatting of the data.  This allows applications
+ * to distinguish decoding errors from other I/O errors.
  *
- * @author	Bill Shannon
- * @since	JavaMail 1.4.5
+ * @author Bill Shannon
  */
-public class SharedByteArrayOutputStream extends ByteArrayOutputStream {
-    public SharedByteArrayOutputStream(int size) {
-	super(size);
-    }
 
-    public InputStream toStream() {
-	return new SharedByteArrayInputStream(buf, 0, count);
+public class DecodingException extends IOException {
+
+    private static final long serialVersionUID = -6913647794421459390L;
+
+    /**
+     * Constructor.
+     *
+     * @param	s	the exception message
+     */
+    public DecodingException(String s) {
+	super(s);
     }
 }

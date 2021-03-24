@@ -17,10 +17,10 @@
 package com.sun.mail.iap;
 
 import java.util.List;
+
+import com.sun.mail.util.ASCIIUtility;
+
 import java.util.ArrayList;
-
-import jakarta.mail.util.ASCIIUtility;
-
 import java.io.*;
 import java.nio.charset.Charset;
 

@@ -16,13 +16,11 @@
 
 package com.sun.mail.imap;
 
-import jakarta.mail.util.BASE64EncoderStream;
-
 import java.io.IOException;
-import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
-import java.nio.charset.StandardCharsets;
 
 import com.sun.mail.test.ProtocolHandler;
 
@@ -551,7 +549,7 @@ public class IMAPHandler extends ProtocolHandler {
      * Base64 encode the string.
      */
     protected String base64encode(String s) throws IOException {
-	return new String(BASE64EncoderStream.encode(s.getBytes("US-ASCII")),
+	return new String(Base64.getEncoder().encode(s.getBytes("US-ASCII")),
 			"US-ASCII");
     }
 

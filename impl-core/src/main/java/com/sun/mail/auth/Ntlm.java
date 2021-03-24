@@ -20,14 +20,13 @@
 
 package com.sun.mail.auth;
 
-import jakarta.mail.util.BASE64DecoderStream;
-import jakarta.mail.util.BASE64EncoderStream;
 import jakarta.mail.util.MailLogger;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Locale;
 import java.util.Random;
 import java.util.logging.Level;
@@ -192,7 +191,7 @@ public class Ntlm {
 
         String result = null;
 	try {
-	    result = new String(BASE64EncoderStream.encode(msg), "iso-8859-1");
+	    result = new String(Base64.getEncoder().encode(msg), "iso-8859-1");
         } catch (UnsupportedEncodingException e) {
             assert false;
         }
@@ -346,7 +345,7 @@ public class Ntlm {
 	/* challenge is located at type2[24] for 8 bytes */
 	byte[] type2 = null;
 	try {
-	    type2 = BASE64DecoderStream.decode(type2msg.getBytes("us-ascii"));
+	    type2 = Base64.getDecoder().decode(type2msg.getBytes("us-ascii"));
 	} catch (UnsupportedEncodingException ex) {
 	    // should never happen
 	    assert false;
@@ -448,7 +447,7 @@ public class Ntlm {
 
         String result = null;
 	try {
-	    result = new String(BASE64EncoderStream.encode(msg), "iso-8859-1");
+	    result = new String(Base64.getEncoder().encode(msg), "iso-8859-1");
         } catch (UnsupportedEncodingException e) {
             assert false;
         }

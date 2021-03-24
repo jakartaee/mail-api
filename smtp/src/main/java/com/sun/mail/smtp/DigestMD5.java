@@ -16,16 +16,26 @@
 
 package com.sun.mail.smtp;
 
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64DecoderStream;
-import jakarta.mail.util.BASE64EncoderStream;
 import jakarta.mail.util.MailLogger;
 
-import java.io.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.security.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.StreamTokenizer;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+
+import com.sun.mail.stream.BASE64DecoderStream;
+import com.sun.mail.stream.BASE64EncoderStream;
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * DIGEST-MD5 authentication support.

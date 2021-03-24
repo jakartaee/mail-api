@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.internet;
+package com.sun.mail.stream;
 
 import java.io.*;
 
@@ -27,7 +27,7 @@ import java.io.*;
  * @author John Mani
  */
 
-class UUEncoderStream extends FilterOutputStream {
+public class UUEncoderStream extends FilterOutputStream {
     private byte[] buffer; 	// cache of bytes that are yet to be encoded
     private int bufsize = 0;	// size of the cache
     private boolean wrotePrefix = false;

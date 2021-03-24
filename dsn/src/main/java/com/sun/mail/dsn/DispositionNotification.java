@@ -22,7 +22,8 @@ import java.util.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
-import jakarta.mail.util.LineOutputStream;	// XXX
+import jakarta.mail.stream.LineOutputStream;	// XXX
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.PropUtil;
 import jakarta.mail.util.MailLogger;
 
@@ -112,7 +113,7 @@ public class DispositionNotification extends Report {
 	if (os instanceof LineOutputStream) {
 	    los = (LineOutputStream) os;
 	} else {
-	    los = new LineOutputStream(os);
+	    los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, null);
 	}
 
 	writeInternetHeaders(notifications, los);

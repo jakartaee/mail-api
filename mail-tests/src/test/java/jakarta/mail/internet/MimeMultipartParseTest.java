@@ -17,6 +17,10 @@
 package jakarta.mail.internet;
 
 import java.util.*;
+
+import com.sun.mail.stream.SharedByteArrayInputStream;
+import com.sun.mail.util.ByteArrayDataSource;
+
 import java.io.*;
 import jakarta.mail.*;
 import jakarta.mail.event.*;

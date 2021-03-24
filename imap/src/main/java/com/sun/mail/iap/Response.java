@@ -16,10 +16,11 @@
 
 package com.sun.mail.iap;
 
-import jakarta.mail.util.ASCIIUtility;
-
 import java.io.*;
 import java.util.*;
+
+import com.sun.mail.util.ASCIIUtility;
+
 import java.nio.charset.StandardCharsets;
 
 /**

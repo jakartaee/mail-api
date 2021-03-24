@@ -14,12 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.internet;
-
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.DecodingException;
+package com.sun.mail.stream;
 
 import java.io.*;
+
+import com.sun.mail.util.ASCIIUtility;
+import com.sun.mail.util.DecodingException;
 
 /**
  * This class implements a Q Decoder as defined in RFC 2047
@@ -28,7 +28,7 @@ import java.io.*;
  * @author John Mani
  */
 
-class QDecoderStream extends QPDecoderStream {
+public class QDecoderStream extends QPDecoderStream {
 
     /**
      * Create a Q-decoder that decodes the specified input stream.

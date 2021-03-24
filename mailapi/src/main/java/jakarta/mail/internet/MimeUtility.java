@@ -20,10 +20,9 @@ import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.mail.EncodingAware;
 import jakarta.mail.MessagingException;
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64DecoderStream;
-import jakarta.mail.util.BASE64EncoderStream;
-import jakarta.mail.util.LineInputStream;
+import jakarta.mail.Session;
+import jakarta.mail.stream.LineInputStream;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.PropUtil;
 
 import java.io.BufferedReader;
@@ -147,6 +146,8 @@ public class MimeUtility {
     private static final Map<String, Boolean> nonAsciiCharsetMap
 	    = new HashMap<>();
 
+    private static final String WORD_SPECIALS = "=_?\"#$%&'(),.:;<>@[\\]^`{|}~";
+    private static final String TEXT_SPECIALS = "=_?";
     private static final boolean decodeStrict =
 	PropUtil.getBooleanSystemProperty("mail.mime.decodetext.strict", true);
     private static final boolean encodeEolStrict =
@@ -213,21 +214,21 @@ public class MimeUtility {
 	    int i = checkAscii(is, ALL, !isText);
 	    switch (i) {
 	    case ALL_ASCII:
-		encoding = "7bit"; // all ASCII
+		encoding = StreamProvider.BIT7_ENCODER; // all ASCII
 		break;
 	    case MOSTLY_ASCII:
 		if (isText && nonAsciiCharset(cType))
-		    encoding = "base64"; // charset isn't compatible with ASCII
+		    encoding = StreamProvider.BASE_64_ENCODER; // charset isn't compatible with ASCII
 		else
-		    encoding = "quoted-printable";	// mostly ASCII
+		    encoding = StreamProvider.QUOTED_PRINTABLE_ENCODER;	// mostly ASCII
 		break;
 	    default:
-		encoding = "base64"; // mostly binary
+		encoding = StreamProvider.BASE_64_ENCODER; // mostly binary
 		break;
 	    }
 
 	} catch (Exception ex) {
-	    return "base64"; // what else ?!
+	    return StreamProvider.BASE_64_ENCODER; // what else ?!
 	} finally {
 	    // Close the input stream
 	    try {
@@ -325,13 +326,13 @@ public class MimeUtility {
 	    }
 	    switch (aos.getAscii()) {
 	    case ALL_ASCII:
-		encoding = "7bit"; // all ascii
+		encoding = StreamProvider.BIT7_ENCODER; // all ascii
 		break;
 	    case MOSTLY_ASCII:
-		encoding = "quoted-printable"; // mostly ascii
+		encoding = StreamProvider.QUOTED_PRINTABLE_ENCODER; // mostly ascii
 		break;
 	    default:
-		encoding = "base64"; // mostly binary
+		encoding = StreamProvider.BASE_64_ENCODER; // mostly binary
 		break;
 	    }
 	} else { // not "text"
@@ -343,9 +344,9 @@ public class MimeUtility {
 		dh.writeTo(aos);
 	    } catch (IOException ex) { }	// ignore it
 	    if (aos.getAscii() == ALL_ASCII) // all ascii
-		encoding = "7bit";
+		encoding = StreamProvider.BIT7_ENCODER;
 	    else // found atleast one non-ascii character, use b64 
-		encoding = "base64";
+		encoding = StreamProvider.BASE_64_ENCODER;
 	}
 
 	return encoding;
@@ -370,23 +371,15 @@ public class MimeUtility {
      */
     public static InputStream decode(InputStream is, String encoding)
 		throws MessagingException {
-	if (encoding.equalsIgnoreCase("base64"))
-	    return new BASE64DecoderStream(is);
-	else if (encoding.equalsIgnoreCase("quoted-printable"))
-	    return new QPDecoderStream(is);
-	else if (encoding.equalsIgnoreCase("uuencode") ||
-		 encoding.equalsIgnoreCase("x-uuencode") ||
-		 encoding.equalsIgnoreCase("x-uue"))
-	    return new UUDecoderStream(is);
-	else if (encoding.equalsIgnoreCase("binary") ||
-		 encoding.equalsIgnoreCase("7bit") ||
-		 encoding.equalsIgnoreCase("8bit"))
-	    return is;
-	else {
-	    if (!ignoreUnknownEncoding)
-		throw new MessagingException("Unknown encoding: " + encoding);
-	    return is;
-	}
+        InputStream filtered = Session.getStreamProvider(encoding.toLowerCase()).from(is, null);
+        if (filtered == null) {
+            if (!ignoreUnknownEncoding) {
+                throw new MessagingException("Unknown encoding: " + encoding);
+            } else {
+                return is;
+            }
+        }
+        return filtered;
     }
 
     /**
@@ -403,22 +396,16 @@ public class MimeUtility {
      */
     public static OutputStream encode(OutputStream os, String encoding)
 		throws MessagingException {
-        if (encoding == null)
-	    return os;
-	else if (encoding.equalsIgnoreCase("base64"))
-	    return new BASE64EncoderStream(os);
-	else if (encoding.equalsIgnoreCase("quoted-printable"))
-	    return new QPEncoderStream(os);
-	else if (encoding.equalsIgnoreCase("uuencode") ||
-		 encoding.equalsIgnoreCase("x-uuencode") ||
-		 encoding.equalsIgnoreCase("x-uue"))
-	    return new UUEncoderStream(os);
-	else if (encoding.equalsIgnoreCase("binary") ||
-		 encoding.equalsIgnoreCase("7bit") ||
-		 encoding.equalsIgnoreCase("8bit"))
-	    return os;
-	else
-	    throw new MessagingException("Unknown encoding: " +encoding);
+        if (encoding == null){
+            return os;
+        } else {
+            OutputStream filtered = Session.getStreamProvider(encoding.toLowerCase()).from(os, null);
+            if (filtered == null) {
+                throw new MessagingException("Unknown encoding: " +encoding);
+            } else {
+                return filtered;
+            }
+        }
     }
 
     /**
@@ -441,22 +428,18 @@ public class MimeUtility {
     public static OutputStream encode(OutputStream os, String encoding,
                                       String filename)
                 throws MessagingException {
-        if (encoding == null)
+        if (encoding == null) {
             return os;
-        else if (encoding.equalsIgnoreCase("base64"))
-            return new BASE64EncoderStream(os);
-        else if (encoding.equalsIgnoreCase("quoted-printable"))
-            return new QPEncoderStream(os);
-        else if (encoding.equalsIgnoreCase("uuencode") ||
-                 encoding.equalsIgnoreCase("x-uuencode") ||
-                 encoding.equalsIgnoreCase("x-uue"))
-            return new UUEncoderStream(os, filename);
-        else if (encoding.equalsIgnoreCase("binary") ||
-                 encoding.equalsIgnoreCase("7bit") ||
-                 encoding.equalsIgnoreCase("8bit"))
-            return os;
-        else
-            throw new MessagingException("Unknown encoding: " +encoding);
+        } else {
+            Map<String, Object> params = new HashMap<>();
+            params.put("filename", filename);
+            OutputStream stream = Session.getStreamProvider(encoding.toLowerCase()).from(os, params);
+            if (stream == null) {
+                throw new MessagingException("Unknown encoding: " +encoding);
+            } else {
+                return stream;
+            }
+        }
     }
 
     /**
@@ -764,6 +747,37 @@ public class MimeUtility {
 	return outb.toString();
     }
 
+    /**
+     * Returns the length of the encoded version of this byte array.
+     *
+     * @param   b   the byte array
+     * @return      the length
+     */
+    private static int bEncodedLength(byte[] b) {
+        return ((b.length + 2)/3) * 4;
+    }
+
+    /**
+     * Returns the length of the encoded version of this byte array.
+     *
+     * @param   b   the byte array
+     * @param   encodingWord    true if encoding words, false if encoding text
+     * @return      the length
+     */
+    private static int qEncodedLength(byte[] b, boolean encodingWord) {
+        int len = 0;
+        String specials = encodingWord ? WORD_SPECIALS: TEXT_SPECIALS;
+        for (int i = 0; i < b.length; i++) {
+            int c = b[i] & 0xff; // Mask off MSB
+            if (c < 040 || c >= 0177 || specials.indexOf(c) >= 0)
+            // needs encoding
+            len += 3; // Q-encoding is 1 -> 3 conversion
+            else
+            len++;
+        }
+        return len;
+    }
+
     private static void doEncode(String string, boolean b64, 
 		String jcharset, int avail, String prefix, 
 		boolean first, boolean encodingWord, StringBuilder buf)
@@ -774,9 +788,9 @@ public class MimeUtility {
 	byte[] bytes = string.getBytes(jcharset);
 	int len;
 	if (b64) // "B" encoding
-	    len = BEncoderStream.encodedLength(bytes);
+	    len = bEncodedLength(bytes);
 	else // "Q"
-	    len = QEncoderStream.encodedLength(bytes, encodingWord);
+	    len = qEncodedLength(bytes, encodingWord);
 	
 	int size;
 	if ((len > avail) && ((size = string.length()) > 1)) { 
@@ -795,10 +809,13 @@ public class MimeUtility {
 	    // length <= than 'avail'. Encode the given string
 	    ByteArrayOutputStream os = new ByteArrayOutputStream();
 	    OutputStream eos; // the encoder
-	    if (b64) // "B" encoding
-		eos = new BEncoderStream(os);
-	    else // "Q" encoding
-		eos = new QEncoderStream(os, encodingWord);
+	    if (b64) { // "B" encoding
+	        eos = Session.getStreamProvider(StreamProvider.B_ENCODER).from(os, null);
+	    } else { // "Q" encoding
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("encodingWord", encodingWord);
+	        eos = Session.getStreamProvider(StreamProvider.Q_ENCODER).from(os, params);
+	    }
 	    
 	    try { // do the encoding
 		eos.write(bytes);
@@ -879,14 +896,14 @@ public class MimeUtility {
 	    if (word.length() > 0) {
 		// Extract the bytes from word
 		ByteArrayInputStream bis = 
-		    new ByteArrayInputStream(ASCIIUtility.getBytes(word));
+		    new ByteArrayInputStream(getBytes(word));
 
 		// Get the appropriate decoder
 		InputStream is;
 		if (encoding.equalsIgnoreCase("B")) 
-		    is = new BASE64DecoderStream(bis);
+		    is = Session.getStreamProvider(StreamProvider.BASE_64_ENCODER).from(bis, null);
 		else if (encoding.equalsIgnoreCase("Q"))
-		    is = new QDecoderStream(bis);
+		    is = Session.getStreamProvider(StreamProvider.Q_ENCODER).from(bis, null);
 		else
 		    throw new UnsupportedEncodingException(
 				    "unknown encoding: " + encoding);
@@ -1348,7 +1365,7 @@ public class MimeUtility {
 
 	    if (is != null) {
 		try {
-		    is = new LineInputStream(is);
+		    is = Session.getStreamProvider(StreamProvider.LINE_STREAM).from(is, null);
 
 		    // Load the JDK-to-MIME charset mapping table
 		    loadMappings((LineInputStream)is, java2mime);
@@ -1626,6 +1643,36 @@ public class MimeUtility {
 
     static final boolean nonascii(int b) {
 	return b >= 0177 || (b < 040 && b != '\r' && b != '\n' && b != '\t');
+    }
+
+    // This is a copy of ASCIIUtility#getBytes that was moved to implementation module
+    public static byte[] getBytes(String s) {
+        char [] chars= s.toCharArray();
+        int size = chars.length;
+        byte[] bytes = new byte[size];
+            
+        for (int i = 0; i < size;)
+            bytes[i] = (byte) chars[i++];
+        return bytes;
+    }
+
+    // This is a copy of ASCIIUtility#getBytes that was moved to implementation module
+    public static byte[] getBytes(InputStream is) throws IOException {
+        int len;
+        int size = 1024;
+        byte [] buf;
+        if (is instanceof ByteArrayInputStream) {
+            size = is.available();
+            buf = new byte[size];
+            len = is.read(buf, 0, size);
+        } else {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            buf = new byte[size];
+            while ((len = is.read(buf, 0, size)) != -1)
+            bos.write(buf, 0, len);
+            buf = bos.toByteArray();
+        }
+        return buf;
     }
 }
 

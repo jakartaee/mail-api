@@ -16,7 +16,6 @@
 
 package com.sun.mail.util;
 
-import jakarta.mail.util.BASE64EncoderStream;
 import jakarta.mail.util.MailLogger;
 import jakarta.mail.util.PropUtil;
 
@@ -40,6 +39,7 @@ import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -849,7 +849,7 @@ public class SocketFetcher {
 	    byte[] upbytes = (proxyUser + ':' + proxyPassword).
 				getBytes(StandardCharsets.UTF_8);
 	    String proxyHeaderValue = new String(
-		BASE64EncoderStream.encode(upbytes),
+	            Base64.getEncoder().encode(upbytes),
 		StandardCharsets.US_ASCII);
 	    requestBuilder.append("Proxy-Authorization: Basic ").
 				append(proxyHeaderValue).append("\r\n");

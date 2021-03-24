@@ -14,9 +14,13 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.util;
+package com.sun.mail.stream;
+
+import jakarta.mail.util.PropUtil;
 
 import java.io.*;
+
+import com.sun.mail.util.DecodingException;
 
 /**
  * This class implements a BASE64 Decoder. It is implemented as
@@ -385,61 +389,6 @@ public class BASE64DecoderStream extends FilterInputStream {
 	    errstr += "\"";
 	}
 	return errstr;
-    }
-
-    /**
-     * Base64 decode a byte array.  No line breaks are allowed.
-     * This method is suitable for short strings, such as those
-     * in the IMAP AUTHENTICATE protocol, but not to decode the
-     * entire content of a MIME part.
-     *
-     * NOTE: inbuf may only contain valid base64 characters.
-     *       Whitespace is not ignored.
-     *
-     * @param	inbuf	the byte array
-     * @return		the decoded byte array
-     */
-    public static byte[] decode(byte[] inbuf) {
-	int size = (inbuf.length / 4) * 3;
-	if (size == 0)
-	    return inbuf;
-
-	if (inbuf[inbuf.length - 1] == '=') {
-	    size--;
-	    if (inbuf[inbuf.length - 2] == '=')
-		size--;
-	}
-	byte[] outbuf = new byte[size];
-
-	int inpos = 0, outpos = 0;
-	size = inbuf.length;
-	while (size > 0) {
-	    int val;
-	    int osize = 3;
-	    val = pem_convert_array[inbuf[inpos++] & 0xff];
-	    val <<= 6;
-	    val |= pem_convert_array[inbuf[inpos++] & 0xff];
-	    val <<= 6;
-	    if (inbuf[inpos] != '=') // End of this BASE64 encoding
-		val |= pem_convert_array[inbuf[inpos++] & 0xff];
-	    else
-		osize--;
-	    val <<= 6;
-	    if (inbuf[inpos] != '=') // End of this BASE64 encoding
-		val |= pem_convert_array[inbuf[inpos++] & 0xff];
-	    else
-		osize--;
-	    if (osize > 2)
-		outbuf[outpos + 2] = (byte)(val & 0xff);
-	    val >>= 8;
-	    if (osize > 1)
-		outbuf[outpos + 1] = (byte)(val & 0xff);
-	    val >>= 8;
-	    outbuf[outpos] = (byte)(val & 0xff);
-	    outpos += osize;
-	    size -= 4;
-	}
-	return outbuf;
     }
 
     /*** begin TEST program ***

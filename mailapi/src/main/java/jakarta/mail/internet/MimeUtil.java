@@ -14,12 +14,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.util;
+package jakarta.mail.internet;
 
 import java.lang.reflect.*;
 import java.security.*;
-
-import jakarta.mail.internet.MimePart;
 
 /**
  * General MIME-related utility methods.
@@ -27,7 +25,7 @@ import jakarta.mail.internet.MimePart;
  * @author	Bill Shannon
  * @since	JavaMail 1.4.4
  */
-public class MimeUtil {
+class MimeUtil {
 
     private static final Method cleanContentType;
 

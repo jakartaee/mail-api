@@ -16,19 +16,25 @@
 
 package jakarta.mail.internet;
 
-import java.io.*;
-import java.util.Properties;
-import java.util.Enumeration;
+import static jakarta.mail.Message.RecipientType.TO;
+import static jakarta.mail.internet.MimeMessage.RecipientType.NEWSGROUPS;
 
 import jakarta.activation.DataHandler;
-
-import jakarta.mail.*;
+import jakarta.mail.Address;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.test.AsciiStringInputStream;
 
-import static jakarta.mail.Message.RecipientType.*;
-import static jakarta.mail.internet.MimeMessage.RecipientType.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Enumeration;
+import java.util.Properties;
 
-import org.junit.*;
+import org.junit.Test;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -183,7 +189,7 @@ public class MimeMessageTest {
 	// depend on copy constructor streaming the data
 	msg = new MimeMessage(msg);
 	assertEquals("text/x-test", msg.getContentType());
-	assertEquals("quoted-printable", msg.getEncoding());
+	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, msg.getEncoding());
 	assertEquals("test message", getString(msg.getInputStream()));
     }
 
@@ -204,7 +210,7 @@ public class MimeMessageTest {
 	// depend on copy constructor streaming the data
 	msg = new MimeMessage(msg);
 	assertEquals("text/x-test", msg.getContentType());
-	assertEquals("quoted-printable", msg.getEncoding());
+	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, msg.getEncoding());
 	assertEquals("test message", getString(msg.getInputStream()));
     }
 

@@ -14,13 +14,13 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.internet;
+package com.sun.mail.stream;
 
-import jakarta.mail.util.DecodingException;
-import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.PropUtil;
 
 import java.io.*;
+
+import com.sun.mail.util.DecodingException;
 
 /**
  * This class implements a UUDecoder. It is implemented as
@@ -32,7 +32,7 @@ import java.io.*;
  * @author Bill Shannon
  */
 
-class UUDecoderStream extends FilterInputStream {
+public class UUDecoderStream extends FilterInputStream {
     private String name;
     private int mode;
 

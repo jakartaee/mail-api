@@ -23,6 +23,7 @@ import java.util.Properties;
 import jakarta.activation.DataHandler;
 
 import jakarta.mail.*;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.test.AsciiStringInputStream;
 
 import org.junit.*;
@@ -81,7 +82,7 @@ public class MimeBodyPartTest {
 	mp = (MimeMultipart)msg.getContent();
 	mbp = (MimeBodyPart)mp.getBodyPart(0);
 	assertEquals("text/x-test", mbp.getContentType());
-	assertEquals("quoted-printable", mbp.getEncoding());
+	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, mbp.getEncoding());
 	assertEquals("test part", getString(mbp.getInputStream()));
     }
 
@@ -110,7 +111,7 @@ public class MimeBodyPartTest {
 	mp = (MimeMultipart)msg.getContent();
 	mbp = (MimeBodyPart)mp.getBodyPart(0);
 	assertEquals("text/x-test", mbp.getContentType());
-	assertEquals("quoted-printable", mbp.getEncoding());
+	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, mbp.getEncoding());
 	assertEquals("test part", getString(mbp.getInputStream()));
     }
 
@@ -136,7 +137,7 @@ public class MimeBodyPartTest {
 	    }
 	};
 	mbp2.setDataHandler(mbp.getDataHandler());
-	assertEquals("base64", mbp2.getEncoding());
+	assertEquals(StreamProvider.BASE_64_ENCODER, mbp2.getEncoding());
 	// ensure the data is correct by reading the first byte
 	InputStream in = mbp2.getInputStream();
 	assertEquals(1, in.read());

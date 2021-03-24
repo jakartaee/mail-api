@@ -14,9 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.util;
+package com.sun.mail.util;
 
 import java.io.*;
+
+import com.sun.mail.stream.SharedByteArrayInputStream;
+
 import jakarta.activation.*;
 import jakarta.mail.internet.*;
 

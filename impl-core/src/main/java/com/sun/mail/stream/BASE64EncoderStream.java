@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.util;
+package com.sun.mail.stream;
 
 import java.io.*;
 
@@ -218,21 +218,6 @@ public class BASE64EncoderStream extends FilterOutputStream {
 		out.write(newline);
 	    count = 0;
 	}
-    }
-
-    /**
-     * Base64 encode a byte array.  No line breaks are inserted.
-     * This method is suitable for short strings, such as those
-     * in the IMAP AUTHENTICATE protocol, but not to encode the
-     * entire content of a MIME part.
-     *
-     * @param	inbuf	the byte array
-     * @return		the encoded byte array
-     */
-    public static byte[] encode(byte[] inbuf) {
-	if (inbuf.length == 0)
-	    return inbuf;
-	return encode(inbuf, 0, inbuf.length, null);
     }
 
     /**

@@ -19,6 +19,7 @@ module com.sun.mail {
     exports com.sun.mail.util;
     exports com.sun.mail.auth;
     exports com.sun.mail.handlers;
+    exports com.sun.mail.stream;
 
     exports com.sun.mail.iap;
     exports com.sun.mail.imap;
@@ -45,4 +46,14 @@ module com.sun.mail {
             com.sun.mail.smtp.SMTPSSLProvider,
             com.sun.mail.pop3.POP3Provider,
             com.sun.mail.pop3.POP3SSLProvider;
+    uses jakarta.mail.stream.StreamProvider;
+    provides jakarta.mail.stream.StreamProvider with
+        com.sun.mail.stream.Base64Stream,
+        com.sun.mail.stream.BStream,
+        com.sun.mail.stream.QPStream,
+        com.sun.mail.stream.UUStream,
+        com.sun.mail.stream.BinaryStream,
+        com.sun.mail.stream.QStream,
+        com.sun.mail.stream.LineStream,
+        com.sun.mail.stream.SharedByteArrayStream;
 }

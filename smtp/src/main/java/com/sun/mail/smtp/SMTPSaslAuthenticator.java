@@ -16,16 +16,25 @@
 
 package com.sun.mail.smtp;
 
-import java.io.*;
-import java.util.*;
-import java.util.logging.Level;
-import javax.security.sasl.*;
-import javax.security.auth.callback.*;
 import jakarta.mail.MessagingException;
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64DecoderStream;
-import jakarta.mail.util.BASE64EncoderStream;
 import jakarta.mail.util.MailLogger;
+
+import java.util.Base64;
+import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
+import javax.security.sasl.RealmCallback;
+import javax.security.sasl.RealmChoiceCallback;
+import javax.security.sasl.Sasl;
+import javax.security.sasl.SaslClient;
+import javax.security.sasl.SaslException;
+
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class contains a single method that does authentication using
@@ -137,7 +146,7 @@ public class SMTPSaslAuthenticator implements SaslAuthenticator {
 	    if (sc.hasInitialResponse()) {
 		byte[] ba = sc.evaluateChallenge(new byte[0]);
 		if (ba.length > 0) {
-		    ba = BASE64EncoderStream.encode(ba);
+		    ba = Base64.getEncoder().encode(ba);
 		    ir = ASCIIUtility.toString(ba, 0, ba.length);
 		} else
 		    ir = "=";
@@ -176,7 +185,7 @@ public class SMTPSaslAuthenticator implements SaslAuthenticator {
 		    if (!sc.isComplete()) {
 			ba = ASCIIUtility.getBytes(responseText(pr));
 			if (ba.length > 0)
-			    ba = BASE64DecoderStream.decode(ba);
+			    ba = Base64.getDecoder().decode(ba);
 			if (logger.isLoggable(Level.FINE))
 			    logger.fine("SASL challenge: " +
 				ASCIIUtility.toString(ba, 0, ba.length) + " :");
@@ -189,7 +198,7 @@ public class SMTPSaslAuthenticator implements SaslAuthenticator {
 			if (logger.isLoggable(Level.FINE))
 			    logger.fine("SASL response: " +
 				ASCIIUtility.toString(ba, 0, ba.length) + " :");
-			ba = BASE64EncoderStream.encode(ba);
+			ba = Base64.getEncoder().encode(ba);
 			resp = pr.simpleCommand(ba);
 		    }
 		} else

@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.internet;
+package com.sun.mail.stream;
 
 import java.io.*;
 
@@ -25,11 +25,11 @@ import java.io.*;
  * @author John Mani
  */
 
-class QEncoderStream extends QPEncoderStream {
+public class QEncoderStream extends QPEncoderStream {
 
     private String specials;
-    private static String WORD_SPECIALS = "=_?\"#$%&'(),.:;<>@[\\]^`{|}~";
-    private static String TEXT_SPECIALS = "=_?";
+    private static final String WORD_SPECIALS = "=_?\"#$%&'(),.:;<>@[\\]^`{|}~";
+    private static final String TEXT_SPECIALS = "=_?";
 
     /**
      * Create a Q encoder that encodes the specified input stream
@@ -63,27 +63,6 @@ class QEncoderStream extends QPEncoderStream {
 	    output(c, true);
 	else // No encoding required
 	    output(c, false);
-    }
-
-    /**
-     * Returns the length of the encoded version of this byte array.
-     *
-     * @param	b	the byte array
-     * @param	encodingWord	true if encoding words, false if encoding text
-     * @return		the length
-     */
-    public static int encodedLength(byte[] b, boolean encodingWord) {
-	int len = 0;
-	String specials = encodingWord ? WORD_SPECIALS: TEXT_SPECIALS;
-	for (int i = 0; i < b.length; i++) {
-	    int c = b[i] & 0xff; // Mask off MSB
-	    if (c < 040 || c >= 0177 || specials.indexOf(c) >= 0)
-		// needs encoding
-		len += 3; // Q-encoding is 1 -> 3 conversion
-	    else
-		len++;
-	}
-	return len;
     }
 
     /**** begin TEST program ***

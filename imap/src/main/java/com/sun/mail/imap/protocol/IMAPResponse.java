@@ -16,12 +16,11 @@
 
 package com.sun.mail.imap.protocol;
 
-import jakarta.mail.util.ASCIIUtility;
-
 import java.io.*;
 import java.util.*;
 
 import com.sun.mail.iap.*;
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class represents a response obtained from the input stream

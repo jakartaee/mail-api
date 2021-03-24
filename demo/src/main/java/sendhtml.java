@@ -10,6 +10,9 @@
 
 import java.io.*;
 import java.util.Properties;
+
+import com.sun.mail.util.ByteArrayDataSource;
+
 import java.util.Date;
 
 import jakarta.mail.*;

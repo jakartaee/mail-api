@@ -16,26 +16,46 @@
 
 package com.sun.mail.pop3;
 
-import java.util.*;
-import java.net.*;
-
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64DecoderStream;
-import jakarta.mail.util.BASE64EncoderStream;
-import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.MailLogger;
 import jakarta.mail.util.PropUtil;
 
-import java.io.*;
-import java.security.*;
-import java.util.logging.Level;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+
 import javax.net.ssl.SSLSocket;
+
 import com.sun.mail.auth.Ntlm;
+import com.sun.mail.stream.BASE64EncoderStream;
+import com.sun.mail.stream.LineInputStream;
+import com.sun.mail.stream.SharedByteArrayOutputStream;
+import com.sun.mail.util.ASCIIUtility;
 import com.sun.mail.util.SocketFetcher;
 import com.sun.mail.util.TraceInputStream;
 import com.sun.mail.util.TraceOutputStream;
-import com.sun.mail.util.SharedByteArrayOutputStream;
 
 class Response {
     boolean ok = false;		// true if "+OK"
@@ -693,7 +713,7 @@ class Protocol {
 		String passwd) throws IOException {
 	    String resp = "user=" + user + "\001auth=Bearer " +
 			    passwd + "\001\001";
-	    byte[] b = BASE64EncoderStream.encode(
+	    byte[] b = Base64.getEncoder().encode(
 					resp.getBytes(StandardCharsets.UTF_8));
 	    return ASCIIUtility.toString(b);
 	}
@@ -727,7 +747,7 @@ class Protocol {
 	    String err = "";
 	    if (resp.data != null) {
 		byte[] b = resp.data.getBytes(StandardCharsets.UTF_8);
-		b = BASE64DecoderStream.decode(b);
+		b = Base64.getDecoder().decode(b);
 		err = new String(b, StandardCharsets.UTF_8);
 	    }
 	    throw new EOFException("OAUTH2 authentication failed: " + err);

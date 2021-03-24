@@ -11,6 +11,7 @@
 import java.io.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.activation.*;
 
 /**
@@ -159,7 +160,7 @@ public class MSMessage extends MimeMessage {
      * Return content-transfer-encoding
      */
     public String getEncoding() throws MessagingException {
-	return "7bit";
+	return StreamProvider.BIT7_ENCODER;
     }
 
     /**

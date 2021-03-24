@@ -14,11 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.internet;
-
-import jakarta.mail.util.ASCIIUtility;
+package com.sun.mail.stream;
 
 import java.io.*;
+
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class implements a QP Decoder. It is implemented as
@@ -29,7 +29,7 @@ import java.io.*;
  * @author John Mani
  */
 
-class QPDecoderStream extends FilterInputStream {
+public class QPDecoderStream extends FilterInputStream {
     protected byte[] ba = new byte[2];
     protected int spaces = 0;
 

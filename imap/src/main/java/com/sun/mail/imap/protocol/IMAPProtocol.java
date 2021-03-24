@@ -16,31 +16,57 @@
 
 package com.sun.mail.imap.protocol;
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
-import java.lang.reflect.*;
-import java.util.logging.Level;
-import java.nio.charset.StandardCharsets;
-
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
-import jakarta.mail.search.*;
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64EncoderStream;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.Quota;
+import jakarta.mail.UIDFolder;
+import jakarta.mail.internet.MimeUtility;
+import jakarta.mail.search.SearchException;
+import jakarta.mail.search.SearchTerm;
 import jakarta.mail.util.MailLogger;
 import jakarta.mail.util.PropUtil;
 
-import com.sun.mail.iap.*;
-import com.sun.mail.auth.Ntlm;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Constructor;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.logging.Level;
 
+import com.sun.mail.auth.Ntlm;
+import com.sun.mail.iap.Argument;
+import com.sun.mail.iap.BadCommandException;
+import com.sun.mail.iap.ByteArray;
+import com.sun.mail.iap.CommandFailedException;
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.Literal;
+import com.sun.mail.iap.LiteralException;
+import com.sun.mail.iap.ParsingException;
+import com.sun.mail.iap.Protocol;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.iap.Response;
 import com.sun.mail.imap.ACL;
-import com.sun.mail.imap.Rights;
 import com.sun.mail.imap.AppendUID;
 import com.sun.mail.imap.CopyUID;
-import com.sun.mail.imap.SortTerm;
 import com.sun.mail.imap.ResyncData;
+import com.sun.mail.imap.Rights;
+import com.sun.mail.imap.SortTerm;
 import com.sun.mail.imap.Utility;
+import com.sun.mail.stream.BASE64EncoderStream;
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class extends the iap.Protocol object and implements IMAP
@@ -875,7 +901,7 @@ public class IMAPProtocol extends Protocol {
 	    args.writeAtom("XOAUTH2");
 	    if (hasCapability("SASL-IR")) {
 		String resp = "user=" + u + "\001auth=Bearer " + p + "\001\001";
-		byte[] ba = BASE64EncoderStream.encode(
+		byte[] ba = Base64.getEncoder().encode(
 				    resp.getBytes(StandardCharsets.UTF_8));
 		String irs = ASCIIUtility.toString(ba, 0, ba.length);
 		args.writeAtom(irs);
@@ -896,7 +922,7 @@ public class IMAPProtocol extends Protocol {
 		    // Server challenge ..
 		    String resp = "user=" + u + "\001auth=Bearer " +
 				    p + "\001\001";
-		    byte[] b = BASE64EncoderStream.encode(
+		    byte[] b = Base64.getEncoder().encode(
 				    resp.getBytes(StandardCharsets.UTF_8));
 		    os.write(b);	// write out response
 		    os.write(CRLF); 	// CRLF termination

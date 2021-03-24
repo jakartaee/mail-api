@@ -244,6 +244,7 @@ public class SMTPUtf8Test {
                 t.connect("test", "test");
 		t.sendMessage(msg, msg.getAllRecipients());
 	    } catch (Exception ex) {
+	        ex.printStackTrace();
 		fail(ex.toString());
             } finally {
                 t.close();

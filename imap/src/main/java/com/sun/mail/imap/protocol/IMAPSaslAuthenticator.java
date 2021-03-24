@@ -16,20 +16,32 @@
 
 package com.sun.mail.imap.protocol;
 
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64DecoderStream;
-import jakarta.mail.util.BASE64EncoderStream;
 import jakarta.mail.util.MailLogger;
 import jakarta.mail.util.PropUtil;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
-import javax.security.sasl.*;
-import javax.security.auth.callback.*;
 
-import com.sun.mail.iap.*;
-import com.sun.mail.imap.*;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
+import javax.security.sasl.RealmCallback;
+import javax.security.sasl.RealmChoiceCallback;
+import javax.security.sasl.Sasl;
+import javax.security.sasl.SaslClient;
+import javax.security.sasl.SaslException;
+
+import com.sun.mail.iap.Argument;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.iap.Response;
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class contains a single method that does authentication using
@@ -145,7 +157,7 @@ public class IMAPSaslAuthenticator implements SaslAuthenticator {
 		String irs;
 		byte[] ba = sc.evaluateChallenge(new byte[0]);
 		if (ba.length > 0) {
-		    ba = BASE64EncoderStream.encode(ba);
+		    ba = Base64.getEncoder().encode(ba);
 		    irs = ASCIIUtility.toString(ba, 0, ba.length);
 		} else
 		    irs = "=";
@@ -190,7 +202,7 @@ public class IMAPSaslAuthenticator implements SaslAuthenticator {
 		    if (!sc.isComplete()) {
 			ba = r.readByteArray().getNewBytes();
 			if (ba.length > 0)
-			    ba = BASE64DecoderStream.decode(ba);
+			    ba = Base64.getDecoder().decode(ba);
 			if (logger.isLoggable(Level.FINE))
 			    logger.fine("SASL challenge: " +
 				ASCIIUtility.toString(ba, 0, ba.length) + " :");
@@ -205,7 +217,7 @@ public class IMAPSaslAuthenticator implements SaslAuthenticator {
 			if (logger.isLoggable(Level.FINE))
 			    logger.fine("SASL response: " +
 				ASCIIUtility.toString(ba, 0, ba.length) + " :");
-			ba = BASE64EncoderStream.encode(ba);
+			ba = Base64.getEncoder().encode(ba);
 			if (isXGWTRUSTEDAPP)
 			    bos.write(ASCIIUtility.getBytes("XGWTRUSTEDAPP "));
 			bos.write(ba);

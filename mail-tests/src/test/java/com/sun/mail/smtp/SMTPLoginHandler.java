@@ -16,14 +16,10 @@
 
 package com.sun.mail.smtp;
 
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64DecoderStream;
-import jakarta.mail.util.BASE64EncoderStream;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 import java.util.logging.Level;
 
 /**
@@ -86,7 +82,7 @@ public class SMTPLoginHandler extends SMTPHandler {
 	    return;
 	}
 	byte[] response = resp.getBytes(StandardCharsets.US_ASCII);
-	response = BASE64DecoderStream.decode(response);
+	response = Base64.getDecoder().decode(response);
 	String u = new String(response, StandardCharsets.UTF_8);
 	if (LOGGER.isLoggable(Level.FINE))
 	    LOGGER.fine("USER: " + u);
@@ -99,7 +95,7 @@ public class SMTPLoginHandler extends SMTPHandler {
 	    return;
 	}
 	response = resp.getBytes(StandardCharsets.US_ASCII);
-	response = BASE64DecoderStream.decode(response);
+	response = Base64.getDecoder().decode(response);
 	String p = new String(response, StandardCharsets.UTF_8);
 	if (LOGGER.isLoggable(Level.FINE))
 	    LOGGER.fine("PASSWORD: " + p);
@@ -117,7 +113,7 @@ public class SMTPLoginHandler extends SMTPHandler {
      * AUTH PLAIN
      */
     private void plain(String ir) throws IOException {
-	String auth = new String(BASE64DecoderStream.decode(
+	String auth = new String(Base64.getDecoder().decode(
 				    ir.getBytes(StandardCharsets.US_ASCII)),
 				StandardCharsets.UTF_8);
 	String[] ap = auth.split("\000");

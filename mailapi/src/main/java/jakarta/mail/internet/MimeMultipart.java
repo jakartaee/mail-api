@@ -16,14 +16,29 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.*;
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.LineInputStream;
-import jakarta.mail.util.LineOutputStream;
+import jakarta.activation.DataSource;
+import jakarta.mail.BodyPart;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.MessageAware;
+import jakarta.mail.MessageContext;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.MultipartDataSource;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeUtility;
+import jakarta.mail.stream.LineInputStream;
+import jakarta.mail.stream.LineOutputStream;
+import jakarta.mail.stream.SharedInputStream;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.PropUtil;
-import jakarta.activation.*;
-import java.util.*;
-import java.io.*;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * The MimeMultipart class is an implementation of the abstract Multipart
@@ -509,11 +524,10 @@ public class MimeMultipart extends Multipart {
 	
 	String boundary = "--" + 
 		(new ContentType(contentType)).getParameter("boundary");
-	LineOutputStream los = new LineOutputStream(os);
-
+    LineOutputStream los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, null);
 	// if there's a preamble, write it out
 	if (preamble != null) {
-	    byte[] pb = ASCIIUtility.getBytes(preamble);
+	    byte[] pb = MimeUtility.getBytes(preamble);
 	    los.write(pb);
 	    // make sure it ends with a newline
 	    if (pb.length > 0 &&
@@ -591,7 +605,7 @@ public class MimeMultipart extends Multipart {
 
 	try {
 	    // Skip and save the preamble
-	    LineInputStream lin = new LineInputStream(in);
+	    LineInputStream lin = (LineInputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(in, null);
 	    StringBuilder preamblesb = null;
 	    String line;
 	    while ((line = lin.readLine()) != null) {
@@ -657,7 +671,7 @@ public class MimeMultipart extends Multipart {
 	    }
 
 	    // save individual boundary bytes for comparison later
-	    byte[] bndbytes = ASCIIUtility.getBytes(boundary);
+	    byte[] bndbytes = MimeUtility.getBytes(boundary);
 	    int bl = bndbytes.length;
 
 	    /*

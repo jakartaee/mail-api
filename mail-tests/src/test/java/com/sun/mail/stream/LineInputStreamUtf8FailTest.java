@@ -14,33 +14,34 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.util;
+package com.sun.mail.stream;
 
-import jakarta.mail.util.LineInputStream;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
  * Test that the "mail.mime.allowutf8" System property
- * set to true allows UTF-8 data to be read.
+ * not set doesn't allow UTF-8 data to be read.
  */
-public class LineInputStreamUtf8Test {
+public class LineInputStreamUtf8FailTest {
 
     @BeforeClass
     public static void before() {
-	System.out.println("LineInputStreamUtf8");
-	System.setProperty("mail.mime.allowutf8", "true");
+	System.out.println("LineInputStreamUtf8Fail");
+	System.clearProperty("mail.mime.allowutf8");
     }
 
     @Test
     public void testUtf8() throws Exception {
 	LineInputStream is = new LineInputStream(new ByteArrayInputStream(
 			"a\u00A9b\n".getBytes(StandardCharsets.UTF_8)), false);
-	assertEquals("a\u00A9b", is.readLine());
+	assertEquals("a\302\251b", is.readLine());
     }
 
     @Test
@@ -48,10 +49,5 @@ public class LineInputStreamUtf8Test {
 	LineInputStream is = new LineInputStream(new ByteArrayInputStream(
 		    "a\251b\n".getBytes(StandardCharsets.ISO_8859_1)), false);
 	assertEquals("a\251b", is.readLine());
-    }
-
-    @AfterClass
-    public static void after() {
-	System.clearProperty("mail.mime.allowutf8");
     }
 }

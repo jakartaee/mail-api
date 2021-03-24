@@ -16,7 +16,6 @@
 
 package com.sun.mail.util;
 
-import jakarta.mail.util.LogOutputStream;
 import jakarta.mail.util.MailLogger;
 
 import java.io.FilterInputStream;

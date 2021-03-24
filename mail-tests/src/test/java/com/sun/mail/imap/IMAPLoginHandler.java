@@ -16,10 +16,9 @@
 
 package com.sun.mail.imap;
 
-import jakarta.mail.util.BASE64DecoderStream;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * Handle IMAP connection with LOGIN authentication.
@@ -45,12 +44,12 @@ public class IMAPLoginHandler extends IMAPHandler {
 	    bad("AUTHENTICATE LOGIN does not support initial response");
 	cont(base64encode("Username"));
 	String resp = readLine();
-	String u = new String(BASE64DecoderStream.decode(
+	String u = new String(Base64.getDecoder().decode(
 				    resp.getBytes(StandardCharsets.US_ASCII)),
 				StandardCharsets.UTF_8);
 	cont(base64encode("Password"));
 	resp = readLine();
-	String p = new String(BASE64DecoderStream.decode(
+	String p = new String(Base64.getDecoder().decode(
 				    resp.getBytes(StandardCharsets.US_ASCII)),
 				StandardCharsets.UTF_8);
 	//System.out.printf("USER: %s, PASSWORD: %s%n", u, p);

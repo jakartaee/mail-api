@@ -16,8 +16,6 @@
 
 package com.sun.mail.auth;
 
-import jakarta.mail.util.ASCIIUtility;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -29,6 +27,8 @@ import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.sasl.SaslClient;
 import javax.security.sasl.SaslException;
+
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * Jakarta Mail SASL client for OAUTH2.

@@ -21,6 +21,7 @@ import java.nio.charset.Charset;
 import java.util.Properties;
 
 import jakarta.mail.Session;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.test.AsciiStringInputStream;
 import jakarta.mail.MessagingException;
 import jakarta.mail.BodyPart;
@@ -109,10 +110,10 @@ public class ModifyMessageTest {
 	// make sure other content is not changed or re-encoded
 	MimeBodyPart mbp = (MimeBodyPart)mp.getBodyPart(1);
 	assertEquals("second part\n", mbp.getContent());
-	assertEquals("quoted-printable", mbp.getEncoding());
+	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, mbp.getEncoding());
 	mbp = (MimeBodyPart)mp.getBodyPart(2);
 	assertEquals("third part\n", mbp.getContent());
-	assertEquals("base64", mbp.getEncoding());
+	assertEquals(StreamProvider.BASE_64_ENCODER, mbp.getEncoding());
     }
 
     private static MimeMessage createMessage() throws MessagingException {

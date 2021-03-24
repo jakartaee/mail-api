@@ -14,28 +14,28 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.util;
+package com.sun.mail.stream;
 
-import java.io.IOException;
+import java.io.*;
 
 /**
- * A special IOException that indicates a failure to decode data due
- * to an error in the formatting of the data.  This allows applications
- * to distinguish decoding errors from other I/O errors.
- *
- * @author Bill Shannon
+ * This class implements a 'B' Encoder as defined by RFC2047 for
+ * encoding MIME headers. It subclasses the BASE64EncoderStream
+ * class.
+ * 
+ * @author John Mani
  */
 
-public class DecodingException extends IOException {
-
-    private static final long serialVersionUID = -6913647794421459390L;
+public class BEncoderStream extends BASE64EncoderStream {
 
     /**
-     * Constructor.
-     *
-     * @param	s	the exception message
+     * Create a 'B' encoder that encodes the specified input stream.
+     * @param out        the output stream
      */
-    public DecodingException(String s) {
-	super(s);
+    public BEncoderStream(OutputStream out) {
+	super(out, Integer.MAX_VALUE); // MAX_VALUE is 2^31, should
+				       // suffice (!) to indicate that
+				       // CRLFs should not be inserted
     }
+
 }

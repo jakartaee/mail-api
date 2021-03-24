@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.internet;
+package com.sun.mail.stream;
 
 import java.io.*;
 
@@ -27,7 +27,7 @@ import java.io.*;
  * @author John Mani
  */
 
-class QPEncoderStream extends FilterOutputStream {
+public class QPEncoderStream extends FilterOutputStream {
     private int count = 0; 	// number of bytes that have been output
     private int bytesPerLine;	// number of bytes per line
     private boolean gotSpace = false;

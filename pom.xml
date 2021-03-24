@@ -396,25 +396,6 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
 			    </compilerArgs>
 			</configuration>
 		    </execution>
-                    <!--
-                        Exclude MailSessionDefinition and MailSessionDefinitions since
-                        the former requires JDK 1.8 and the latter depends on the former.
-                    -->
-                    <execution>
-                        <id>base-compile-7</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <skipMain>${mail.recompile.skip}</skipMain>
-                            <release>7</release>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                                <exclude>jakarta/mail/MailSessionDefinition.java</exclude>
-                                <exclude>jakarta/mail/MailSessionDefinitions.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
 		    <execution>
 			<id>default-testCompile</id>
 			<configuration>

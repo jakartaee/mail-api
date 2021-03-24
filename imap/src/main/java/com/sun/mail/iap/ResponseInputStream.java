@@ -16,10 +16,9 @@
 
 package com.sun.mail.iap;
 
-import jakarta.mail.util.ASCIIUtility;
-
 import java.io.*;
 import com.sun.mail.iap.ByteArray;
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  *

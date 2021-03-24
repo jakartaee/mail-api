@@ -16,10 +16,9 @@
 
 package com.sun.mail.imap.protocol;
 
-import jakarta.mail.util.ASCIIUtility;
-
 import java.io.ByteArrayInputStream;
 import com.sun.mail.iap.*;
+import com.sun.mail.util.ASCIIUtility;
 
 /**
  * The BODY fetch response item.

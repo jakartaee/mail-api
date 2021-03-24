@@ -16,11 +16,22 @@
 
 package jakarta.mail.internet;
 
-import java.io.*;
-import java.util.*;
-import jakarta.mail.*;
-import jakarta.mail.util.LineInputStream;
+import jakarta.mail.Header;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.stream.LineInputStream;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.PropUtil;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * InternetHeaders is a utility class that manages RFC822 style
@@ -395,7 +406,9 @@ public class InternetHeaders {
 	// Read header lines until a blank line. It is valid
 	// to have BodyParts with no header lines.
 	String line;
-	LineInputStream lis = new LineInputStream(is, allowutf8);
+	Map<String, Object> params = new HashMap<>();
+	params.put("allowutf8", allowutf8);
+	LineInputStream lis = (LineInputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(is, params);
 	String prevline = null;	// the previous header line, as a string
 	// a buffer to accumulate the header in, when we know it's needed
 	StringBuilder lineBuffer = new StringBuilder();

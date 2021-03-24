@@ -16,14 +16,23 @@
 
 package jakarta.mail.internet;
 
-import java.io.File;
-import java.util.Set;
-import java.util.HashSet;
-import jakarta.activation.*;
-import jakarta.mail.util.ByteArrayDataSource;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
+import jakarta.mail.stream.StreamProvider;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.sun.mail.util.ByteArrayDataSource;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test MimeUtility methods.
@@ -46,7 +55,7 @@ public class MimeUtilityTest {
 
     @SuppressWarnings("serial")
     private static final Set<String> encodings = new HashSet<String>() {{
-	add("7bit"); add("8bit"); add("quoted-printable"); add("base64"); }};
+	add(StreamProvider.BIT7_ENCODER); add(StreamProvider.BIT8_ENCODER); add(StreamProvider.QUOTED_PRINTABLE_ENCODER); add(StreamProvider.BASE_64_ENCODER); }};
 
     /**
      * Test that utf-16be data is encoded with base64 and not quoted-printable.
@@ -56,7 +65,7 @@ public class MimeUtilityTest {
 	DataSource ds = new ByteArrayDataSource(utf16beBytes,
 						"text/plain; charset=utf-16be");
 	String en = MimeUtility.getEncoding(ds);
-	assertEquals("non-ASCII encoding", "base64", en);
+	assertEquals("non-ASCII encoding", StreamProvider.BASE_64_ENCODER, en);
     }
 
     /**

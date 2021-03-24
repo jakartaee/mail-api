@@ -29,10 +29,13 @@ import java.security.PrivilegedAction;
 import java.util.*;
 import java.util.logging.*;
 import java.util.logging.Formatter;
+
+import com.sun.mail.util.ByteArrayDataSource;
+
 import jakarta.activation.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-import jakarta.mail.util.ByteArrayDataSource;
+import jakarta.mail.stream.StreamProvider;
 
 /**
  * <code>Handler</code> that formats log records as an email message.
@@ -3287,7 +3290,7 @@ public class MailHandler extends Handler {
                     try {
                         String cte = "Content-Transfer-Encoding";
                         if (abort.getHeader(cte) == null) {
-                            abort.setHeader(cte, "base64");
+                            abort.setHeader(cte, StreamProvider.BASE_64_ENCODER);
                             abort.saveChanges();
                         } else {
                             throw xferEncoding;

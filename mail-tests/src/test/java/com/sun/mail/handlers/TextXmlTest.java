@@ -16,14 +16,21 @@
 
 package com.sun.mail.handlers;
 
-import java.io.*;
-import java.util.*;
-import jakarta.activation.*;
-import jakarta.mail.*;
-import jakarta.mail.util.ByteArrayDataSource;
-import javax.xml.transform.stream.*;
+import jakarta.activation.ActivationDataFlavor;
+import jakarta.activation.DataContentHandler;
+import jakarta.activation.DataSource;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.transform.stream.StreamSource;
+
+import com.sun.mail.util.ByteArrayDataSource;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

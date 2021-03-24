@@ -16,16 +16,42 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.*;
-import jakarta.mail.util.ASCIIUtility;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
+import jakarta.mail.BodyPart;
+import jakarta.mail.EncodingAware;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Part;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeUtility;
+import jakarta.mail.stream.LineOutputStream;
+import jakarta.mail.stream.SharedInputStream;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.FolderClosedIOException;
-import jakarta.mail.util.LineOutputStream;
 import jakarta.mail.util.MessageRemovedIOException;
-import jakarta.mail.util.MimeUtil;
 import jakarta.mail.util.PropUtil;
-import jakarta.activation.*;
-import java.io.*;
-import java.util.*;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents a MIME body part. It implements the 
@@ -167,7 +193,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	    contentStream = sis.newStream(sis.getPosition(), -1);
 	} else {
 	    try {
-		content = ASCIIUtility.getBytes(is);
+		content = MimeUtility.getBytes(is);
 	    } catch (IOException ioex) {
 		throw new MessagingException("Error reading input stream", ioex);
 	    }
@@ -1405,10 +1431,10 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	    return null;
 	// quick check for known values to avoid unnecessary use
 	// of tokenizer.
-	if (s.equalsIgnoreCase("7bit") || s.equalsIgnoreCase("8bit") ||
-		s.equalsIgnoreCase("quoted-printable") ||
-		s.equalsIgnoreCase("binary") ||
-		s.equalsIgnoreCase("base64"))
+	if (s.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) || s.equalsIgnoreCase(StreamProvider.BIT8_ENCODER) ||
+		s.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER) ||
+		s.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
+		s.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
 	    return s;
 
 	// Tokenize the header to obtain the encoding (skip comments)
@@ -1445,9 +1471,9 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	if (!ignoreMultipartEncoding || encoding == null)
 	    return encoding;
 
-	if (encoding.equalsIgnoreCase("7bit") ||
-		encoding.equalsIgnoreCase("8bit") ||
-		encoding.equalsIgnoreCase("binary"))
+	if (encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
+		encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER) ||
+		encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER))
 	    return encoding;	// these encodings are always valid
 
 	String type = part.getContentType();
@@ -1565,7 +1591,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 		     */
 		    String charset;
 		    String enc = part.getEncoding();
-		    if (enc != null && enc.equalsIgnoreCase("7bit"))
+		    if (enc != null && enc.equalsIgnoreCase(StreamProvider.BIT7_ENCODER))
 			charset = "us-ascii";
 		    else
 			charset = MimeUtility.getDefaultMIMECharset();
@@ -1628,7 +1654,9 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	if (os instanceof LineOutputStream) {
 	    los = (LineOutputStream) os;
 	} else {
-	    los = new LineOutputStream(os, allowutf8);
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("allowutf8", allowutf8);
+	    los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, params);
 	}
 
 	// First, write out the header

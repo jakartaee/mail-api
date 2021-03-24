@@ -16,17 +16,21 @@
 
 package com.sun.mail.dsn;
 
-import java.io.*;
-import java.util.*;
-import java.util.logging.Level;
-
-import jakarta.activation.*;
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
-
-import jakarta.mail.util.LineOutputStream;	// XXX
-import jakarta.mail.util.PropUtil;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.stream.LineOutputStream;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.MailLogger;
+import jakarta.mail.util.PropUtil;
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.Vector;
+import java.util.logging.Level;
 
 /**
  * A message/delivery-status message content, as defined in
@@ -162,7 +166,7 @@ public class DeliveryStatus extends Report {
 	if (os instanceof LineOutputStream) {
 	    los = (LineOutputStream) os;
 	} else {
-	    los = new LineOutputStream(os);
+	    los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, null);
 	}
 
 	writeInternetHeaders(messageDSN, los);

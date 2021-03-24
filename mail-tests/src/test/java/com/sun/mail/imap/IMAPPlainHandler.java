@@ -16,10 +16,9 @@
 
 package com.sun.mail.imap;
 
-import jakarta.mail.util.BASE64DecoderStream;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * Handle IMAP connection with PLAIN authentication.
@@ -46,7 +45,7 @@ public class IMAPPlainHandler extends IMAPHandler {
 	    cont("");
 	    ir = readLine();
 	}
-	String auth = new String(BASE64DecoderStream.decode(
+	String auth = new String(Base64.getDecoder().decode(
 				    ir.getBytes(StandardCharsets.US_ASCII)),
 				StandardCharsets.UTF_8);
 	String[] ap = auth.split("\000");

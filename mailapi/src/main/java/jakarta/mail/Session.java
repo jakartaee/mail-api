@@ -16,27 +16,36 @@
 
 package jakarta.mail;
 
-import java.lang.reflect.*;
-
-import jakarta.mail.util.LineInputStream;
+import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.stream.LineInputStream;
+import jakarta.mail.util.DefaultProvider;
 import jakarta.mail.util.MailLogger;
 
-import java.io.*;
-import java.net.*;
-import java.security.*;
-import java.util.Collections;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Constructor;
+import java.net.InetAddress;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
-import java.util.StringTokenizer;
 import java.util.ServiceLoader;
-import java.util.logging.Level;
+import java.util.StringTokenizer;
 import java.util.concurrent.Executor;
-
-import jakarta.mail.util.DefaultProvider;
+import java.util.logging.Level;
 
 /**
  * The Session class represents a mail session and is not subclassed.
@@ -192,6 +201,8 @@ import jakarta.mail.util.DefaultProvider;
 
 public final class Session {
 
+    private static final Map<String, StreamProvider> STREAM_PROVIDERS = new HashMap<>();
+
     private final Properties props;
     private final Authenticator authenticator;
     private final Hashtable<URLName, PasswordAuthentication> authTable
@@ -233,6 +244,7 @@ public final class Session {
 	    // ignore any exceptions
 	}
 	confDir = dir;
+	loadStreamFilters();
     }
 
     // Constructor is not public
@@ -258,6 +270,19 @@ public final class Session {
 	q = new EventQueue((Executor)props.get("mail.event.executor"));
     }
 
+    private static void loadStreamFilters() {
+        ServiceLoader<StreamProvider> sl = ServiceLoader.load(StreamProvider.class);
+        for (StreamProvider filter : sl) {
+            for (String encoding : filter.keys()) {
+                STREAM_PROVIDERS.put(encoding.toLowerCase(), filter);
+            }
+        }
+    }
+
+    public static StreamProvider getStreamProvider(String key) {
+        return STREAM_PROVIDERS.get(key);
+    }
+    
     private final synchronized void initLogger() {
 	logger = new MailLogger(this.getClass(), "DEBUG", debug, getDebugOut());
     }
@@ -1020,7 +1045,7 @@ public final class Session {
     private void loadProvidersFromStream(InputStream is) 
 				throws IOException {
 	if (is != null) {
-	    LineInputStream lis = new LineInputStream(is);
+	    LineInputStream lis = (LineInputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(is, null);
 	    String currLine;
 
 	    // load and process one line at a time using LineInputStream

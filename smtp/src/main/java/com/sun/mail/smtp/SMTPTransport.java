@@ -16,29 +16,60 @@
 
 package com.sun.mail.smtp;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.lang.reflect.*;
-import java.nio.charset.StandardCharsets;
-import javax.net.ssl.SSLSocket;
-
-import jakarta.mail.*;
-import jakarta.mail.event.*;
-import jakarta.mail.internet.*;
-import jakarta.mail.util.ASCIIUtility;
-import jakarta.mail.util.BASE64EncoderStream;
-import jakarta.mail.util.LineInputStream;
+import jakarta.mail.Address;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.URLName;
+import jakarta.mail.event.TransportEvent;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.ParseException;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.MailLogger;
 import jakarta.mail.util.PropUtil;
 
-import com.sun.mail.util.SocketFetcher;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.lang.reflect.Constructor;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+
+import javax.net.ssl.SSLSocket;
+
+import com.sun.mail.auth.Ntlm;
+import com.sun.mail.stream.BASE64EncoderStream;
+import com.sun.mail.stream.LineInputStream;
+import com.sun.mail.util.ASCIIUtility;
 import com.sun.mail.util.MailConnectException;
 import com.sun.mail.util.SocketConnectException;
+import com.sun.mail.util.SocketFetcher;
 import com.sun.mail.util.TraceInputStream;
 import com.sun.mail.util.TraceOutputStream;
-import com.sun.mail.auth.Ntlm;
 
 /**
  * This class implements the Transport abstract class using SMTP for
@@ -976,11 +1007,11 @@ public class SMTPTransport extends Transport {
 	void doAuth(String host, String authzid, String user, String passwd)
 				    throws MessagingException, IOException {
 	    // send username
-	    resp = simpleCommand(BASE64EncoderStream.encode(
+	    resp = simpleCommand(Base64.getEncoder().encode(
 				user.getBytes(StandardCharsets.UTF_8)));
 	    if (resp == 334) {
 		// send passwd
-		resp = simpleCommand(BASE64EncoderStream.encode(
+		resp = simpleCommand(Base64.getEncoder().encode(
 				passwd.getBytes(StandardCharsets.UTF_8)));
 	    }
 	}
@@ -1109,7 +1140,7 @@ public class SMTPTransport extends Transport {
 		String passwd) throws MessagingException, IOException {
 	    String resp = "user=" + user + "\001auth=Bearer " +
 			    passwd + "\001\001";
-	    byte[] b = BASE64EncoderStream.encode(
+	    byte[] b = Base64.getEncoder().encode(
 					resp.getBytes(StandardCharsets.UTF_8));
 	    return ASCIIUtility.toString(b);
 	}
@@ -1550,8 +1581,8 @@ public class SMTPTransport extends Transport {
 	try {
 	    if (part.isMimeType("text/*")) {
 		String enc = part.getEncoding();
-		if (enc != null && (enc.equalsIgnoreCase("quoted-printable") ||
-		    enc.equalsIgnoreCase("base64"))) {
+		if (enc != null && (enc.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER) ||
+		    enc.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))) {
 		    InputStream is = null;
 		    try {
 			is = part.getInputStream();
@@ -1567,7 +1598,7 @@ public class SMTPTransport extends Transport {
 			     */
 			    part.setContent(part.getContent(),
 					    part.getContentType());
-			    part.setHeader("Content-Transfer-Encoding", "8bit");
+			    part.setHeader("Content-Transfer-Encoding", StreamProvider.BIT8_ENCODER);
 			    changed = true;
 			}
 		    } finally {

@@ -24,7 +24,7 @@ import jakarta.activation.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.mail.event.MessageChangedEvent;
-import jakarta.mail.util.LineInputStream;
+import com.sun.mail.stream.LineInputStream;
 
 /**
  * This class represents an RFC822 style email message that resides in a file.

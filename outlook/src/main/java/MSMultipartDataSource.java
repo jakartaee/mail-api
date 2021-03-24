@@ -11,6 +11,7 @@
 import java.util.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import jakarta.mail.stream.StreamProvider;
 
 /**
  * A special MultipartDataSource used with MSMessage.
@@ -54,7 +55,7 @@ public class MSMultipartDataSource extends MimePartDataSource
 	    throw new MessagingException("invalid multipart");
 	
 	if (pos > 0)	// we have an unencoded main body part
-	    parts.add(new MSBodyPart(content, 0, pos, "inline", "7bit"));
+	    parts.add(new MSBodyPart(content, 0, pos, "inline", StreamProvider.BIT7_ENCODER));
 	else		// no main body part
 	    pos = 0;
 
@@ -69,7 +70,7 @@ public class MSMultipartDataSource extends MimePartDataSource
 		break;
 	    pos += 3;	// skip to the end of "end"
 	    parts.add(new MSBodyPart(content, start, pos,
-					"attachment", "uuencode"));
+					"attachment", StreamProvider.UU_ENCODER));
 	}
     }
 

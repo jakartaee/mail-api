@@ -18,7 +18,6 @@ package com.sun.mail.pop3;
 
 import jakarta.mail.*;
 import jakarta.mail.event.*;
-import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.MailLogger;
 
 import java.io.InputStream;
@@ -26,6 +25,9 @@ import java.io.IOException;
 import java.io.EOFException;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
+
+import com.sun.mail.stream.LineInputStream;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;

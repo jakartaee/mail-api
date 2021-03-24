@@ -19,6 +19,8 @@ package jakarta.mail.internet;
 import java.io.*;
 import java.util.*;
 
+import com.sun.mail.stream.UUDecoderStream;
+
 import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;

@@ -50,42 +50,6 @@
 	<mail.extraClasses>jakarta/**</mail.extraClasses>
     </properties>
 
-    <profiles>
-	<!--
-	    A special profile for compiling with the real JDK 1.7 compiler.
-	    Exclude MailSessionDefinition and MailSessionDefinitions since
-	    the former requires JDK 1.8 and the latter depends on the former.
-	-->
-	<profile>
-	    <id>1.7</id>
-	    <build>
-		<plugins>
-		    <plugin>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<executions>
-			    <execution>
-				<id>default-compile</id>
-				<configuration>
-				    <excludes>
-					<exclude>
-					  jakarta/mail/MailSessionDefinition.java
-					</exclude>
-					<exclude>
-					  jakarta/mail/MailSessionDefinitions.java
-					</exclude>
-					<exclude>
-					  module-info.java
-					</exclude>
-				    </excludes>
-				</configuration>
-			    </execution>
-			</executions>
-		    </plugin>
-		</plugins>
-	    </build>
-	</profile>
-    </profiles>
-
     <build>
 	<plugins>
             <plugin>
@@ -127,6 +91,7 @@
                                 <include>jakarta/mail/MailSessionDefinition.java</include>
                                 <include>jakarta/mail/MailSessionDefinitions.java</include>
                             </includes>
+                            <excludes><exclude>module-info.java</exclude></excludes>
 			</configuration>
 		    </execution>
 		</executions>

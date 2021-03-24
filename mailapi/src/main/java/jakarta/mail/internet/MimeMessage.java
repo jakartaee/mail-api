@@ -16,20 +16,42 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.*;
-import jakarta.activation.*;
-import java.lang.*;
-import java.io.*;
-import java.util.*;
-import java.text.ParseException;
-
-import jakarta.mail.util.ASCIIUtility;
+import jakarta.activation.DataHandler;
+import jakarta.mail.Address;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeUtility;
+import jakarta.mail.stream.LineOutputStream;
+import jakarta.mail.stream.SharedInputStream;
+import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.FolderClosedIOException;
-import jakarta.mail.util.LineOutputStream;
 import jakarta.mail.util.MessageRemovedIOException;
-import jakarta.mail.util.MimeUtil;
 import jakarta.mail.util.PropUtil;
-import jakarta.mail.util.SharedByteArrayInputStream;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectStreamException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class represents a MIME style email message. It implements
@@ -228,8 +250,9 @@ public class MimeMessage extends Message implements MimePart {
 	    strict = source.strict;
 	    source.writeTo(bos);
 	    bos.close();
-	    SharedByteArrayInputStream bis =
-			    new SharedByteArrayInputStream(bos.toByteArray());
+	    Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("bytes", bos.toByteArray());
+	    InputStream bis = Session.getStreamProvider(StreamProvider.SHARED_STREAM).from((InputStream) null, parameters);
 	    parse(bis);
 	    bis.close();
 	    saved = true;
@@ -334,7 +357,7 @@ public class MimeMessage extends Message implements MimePart {
 	    contentStream = sis.newStream(sis.getPosition(), -1);
 	} else {
 	    try {
-		content = ASCIIUtility.getBytes(is);
+		content = MimeUtility.getBytes(is);
 	    } catch (IOException ioex) {
 		throw new MessagingException("IOException", ioex);
 	    }
@@ -1390,9 +1413,11 @@ public class MimeMessage extends Message implements MimePart {
     protected InputStream getContentStream() throws MessagingException {
 	if (contentStream != null)
 	    return ((SharedInputStream)contentStream).newStream(0, -1);
-	if (content != null)
-	    return new SharedByteArrayInputStream(content);
-
+	if (content != null) {
+	    Map<String, Object> parameters = new HashMap<>();
+        parameters.put("bytes", content);
+        return Session.getStreamProvider(StreamProvider.SHARED_STREAM).from((InputStream) null, parameters);
+	}
 	throw new MessagingException("No MimeMessage content");
     }
 
@@ -1893,7 +1918,9 @@ public class MimeMessage extends Message implements MimePart {
 	// Else, the content is untouched, so we can just output it
 	// First, write out the header
 	Enumeration<String> hdrLines = getNonMatchingHeaderLines(ignoreList);
-	LineOutputStream los = new LineOutputStream(os, allowutf8);
+	Map<String, Object> params = new HashMap<>();
+    params.put("allowutf8", allowutf8);
+	LineOutputStream los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, params);
 	while (hdrLines.hasMoreElements())
 	    los.writeln(hdrLines.nextElement());
 

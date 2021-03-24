@@ -16,10 +16,14 @@
 
 package jakarta.mail.internet;
 
-import java.io.*;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.stream.LineOutputStream;
+import jakarta.mail.stream.StreamProvider;
+
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Enumeration;
-import jakarta.mail.*;
-import jakarta.mail.util.LineOutputStream;
 
 /**
  * A MimeBodyPart that handles data that has already been encoded.
@@ -76,7 +80,7 @@ public class PreencodedMimeBodyPart extends MimeBodyPart {
 	if (os instanceof LineOutputStream) {
 	    los = (LineOutputStream) os;
 	} else {
-	    los = new LineOutputStream(os);
+	    los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, null);
 	}
 
 	// First, write out the header
