@@ -95,8 +95,8 @@ public class SeverityComparator implements Comparator<LogRecord>, Serializable {
      * Creates a default {@code SeverityComparator}.
      */
     public SeverityComparator() {
-        //readResolve() is not implemented incase the comparator
-    	//is the target of a synchronized block.
+        //readResolve() is not implemented in case the comparator
+        //is the target of a synchronized block.
     }
 
     /**
