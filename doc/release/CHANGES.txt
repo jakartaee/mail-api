@@ -40,6 +40,7 @@ E  489	mime handling crashes on Android 11 debug build
 E  493	javamail.providers file missing from provider jars after 1.6.5
 E  505	WriteTimeoutSocket::getFileDescriptor$ support for Conscrypt
 E  512	Improve code coverage in logging-mailhandler tests
+E  528	CompactFormatter precision and surrogate pairs
 
 
 		  CHANGES IN THE 1.6.5 RELEASE
