@@ -17,7 +17,6 @@
 package com.sun.mail.util.logging;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
@@ -61,10 +60,30 @@ public class DurationFilterTest extends AbstractLogging {
 
     @Test
     public void testNewInstance() throws Exception {
-        Class<?> k = DurationFilter.class;
-        assertTrue(Modifier.isPublic(k.getConstructor().getModifiers()));
-        Filter f = LogManagerProperties.newFilter(k.getName());
-        assertEquals(f.getClass(), k);
+        final String loggerName = DurationFilterTest.class.getName();
+        final Class<?> k = DurationFilter.class;
+        assertNotNull(LogManagerProperties.newFilter(k.getName()));
+
+        Logger l;
+        LogManager m = LogManager.getLogManager();
+        try {
+            Properties props = new Properties();
+            String p = ConsoleHandler.class.getName();
+            props.put(loggerName.concat(".handlers"), p);
+            props.put(p.concat(".filter"), k.getName());
+            read(m, props);
+
+            l = Logger.getLogger(loggerName);
+            final Handler[] handlers = l.getHandlers();
+            assertEquals(1, handlers.length);
+            for (Handler h : handlers) {
+                assertEquals(p, h.getClass().getName());
+                assertEquals(k, h.getFilter().getClass());
+            }
+        } finally {
+            m.reset();
+        }
+        assertNotNull(l); //Enusre handler is closed by reset
     }
 
     @Test

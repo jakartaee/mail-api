@@ -547,11 +547,28 @@ public class MailHandlerTest extends AbstractLogging {
 
     @Test
     public void testNewInstance() throws Exception {
-        assertTrue(Modifier.isPublic(
-                MailHandler.class.getConstructor().getModifiers()));
-        Handler h = LogManagerProperties.newObjectFrom(
-                MailHandler.class.getName(), MailHandler.class);
-        h.close();
+        final String loggerName = MailHandlerTest.class.getName();
+        final Class<?> k = MailHandler.class;
+        assertNotNull(LogManagerProperties.newObjectFrom(k.getName(), k));
+
+        Logger l;
+        LogManager m = LogManager.getLogManager();
+        try {
+            Properties props = new Properties();
+            String p = k.getName();
+            props.put(loggerName.concat(".handlers"), p);
+            read(m, props);
+
+            l = Logger.getLogger(loggerName);
+            final Handler[] handlers = l.getHandlers();
+            assertEquals(1, handlers.length);
+            for (Handler h : handlers) {
+                assertEquals(p, h.getClass().getName());
+            }
+        } finally {
+            m.reset();
+        }
+        assertNotNull(l); //Enusre handler is closed by reset
     }
 
     @Test

@@ -35,7 +35,7 @@ public class BASE64MailboxDecoder {
      *
      * @deprecated This is static utility class.
      */
-    @Deprecated()
+    @Deprecated
     public BASE64MailboxDecoder() {
         //TODO: Made private and hostile.
     }
