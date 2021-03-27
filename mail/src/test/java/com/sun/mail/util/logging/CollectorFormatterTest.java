@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
@@ -89,6 +90,14 @@ public class CollectorFormatterTest extends AbstractLogging {
     public void testDeclaredClasses() throws Exception {
         Class<?>[] declared = CollectorFormatter.class.getDeclaredClasses();
         assertEquals(Arrays.toString(declared), 0, declared.length);
+    }
+
+    @Test
+    public void testNewInstance() throws Exception {
+        Class<?> k = CollectorFormatter.class;
+        assertTrue(Modifier.isPublic(k.getConstructor().getModifiers()));
+        Object f = LogManagerProperties.newFormatter(k.getName());
+        assertEquals(f.getClass(), k);
     }
 
     @Test

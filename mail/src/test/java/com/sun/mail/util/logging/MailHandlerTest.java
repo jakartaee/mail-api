@@ -546,6 +546,15 @@ public class MailHandlerTest extends AbstractLogging {
     }
 
     @Test
+    public void testNewInstance() throws Exception {
+        assertTrue(Modifier.isPublic(
+                MailHandler.class.getConstructor().getModifiers()));
+        Handler h = LogManagerProperties.newObjectFrom(
+                MailHandler.class.getName(), MailHandler.class);
+        h.close();
+    }
+
+    @Test
     public void testEquals() {
     	MailHandler h = new MailHandler();
     	assertFalse(h.equals((Object) null));

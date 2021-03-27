@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,6 +24,8 @@ package jakarta.mail.search;
  * @author John Mani
  */
 public abstract class ComparisonTerm extends SearchTerm {
+    private static final long serialVersionUID = 1456646953666474308L;
+
     public static final int LE = 1;
     public static final int LT = 2;
     public static final int EQ = 3;
@@ -38,7 +40,13 @@ public abstract class ComparisonTerm extends SearchTerm {
      */
     protected int comparison;
 
-    private static final long serialVersionUID = 1456646953666474308L;
+    /**
+     * Creates a default {@code ComparisonTerm}.
+     *
+     * @see #comparison
+     */
+    public ComparisonTerm() {
+    }
 
     /**
      * Equality comparison.

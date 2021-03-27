@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -44,6 +44,12 @@ public class text_xml extends text_plain {
 	new ActivationDataFlavor(StreamSource.class, "text/xml", "XML"),
 	new ActivationDataFlavor(StreamSource.class, "application/xml", "XML")
     };
+
+    /**
+     * Creates a default {@code text_xml}.
+     */
+    public text_xml() {
+    }
 
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {

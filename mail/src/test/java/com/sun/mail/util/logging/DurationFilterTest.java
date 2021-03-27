@@ -17,6 +17,7 @@
 package com.sun.mail.util.logging;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
@@ -56,6 +57,14 @@ public class DurationFilterTest extends AbstractLogging {
     public void testDeclaredClasses() throws Exception {
         Class<?>[] declared = DurationFilter.class.getDeclaredClasses();
         assertEquals(Arrays.toString(declared), 0, declared.length);
+    }
+
+    @Test
+    public void testNewInstance() throws Exception {
+        Class<?> k = DurationFilter.class;
+        assertTrue(Modifier.isPublic(k.getConstructor().getModifiers()));
+        Filter f = LogManagerProperties.newFilter(k.getName());
+        assertEquals(f.getClass(), k);
     }
 
     @Test

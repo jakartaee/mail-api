@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,6 +23,12 @@ import jakarta.activation.*;
  * Base class for other DataContentHandlers.
  */
 public abstract class handler_base implements DataContentHandler {
+
+    /**
+     * Creates a default {@code handler_base}.
+     */
+    public handler_base() {
+    }
 
     /**
      * Return an array of ActivationDataFlavors that we support.
@@ -70,7 +76,7 @@ public abstract class handler_base implements DataContentHandler {
      * @exception	IOException	for errors reading the data
      */
     @Override
-    public Object getTransferData(ActivationDataFlavor df, DataSource ds) 
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
 			throws IOException {
 	ActivationDataFlavor[] adf = getDataFlavors();
 	for (int i = 0; i < adf.length; i++) {

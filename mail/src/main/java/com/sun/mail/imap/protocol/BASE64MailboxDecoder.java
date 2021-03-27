@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,7 +28,18 @@ import java.text.CharacterIterator;
  */
 
 public class BASE64MailboxDecoder {
-    
+
+    /**
+     * Creates a default {@code BASE64MailboxDecoder}.
+     * This constructor should never be invoked.
+     *
+     * @deprecated This is static utility class.
+     */
+    @Deprecated()
+    public BASE64MailboxDecoder() {
+        //TODO: Made private and hostile.
+    }
+
     public static String decode(String original) {
 	if (original == null || original.length() == 0)
 	    return original;
@@ -36,10 +47,10 @@ public class BASE64MailboxDecoder {
 	boolean changedString = false;
 	int copyTo = 0;
 	// it will always be less than the original
-	char[] chars = new char[original.length()]; 
+	char[] chars = new char[original.length()];
 	StringCharacterIterator iter = new StringCharacterIterator(original);
-	
-	for(char c = iter.first(); c != CharacterIterator.DONE; 
+
+	for(char c = iter.first(); c != CharacterIterator.DONE;
 	    c = iter.next()) {
 
 	    if (c == '&') {
@@ -49,13 +60,13 @@ public class BASE64MailboxDecoder {
 		chars[copyTo++] = c;
 	    }
 	}
-	
+
 	// now create our string from the char array
 	if (changedString) {
 	    return new String(chars, 0, copyTo);
 	} else {
 	    return original;
-	}	
+	}
     }
 
 
@@ -77,12 +88,12 @@ public class BASE64MailboxDecoder {
 		break;
 	    }
 	    firsttime = false;
-	    
+
 	    // next byte
-	    byte orig_1 = (byte) iter.next();	    
+	    byte orig_1 = (byte) iter.next();
 	    if (orig_1 == -1 || orig_1 == '-')
 		break; // no more chars, invalid base64
-	    
+
 	    byte a, b, current;
 	    a = pem_convert_array[orig_0 & 0xff];
 	    b = pem_convert_array[orig_1 & 0xff];
@@ -96,14 +107,14 @@ public class BASE64MailboxDecoder {
 	    } else {
 		leftover = current & 0xff;
 	    }
-	    
+
 	    byte orig_2 = (byte) iter.next();
 	    if (orig_2 == '=') { // End of this BASE64 encoding
 		continue;
 	    } else if (orig_2 == -1 || orig_2 == '-') {
 	    	break; // no more chars
 	    }
-	    	    
+
 	    // second decoded byte
 	    a = b;
 	    b = pem_convert_array[orig_2 & 0xff];
@@ -123,21 +134,21 @@ public class BASE64MailboxDecoder {
 	    } else if (orig_3 == -1 || orig_3 == '-') {
 	    	break;  // no more chars
 	    }
-	    
+
 	    // The third decoded byte
 	    a = b;
 	    b = pem_convert_array[orig_3 & 0xff];
 	    current = (byte)(((a << 6) & 0xc0) | (b & 0x3f));
-	    
+
 	    // use the leftover to create a Unicode Character (2 bytes)
 	    if (leftover != -1) {
 		buffer[offset++] = (char)(leftover << 8 | (current & 0xff));
 		leftover = -1;
 	    } else {
 		leftover = current & 0xff;
-	    }	    
+	    }
 	}
-	
+
 	return offset;
     }
 
@@ -145,7 +156,7 @@ public class BASE64MailboxDecoder {
      * This character array provides the character to value map
      * based on RFC1521, but with the modification from RFC2060
      * which changes the '/' to a ','.
-     */  
+     */
 
     // shared with BASE64MailboxEncoder
     static final char pem_array[] = {
@@ -166,5 +177,5 @@ public class BASE64MailboxDecoder {
 	    pem_convert_array[i] = -1;
 	for(int i = 0; i < pem_array.length; i++)
 	    pem_convert_array[pem_array[i]] = (byte) i;
-    }    
+    }
 }

@@ -27,6 +27,7 @@ import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeUtility;
+import java.lang.reflect.Modifier;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -101,6 +102,14 @@ public class CompactFormatterTest extends AbstractLogging {
     @Test
     public void testDeclaredClasses() throws Exception {
         testLoadDeclaredClasses(CompactFormatter.class);
+    }
+
+    @Test
+    public void testNewInstance() throws Exception {
+        Class<?> k = CompactFormatter.class;
+        assertTrue(Modifier.isPublic(k.getConstructor().getModifiers()));
+        Object f = LogManagerProperties.newFormatter(k.getName());
+        assertEquals(f.getClass(), k);
     }
 
     @Test

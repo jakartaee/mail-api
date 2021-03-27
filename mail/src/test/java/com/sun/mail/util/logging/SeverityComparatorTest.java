@@ -18,6 +18,7 @@ package com.sun.mail.util.logging;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.channels.ClosedByInterruptException;
 import java.nio.channels.FileLockInterruptionException;
@@ -263,12 +264,36 @@ public class SeverityComparatorTest extends AbstractLogging {
         return head;
     }
 
+    private void testInstance(Comparator<?> a) {
+        SeverityComparator b = SeverityComparator.getInstance();
+        assertNotSame(a, b);
+        assertEquals(a, b);
+        assertEquals(a.getClass(), b.getClass());
+        assertEquals(a.hashCode(), b.hashCode());
+    }
+
     @Test
-    public void testGetInstance() {
+    public void testDefaultConstructorPublic() {
+        testInstance(new SeverityComparator());
+    }
+
+    @Test
+    public void testNewInstance() throws Exception {
+        assertTrue(Modifier.isPublic(
+                SeverityComparator.class.getConstructor().getModifiers()));
+        testInstance(LogManagerProperties.newComparator(
+                SeverityComparator.class.getName()));
+    }
+
+    @Test
+    public void testReadResolve() {
+        //readResolve is not implemented encase the comparator is locked.
+        //This could be relaxed if needed.
         SeverityComparator a = new SeverityComparator();
-        assertEquals(a, SeverityComparator.getInstance());
-        assertEquals(a.getClass(), SeverityComparator.getInstance().getClass());
-        assertEquals(a.hashCode(), SeverityComparator.getInstance().hashCode());
+        SeverityComparator b = serialClone(a);
+        assertNotSame(a, b);
+        testInstance(b);
+        testInstance(serialClone(SeverityComparator.getInstance()));
     }
 
     @Test
@@ -751,15 +776,7 @@ public class SeverityComparatorTest extends AbstractLogging {
                 Throwable next = type.getConstructor().newInstance();
                 return next.initCause(cause);
             }
-        } catch (InstantiationException ex) {
-            throw new AssertionError(ex);
-        } catch (IllegalAccessException ex) {
-            throw new AssertionError(ex);
-        } catch (IllegalArgumentException ex) {
-            throw new AssertionError(ex);
-        } catch (InvocationTargetException ex) {
-            throw new AssertionError(ex);
-        } catch (NoSuchMethodException ex) {
+        } catch (ReflectiveOperationException | IllegalArgumentException ex) {
             throw new AssertionError(ex);
         }
     }
@@ -1210,25 +1227,17 @@ public class SeverityComparatorTest extends AbstractLogging {
     private <T> T serialClone(T t) {
         try {
             final ByteArrayOutputStream os = new ByteArrayOutputStream();
-            final ObjectOutputStream out = new ObjectOutputStream(os);
-            try {
+            try (ObjectOutputStream out = new ObjectOutputStream(os)) {
                 out.writeObject(t);
                 out.flush();
-            } finally {
-                out.close();
             }
 
             ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray());
-            final ObjectInputStream in = new ObjectInputStream(is);
-            try {
+            try (ObjectInputStream in = new ObjectInputStream(is)) {
                 return (T) in.readObject();
-            } finally {
-                in.close();
             }
-        } catch (ClassNotFoundException CNFE) {
+        } catch (ClassNotFoundException | IOException CNFE) {
             throw new AssertionError(CNFE);
-        } catch (IOException ioe) {
-            throw new AssertionError(ioe);
         }
     }
 
