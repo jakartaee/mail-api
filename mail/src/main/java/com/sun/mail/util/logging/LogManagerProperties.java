@@ -348,7 +348,7 @@ final class LogManagerProperties extends Properties {
      * @param record used to get the long thread id.
      * @return null if LogRecord doesn't support long thread ids.
      * @throws NullPointerException if record is null.
-     * @since JakartaMail 2.0.1
+     * @since JavaMail 1.6.7
      */
     static Long getLongThreadID(final LogRecord record) {
         if (record == null) {
