@@ -24,6 +24,7 @@ longer available.
 		  ----------------------------
 The following bugs have been fixed in the 1.6.7 release.
 
+E  529	CompactFormatter support for LogRecord::getLongThreadID
 E  535	The final release of 1.6.6 identifies itself as 1.6.6-SNAPSHOT.
 
 
