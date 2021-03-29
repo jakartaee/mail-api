@@ -127,7 +127,6 @@ final class LogManagerProperties extends Properties {
                 lrgi = null;
                 zisd = null;
                 zdtoi = null;
-                zdtoi = null;
             }
         }
 

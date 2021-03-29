@@ -19,7 +19,6 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
-
 		  CHANGES IN THE 1.6.7 RELEASE
 		  ----------------------------
 The following bugs have been fixed in the 1.6.7 release.
@@ -41,6 +40,12 @@ E  489	mime handling crashes on Android 11 debug build
 E  493	javamail.providers file missing from provider jars after 1.6.5
 E  505	WriteTimeoutSocket::getFileDescriptor$ support for Conscrypt
 E  512	Improve code coverage in logging-mailhandler tests
+
+
+		  CHANGES IN THE 2.0.0 RELEASE
+		  ----------------------------
+The most important change here is the switch from javax to jakarta namespace.
+No bugs have been fixed in the 2.0.0 release.
 
 
 		  CHANGES IN THE 1.6.5 RELEASE
