@@ -20,7 +20,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
@@ -512,7 +511,11 @@ public class CollectorFormatterTest extends AbstractLogging {
         f.format(r);
 
         String result = f.getTail((Handler) null);
-        //MessageFormat allow long values as date and time.
+        
+        //MessageFormat allows Number or Date instances as date and time.
+        //Top level MessageFormat doc show that implementaiton is DateFormat
+        //See DateFormat::format(Object,StringBuffer,FieldPosition)
+        //This must format as Number to match CollectorFormatter.
         assertEquals(result,
                 MessageFormat.format("{0,date,short} {0,time}", min));
     }
@@ -562,7 +565,13 @@ public class CollectorFormatterTest extends AbstractLogging {
         f.format(r);
 
         String result = f.getTail((Handler) null);
-        assertEquals(result, MessageFormat.format("{0,date,short} {0,time}", min + high));
+        
+        //MessageFormat allows Number or Date instances as date and time.
+        //Top level MessageFormat doc show that implementaiton is DateFormat
+        //See DateFormat::format(Object,StringBuffer,FieldPosition)
+        //This must format as Number to match CollectorFormatter.
+        assertEquals(result, MessageFormat.format("{0,date,short} {0,time}", 
+                min + high));
     }
 
     @Test

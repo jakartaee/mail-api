@@ -20,6 +20,12 @@ Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
 
+		  CHANGES IN THE 2.0.2 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 2.0.2 release.
+E  530	Address reliance on default constructors
+
+
 		  CHANGES IN THE 2.0.1 RELEASE
 		  ----------------------------
 The following bugs have been fixed in the 2.0.1 release.
@@ -31,7 +37,6 @@ E  473	Several modules are not included in build when JDK11 is used
 E  493	javamail.providers file missing from provider jars after 1.6.5
 E  505	WriteTimeoutSocket::getFileDescriptor$ support for Conscrypt
 E  512	Improve code coverage in logging-mailhandler tests
-E  530	Address reliance on default constructors
 
 
 		  CHANGES IN THE 2.0.0 RELEASE
