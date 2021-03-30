@@ -278,15 +278,13 @@ public class SeverityComparatorTest extends AbstractLogging {
 
     @Test
     public void testNewInstance() throws Exception {
-        assertTrue(Modifier.isPublic(
-                SeverityComparator.class.getConstructor().getModifiers()));
         testInstance(LogManagerProperties.newComparator(
                 SeverityComparator.class.getName()));
     }
 
     @Test
     public void testReadResolve() {
-        //readResolve is not implemented encase the comparator is locked.
+        //readResolve is not implemented in case the comparator is locked.
         //This could be relaxed if needed.
         SeverityComparator a = new SeverityComparator();
         SeverityComparator b = serialClone(a);
