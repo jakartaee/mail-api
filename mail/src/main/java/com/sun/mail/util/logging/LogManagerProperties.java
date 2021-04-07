@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2019 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,6 +17,10 @@
 package com.sun.mail.util.logging;
 
 import java.io.*;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandles.Lookup;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -55,54 +59,72 @@ final class LogManagerProperties extends Properties {
      * Generated serial id.
      */
     private static final long serialVersionUID = -2239983349056806252L;
+
+    /**
+     * Public lookup for method handles.
+     */
+    private static final Lookup LOOKUP = MethodHandles.publicLookup();
+
     /**
      * Holds the method used to get the LogRecord instant if running on JDK 9 or
      * later.
      */
-    private static final Method LR_GET_INSTANT;
+    private static final MethodHandle LR_GET_INSTANT;
+
+    /**
+     * Holds the method used to get the long thread id if running on JDK 16 or
+     * later.
+     */
+    private static final MethodHandle LR_GET_LONG_TID;
 
     /**
      * Holds the method used to get the default time zone if running on JDK 9 or
      * later.
      */
-    private static final Method ZI_SYSTEM_DEFAULT;
+    private static final MethodHandle ZI_SYSTEM_DEFAULT;
 
     /**
      * Holds the method used to convert and instant to a zoned date time if
      * running on JDK 9 later.
      */
-    private static final Method ZDT_OF_INSTANT;
+    private static final MethodHandle ZDT_OF_INSTANT;
 
-    static {
-        Method lrgi = null;
-        Method zisd = null;
-        Method zdtoi = null;
+
+    static { //Added in JDK16 see JDK-8245302
+        MethodHandle lrgltid = null;
         try {
-            lrgi = LogRecord.class.getMethod("getInstant");
-            assert Comparable.class
-                    .isAssignableFrom(lrgi.getReturnType()) : lrgi;
-            zisd = findClass("java.time.ZoneId")
-                    .getMethod("systemDefault");
-            if (!Modifier.isStatic(zisd.getModifiers())) {
-                throw new NoSuchMethodException(zisd.toString());
-            }
+            lrgltid = LOOKUP.findVirtual(LogRecord.class,
+                    "getLongThreadID", MethodType.methodType(long.class));
+        } catch (final RuntimeException ignore) {
+        } catch (final Exception ignore) { //No need for specific catch.
+        } catch (final LinkageError ignore) {
+        }
+        LR_GET_LONG_TID = lrgltid;
+    }
 
-            zdtoi = findClass("java.time.ZonedDateTime")
-                    .getMethod("ofInstant", findClass("java.time.Instant"),
-                            findClass("java.time.ZoneId"));
-            if (!Modifier.isStatic(zdtoi.getModifiers())) {
-                throw new NoSuchMethodException(zdtoi.toString());
-            }
+    static { //Added in JDK 9 see JDK-8072645
+        MethodHandle lrgi = null;
+        MethodHandle zisd = null;
+        MethodHandle zdtoi = null;
+        try {
+            lrgi = LOOKUP.findVirtual(LogRecord.class, "getInstant",
+                    MethodType.methodType(findClass("java.time.Instant")));
 
-            if (!Comparable.class.isAssignableFrom(zdtoi.getReturnType())) {
-                throw new NoSuchMethodException(zdtoi.toString());
-            }
+            zisd = LOOKUP.findStatic(findClass("java.time.ZoneId"),
+                    "systemDefault",
+                    MethodType.methodType(findClass("java.time.ZoneId")));
+
+            zdtoi = LOOKUP.findStatic(findClass("java.time.ZonedDateTime"),
+                    "ofInstant",
+                    MethodType.methodType(findClass("java.time.ZonedDateTime"),
+                            findClass("java.time.Instant"),
+                            findClass("java.time.ZoneId")));
         } catch (final RuntimeException ignore) {
         } catch (final Exception ignore) { //No need for specific catch.
         } catch (final LinkageError ignore) {
         } finally {
             if (lrgi == null || zisd == null || zdtoi == null) {
-                lrgi = null; //If any are null then clear all.
+                lrgi = null;
                 zisd = null;
                 zdtoi = null;
             }
@@ -112,6 +134,7 @@ final class LogManagerProperties extends Properties {
         ZI_SYSTEM_DEFAULT = zisd;
         ZDT_OF_INSTANT = zdtoi;
     }
+
     /**
      * Caches the read only reflection class names string array. Declared
      * volatile for safe publishing only. The VO_VOLATILE_REFERENCE_TO_ARRAY
@@ -299,30 +322,47 @@ final class LogManagerProperties extends Properties {
      * @throws NullPointerException if record is null.
      * @since JavaMail 1.5.6
      */
-    @SuppressWarnings("UseSpecificCatch")
-    static Comparable<?> getZonedDateTime(LogRecord record) {
+    static Comparable<?> getZonedDateTime(final LogRecord record) {
         if (record == null) {
            throw new NullPointerException();
         }
-        final Method m = ZDT_OF_INSTANT;
+
+        MethodHandle m = ZDT_OF_INSTANT;
         if (m != null) {
             try {
-                return (Comparable<?>) m.invoke((Object) null,
+                return (Comparable<?>) m.invoke(
                         LR_GET_INSTANT.invoke(record),
-                        ZI_SYSTEM_DEFAULT.invoke((Object) null));
-            } catch (final RuntimeException ignore) {
-                assert LR_GET_INSTANT != null
-                        && ZI_SYSTEM_DEFAULT != null : ignore;
-            } catch (final InvocationTargetException ite) {
-                final Throwable cause = ite.getCause();
-                if (cause instanceof Error) {
-                    throw (Error) cause;
-                } else if (cause instanceof RuntimeException) {
-                    throw (RuntimeException) cause;
-                } else { //Should never happen.
-                    throw new UndeclaredThrowableException(ite);
-                }
-            } catch (final Exception ignore) {
+                        ZI_SYSTEM_DEFAULT.invoke());
+            } catch (final RuntimeException | Error e) {
+                throw e; //Avoid catch all
+            } catch (final Throwable ute) {
+                throw new UndeclaredThrowableException(ute);
+            }        
+        }
+        return null;
+    }
+
+    /**
+     * Gets the long thread id from the given log record.
+     *
+     * @param record used to get the long thread id.
+     * @return null if LogRecord doesn't support long thread ids.
+     * @throws NullPointerException if record is null.
+     * @since JavaMail 1.6.7
+     */
+    static Long getLongThreadID(final LogRecord record) {
+        if (record == null) {
+           throw new NullPointerException();
+        }
+
+        final MethodHandle m = LR_GET_LONG_TID;
+        if (m != null) {
+            try {
+                return (long) m.invoke(record);
+            } catch (final RuntimeException | Error e) {
+                throw e;
+            } catch (final Throwable ute) {
+                throw new UndeclaredThrowableException(ute);
             }
         }
         return null;
@@ -367,7 +407,7 @@ final class LogManagerProperties extends Properties {
      * @return the number of milliseconds parsed from the duration.
      * @throws ClassNotFoundException if the java.time classes are not present.
      * @throws IllegalAccessException if the method is inaccessible.
-     * @throws InvocationTargetException if the method throws an exception.
+     * @throws RuntimeException if the method throws an exception.
      * @throws LinkageError if the linkage fails.
      * @throws NullPointerException if the given duration is null.
      * @throws ExceptionInInitializerError if the static initializer fails.
@@ -378,24 +418,23 @@ final class LogManagerProperties extends Properties {
      * @since JavaMail 1.5.5
      */
     static long parseDurationToMillis(final CharSequence value) throws Exception {
-        try {
-            final Class<?> k = findClass("java.time.Duration");
-            final Method parse = k.getMethod("parse", CharSequence.class);
-            if (!k.isAssignableFrom(parse.getReturnType())
-                    || !Modifier.isStatic(parse.getModifiers())) {
-               throw new NoSuchMethodException(parse.toString());
-            }
+        if (value == null) {
+           throw new NullPointerException();
+        }
 
-            final Method toMillis = k.getMethod("toMillis");
-            if (!Long.TYPE.isAssignableFrom(toMillis.getReturnType())
-                    || Modifier.isStatic(toMillis.getModifiers())) {
-                throw new NoSuchMethodException(toMillis.toString());
-            }
-            return (Long) toMillis.invoke(parse.invoke(null, value));
-        } catch (final ExceptionInInitializerError EIIE) {
-            throw wrapOrThrow(EIIE);
-        } catch (final InvocationTargetException ite) {
-            throw paramOrError(ite);
+        try {
+            Class<?> k = findClass("java.time.Duration");
+            MethodHandle dp = LOOKUP.findStatic(k, "parse",
+                    MethodType.methodType(k, CharSequence.class));
+
+            MethodHandle dtm = LOOKUP.findVirtual(k, "toMillis",
+                    MethodType.methodType(Long.TYPE));
+            return (long) dtm.invoke(dp.invoke(value));
+        } catch (final RuntimeException | LinkageError
+                | ReflectiveOperationException fail) {
+            throw fail; //avoid catch all
+        } catch (Throwable cause) {
+            throw new InvocationTargetException(cause);
         }
     }
 
@@ -517,9 +556,9 @@ final class LogManagerProperties extends Properties {
         }
 
         Comparator<T> reverse = null;
-        //Comparator in Java 1.8 has 'reversed' as a default method.
+        //Comparator in JDK8 has 'reversed' as a default method.
         //This code calls that method first to allow custom
-        //code to define what reverse order means.
+        //code to define what reverse order means in versions older than JDK8.
         try {
             //assert Modifier.isPublic(c.getClass().getModifiers()) :
             //        Modifier.toString(c.getClass().getModifiers());
@@ -532,11 +571,9 @@ final class LogManagerProperties extends Properties {
                     throw wrapOrThrow(eiie);
                 }
             }
-        } catch (final NoSuchMethodException ignore) {
-        } catch (final IllegalAccessException ignore) {
-        } catch (final RuntimeException ignore) {
         } catch (final InvocationTargetException ite) {
             paramOrError(ite); //Ignore invocation bugs (returned values).
+        } catch (final ReflectiveOperationException | RuntimeException ignore) {
         }
 
         if (reverse == null) {
@@ -642,6 +679,8 @@ final class LogManagerProperties extends Properties {
         final Class<?> thisClass = LogManagerProperties.class;
         assert Modifier.isFinal(thisClass.getModifiers()) : thisClass;
         try {
+            //This code must use reflection to capture extra frames.
+            //The invoke API doesn't produce the frames needed.
             final HashSet<String> traces = new HashSet<>();
             Throwable t = Throwable.class.getConstructor().newInstance();
             for (StackTraceElement ste : t.getStackTrace()) {
@@ -652,6 +691,8 @@ final class LogManagerProperties extends Properties {
                 }
             }
 
+            //This code must use reflection to capture extra frames.
+            //The invoke API doesn't produce the frames needed.
             Throwable.class.getMethod("fillInStackTrace").invoke(t);
             for (StackTraceElement ste : t.getStackTrace()) {
                 if (!thisClass.getName().equals(ste.getClassName())) {
@@ -756,10 +797,10 @@ final class LogManagerProperties extends Properties {
     }
 
     /**
-     * This code is modified from the LogManager, which explictly states
+     * This code is modified from the LogManager, which explicitly states
      * searching the system class loader first, then the context class loader.
      * There is resistance (compatibility) to change this behavior to simply
-     * searching the context class loader.
+     * searching the context class loader. See JDK-6878454.
      *
      * @param name full class name
      * @return the class.
