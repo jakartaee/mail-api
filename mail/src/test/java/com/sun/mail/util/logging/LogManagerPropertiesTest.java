@@ -492,12 +492,12 @@ public class LogManagerPropertiesTest extends AbstractLogging {
             fail(Long.toString(ms));
         } catch (ClassNotFoundException | NoClassDefFoundError ignore) {
             assertFalse(ignore.toString(), hasJavaTimeModule());
-        } catch (RuntimeException expected) {
+        } catch (InvocationTargetException expected) {
+            Throwable dtpe = expected.getCause();
             //Allow subclasses of DTPE
             Class<?> k = Class.forName(
                     "java.time.format.DateTimeParseException");
-            assertTrue(expected.toString(),
-                    k.isAssignableFrom(expected.getClass()));
+            assertTrue(k.getName(), k.isAssignableFrom(dtpe.getClass()));
         }
     }
 
