@@ -17,10 +17,6 @@
 package com.sun.mail.util.logging;
 
 import java.io.*;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodHandles.Lookup;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -61,70 +57,73 @@ final class LogManagerProperties extends Properties {
     private static final long serialVersionUID = -2239983349056806252L;
 
     /**
-     * Public lookup for method handles.
-     */
-    private static final Lookup LOOKUP = MethodHandles.publicLookup();
-
-    /**
      * Holds the method used to get the LogRecord instant if running on JDK 9 or
      * later.
      */
-    private static final MethodHandle LR_GET_INSTANT;
+    private static final Method LR_GET_INSTANT;
 
     /**
      * Holds the method used to get the long thread id if running on JDK 16 or
      * later.
      */
-    private static final MethodHandle LR_GET_LONG_TID;
+    private static final Method LR_GET_LONG_TID;
 
     /**
      * Holds the method used to get the default time zone if running on JDK 9 or
      * later.
      */
-    private static final MethodHandle ZI_SYSTEM_DEFAULT;
+    private static final Method ZI_SYSTEM_DEFAULT;
 
     /**
      * Holds the method used to convert and instant to a zoned date time if
      * running on JDK 9 later.
      */
-    private static final MethodHandle ZDT_OF_INSTANT;
+    private static final Method ZDT_OF_INSTANT;
 
-
+    /**
+     * MethodHandle is available starting at JDK7 and Andriod API 26.
+     */
     static { //Added in JDK16 see JDK-8245302
-        MethodHandle lrgltid = null;
+        Method lrtid = null;
         try {
-            lrgltid = LOOKUP.findVirtual(LogRecord.class,
-                    "getLongThreadID", MethodType.methodType(long.class));
+            lrtid = LogRecord.class.getMethod("getLongThreadID");
         } catch (final RuntimeException ignore) {
         } catch (final Exception ignore) { //No need for specific catch.
         } catch (final LinkageError ignore) {
         }
-        LR_GET_LONG_TID = lrgltid;
+        LR_GET_LONG_TID = lrtid;
     }
 
-    static { //Added in JDK 9 see JDK-8072645
-        MethodHandle lrgi = null;
-        MethodHandle zisd = null;
-        MethodHandle zdtoi = null;
+    static {
+        Method lrgi = null;
+        Method zisd = null;
+        Method zdtoi = null;
         try {
-            lrgi = LOOKUP.findVirtual(LogRecord.class, "getInstant",
-                    MethodType.methodType(findClass("java.time.Instant")));
+            lrgi = LogRecord.class.getMethod("getInstant");
+            assert Comparable.class
+                    .isAssignableFrom(lrgi.getReturnType()) : lrgi;
+            zisd = findClass("java.time.ZoneId")
+                    .getMethod("systemDefault");
+            if (!Modifier.isStatic(zisd.getModifiers())) {
+                zisd = null;
+                throw new NoSuchMethodException(zisd.toString());
+            }
 
-            zisd = LOOKUP.findStatic(findClass("java.time.ZoneId"),
-                    "systemDefault",
-                    MethodType.methodType(findClass("java.time.ZoneId")));
-
-            zdtoi = LOOKUP.findStatic(findClass("java.time.ZonedDateTime"),
-                    "ofInstant",
-                    MethodType.methodType(findClass("java.time.ZonedDateTime"),
-                            findClass("java.time.Instant"),
-                            findClass("java.time.ZoneId")));
+            zdtoi = findClass("java.time.ZonedDateTime")
+                    .getMethod("ofInstant", findClass("java.time.Instant"),
+                            findClass("java.time.ZoneId"));
+            if (!Modifier.isStatic(zdtoi.getModifiers())
+                    || !Comparable.class.isAssignableFrom(
+                            zdtoi.getReturnType())) {
+                zdtoi = null;
+                throw new NoSuchMethodException(zdtoi.toString());
+            }
         } catch (final RuntimeException ignore) {
         } catch (final Exception ignore) { //No need for specific catch.
         } catch (final LinkageError ignore) {
         } finally {
             if (lrgi == null || zisd == null || zdtoi == null) {
-                lrgi = null;
+                lrgi = null; //If any are null then clear all.
                 zisd = null;
                 zdtoi = null;
             }
@@ -322,22 +321,31 @@ final class LogManagerProperties extends Properties {
      * @throws NullPointerException if record is null.
      * @since JavaMail 1.5.6
      */
-    static Comparable<?> getZonedDateTime(final LogRecord record) {
+    @SuppressWarnings("UseSpecificCatch")
+    static Comparable<?> getZonedDateTime(LogRecord record) {
         if (record == null) {
            throw new NullPointerException();
         }
-
-        MethodHandle m = ZDT_OF_INSTANT;
+        final Method m = ZDT_OF_INSTANT;
         if (m != null) {
             try {
-                return (Comparable<?>) m.invoke(
+                return (Comparable<?>) m.invoke((Object) null,
                         LR_GET_INSTANT.invoke(record),
-                        ZI_SYSTEM_DEFAULT.invoke());
-            } catch (final RuntimeException | Error e) {
-                throw e; //Avoid catch all
-            } catch (final Throwable ute) {
-                throw new UndeclaredThrowableException(ute);
-            }        
+                        ZI_SYSTEM_DEFAULT.invoke((Object) null));
+            } catch (final RuntimeException ignore) {
+                assert LR_GET_INSTANT != null
+                        && ZI_SYSTEM_DEFAULT != null : ignore;
+            } catch (final InvocationTargetException ite) {
+                final Throwable cause = ite.getCause();
+                if (cause instanceof Error) {
+                    throw (Error) cause;
+                } else if (cause instanceof RuntimeException) {
+                    throw (RuntimeException) cause;
+                } else { //Should never happen.
+                    throw new UndeclaredThrowableException(ite);
+                }
+            } catch (final Exception ignore) {
+            }
         }
         return null;
     }
@@ -355,14 +363,21 @@ final class LogManagerProperties extends Properties {
            throw new NullPointerException();
         }
 
-        final MethodHandle m = LR_GET_LONG_TID;
+        final Method m = LR_GET_LONG_TID;
         if (m != null) {
             try {
-                return (long) m.invoke(record);
-            } catch (final RuntimeException | Error e) {
-                throw e;
-            } catch (final Throwable ute) {
-                throw new UndeclaredThrowableException(ute);
+                return (Long) m.invoke(record);
+            } catch (final InvocationTargetException ite) {
+                final Throwable cause = ite.getCause();
+                if (cause instanceof Error) {
+                    throw (Error) cause;
+                } else if (cause instanceof RuntimeException) {
+                    throw (RuntimeException) cause;
+                } else { //Should never happen.
+                    throw new UndeclaredThrowableException(ite);
+                }
+            } catch (final RuntimeException ignore) {
+            } catch (final Exception ignore) {
             }
         }
         return null;
@@ -405,9 +420,10 @@ final class LogManagerProperties extends Properties {
      *
      * @param value an ISO-8601 duration character sequence.
      * @return the number of milliseconds parsed from the duration.
+     * @throws ArithmeticException if the duration is too large or too small.
      * @throws ClassNotFoundException if the java.time classes are not present.
      * @throws IllegalAccessException if the method is inaccessible.
-     * @throws RuntimeException if the method throws an exception.
+     * @throws InvocationTargetException if the method throws an exception.
      * @throws LinkageError if the linkage fails.
      * @throws NullPointerException if the given duration is null.
      * @throws ExceptionInInitializerError if the static initializer fails.
@@ -421,20 +437,29 @@ final class LogManagerProperties extends Properties {
         if (value == null) {
            throw new NullPointerException();
         }
-
         try {
-            Class<?> k = findClass("java.time.Duration");
-            MethodHandle dp = LOOKUP.findStatic(k, "parse",
-                    MethodType.methodType(k, CharSequence.class));
+            final Class<?> k = findClass("java.time.Duration");
+            final Method parse = k.getMethod("parse", CharSequence.class);
+            if (!k.isAssignableFrom(parse.getReturnType())
+                    || !Modifier.isStatic(parse.getModifiers())) {
+               throw new NoSuchMethodException(parse.toString());
+            }
 
-            MethodHandle dtm = LOOKUP.findVirtual(k, "toMillis",
-                    MethodType.methodType(Long.TYPE));
-            return (long) dtm.invoke(dp.invoke(value));
-        } catch (final RuntimeException | LinkageError
-                | ReflectiveOperationException fail) {
-            throw fail; //avoid catch all
-        } catch (Throwable cause) {
-            throw new InvocationTargetException(cause);
+            final Method toMillis = k.getMethod("toMillis");
+            if (!Long.TYPE.isAssignableFrom(toMillis.getReturnType())
+                    || Modifier.isStatic(toMillis.getModifiers())) {
+                throw new NoSuchMethodException(toMillis.toString());
+            }
+            return (Long) toMillis.invoke(parse.invoke(null, value));
+        } catch (final ExceptionInInitializerError EIIE) {
+            throw wrapOrThrow(EIIE);
+        } catch (final InvocationTargetException ite) {
+            final Throwable cause = ite.getCause();
+            if (cause instanceof ArithmeticException) {
+                throw (ArithmeticException) cause;
+            } else {
+                throw paramOrError(ite);
+            }
         }
     }
 
