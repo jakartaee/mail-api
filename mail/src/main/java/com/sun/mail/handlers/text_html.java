@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -26,6 +26,12 @@ public class text_html extends text_plain {
     private static ActivationDataFlavor[] myDF = {
 	new ActivationDataFlavor(String.class, "text/html", "HTML String")
     };
+
+    /**
+     * Creates a default {@code text_html}.
+     */
+    public text_html() {
+    }
 
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {

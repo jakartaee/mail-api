@@ -92,6 +92,34 @@ public class CollectorFormatterTest extends AbstractLogging {
     }
 
     @Test
+    public void testNewInstance() throws Exception {
+        final String loggerName = CollectorFormatterTest.class.getName();
+        final Class<?> k = CollectorFormatter.class;
+        assertNotNull(LogManagerProperties.newFormatter(k.getName()));
+
+        Logger l;
+        LogManager m = LogManager.getLogManager();
+        try {
+            Properties props = new Properties();
+            String p = ConsoleHandler.class.getName();
+            props.put(loggerName.concat(".handlers"), p);
+            props.put(p.concat(".formatter"), k.getName());
+            read(m, props);
+
+            l = Logger.getLogger(loggerName);
+            final Handler[] handlers = l.getHandlers();
+            assertEquals(1, handlers.length);
+            for (Handler h : handlers) {
+                assertEquals(p, h.getClass().getName());
+                assertEquals(k, h.getFormatter().getClass());
+            }
+        } finally {
+            m.reset();
+        }
+        assertNotNull(l); //Enusre handler is closed by reset
+    }
+
+    @Test
     public void testEquals() {
     	//CollectorFormatter must not be swapped with other instances.
     	//The state is mutated with most method calls and therefore
@@ -483,7 +511,13 @@ public class CollectorFormatterTest extends AbstractLogging {
         f.format(r);
 
         String result = f.getTail((Handler) null);
-        assertEquals(result, MessageFormat.format("{0,date,short} {0,time}", min));
+        
+        //MessageFormat allows Number or Date instances as date and time.
+        //Top level MessageFormat doc show that implementaiton is DateFormat
+        //See DateFormat::format(Object,StringBuffer,FieldPosition)
+        //This must format as Number to match CollectorFormatter.
+        assertEquals(result,
+                MessageFormat.format("{0,date,short} {0,time}", min));
     }
 
     @Test
@@ -531,7 +565,13 @@ public class CollectorFormatterTest extends AbstractLogging {
         f.format(r);
 
         String result = f.getTail((Handler) null);
-        assertEquals(result, MessageFormat.format("{0,date,short} {0,time}", min + high));
+        
+        //MessageFormat allows Number or Date instances as date and time.
+        //Top level MessageFormat doc show that implementaiton is DateFormat
+        //See DateFormat::format(Object,StringBuffer,FieldPosition)
+        //This must format as Number to match CollectorFormatter.
+        assertEquals(result, MessageFormat.format("{0,date,short} {0,time}", 
+                min + high));
     }
 
     @Test

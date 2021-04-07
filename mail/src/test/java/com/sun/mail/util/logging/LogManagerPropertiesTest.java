@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2018 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -244,6 +244,16 @@ public class LogManagerPropertiesTest extends AbstractLogging {
         } finally {
             mod.setInt(f, f.getModifiers() | Modifier.FINAL);
             fullFence();
+        }
+    }
+
+    @Test
+    public void testDefaultConstructor() {
+        Class<?> k = LogManagerProperties.class;
+        assertFalse(Modifier.isPublic(k.getModifiers()));
+        assertTrue(Modifier.isFinal(k.getModifiers()));
+        for (Constructor<?> c : k.getDeclaredConstructors()) {
+            assertFalse(Modifier.isPublic(c.getModifiers()));
         }
     }
 

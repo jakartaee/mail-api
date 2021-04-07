@@ -28,6 +28,9 @@ import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeUtility;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -102,6 +105,34 @@ public class CompactFormatterTest extends AbstractLogging {
     @Test
     public void testDeclaredClasses() throws Exception {
         testLoadDeclaredClasses(CompactFormatter.class);
+    }
+
+    @Test
+    public void testNewInstance() throws Exception {
+        final String loggerName = CompactFormatterTest.class.getName();
+        final Class<?> k = CompactFormatter.class;
+        assertNotNull(LogManagerProperties.newFormatter(k.getName()));
+
+        Logger l;
+        LogManager m = LogManager.getLogManager();
+        try {
+            Properties props = new Properties();
+            String p = ConsoleHandler.class.getName();
+            props.put(loggerName.concat(".handlers"), p);
+            props.put(p.concat(".formatter"), k.getName());
+            read(m, props);
+
+            l = Logger.getLogger(loggerName);
+            final Handler[] handlers = l.getHandlers();
+            assertEquals(1, handlers.length);
+            for (Handler h : handlers) {
+                assertEquals(p, h.getClass().getName());
+                assertEquals(k, h.getFormatter().getClass());
+            }
+        } finally {
+            m.reset();
+        }
+        assertNotNull(l); //Enusre handler is closed by reset
     }
 
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -45,9 +45,6 @@ import java.net.InetAddress;
  * @author  Bill Foote
  * @author  Bill Shannon
  */
-
-// There are no abstract methods, but to be useful the user must
-// subclass.
 public abstract class Authenticator {
 
     private InetAddress requestingSite;
@@ -55,6 +52,15 @@ public abstract class Authenticator {
     private String requestingProtocol;
     private String requestingPrompt;
     private String requestingUserName;
+
+    /**
+     * Creates a default {@code Authenticator}.
+     * There are no abstract methods, but to be useful the user must subclass.
+     *
+     * @see #getPasswordAuthentication()
+     */
+    public Authenticator() {
+    }
 
     /**
      * Ask the authenticator for a password.

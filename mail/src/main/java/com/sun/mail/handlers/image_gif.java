@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -27,6 +27,12 @@ public class image_gif extends handler_base {
     private static ActivationDataFlavor[] myDF = {
 	new ActivationDataFlavor(Image.class, "image/gif", "GIF Image")
     };
+
+    /**
+     * Creates a default {@code image_gif}.
+     */
+    public image_gif() {
+    }
 
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,7 +19,6 @@ package com.sun.mail.dsn;
 import java.io.*;
 import jakarta.activation.*;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.*;
 
 
 /**
@@ -32,8 +31,14 @@ import jakarta.mail.internet.*;
 public class multipart_report implements DataContentHandler {
     private ActivationDataFlavor myDF = new ActivationDataFlavor(
 	    MultipartReport.class,
-	    "multipart/report", 
+	    "multipart/report",
 	    "Multipart Report");
+
+    /**
+     * Creates a default {@code multipart_report}.
+     */
+    public multipart_report() {
+    }
 
     /**
      * Return the ActivationDataFlavors for this <code>DataContentHandler</code>.
@@ -60,13 +65,13 @@ public class multipart_report implements DataContentHandler {
 	else
 	    return null;
     }
-    
+
     /**
      * Return the content.
      */
     public Object getContent(DataSource ds) throws IOException {
 	try {
-	    return new MultipartReport(ds); 
+	    return new MultipartReport(ds);
 	} catch (MessagingException e) {
 	    IOException ioex =
 		new IOException("Exception while constructing MultipartReport");
@@ -74,11 +79,11 @@ public class multipart_report implements DataContentHandler {
 	    throw ioex;
 	}
     }
-    
+
     /**
      * Write the object to the output stream, using the specific MIME type.
      */
-    public void writeTo(Object obj, String mimeType, OutputStream os) 
+    public void writeTo(Object obj, String mimeType, OutputStream os)
 			throws IOException {
 	if (obj instanceof MultipartReport) {
 	    try {
