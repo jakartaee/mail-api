@@ -57,16 +57,16 @@ final class LogManagerProperties extends Properties {
     private static final long serialVersionUID = -2239983349056806252L;
 
     /**
-     * Holds the method used to get the LogRecord instant if running on JDK 9 or
-     * later.
-     */
-    private static final Method LR_GET_INSTANT;
-
-    /**
      * Holds the method used to get the long thread id if running on JDK 16 or
      * later.
      */
     private static final Method LR_GET_LONG_TID;
+
+    /**
+     * Holds the method used to get the LogRecord instant if running on JDK 9 or
+     * later.
+     */
+    private static final Method LR_GET_INSTANT;
 
     /**
      * Holds the method used to get the default time zone if running on JDK 9 or
@@ -81,7 +81,8 @@ final class LogManagerProperties extends Properties {
     private static final Method ZDT_OF_INSTANT;
 
     /**
-     * MethodHandle is available starting at JDK7 and Andriod API 26.
+     * MethodHandle is available starting at JDK7 and Android API 26.
+     * Reflection must be used until we meet minimum API requirements.
      */
     static { //Added in JDK16 see JDK-8245302
         Method lrtid = null;
@@ -94,30 +95,33 @@ final class LogManagerProperties extends Properties {
         LR_GET_LONG_TID = lrtid;
     }
 
-    static {
+    static { //Added in JDK 9 see JDK-8072645
         Method lrgi = null;
         Method zisd = null;
         Method zdtoi = null;
         try {
-            lrgi = LogRecord.class.getMethod("getInstant");
-            assert Comparable.class
-                    .isAssignableFrom(lrgi.getReturnType()) : lrgi;
-            zisd = findClass("java.time.ZoneId")
-                    .getMethod("systemDefault");
-            if (!Modifier.isStatic(zisd.getModifiers())) {
-                zisd = null;
-                throw new NoSuchMethodException(zisd.toString());
+            Method m = LogRecord.class.getMethod("getInstant");
+            if (Modifier.isStatic(m.getModifiers())
+                    || !Comparable.class.isAssignableFrom(m.getReturnType())) {
+                throw new NoSuchMethodException(m.toString());
             }
+            lrgi = m;
 
-            zdtoi = findClass("java.time.ZonedDateTime")
+            m = findClass("java.time.ZoneId").getMethod("systemDefault");
+            if (!Modifier.isStatic(m.getModifiers())) {
+                throw new NoSuchMethodException(m.toString());
+            }
+            zisd = m;
+
+            m = findClass("java.time.ZonedDateTime")
                     .getMethod("ofInstant", findClass("java.time.Instant"),
                             findClass("java.time.ZoneId"));
-            if (!Modifier.isStatic(zdtoi.getModifiers())
+            if (!Modifier.isStatic(m.getModifiers())
                     || !Comparable.class.isAssignableFrom(
-                            zdtoi.getReturnType())) {
-                zdtoi = null;
-                throw new NoSuchMethodException(zdtoi.toString());
+                            m.getReturnType())) {
+                throw new NoSuchMethodException(m.toString());
             }
+            zdtoi = m;
         } catch (final RuntimeException ignore) {
         } catch (final Exception ignore) { //No need for specific catch.
         } catch (final LinkageError ignore) {
@@ -314,6 +318,7 @@ final class LogManagerProperties extends Properties {
 
     /**
      * Gets the ZonedDateTime from the given log record.
+     * Android doesn't support LogRecord::getInstant.
      *
      * @param record used to generate the zoned date time.
      * @return null if LogRecord doesn't support nanoseconds otherwise a new
@@ -352,6 +357,7 @@ final class LogManagerProperties extends Properties {
 
     /**
      * Gets the long thread id from the given log record.
+     * Android doesn't support LogRecord::getLongThreadID.
      *
      * @param record used to get the long thread id.
      * @return null if LogRecord doesn't support long thread ids.
