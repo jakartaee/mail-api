@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"com.sun.mail.dsn"},{"l":"com.sun.mail.gimap"},{"l":"jakarta.mail"}]

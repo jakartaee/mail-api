@@ -22,6 +22,20 @@ and is also included in the
 
 # <a name="Latest_News"></a>Latest News
 
+## April 8, 2021 - Jakarta Mail 1.6.7 Final Release ##
+
+The 1.6.7 release is a bug fix release of the Jakarta Mail project
+in the 1.x line, and includes several bug fixes and enhancements.
+The main jar file is located at
+[com.sun.mail:jakarta.mail](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/1.6.7/jakarta.mail-1.6.7.jar).
+
+## April 6, 2021 - Jakarta Mail 2.0.1 Final Release ##
+
+The 2.0.1 release is a bug fix release of the Jakarta Mail project
+in the 2.x line, and includes several bug fixes and enhancements.
+The main jar file is located at
+[com.sun.mail:jakarta.mail](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/2.0.1/jakarta.mail-2.0.1.jar).
+
 ## February 28, 2021 - Jakarta Mail 1.6.6 Final Release ##
 
 The 1.6.6 release is a bug fix release of the Jakarta Mail project
@@ -89,7 +103,7 @@ use, described in [CONTRIBUTING](CONTRIBUTING.md).
 
 # <a name="Download_Jakarta_Mail_Release"></a>Download Jakarta Mail Release
 
-The latest release of Jakarta Mail is 2.0.0.
+The latest release of Jakarta Mail is 2.0.1.
 
 The following table provides easy access to the latest release. Most
 people will only need the main Jakarta Mail implementation in the
@@ -97,7 +111,7 @@ jakarta.mail.jar file.
 
 |Item|Description|
 |:---|:----------|
-|[jakarta.mail.jar](https://github.com/eclipse-ee4j/mail/releases/download/2.0.0/jakarta.mail-2.0.0.jar/jakarta.mail-2.0.0.jar)|The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
+|[jakarta.mail.jar](https://github.com/eclipse-ee4j/mail/releases/download/2.0.1/jakarta.mail-2.0.1.jar/jakarta.mail-2.0.1.jar)|The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
 |[README.txt](docs/README.txt)|Overview of the release|
 |[NOTES.txt](docs/NOTES.txt)|Additional notes about using Jakarta Mail|
 |[SSLNOTES.txt](docs/SSLNOTES.txt)|Notes on using SSL/TLS with Jakarta Mail|
@@ -114,7 +128,7 @@ can be included using this Maven dependency:
             <dependency>
                 <groupId>com.sun.mail</groupId>
                 <artifactId>jakarta.mail</artifactId>
-                <version>2.0.0</version>
+                <version>2.0.1</version>
             </dependency>
         </dependencies>
 ```
@@ -124,15 +138,15 @@ You can find all of the Jakarta Mail jar files in
 
 |jar file|groupId|artifactId|Description|
 |:-------|:------|:---------|:----------|
-|[jakarta.mail.jar](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/2.0.0/jakarta.mail-2.0.0.jar)|com.sun.mail|jakarta.mail|The Jakarta Mail implementation jar file, including the SMTP, IMAP, and POP3 protocol providers|
-|[jakarta.mail-api.jar](https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/2.0.0/jakarta.mail-api-2.0.0.jar)|jakarta.mail|jakarta.mail-api|The Jakarta Mail API definitions only, suitable for compiling against; use only with a Maven "provided" dependency scope|
-|[mailapi.jar](https://repo1.maven.org/maven2/com/sun/mail/mailapi/2.0.0/mailapi-2.0.0.jar)|com.sun.mail|mailapi|The Jakarta Mail implementation with no protocol providers; use with one of the following providers|
-|[smtp.jar](https://repo1.maven.org/maven2/com/sun/mail/smtp/2.0.0/smtp-2.0.0.jar)|com.sun.mail|smtp|The SMTP protocol provider|
-|[imap.jar](https://repo1.maven.org/maven2/com/sun/mail/imap/2.0.0/imap-2.0.0.jar)|com.sun.mail|imap|The IMAP protocol provider|
-|[pop3.jar](https://repo1.maven.org/maven2/com/sun/mail/pop3/2.0.0/pop3-2.0.0.jar)|com.sun.mail|pop3|The POP3 protocol provider|
-|[gimap.jar](https://repo1.maven.org/maven2/com/sun/mail/gimap/2.0.0/gimap-2.0.0.jar)|com.sun.mail|gimap|An EXPERIMENTAL Gmail IMAP protocol provider that supports Gmail-specific features|
-|[dsn.jar](https://repo1.maven.org/maven2/com/sun/mail/dsn/2.0.0/dsn-2.0.0.jar)|com.sun.mail|dsn|Support for parsing and creating messages containing Delivery Status Notifications|
-|[logging-mailhandler.jar](https://repo1.maven.org/maven2/com/sun/mail/logging-mailhandler/2.0.0/logging-mailhandler-2.0.0.jar)|com.sun.mail|logging-mailhandler|A java.util.logging handler that uses Jakarta Mail, suitable for use in Google App Engine.|
+|[jakarta.mail.jar](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/2.0.1/jakarta.mail-2.0.1.jar)|com.sun.mail|jakarta.mail|The Jakarta Mail implementation jar file, including the SMTP, IMAP, and POP3 protocol providers|
+|[jakarta.mail-api.jar](https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/2.0.1/jakarta.mail-api-2.0.1.jar)|jakarta.mail|jakarta.mail-api|The Jakarta Mail API definitions only, suitable for compiling against; use only with a Maven "provided" dependency scope|
+|[mailapi.jar](https://repo1.maven.org/maven2/com/sun/mail/mailapi/2.0.1/mailapi-2.0.1.jar)|com.sun.mail|mailapi|The Jakarta Mail implementation with no protocol providers; use with one of the following providers|
+|[smtp.jar](https://repo1.maven.org/maven2/com/sun/mail/smtp/2.0.1/smtp-2.0.1.jar)|com.sun.mail|smtp|The SMTP protocol provider|
+|[imap.jar](https://repo1.maven.org/maven2/com/sun/mail/imap/2.0.1/imap-2.0.1.jar)|com.sun.mail|imap|The IMAP protocol provider|
+|[pop3.jar](https://repo1.maven.org/maven2/com/sun/mail/pop3/2.0.1/pop3-2.0.1.jar)|com.sun.mail|pop3|The POP3 protocol provider|
+|[gimap.jar](https://repo1.maven.org/maven2/com/sun/mail/gimap/2.0.1/gimap-2.0.1.jar)|com.sun.mail|gimap|An EXPERIMENTAL Gmail IMAP protocol provider that supports Gmail-specific features|
+|[dsn.jar](https://repo1.maven.org/maven2/com/sun/mail/dsn/2.0.1/dsn-2.0.1.jar)|com.sun.mail|dsn|Support for parsing and creating messages containing Delivery Status Notifications|
+|[logging-mailhandler.jar](https://repo1.maven.org/maven2/com/sun/mail/logging-mailhandler/2.0.1/logging-mailhandler-2.0.1.jar)|com.sun.mail|logging-mailhandler|A java.util.logging handler that uses Jakarta Mail, suitable for use in Google App Engine.|
 
 # <a name="API_Documentation"></a>API Documentation
 
@@ -161,7 +175,7 @@ the JavaMail API specification:
 # <a name="Samples"></a>Samples
 
 Some sample programs showing how to use the Jakarta Mail APIs are available
-[here](https://github.com/eclipse-ee4j/mail/releases/download/2.0.0/jakartamail-samples.zip).
+[here](https://github.com/eclipse-ee4j/mail/releases/download/2.0.1/jakartamail-samples.zip).
 
 # <a name="Help"></a>Help
 
@@ -189,8 +203,8 @@ These snapshot releases have received only minimal testing, but may
 provide previews of bug fixes or new features under development.
 
 For example, you can download the jakarta.mail.jar file from the Jakarta Mail
-2.0.0-SNAPSHOT release
-[here](https://jakarta.oss.sonatype.org/content/repositories/snapshots/com/sun/mail/jakarta.mail/2.0.0-SNAPSHOT/).
+2.0.2-SNAPSHOT release
+[here](https://jakarta.oss.sonatype.org/content/repositories/snapshots/com/sun/mail/jakarta.mail/2.0.2-SNAPSHOT/).
 Be sure to scroll to the bottom and choose the jar file with the most
 recent time stamp.
 

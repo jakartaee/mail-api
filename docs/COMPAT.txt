@@ -1,7 +1,7 @@
 			COMPATIBILITY NOTES
 			===================
 
-		    Jakarta Mail API ${mail.version} release
+		    Jakarta Mail API 2.0.1 release
 		    ------------------------------
 
 -- Jakarta Mail 2.0.0 --

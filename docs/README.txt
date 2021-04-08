@@ -1,10 +1,10 @@
 			README
 			======
 
-	    Jakarta Mail(TM) API 1.6.6 release
-	    ----------------------------------
+	    Jakarta Mail API 2.0.1 release
+	    ------------------------------
 
-Welcome to the Jakarta Mail API 1.6.6 release!  This release includes
+Welcome to the Jakarta Mail API 2.0.1 release!  This release includes
 versions of the Jakarta Mail API implementation, IMAP, SMTP, and POP3
 service providers, some examples, and documentation for the Jakarta Mail
 API.
@@ -14,14 +14,10 @@ Please see the FAQ at https://eclipse-ee4j.github.io/mail/FAQ
 JDK Version notes
 -----------------
 
-The Jakarta Mail API supports JDK 1.7 or higher.  Note that we have
-currently tested this implementation with JDK 1.7 and 1.8.
+The Jakarta Mail API supports JDK 1.8 or higher.  Note that we have
+currently tested this implementation with JDK 1.8 and 11.
 
-While Jakarta Mail will work with JAF 1.0.2, we recommend the use of JAF 1.1
-or newer.  JAF 1.2.1 is currently the newest version.  Note that JAF 1.1
-is included in JDK 1.6 and JAF 1.1.1 is included in JDK 1.6.0_10 and
-later.  JAF 1.2.0 is included but hidden in JDK 9 and has been removed
-from JDK 11.  JAF 1.2.1 is available separately (see below).
+Jakarta Mail requires Jakarta Activation 2.0.0 or newer.
 
 
 Protocols supported
@@ -62,10 +58,10 @@ See the Jakarta Mail project page to download this release.
 Requirements
 ------------
 
-Note that the Jakarta Mail API requires the JavaBeans(TM) Activation
-Framework package to be installed as well if you're using or JDK 11 or later.
+Note that the Jakarta Mail API requires the Jakarta Activation
+package to be installed as well.
 
-Download the latest version of the JavaBeans Activation Framework from
+Download the latest version of Jakarta Activation from
 
 	https://github.com/eclipse-ee4j/jaf/releases
 
@@ -90,10 +86,10 @@ Installation
       export CLASSPATH=$CLASSPATH:/u/me/download/jakarta.mail.jar:.
 
     (Don't forget the trailing "." for the current directory.)
-    Also, if you're using JDK 1.5, include the "activation.jar" file that you
-    obtained from downloading the JavaBeans Activation Framework.  For example:
+    Include the "jakarta.activation.jar" file that you
+    obtained from downloading Jakarta Activation.  For example:
 
-      export CLASSPATH=$CLASSPATH:/u/me/download/activation/activation.jar
+      export CLASSPATH=$CLASSPATH:/u/me/download/jakarta.activation.jar
 
   3. Download the jakartamail-samples.zip file from the project website.
      https://github.com/eclipse-ee4j/mail/releases
@@ -133,10 +129,10 @@ Installation
       set CLASSPATH=%CLASSPATH%;c:\download\jakarta.mail.jar;.
 
     (Don't forget the trailing "." for the current directory.)
-    Also, if you're using JDK 1.5, include the "activation.jar" file that you
-    obtained from downloading the JavaBeans Activation Framework.  For example:
+    Include the "jakarta.activation.jar" file that you
+    obtained from downloading Jakarta Activation.  For example:
 
-      set CLASSPATH=%CLASSPATH%;c:\download\activation\activation.jar
+      set CLASSPATH=%CLASSPATH%;c:\download\jakarta.activation.jar
 
   3. Download the jakartamail-samples.zip file from the project website.
      https://github.com/eclipse-ee4j/mail/releases
