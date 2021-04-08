@@ -1,0 +1,15 @@
+module:com.sun.mail.dsn
+com.sun.mail.dsn
+module:com.sun.mail.gimap
+com.sun.mail.gimap
+module:jakarta.mail
+com.sun.mail.imap
+com.sun.mail.pop3
+com.sun.mail.smtp
+com.sun.mail.util
+com.sun.mail.util.logging
+jakarta.mail
+jakarta.mail.event
+jakarta.mail.internet
+jakarta.mail.search
+jakarta.mail.util
