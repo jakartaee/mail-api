@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -41,6 +41,12 @@ import jakarta.mail.Message;
 public abstract class SearchTerm implements Serializable {
 
     private static final long serialVersionUID = -6652358452205992789L;
+
+    /**
+     * Creates a default {@code SearchTerm}.
+     */
+    public SearchTerm() {
+    }
 
     /**
      * This method applies a specific match criterion to the given

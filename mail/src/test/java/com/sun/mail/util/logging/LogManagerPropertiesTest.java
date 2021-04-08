@@ -248,6 +248,16 @@ public class LogManagerPropertiesTest extends AbstractLogging {
     }
 
     @Test
+    public void testDefaultConstructor() {
+        Class<?> k = LogManagerProperties.class;
+        assertFalse(Modifier.isPublic(k.getModifiers()));
+        assertTrue(Modifier.isFinal(k.getModifiers()));
+        for (Constructor<?> c : k.getDeclaredConstructors()) {
+            assertFalse(Modifier.isPublic(c.getModifiers()));
+        }
+    }
+
+    @Test
     public void testLinkage() throws Exception {
         testLinkage(LogManagerProperties.class);
     }

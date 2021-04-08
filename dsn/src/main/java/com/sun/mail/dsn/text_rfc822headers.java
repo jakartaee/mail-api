@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -30,14 +30,20 @@ import jakarta.mail.internet.*;
  *
  */
 public class text_rfc822headers implements DataContentHandler {
-    private static ActivationDataFlavor myDF = new ActivationDataFlavor(
+    private static final ActivationDataFlavor myDF = new ActivationDataFlavor(
 	MessageHeaders.class,
 	"text/rfc822-headers",
 	"RFC822 headers");
-    private static ActivationDataFlavor myDFs = new ActivationDataFlavor(
+    private static final ActivationDataFlavor myDFs = new ActivationDataFlavor(
 	java.lang.String.class,
 	"text/rfc822-headers",
 	"RFC822 headers");
+
+    /**
+     * Creates a default {@code text_rfc822headers}.
+     */
+    public text_rfc822headers() {
+    }
 
     /**
      * Return the ActivationDataFlavors for this <code>DataContentHandler</code>.
@@ -55,7 +61,7 @@ public class text_rfc822headers implements DataContentHandler {
      * @param ds The DataSource corresponding to the data
      * @return String object
      */
-    public Object getTransferData(ActivationDataFlavor df, DataSource ds) 
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
 			throws IOException {
 	// use myDF.equals to be sure to get ActivationDataFlavor.equals,
 	// which properly ignores Content-Type parameters in comparison
@@ -79,7 +85,7 @@ public class text_rfc822headers implements DataContentHandler {
     private Object getStringContent(DataSource ds) throws IOException {
 	String enc = null;
 	InputStreamReader is = null;
-	
+
 	try {
 	    enc = getCharset(ds.getContentType());
 	    is = new InputStreamReader(ds.getInputStream(), enc);
@@ -126,7 +132,7 @@ public class text_rfc822headers implements DataContentHandler {
     /**
      * Write the object to the output stream, using the specified MIME type.
      */
-    public void writeTo(Object obj, String type, OutputStream os) 
+    public void writeTo(Object obj, String type, OutputStream os)
 			throws IOException {
 	if (obj instanceof MessageHeaders) {
 	    MessageHeaders mh = (MessageHeaders)obj;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,10 +31,16 @@ public class text_plain extends handler_base {
     };
 
     /**
+     * Creates a default {@code text_plain}.
+     */
+    public text_plain() {
+    }
+
+    /**
      * An OuputStream wrapper that doesn't close the underlying stream.
      */
     private static class NoCloseOutputStream extends FilterOutputStream {
-	public NoCloseOutputStream(OutputStream os) {
+	NoCloseOutputStream(OutputStream os) {
 	    super(os);
 	}
 
@@ -53,7 +59,7 @@ public class text_plain extends handler_base {
     public Object getContent(DataSource ds) throws IOException {
 	String enc = null;
 	InputStreamReader is = null;
-	
+
 	try {
 	    enc = getCharset(ds.getContentType());
 	    is = new InputStreamReader(ds.getInputStream(), enc);
@@ -96,12 +102,12 @@ public class text_plain extends handler_base {
 	    }
 	}
     }
-    
+
     /**
      * Write the object to the output stream, using the specified MIME type.
      */
     @Override
-    public void writeTo(Object obj, String type, OutputStream os) 
+    public void writeTo(Object obj, String type, OutputStream os)
 			throws IOException {
 	if (!(obj instanceof String))
 	    throw new IOException("\"" + getDataFlavors()[0].getMimeType() +
