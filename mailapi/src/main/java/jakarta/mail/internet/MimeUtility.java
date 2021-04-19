@@ -23,7 +23,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.stream.LineInputStream;
 import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.util.PropUtil;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -40,6 +39,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 import java.util.StringTokenizer;
 
 /**
@@ -148,25 +148,19 @@ public class MimeUtility {
 
     private static final String WORD_SPECIALS = "=_?\"#$%&'(),.:;<>@[\\]^`{|}~";
     private static final String TEXT_SPECIALS = "=_?";
-    private static final boolean decodeStrict =
-	PropUtil.getBooleanSystemProperty("mail.mime.decodetext.strict", true);
-    private static final boolean encodeEolStrict =
-	PropUtil.getBooleanSystemProperty("mail.mime.encodeeol.strict", false);
-    private static final boolean ignoreUnknownEncoding =
-	PropUtil.getBooleanSystemProperty(
+    private static final boolean decodeStrict = getBooleanSystemProperty("mail.mime.decodetext.strict", true);
+    private static final boolean encodeEolStrict = getBooleanSystemProperty("mail.mime.encodeeol.strict", false);
+    private static final boolean ignoreUnknownEncoding = getBooleanSystemProperty(
 	    "mail.mime.ignoreunknownencoding", false);
-    private static final boolean allowUtf8 =
-	PropUtil.getBooleanSystemProperty("mail.mime.allowutf8", false);
+    private static final boolean allowUtf8 = getBooleanSystemProperty("mail.mime.allowutf8", false);
     /*
      * The following two properties allow disabling the fold()
      * and unfold() methods and reverting to the previous behavior.
      * They should never need to be changed and are here only because
      * of my paranoid concern with compatibility.
      */
-    private static final boolean foldEncodedWords =
-	PropUtil.getBooleanSystemProperty("mail.mime.foldencodedwords", false);
-    private static final boolean foldText =
-	PropUtil.getBooleanSystemProperty("mail.mime.foldtext", true);
+    private static final boolean foldEncodedWords = getBooleanSystemProperty("mail.mime.foldencodedwords", false);
+    private static final boolean foldText = getBooleanSystemProperty("mail.mime.foldtext", true);
 
 
     /**
@@ -181,19 +175,19 @@ public class MimeUtility {
      * <li>
      * If the primary type of this datasource is "text" and if all
      * the bytes in its input stream are US-ASCII, then the encoding
-     * is "7bit". If more than half of the bytes are non-US-ASCII, then
-     * the encoding is "base64". If less than half of the bytes are
-     * non-US-ASCII, then the encoding is "quoted-printable".
+     * is StreamProvider.BIT7_ENCODER. If more than half of the bytes are non-US-ASCII, then
+     * the encoding is StreamProvider.BASE_64_ENCODER. If less than half of the bytes are
+     * non-US-ASCII, then the encoding is StreamProvider.QUOTED_PRINTABLE_ENCODER.
      * <li>
      * If the primary type of this datasource is not "text", then if
      * all the bytes of its input stream are US-ASCII, the encoding
-     * is "7bit". If there is even one non-US-ASCII character, the
-     * encoding is "base64".
+     * is StreamProvider.BIT7_ENCODER. If there is even one non-US-ASCII character, the
+     * encoding is StreamProvider.BASE_64_ENCODER.
      * </ul>
      *
      * @param	ds	the DataSource
-     * @return		the encoding. This is either "7bit",
-     *			"quoted-printable" or "base64"
+     * @return		the encoding. This is either StreamProvider.BIT7_ENCODER,
+     *			StreamProvider.QUOTED_PRINTABLE_ENCODER or StreamProvider.BASE_64_ENCODER
      */ 
     public static String getEncoding(DataSource ds) {
 	ContentType cType = null;
@@ -313,7 +307,7 @@ public class MimeUtility {
 	try {
 	    cType = new ContentType(dh.getContentType());
 	} catch (Exception ex) {
-	    return "base64"; // what else ?!
+	    return StreamProvider.BASE_64_ENCODER; // what else ?!
 	}
 
 	if (cType.match("text/*")) {
@@ -355,8 +349,8 @@ public class MimeUtility {
     /**
      * Decode the given input stream. The Input stream returned is
      * the decoded input stream. All the encodings defined in RFC 2045
-     * are supported here. They include "base64", "quoted-printable",
-     * "7bit", "8bit", and "binary". In addition, "uuencode" is also
+     * are supported here. They include StreamProvider.BASE_64_ENCODER, StreamProvider.QUOTED_PRINTABLE_ENCODER,
+     * StreamProvider.BIT7_ENCODER, StreamProvider.BIT8_ENCODER, and StreamProvider.BINARY_ENCODER. In addition, StreamProvider.UU_ENCODER is also
      * supported. <p>
      *
      * In the current implementation, if the
@@ -371,22 +365,30 @@ public class MimeUtility {
      */
     public static InputStream decode(InputStream is, String encoding)
 		throws MessagingException {
-        InputStream filtered = Session.getStreamProvider(encoding.toLowerCase()).from(is, null);
-        if (filtered == null) {
-            if (!ignoreUnknownEncoding) {
-                throw new MessagingException("Unknown encoding: " + encoding);
-            } else {
-                return is;
-            }
-        }
-        return filtered;
+	if (encoding.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
+		return Session.STREAM_PROVIDER.inputBase64(is);
+	else if (encoding.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER))
+		return Session.STREAM_PROVIDER.inputQP(is);
+	else if (encoding.equalsIgnoreCase(StreamProvider.UU_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.X_UU_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.X_UUE))
+		return Session.STREAM_PROVIDER.inputUU(is);
+	else if (encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER))
+		return Session.STREAM_PROVIDER.inputBinary(is);
+	else {
+	    if (!ignoreUnknownEncoding)
+		throw new MessagingException("Unknown encoding: " + encoding);
+	    return is;
+	}
     }
 
     /**
      * Wrap an encoder around the given output stream. 
      * All the encodings defined in RFC 2045 are supported here. 
-     * They include "base64", "quoted-printable", "7bit", "8bit" and
-     * "binary". In addition, "uuencode" is also supported.
+     * They include StreamProvider.BASE_64_ENCODER, StreamProvider.QUOTED_PRINTABLE_ENCODER, StreamProvider.BIT7_ENCODER, StreamProvider.BIT8_ENCODER and
+     * StreamProvider.BINARY_ENCODER. In addition, StreamProvider.UU_ENCODER is also supported.
      *
      * @param	os		output stream
      * @param	encoding	the encoding of the stream. 
@@ -396,24 +398,30 @@ public class MimeUtility {
      */
     public static OutputStream encode(OutputStream os, String encoding)
 		throws MessagingException {
-        if (encoding == null){
-            return os;
-        } else {
-            OutputStream filtered = Session.getStreamProvider(encoding.toLowerCase()).from(os, null);
-            if (filtered == null) {
-                throw new MessagingException("Unknown encoding: " +encoding);
-            } else {
-                return filtered;
-            }
-        }
+        if (encoding == null)
+	    return os;
+	else if (encoding.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
+		return Session.STREAM_PROVIDER.outputBase64(os);
+	else if (encoding.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER))
+        return Session.STREAM_PROVIDER.outputQP(os);
+	else if (encoding.equalsIgnoreCase(StreamProvider.UU_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.X_UU_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.X_UUE))
+		return Session.STREAM_PROVIDER.outputUU(os, null);
+	else if (encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
+		 encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER))
+	    return Session.STREAM_PROVIDER.outputBinary(os);
+	else
+	    throw new MessagingException("Unknown encoding: " +encoding);
     }
 
     /**
      * Wrap an encoder around the given output stream.
      * All the encodings defined in RFC 2045 are supported here.
-     * They include "base64", "quoted-printable", "7bit", "8bit" and
-     * "binary". In addition, "uuencode" is also supported.
-     * The <code>filename</code> parameter is used with the "uuencode"
+     * They include StreamProvider.BASE_64_ENCODER, StreamProvider.QUOTED_PRINTABLE_ENCODER, StreamProvider.BIT7_ENCODER, StreamProvider.BIT8_ENCODER and
+     * StreamProvider.BINARY_ENCODER. In addition, StreamProvider.UU_ENCODER is also supported.
+     * The <code>filename</code> parameter is used with the StreamProvider.UU_ENCODER
      * encoding and is included in the encoded output.
      *
      * @param   os              output stream
@@ -428,18 +436,22 @@ public class MimeUtility {
     public static OutputStream encode(OutputStream os, String encoding,
                                       String filename)
                 throws MessagingException {
-        if (encoding == null) {
+        if (encoding == null)
             return os;
-        } else {
-            Map<String, Object> params = new HashMap<>();
-            params.put("filename", filename);
-            OutputStream stream = Session.getStreamProvider(encoding.toLowerCase()).from(os, params);
-            if (stream == null) {
-                throw new MessagingException("Unknown encoding: " +encoding);
-            } else {
-                return stream;
-            }
-        }
+        else if (encoding.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
+        	return Session.STREAM_PROVIDER.outputBase64(os);
+        else if (encoding.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER))
+        	return Session.STREAM_PROVIDER.outputQP(os);
+        else if (encoding.equalsIgnoreCase(StreamProvider.UU_ENCODER) ||
+                 encoding.equalsIgnoreCase(StreamProvider.X_UU_ENCODER) ||
+                 encoding.equalsIgnoreCase(StreamProvider.X_UUE))
+        	return Session.STREAM_PROVIDER.outputUU(os, filename);
+        else if (encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
+                 encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
+                 encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER))
+        	return Session.STREAM_PROVIDER.outputBinary(os);
+        else
+            throw new MessagingException("Unknown encoding: " +encoding);
     }
 
     /**
@@ -810,11 +822,9 @@ public class MimeUtility {
 	    ByteArrayOutputStream os = new ByteArrayOutputStream();
 	    OutputStream eos; // the encoder
 	    if (b64) { // "B" encoding
-	        eos = Session.getStreamProvider(StreamProvider.B_ENCODER).from(os, null);
+	        eos = Session.STREAM_PROVIDER.outputB(os);
 	    } else { // "Q" encoding
-	        Map<String, Object> params = new HashMap<>();
-	        params.put("encodingWord", encodingWord);
-	        eos = Session.getStreamProvider(StreamProvider.Q_ENCODER).from(os, params);
+	        eos = Session.STREAM_PROVIDER.outputQ(os, encodingWord);
 	    }
 	    
 	    try { // do the encoding
@@ -901,9 +911,9 @@ public class MimeUtility {
 		// Get the appropriate decoder
 		InputStream is;
 		if (encoding.equalsIgnoreCase("B")) 
-		    is = Session.getStreamProvider(StreamProvider.BASE_64_ENCODER).from(bis, null);
+		    is = Session.STREAM_PROVIDER.inputBase64(bis);
 		else if (encoding.equalsIgnoreCase("Q"))
-		    is = Session.getStreamProvider(StreamProvider.Q_ENCODER).from(bis, null);
+		    is = Session.STREAM_PROVIDER.inputQ(bis);
 		else
 		    throw new UnsupportedEncodingException(
 				    "unknown encoding: " + encoding);
@@ -1365,13 +1375,13 @@ public class MimeUtility {
 
 	    if (is != null) {
 		try {
-		    is = Session.getStreamProvider(StreamProvider.LINE_STREAM).from(is, null);
+			LineInputStream lineInput = Session.STREAM_PROVIDER.inputLineStream(is, false);
 
 		    // Load the JDK-to-MIME charset mapping table
-		    loadMappings((LineInputStream)is, java2mime);
+		    loadMappings(lineInput, java2mime);
 
 		    // Load the MIME-to-JDK charset mapping table
-		    loadMappings((LineInputStream)is, mime2java);
+		    loadMappings(lineInput, mime2java);
 		} finally {
 		    try {
 			is.close();
@@ -1673,6 +1683,84 @@ public class MimeUtility {
             buf = bos.toByteArray();
         }
         return buf;
+    }
+
+    /**
+     * Get a boolean valued property.
+     *
+     * @param	props	the properties
+     * @param	name	the property name
+     * @param	def	default value if property not found
+     * @return		the property value
+     */
+    static boolean getBooleanProperty(Properties props, String name, boolean def) {
+	return getBoolean(getProp(props, name), def);
+    }
+
+    /**
+     * Get a boolean valued System property.
+     *
+     * @param	name	the property name
+     * @param	def	default value if property not found
+     * @return		the property value
+     */
+    static boolean getBooleanSystemProperty(String name, boolean def) {
+		try {
+		    return getBoolean(getProp(System.getProperties(), name), def);
+		} catch (SecurityException sex) {
+		    // fall through...
+		}
+	
+		/*
+		 * If we can't get the entire System Properties object because
+		 * of a SecurityException, just ask for the specific property.
+		 */
+		try {
+		    String value = System.getProperty(name);
+		    if (value == null)
+			return def;
+		    if (def)
+			return !value.equalsIgnoreCase("false");
+		    else
+			return value.equalsIgnoreCase("true");
+		} catch (SecurityException sex) {
+		    return def;
+		}
+    }
+
+    /**
+     * Get the value of the specified property.
+     * If the "get" method returns null, use the getProperty method,
+     * which might cascade to a default Properties object.
+     */
+    private static Object getProp(Properties props, String name) {
+		Object val = props.get(name);
+		if (val != null)
+		    return val;
+		else
+		    return props.getProperty(name);
+    }
+
+    /**
+     * Interpret the value object as a boolean,
+     * returning def if unable.
+     */
+    private static boolean getBoolean(Object value, boolean def) {
+		if (value == null)
+		    return def;
+		if (value instanceof String) {
+		    /*
+		     * If the default is true, only "false" turns it off.
+		     * If the default is false, only "true" turns it on.
+		     */
+		    if (def)
+			return !((String)value).equalsIgnoreCase("false");
+		    else
+			return ((String)value).equalsIgnoreCase("true");
+		}
+		if (value instanceof Boolean)
+		    return ((Boolean)value).booleanValue();
+		return def;
     }
 }
 

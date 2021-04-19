@@ -16,11 +16,10 @@
 
 package com.sun.mail.stream;
 
-import jakarta.mail.util.PropUtil;
-
 import java.io.*;
 
 import com.sun.mail.util.DecodingException;
+import com.sun.mail.util.PropUtil;
 
 /**
  * This class implements a UUDecoder. It is implemented as

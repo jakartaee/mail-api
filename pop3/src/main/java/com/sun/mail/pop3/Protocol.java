@@ -16,9 +16,6 @@
 
 package com.sun.mail.pop3;
 
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -53,6 +50,8 @@ import com.sun.mail.stream.BASE64EncoderStream;
 import com.sun.mail.stream.LineInputStream;
 import com.sun.mail.stream.SharedByteArrayOutputStream;
 import com.sun.mail.util.ASCIIUtility;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.SocketFetcher;
 import com.sun.mail.util.TraceInputStream;
 import com.sun.mail.util.TraceOutputStream;

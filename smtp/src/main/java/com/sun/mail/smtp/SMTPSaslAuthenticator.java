@@ -17,7 +17,6 @@
 package com.sun.mail.smtp;
 
 import jakarta.mail.MessagingException;
-import jakarta.mail.util.MailLogger;
 
 import java.util.Base64;
 import java.util.Map;
@@ -35,6 +34,7 @@ import javax.security.sasl.SaslClient;
 import javax.security.sasl.SaslException;
 
 import com.sun.mail.util.ASCIIUtility;
+import com.sun.mail.util.MailLogger;
 
 /**
  * This class contains a single method that does authentication using

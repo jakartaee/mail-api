@@ -32,8 +32,6 @@ import jakarta.mail.internet.MimeMultipart;
 import jakarta.mail.internet.MimePart;
 import jakarta.mail.internet.ParseException;
 import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -66,6 +64,8 @@ import com.sun.mail.stream.BASE64EncoderStream;
 import com.sun.mail.stream.LineInputStream;
 import com.sun.mail.util.ASCIIUtility;
 import com.sun.mail.util.MailConnectException;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.SocketConnectException;
 import com.sun.mail.util.SocketFetcher;
 import com.sun.mail.util.TraceInputStream;

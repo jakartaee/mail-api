@@ -22,10 +22,12 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+
+
 import java.util.Locale;
 import java.nio.charset.StandardCharsets;
 import jakarta.mail.*;
-import jakarta.mail.util.PropUtil;
 
 /**
  * This class represents an Internet email address using the syntax
@@ -59,15 +61,15 @@ public class InternetAddress extends Address implements Cloneable {
     private static final long serialVersionUID = -7507595530758302903L;
 
     private static final boolean ignoreBogusGroupName =
-	PropUtil.getBooleanSystemProperty(
+	MimeUtility.getBooleanSystemProperty(
 			    "mail.mime.address.ignorebogusgroupname", true);
 
     private static final boolean useCanonicalHostName =
-	PropUtil.getBooleanSystemProperty(
+	MimeUtility.getBooleanSystemProperty(
 			    "mail.mime.address.usecanonicalhostname", true);
 
     private static final boolean allowUtf8 =
-	PropUtil.getBooleanSystemProperty("mail.mime.allowutf8", false);
+	MimeUtility.getBooleanSystemProperty("mail.mime.allowutf8", false);
 
     /**
      * Default constructor.

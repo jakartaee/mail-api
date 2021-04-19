@@ -16,9 +16,6 @@
 
 package com.sun.mail.util;
 
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

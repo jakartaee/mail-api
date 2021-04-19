@@ -80,7 +80,7 @@ public class PreencodedMimeBodyPart extends MimeBodyPart {
 	if (os instanceof LineOutputStream) {
 	    los = (LineOutputStream) os;
 	} else {
-	    los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, null);
+	    los = Session.STREAM_PROVIDER.outputLineStream(os, false);
 	}
 
 	// First, write out the header

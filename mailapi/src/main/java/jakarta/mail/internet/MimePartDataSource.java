@@ -16,12 +16,19 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.*;
-import jakarta.mail.util.FolderClosedIOException;
-import jakarta.mail.util.PropUtil;
-import jakarta.activation.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.UnknownServiceException;
+
+import jakarta.activation.DataSource;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.MessageAware;
+import jakarta.mail.MessageContext;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MessagingIOException;
+
+
 
 /**
  * A utility class that implements a DataSource out of
@@ -86,7 +93,7 @@ public class MimePartDataSource implements DataSource, MessageAware {
 	    else
 		return is;
 	} catch (FolderClosedException fex) {
-	    throw new FolderClosedIOException(fex.getFolder(),
+	    throw new MessagingIOException(fex.getFolder(),
 						fex.getMessage());
 	} catch (MessagingException mex) {
 	    IOException ioex = new IOException(mex.getMessage());

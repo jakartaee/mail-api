@@ -16,26 +16,6 @@
 
 package jakarta.mail.internet;
 
-import jakarta.activation.DataHandler;
-import jakarta.mail.Address;
-import jakarta.mail.Flags;
-import jakarta.mail.Folder;
-import jakarta.mail.FolderClosedException;
-import jakarta.mail.Header;
-import jakarta.mail.IllegalWriteException;
-import jakarta.mail.Message;
-import jakarta.mail.MessageRemovedException;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Multipart;
-import jakarta.mail.Session;
-import jakarta.mail.internet.MimeUtility;
-import jakarta.mail.stream.LineOutputStream;
-import jakarta.mail.stream.SharedInputStream;
-import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.util.FolderClosedIOException;
-import jakarta.mail.util.MessageRemovedIOException;
-import jakarta.mail.util.PropUtil;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -48,10 +28,26 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
+
+import jakarta.activation.DataHandler;
+import jakarta.mail.Address;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MessagingIOException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.stream.LineOutputStream;
+import jakarta.mail.stream.SharedInputStream;
+
+
 
 /**
  * This class represents a MIME style email message. It implements
@@ -250,9 +246,7 @@ public class MimeMessage extends Message implements MimePart {
 	    strict = source.strict;
 	    source.writeTo(bos);
 	    bos.close();
-	    Map<String, Object> parameters = new HashMap<>();
-	    parameters.put("bytes", bos.toByteArray());
-	    InputStream bis = Session.getStreamProvider(StreamProvider.SHARED_STREAM).from((InputStream) null, parameters);
+	    InputStream bis = Session.STREAM_PROVIDER.inputSharedByteArray(bos.toByteArray());
 	    parse(bis);
 	    bis.close();
 	    saved = true;
@@ -325,10 +319,8 @@ public class MimeMessage extends Message implements MimePart {
     private void initStrict() {
 	if (session != null) {
 	    Properties props = session.getProperties();
-	    strict = PropUtil.getBooleanProperty(props,
-				    "mail.mime.address.strict", true);
-	    allowutf8 = PropUtil.getBooleanProperty(props,
-				    "mail.mime.allowutf8", false);
+	    strict = MimeUtility.getBooleanProperty(props, "mail.mime.address.strict", true);
+	    allowutf8 = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", false);
 	}
     }
 
@@ -1414,9 +1406,7 @@ public class MimeMessage extends Message implements MimePart {
 	if (contentStream != null)
 	    return ((SharedInputStream)contentStream).newStream(0, -1);
 	if (content != null) {
-	    Map<String, Object> parameters = new HashMap<>();
-        parameters.put("bytes", content);
-        return Session.getStreamProvider(StreamProvider.SHARED_STREAM).from((InputStream) null, parameters);
+        return Session.STREAM_PROVIDER.inputSharedByteArray(content);
 	}
 	throw new MessagingException("No MimeMessage content");
     }
@@ -1508,10 +1498,12 @@ public class MimeMessage extends Message implements MimePart {
 	Object c;
 	try {
 	    c = getDataHandler().getContent();
-	} catch (FolderClosedIOException fex) {
-	    throw new FolderClosedException(fex.getFolder(), fex.getMessage());
-	} catch (MessageRemovedIOException mex) {
-	    throw new MessageRemovedException(mex.getMessage());
+	} catch (MessagingIOException e) {
+		if (e.getFolder() != null) {
+			throw new FolderClosedException(e.getFolder(), e.getMessage());
+		} else {
+			throw new MessageRemovedException(e.getMessage());
+		}
 	}
 	if (MimeBodyPart.cacheMultipart &&
 		(c instanceof Multipart || c instanceof Message) &&
@@ -1753,7 +1745,7 @@ public class MimeMessage extends Message implements MimePart {
 	    // should we Cc all other original recipients?
 	    boolean replyallcc = false;
 	    if (session != null)
-		replyallcc = PropUtil.getBooleanProperty(
+		replyallcc = MimeUtility.getBooleanProperty(
 						session.getProperties(),
 						"mail.replyallcc", false);
 	    // add the recipients from the To field so far
@@ -1918,9 +1910,7 @@ public class MimeMessage extends Message implements MimePart {
 	// Else, the content is untouched, so we can just output it
 	// First, write out the header
 	Enumeration<String> hdrLines = getNonMatchingHeaderLines(ignoreList);
-	Map<String, Object> params = new HashMap<>();
-    params.put("allowutf8", allowutf8);
-	LineOutputStream los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, params);
+    LineOutputStream los = Session.STREAM_PROVIDER.outputLineStream(os, allowutf8);
 	while (hdrLines.hasMoreElements())
 	    los.writeln(hdrLines.nextElement());
 

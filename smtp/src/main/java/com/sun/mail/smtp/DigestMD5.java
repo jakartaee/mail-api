@@ -16,8 +16,6 @@
 
 package com.sun.mail.smtp;
 
-import jakarta.mail.util.MailLogger;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,6 +34,7 @@ import java.util.logging.Level;
 import com.sun.mail.stream.BASE64DecoderStream;
 import com.sun.mail.stream.BASE64EncoderStream;
 import com.sun.mail.util.ASCIIUtility;
+import com.sun.mail.util.MailLogger;
 
 /**
  * DIGEST-MD5 authentication support.

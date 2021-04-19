@@ -16,22 +16,21 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.util.MailLogger;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
-import java.util.Date;
+import java.text.DateFormatSymbols;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
-import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
-import java.text.NumberFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
-import java.text.ParseException;
+import java.util.logging.Logger;
 
 /**
  * Formats and parses date specification based on
@@ -127,8 +126,7 @@ public class MailDateFormat extends SimpleDateFormat {
     private static final long serialVersionUID = -8148227605210628779L;
     private static final String PATTERN = "EEE, d MMM yyyy HH:mm:ss Z (z)";
 
-    private static final MailLogger LOGGER = new MailLogger(
-            MailDateFormat.class, "DEBUG", false, System.out);
+    private static final Logger LOGGER = Logger.getLogger(MailDateFormat.class.getName());
 
     private static final int UNKNOWN_DAY_NAME = -1;
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");

@@ -30,13 +30,14 @@ import java.util.logging.Level;
 
 import jakarta.mail.*;
 import jakarta.mail.event.*;
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
 
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.protocol.*;
 import com.sun.mail.util.SocketConnectException;
 import com.sun.mail.util.MailConnectException;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 

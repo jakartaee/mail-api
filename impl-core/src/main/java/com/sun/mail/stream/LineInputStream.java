@@ -16,8 +16,6 @@
 
 package com.sun.mail.stream;
 
-import jakarta.mail.util.PropUtil;
-
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +25,8 @@ import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
+
+import com.sun.mail.util.PropUtil;
 
 /**
  * LineInputStream supports reading CRLF terminated lines that

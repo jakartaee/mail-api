@@ -22,9 +22,8 @@ import java.nio.charset.StandardCharsets;
 
 import com.sun.mail.iap.*;
 import com.sun.mail.imap.protocol.*;
+import com.sun.mail.util.MailLogger;
 import com.sun.mail.gimap.GmailFolder.FetchProfileItem;
-
-import jakarta.mail.util.MailLogger;
 
 /**
  * Extend IMAP support to handle Gmail-specific protocol extensions.

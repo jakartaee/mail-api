@@ -17,7 +17,6 @@
 package jakarta.mail.internet;
 
 import jakarta.mail.internet.MimeUtility;
-import jakarta.mail.util.PropUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -129,20 +128,20 @@ public class ParameterList {
     private String lastName = null;
 
     private static final boolean encodeParameters =
-	PropUtil.getBooleanSystemProperty("mail.mime.encodeparameters", true);
+	MimeUtility.getBooleanSystemProperty("mail.mime.encodeparameters", true);
     private static final boolean decodeParameters =
-	PropUtil.getBooleanSystemProperty("mail.mime.decodeparameters", true);
+	MimeUtility.getBooleanSystemProperty("mail.mime.decodeparameters", true);
     private static final boolean decodeParametersStrict =
-	PropUtil.getBooleanSystemProperty(
+	MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.decodeparameters.strict", false);
     private static final boolean applehack =
-	PropUtil.getBooleanSystemProperty("mail.mime.applefilenames", false);
+	MimeUtility.getBooleanSystemProperty("mail.mime.applefilenames", false);
     private static final boolean windowshack =
-	PropUtil.getBooleanSystemProperty("mail.mime.windowsfilenames", false);
+	MimeUtility.getBooleanSystemProperty("mail.mime.windowsfilenames", false);
     private static final boolean parametersStrict = 
-	PropUtil.getBooleanSystemProperty("mail.mime.parameters.strict", true);
+	MimeUtility.getBooleanSystemProperty("mail.mime.parameters.strict", true);
     private static final boolean splitLongParameters = 
-	PropUtil.getBooleanSystemProperty(
+	MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.splitlongparameters", true);
 
 

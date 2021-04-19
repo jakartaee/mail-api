@@ -20,9 +20,10 @@ import java.io.PrintStream;
 import java.util.*;
 import java.util.logging.Level;
 
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+
 import jakarta.mail.*;
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
 
 /**
  * A cache of IMAPMessage objects along with the

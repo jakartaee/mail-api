@@ -18,7 +18,6 @@ package jakarta.mail.stream;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Map;
 
 public interface StreamProvider {
 
@@ -34,11 +33,52 @@ public interface StreamProvider {
     public static final String X_UUE = "x-uue";
     public static final String LINE_STREAM = "line";
     public static final String SHARED_STREAM = "shared";
-    
-    String[] keys();
 
-    InputStream from(InputStream in, Map<String, Object> parameters);
+    // BASE_64_ENCODER
+    InputStream inputBase64(InputStream in);
 
-    OutputStream from(OutputStream out, Map<String, Object> parameters);
+    // BASE_64_ENCODER
+    OutputStream outputBase64(OutputStream out);
 
+    // BINARY_ENCODER, BIT7_ENCODER, BIT8_ENCODER
+    InputStream inputBinary(InputStream in);
+
+    // BINARY_ENCODER, BIT7_ENCODER, BIT8_ENCODER
+    OutputStream outputBinary(OutputStream out);
+
+    // B_ENCODER
+	InputStream inputB(InputStream in);
+
+	// B_ENCODER
+	OutputStream outputB(OutputStream out);
+
+    // Q_ENCODER
+	InputStream inputQ(InputStream in);
+
+	// Q_ENCODER
+	OutputStream outputQ(OutputStream out, boolean encodingWord);
+
+    // LINE_STREAM
+	LineInputStream inputLineStream(InputStream in, boolean allowutf8);
+
+	// LINE_STREAM
+	LineOutputStream outputLineStream(OutputStream out, boolean allowutf8);
+
+    // QUOTED_PRINTABLE_ENCODER
+	InputStream inputQP(InputStream in);
+
+	// QUOTED_PRINTABLE_ENCODER
+	OutputStream outputQP(OutputStream out);
+
+    // SHARED_STREAM
+	InputStream inputSharedByteArray(byte[] bytes);
+
+	// SHARED_STREAM
+	OutputStream outputSharedByteArray(int size);
+
+    // UU_ENCODER, X_UU_ENCODER, X_UUE
+	InputStream inputUU(InputStream in);
+
+	// UU_ENCODER, X_UU_ENCODER, X_UUE
+	OutputStream outputUU(OutputStream out, String filename);
 }

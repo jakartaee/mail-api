@@ -27,9 +27,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executor;
 
 import jakarta.mail.*;
-import jakarta.mail.util.MailLogger;
 
 import com.sun.mail.imap.protocol.IMAPProtocol;
+import com.sun.mail.util.MailLogger;
 
 /**
  * IdleManager uses the optional IMAP IDLE command

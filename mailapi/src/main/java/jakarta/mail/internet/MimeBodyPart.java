@@ -16,28 +16,6 @@
 
 package jakarta.mail.internet;
 
-import jakarta.activation.DataHandler;
-import jakarta.activation.DataSource;
-import jakarta.activation.FileDataSource;
-import jakarta.mail.BodyPart;
-import jakarta.mail.EncodingAware;
-import jakarta.mail.FolderClosedException;
-import jakarta.mail.Header;
-import jakarta.mail.IllegalWriteException;
-import jakarta.mail.Message;
-import jakarta.mail.MessageRemovedException;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Multipart;
-import jakarta.mail.Part;
-import jakarta.mail.Session;
-import jakarta.mail.internet.MimeUtility;
-import jakarta.mail.stream.LineOutputStream;
-import jakarta.mail.stream.SharedInputStream;
-import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.util.FolderClosedIOException;
-import jakarta.mail.util.MessageRemovedIOException;
-import jakarta.mail.util.PropUtil;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -52,6 +30,27 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
+import jakarta.mail.BodyPart;
+import jakarta.mail.EncodingAware;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MessagingIOException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Part;
+import jakarta.mail.Session;
+import jakarta.mail.stream.LineOutputStream;
+import jakarta.mail.stream.SharedInputStream;
+import jakarta.mail.stream.StreamProvider;
+
+
 
 /**
  * This class represents a MIME body part. It implements the 
@@ -90,27 +89,27 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     // Paranoia:
     // allow this last minute change to be disabled if it causes problems
     private static final boolean setDefaultTextCharset =
-	PropUtil.getBooleanSystemProperty(
+	MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.setdefaulttextcharset", true);
 
     private static final boolean setContentTypeFileName =
-	PropUtil.getBooleanSystemProperty(
+	MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.setcontenttypefilename", true);
 
     private static final boolean encodeFileName =
-	PropUtil.getBooleanSystemProperty("mail.mime.encodefilename", false);
+	MimeUtility.getBooleanSystemProperty("mail.mime.encodefilename", false);
     private static final boolean decodeFileName =
-	PropUtil.getBooleanSystemProperty("mail.mime.decodefilename", false);
+	MimeUtility.getBooleanSystemProperty("mail.mime.decodefilename", false);
     private static final boolean ignoreMultipartEncoding =
-	PropUtil.getBooleanSystemProperty(
+	MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.ignoremultipartencoding", true);
     private static final boolean allowutf8 =
-	PropUtil.getBooleanSystemProperty("mail.mime.allowutf8", true);
+	MimeUtility.getBooleanSystemProperty("mail.mime.allowutf8", true);
 
     // Paranoia:
     // allow this last minute change to be disabled if it causes problems
     static final boolean cacheMultipart = 	// accessed by MimeMessage
-	PropUtil.getBooleanSystemProperty("mail.mime.cachemultipart", true);
+	MimeUtility.getBooleanSystemProperty("mail.mime.cachemultipart", true);
 
 
     /**
@@ -683,10 +682,12 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	Object c;
 	try {
 	    c = getDataHandler().getContent();
-	} catch (FolderClosedIOException fex) {
-	    throw new FolderClosedException(fex.getFolder(), fex.getMessage());
-	} catch (MessageRemovedIOException mex) {
-	    throw new MessageRemovedException(mex.getMessage());
+	} catch (MessagingIOException e) {
+		if (e.getFolder() != null) {
+			throw new FolderClosedException(e.getFolder(), e.getMessage());
+		} else {
+			throw new MessageRemovedException(e.getMessage());
+		}
 	}
 	if (cacheMultipart &&
 		(c instanceof Multipart || c instanceof Message) &&
@@ -1490,7 +1491,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	    if (cType.match("multipart/*"))
 		return null;
 	    if (cType.match("message/*") &&
-		    !PropUtil.getBooleanSystemProperty(
+		    !MimeUtility.getBooleanSystemProperty(
 			"mail.mime.allowencodedmessages", false))
 		return null;
 	} catch (ParseException pex) {
@@ -1656,7 +1657,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	} else {
 	    Map<String, Object> params = new HashMap<>();
 	    params.put("allowutf8", allowutf8);
-	    los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, params);
+	    los = Session.STREAM_PROVIDER.outputLineStream(os, allowutf8);
 	}
 
 	// First, write out the header

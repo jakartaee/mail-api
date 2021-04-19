@@ -24,8 +24,6 @@ import java.lang.reflect.*;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
 
 import java.io.File;
 import java.io.PrintStream;
@@ -36,6 +34,8 @@ import java.util.Map;
 
 import com.sun.mail.util.SocketConnectException;
 import com.sun.mail.util.MailConnectException;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
 
 /**
  * A POP3 Message Store.  Contains only one folder, "INBOX".

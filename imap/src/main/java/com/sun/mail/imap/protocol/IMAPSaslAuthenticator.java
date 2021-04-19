@@ -16,9 +16,6 @@
 
 package com.sun.mail.imap.protocol;
 
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
-
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -42,6 +39,8 @@ import com.sun.mail.iap.Argument;
 import com.sun.mail.iap.ProtocolException;
 import com.sun.mail.iap.Response;
 import com.sun.mail.util.ASCIIUtility;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
 
 /**
  * This class contains a single method that does authentication using

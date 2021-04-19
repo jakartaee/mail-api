@@ -20,8 +20,6 @@
 
 package com.sun.mail.auth;
 
-import jakarta.mail.util.MailLogger;
-
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
@@ -38,6 +36,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import com.sun.mail.util.MailLogger;
 
 
 /**

@@ -26,7 +26,6 @@ import jakarta.mail.internet.ContentType;
 import jakarta.mail.internet.InternetHeaders;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeUtility;
-import jakarta.mail.util.PropUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -42,6 +41,7 @@ import com.sun.mail.imap.protocol.BODYSTRUCTURE;
 import com.sun.mail.imap.protocol.IMAPProtocol;
 import com.sun.mail.stream.LineOutputStream;
 import com.sun.mail.stream.SharedByteArrayOutputStream;
+import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.ReadableMime;
 
 /**

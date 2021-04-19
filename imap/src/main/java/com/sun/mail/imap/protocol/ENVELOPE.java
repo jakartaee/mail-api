@@ -25,9 +25,9 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.MailDateFormat;
 import jakarta.mail.internet.MimeUtility;
-import jakarta.mail.util.PropUtil;
 
 import com.sun.mail.iap.*;
+import com.sun.mail.util.PropUtil;
 
 /**
  * The ENEVELOPE item of an IMAP FETCH response.

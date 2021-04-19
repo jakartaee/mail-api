@@ -18,7 +18,7 @@ package jakarta.mail.util;
 
 import java.util.Properties;
 import jakarta.mail.Session;
-import jakarta.mail.util.PropUtil;
+import com.sun.mail.util.PropUtil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

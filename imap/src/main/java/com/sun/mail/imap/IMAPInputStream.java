@@ -16,13 +16,20 @@
 
 package com.sun.mail.imap;
 
-import java.io.*;
-import jakarta.mail.*;
-import jakarta.mail.util.FolderClosedIOException;
-import jakarta.mail.util.MessageRemovedIOException;
+import java.io.IOException;
+import java.io.InputStream;
 
-import com.sun.mail.imap.protocol.*;
-import com.sun.mail.iap.*;
+import com.sun.mail.iap.ByteArray;
+import com.sun.mail.iap.ConnectionException;
+import com.sun.mail.iap.ProtocolException;
+import com.sun.mail.imap.protocol.BODY;
+import com.sun.mail.imap.protocol.IMAPProtocol;
+
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MessagingIOException;
 
 /**
  * This class implements an IMAP data stream.
@@ -72,23 +79,22 @@ public class IMAPInputStream extends InputStream {
      * Do a NOOP to force any untagged EXPUNGE responses
      * and then check if this message is expunged.
      */
-    private void forceCheckExpunged()
-		    throws MessageRemovedIOException, FolderClosedIOException {
+    private void forceCheckExpunged() throws MessagingIOException {
 	synchronized (msg.getMessageCacheLock()) {
 	    try {
 		msg.getProtocol().noop();
 	    } catch (ConnectionException cex) {
-		throw new FolderClosedIOException(msg.getFolder(),
+		throw new MessagingIOException(msg.getFolder(),
 						cex.getMessage());
 	    } catch (FolderClosedException fex) {
-		throw new FolderClosedIOException(fex.getFolder(),
+		throw new MessagingIOException(fex.getFolder(),
 						fex.getMessage());
 	    } catch (ProtocolException pex) {
 		// ignore it
 	    }
 	}
 	if (msg.isExpunged())
-	    throw new MessageRemovedIOException();
+	    throw new MessagingIOException();
     }
 
     /**
@@ -121,7 +127,7 @@ public class IMAPInputStream extends InputStream {
 
 		// Check whether this message is expunged
 		if (msg.isExpunged())
-		    throw new MessageRemovedIOException(
+		    throw new MessagingIOException(
 				"No content for expunged message");
 
 		int seqnum = msg.getSequenceNumber();
@@ -136,7 +142,7 @@ public class IMAPInputStream extends InputStream {
 		forceCheckExpunged();
 		throw new IOException(pex.getMessage());
 	    } catch (FolderClosedException fex) {
-		throw new FolderClosedIOException(fex.getFolder(),
+		throw new MessagingIOException(fex.getFolder(),
 						fex.getMessage());
 	    }
 

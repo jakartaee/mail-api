@@ -23,8 +23,6 @@ import jakarta.mail.UIDFolder;
 import jakarta.mail.internet.MimeUtility;
 import jakarta.mail.search.SearchException;
 import jakarta.mail.search.SearchTerm;
-import jakarta.mail.util.MailLogger;
-import jakarta.mail.util.PropUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,6 +65,8 @@ import com.sun.mail.imap.SortTerm;
 import com.sun.mail.imap.Utility;
 import com.sun.mail.stream.BASE64EncoderStream;
 import com.sun.mail.util.ASCIIUtility;
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
 
 /**
  * This class extends the iap.Protocol object and implements IMAP

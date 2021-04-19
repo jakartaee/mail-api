@@ -19,9 +19,9 @@ package com.sun.mail.imap.protocol;
 import java.util.List;
 import java.util.ArrayList;
 import jakarta.mail.internet.ParameterList;
-import jakarta.mail.util.PropUtil;
 
 import com.sun.mail.iap.*;
+import com.sun.mail.util.PropUtil;
 
 /**
  * A BODYSTRUCTURE response.

@@ -48,12 +48,5 @@ module com.sun.mail {
             com.sun.mail.pop3.POP3SSLProvider;
     uses jakarta.mail.stream.StreamProvider;
     provides jakarta.mail.stream.StreamProvider with
-        com.sun.mail.stream.Base64Stream,
-        com.sun.mail.stream.BStream,
-        com.sun.mail.stream.QPStream,
-        com.sun.mail.stream.UUStream,
-        com.sun.mail.stream.BinaryStream,
-        com.sun.mail.stream.QStream,
-        com.sun.mail.stream.LineStream,
-        com.sun.mail.stream.SharedByteArrayStream;
+        com.sun.mail.stream.MailStreamProvider;
 }

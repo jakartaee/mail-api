@@ -16,15 +16,12 @@
 
 package jakarta.mail;
 
-import java.lang.*;
-
 /**
  * The base class for all exceptions thrown by the Messaging classes
  *
  * @author John Mani
  * @author Bill Shannon
  */
-
 public class MessagingException extends Exception {
 
     /**

@@ -30,7 +30,6 @@ import jakarta.mail.stream.LineInputStream;
 import jakarta.mail.stream.LineOutputStream;
 import jakarta.mail.stream.SharedInputStream;
 import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.util.PropUtil;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -39,6 +38,8 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+
 
 /**
  * The MimeMultipart class is an implementation of the abstract Multipart
@@ -289,16 +290,16 @@ public class MimeMultipart extends Multipart {
 	// read properties that control parsing
 
 	// default to true
-	ignoreMissingEndBoundary = PropUtil.getBooleanSystemProperty(
+	ignoreMissingEndBoundary = MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.multipart.ignoremissingendboundary", true);
 	// default to true
-	ignoreMissingBoundaryParameter = PropUtil.getBooleanSystemProperty(
+	ignoreMissingBoundaryParameter = MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.multipart.ignoremissingboundaryparameter", true);
 	// default to false
-	ignoreExistingBoundaryParameter = PropUtil.getBooleanSystemProperty(
+	ignoreExistingBoundaryParameter = MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.multipart.ignoreexistingboundaryparameter", false);
 	// default to false
-	allowEmpty = PropUtil.getBooleanSystemProperty(
+	allowEmpty = MimeUtility.getBooleanSystemProperty(
 	    "mail.mime.multipart.allowempty", false);
     }
 
@@ -524,7 +525,7 @@ public class MimeMultipart extends Multipart {
 	
 	String boundary = "--" + 
 		(new ContentType(contentType)).getParameter("boundary");
-    LineOutputStream los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, null);
+    LineOutputStream los = Session.STREAM_PROVIDER.outputLineStream(os, false);
 	// if there's a preamble, write it out
 	if (preamble != null) {
 	    byte[] pb = MimeUtility.getBytes(preamble);
@@ -605,7 +606,7 @@ public class MimeMultipart extends Multipart {
 
 	try {
 	    // Skip and save the preamble
-	    LineInputStream lin = (LineInputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(in, null);
+		LineInputStream lin = Session.STREAM_PROVIDER.inputLineStream(in, false);
 	    StringBuilder preamblesb = null;
 	    String line;
 	    while ((line = lin.readLine()) != null) {

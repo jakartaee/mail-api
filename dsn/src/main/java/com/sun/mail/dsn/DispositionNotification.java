@@ -19,13 +19,14 @@ package com.sun.mail.dsn;
 import java.io.*;
 import java.util.*;
 
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
 import jakarta.mail.stream.LineOutputStream;	// XXX
 import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.util.PropUtil;
-import jakarta.mail.util.MailLogger;
 
 /**
  * A message/disposition-notification message content, as defined in
@@ -113,7 +114,7 @@ public class DispositionNotification extends Report {
 	if (os instanceof LineOutputStream) {
 	    los = (LineOutputStream) os;
 	} else {
-	    los = (LineOutputStream) Session.getStreamProvider(StreamProvider.LINE_STREAM).from(os, null);
+	    los = Session.STREAM_PROVIDER.outputLineStream(os, false);
 	}
 
 	writeInternetHeaders(notifications, los);

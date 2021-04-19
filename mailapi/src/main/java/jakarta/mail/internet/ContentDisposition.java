@@ -17,9 +17,9 @@
 package jakarta.mail.internet;
 
 import jakarta.mail.*;
-import jakarta.mail.util.PropUtil;
 
 import java.util.*;
+
 import java.io.*;
 
 /**
@@ -33,7 +33,7 @@ import java.io.*;
 public class ContentDisposition {
 
     private static final boolean contentDispositionStrict =
-        PropUtil.getBooleanSystemProperty("mail.mime.contentdisposition.strict", true);
+        MimeUtility.getBooleanSystemProperty("mail.mime.contentdisposition.strict", true);
 
     private String disposition; // disposition
     private ParameterList list;	// parameter list
