@@ -33,6 +33,12 @@ public class image_gif extends handler_base {
 	new ActivationDataFlavor(Image.class, "image/gif", "GIF Image")
     };
 
+    /**
+     * Creates a default {@code image_gif}.
+     */
+    public image_gif() {
+    }
+
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {
 	return myDF;

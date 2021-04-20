@@ -25,6 +25,13 @@ package jakarta.mail.event;
  * @author John Mani
  */
 public abstract class MessageCountAdapter implements MessageCountListener {
+
+    /**
+     * Creates a default {@code MessageCountAdapter}.
+     */
+    public MessageCountAdapter() {
+    }
+
     @Override
     public void messagesAdded(MessageCountEvent e) {}
     @Override

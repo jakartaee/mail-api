@@ -46,6 +46,12 @@ public class text_xml extends text_plain {
 	new ActivationDataFlavor(StreamSource.class, "application/xml", "XML")
     };
 
+    /**
+     * Creates a default {@code text_xml}.
+     */
+    public text_xml() {
+    }
+
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {
 	return flavors;

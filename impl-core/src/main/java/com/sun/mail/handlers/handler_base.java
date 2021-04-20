@@ -28,6 +28,12 @@ import java.io.IOException;
 public abstract class handler_base implements DataContentHandler {
 
     /**
+     * Creates a default {@code handler_base}.
+     */
+    public handler_base() {
+    }
+
+    /**
      * Return an array of ActivationDataFlavors that we support.
      * Usually there will be only one.
      *
@@ -73,7 +79,7 @@ public abstract class handler_base implements DataContentHandler {
      * @exception	IOException	for errors reading the data
      */
     @Override
-    public Object getTransferData(ActivationDataFlavor df, DataSource ds) 
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
 			throws IOException {
 	ActivationDataFlavor[] adf = getDataFlavors();
 	for (int i = 0; i < adf.length; i++) {

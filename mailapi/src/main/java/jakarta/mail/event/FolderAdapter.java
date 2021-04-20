@@ -25,6 +25,13 @@ package jakarta.mail.event;
  * @author John Mani
  */
 public abstract class FolderAdapter implements FolderListener {
+
+    /**
+     * Creates a default {@code FolderAdapter}.
+     */
+    public FolderAdapter() {
+    }
+
     @Override
     public void folderCreated(FolderEvent e) {}
     @Override

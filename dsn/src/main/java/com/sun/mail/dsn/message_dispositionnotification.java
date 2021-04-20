@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,10 +17,10 @@
 package com.sun.mail.dsn;
 
 import java.io.*;
-import java.util.Properties;
+//import java.util.Properties;
 import jakarta.activation.*;
 import jakarta.mail.*;
-import jakarta.mail.internet.*;
+//import jakarta.mail.internet.*;
 
 
 /**
@@ -34,8 +34,14 @@ public class message_dispositionnotification implements DataContentHandler {
 
     ActivationDataFlavor ourDataFlavor = new ActivationDataFlavor(
 	DispositionNotification.class,
-	"message/disposition-notification", 
+	"message/disposition-notification",
 	"Disposition Notification");
+
+    /**
+     * Creates a default {@code message_dispositionnotification}.
+     */
+    public message_dispositionnotification() {
+    }
 
     /**
      * return the ActivationDataFlavors for this <code>DataContentHandler</code>
@@ -59,7 +65,7 @@ public class message_dispositionnotification implements DataContentHandler {
 	else
 	    return null;
     }
-    
+
     /**
      * Return the content.
      */
@@ -89,10 +95,10 @@ public class message_dispositionnotification implements DataContentHandler {
 		    me.toString());
 	}
     }
-    
+
     /**
      */
-    public void writeTo(Object obj, String mimeType, OutputStream os) 
+    public void writeTo(Object obj, String mimeType, OutputStream os)
 			throws IOException {
 	// if it's a DispositionNotification, we know how to write that out
 	if (obj instanceof DispositionNotification) {

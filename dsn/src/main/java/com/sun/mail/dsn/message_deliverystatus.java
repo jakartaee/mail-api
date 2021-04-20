@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,10 +17,10 @@
 package com.sun.mail.dsn;
 
 import java.io.*;
-import java.util.Properties;
+//import java.util.Properties;
 import jakarta.activation.*;
 import jakarta.mail.*;
-import jakarta.mail.internet.*;
+//import jakarta.mail.internet.*;
 
 
 /**
@@ -34,8 +34,14 @@ public class message_deliverystatus implements DataContentHandler {
 
     ActivationDataFlavor ourDataFlavor = new ActivationDataFlavor(
 	DeliveryStatus.class,
-	"message/delivery-status", 
+	"message/delivery-status",
 	"Delivery Status");
+
+    /**
+     * Creates a default {@code message_deliverystatus}.
+     */
+    public message_deliverystatus() {
+    }
 
     /**
      * return the ActivationDataFlavors for this <code>DataContentHandler</code>
@@ -59,7 +65,7 @@ public class message_deliverystatus implements DataContentHandler {
 	else
 	    return null;
     }
-    
+
     /**
      * Return the content.
      */
@@ -88,16 +94,16 @@ public class message_deliverystatus implements DataContentHandler {
 		    me.toString());
 	}
     }
-    
+
     /**
      */
-    public void writeTo(Object obj, String mimeType, OutputStream os) 
+    public void writeTo(Object obj, String mimeType, OutputStream os)
 			throws IOException {
 	// if the object is a DeliveryStatus, we know how to write that out
 	if (obj instanceof DeliveryStatus) {
 	    DeliveryStatus ds = (DeliveryStatus)obj;
 	    ds.writeTo(os);
-	    
+
 	} else {
 	    throw new IOException("unsupported object");
 	}

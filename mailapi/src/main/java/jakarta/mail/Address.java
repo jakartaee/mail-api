@@ -34,6 +34,12 @@ public abstract class Address implements Serializable {
     private static final long serialVersionUID = -5822459626751992278L;
 
     /**
+     * Creates a default {@code Address}.
+     */
+    public Address() {
+    }
+
+    /**
      * Return a type string that identifies this address type.
      *
      * @return	address type

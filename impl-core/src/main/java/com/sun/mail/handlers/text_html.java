@@ -27,6 +27,12 @@ public class text_html extends text_plain {
 	new ActivationDataFlavor(String.class, "text/html", "HTML String")
     };
 
+    /**
+     * Creates a default {@code text_html}.
+     */
+    public text_html() {
+    }
+
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {
 	return myDF;

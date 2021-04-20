@@ -37,6 +37,12 @@ public abstract class BodyPart implements Part {
     protected Multipart parent;
 
     /**
+     * Creates a default {@code BodyPart}.
+     */
+    public BodyPart() {
+    }
+
+    /**
      * Return the containing <code>Multipart</code> object,
      * or <code>null</code> if not known.
      *

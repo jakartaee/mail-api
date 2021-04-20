@@ -18,12 +18,35 @@ package jakarta.mail.stream;
 
 import java.io.IOException;
 
+/**
+ * This interface is to support writing out Strings as a sequence of bytes
+ * terminated by a CRLF sequence. The String must contain only US-ASCII
+ * characters.<p>
+ *
+ * The expected use is to write out RFC822 style headers to an output
+ * stream. <p>
+ *
+ */
 public interface LineOutputStream {
 
+	/**
+	 * Writes the input string and a new line (CRLF).
+	 * @param s the string to write before the new line.
+	 * @throws IOException  if an I/O error occurs.
+	 */
     void writeln(String s) throws IOException;
 
+    /**
+     * Writes a new line (CRLF).
+     * @throws IOException  if an I/O error occurs.
+     */
     void writeln() throws IOException;
 
+    /**
+     * Writes <code>b.length</code> bytes to this output stream.
+     * @param content the content to write.
+     * @throws IOException  if an I/O error occurs.
+     */
     void write(byte[] content) throws IOException;
 
 }

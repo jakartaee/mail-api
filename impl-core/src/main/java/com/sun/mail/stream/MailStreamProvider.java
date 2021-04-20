@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0, which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the
+ * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+ * version 2 with the GNU Classpath Exception, which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ */
+
 package com.sun.mail.stream;
 
 import java.io.InputStream;
@@ -5,6 +21,10 @@ import java.io.OutputStream;
 
 import jakarta.mail.stream.StreamProvider;
 
+/**
+ * Contains the required encoders/decoders and streams required by the API.
+ *
+ */
 public class MailStreamProvider implements StreamProvider {
 
 	@Override
@@ -25,11 +45,6 @@ public class MailStreamProvider implements StreamProvider {
 	@Override
 	public OutputStream outputBinary(OutputStream out) {
 		return out;
-	}
-
-	@Override
-	public InputStream inputB(InputStream in) {
-		throw new UnsupportedOperationException("Not supported");
 	}
 
 	@Override
@@ -70,11 +85,6 @@ public class MailStreamProvider implements StreamProvider {
 	@Override
 	public InputStream inputSharedByteArray(byte[] bytes) {
 		return new SharedByteArrayInputStream(bytes);
-	}
-
-	@Override
-	public OutputStream outputSharedByteArray(int size) {
-		return new SharedByteArrayOutputStream(size);
 	}
 
 	@Override

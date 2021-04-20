@@ -32,6 +32,12 @@ public class multipart_mixed extends handler_base {
 				    "multipart/mixed", "Multipart")
     };
 
+    /**
+     * Creates a default {@code multipart_mixed}.
+     */
+    public multipart_mixed() {
+    }
+
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {
 	return myDF;
@@ -43,7 +49,7 @@ public class multipart_mixed extends handler_base {
     @Override
     public Object getContent(DataSource ds) throws IOException {
 	try {
-	    return new MimeMultipart(ds); 
+	    return new MimeMultipart(ds);
 	} catch (MessagingException e) {
 	    IOException ioex =
 		new IOException("Exception while constructing MimeMultipart");
@@ -51,12 +57,12 @@ public class multipart_mixed extends handler_base {
 	    throw ioex;
 	}
     }
-    
+
     /**
      * Write the object to the output stream, using the specific MIME type.
      */
     @Override
-    public void writeTo(Object obj, String mimeType, OutputStream os) 
+    public void writeTo(Object obj, String mimeType, OutputStream os)
 			throws IOException {
 	if (!(obj instanceof Multipart))
 	    throw new IOException("\"" + getDataFlavors()[0].getMimeType() +

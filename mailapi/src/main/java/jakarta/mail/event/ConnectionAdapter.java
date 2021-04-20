@@ -25,6 +25,14 @@ package jakarta.mail.event;
  * @author John Mani
  */
 public abstract class ConnectionAdapter implements ConnectionListener {
+
+
+    /**
+     * Creates a default {@code ConnectionAdapter}.
+     */
+    public ConnectionAdapter() {
+    }
+
     @Override
     public void opened(ConnectionEvent e) {}
     @Override

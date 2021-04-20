@@ -45,9 +45,6 @@ import java.net.InetAddress;
  * @author  Bill Foote
  * @author  Bill Shannon
  */
-
-// There are no abstract methods, but to be useful the user must
-// subclass.
 public abstract class Authenticator {
 
     private InetAddress requestingSite;
@@ -55,6 +52,15 @@ public abstract class Authenticator {
     private String requestingProtocol;
     private String requestingPrompt;
     private String requestingUserName;
+
+    /**
+     * Creates a default {@code Authenticator}.
+     * There are no abstract methods, but to be useful the user must subclass.
+     *
+     * @see #getPasswordAuthentication()
+     */
+    public Authenticator() {
+    }
 
     /**
      * Ask the authenticator for a password.

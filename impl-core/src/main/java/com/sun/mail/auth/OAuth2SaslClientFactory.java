@@ -44,6 +44,14 @@ public class OAuth2SaslClientFactory implements SaslClientFactory {
 	}
     }
 
+    /**
+     * Creates a default {@code OAuth2SaslClientFactory}.
+     *
+     * @see #init()
+     */
+    public OAuth2SaslClientFactory() {
+    }
+
     @Override
     public SaslClient createSaslClient(String[] mechanisms,
 				String authorizationId, String protocol,

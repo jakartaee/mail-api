@@ -19,6 +19,14 @@ package jakarta.mail.stream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * Interface to be implemented by different mail implementations. It contains
+ * the methods to instance different encoders/decoders and other streams required by the API.
+ * 
+ * Implementations of this interface will need to be declared in
+ * META-INF/services/jakarta.mail.stream.StreamProvider
+ *
+ */
 public interface StreamProvider {
 
     public static final String BASE_64_ENCODER = "base64";
@@ -31,54 +39,109 @@ public interface StreamProvider {
     public static final String UU_ENCODER = "uuencode";
     public static final String X_UU_ENCODER = "x-uuencode";
     public static final String X_UUE = "x-uue";
-    public static final String LINE_STREAM = "line";
-    public static final String SHARED_STREAM = "shared";
 
-    // BASE_64_ENCODER
+    /**
+     * Creates a 'base64' decoder from the InputStream.
+     * @param in the InputStream
+     * @return the decoder
+     */
     InputStream inputBase64(InputStream in);
 
-    // BASE_64_ENCODER
+    /**
+     * Creates a 'base64' encoder from the OutputStream.
+     * @param out the OutputStream
+     * @return the encoder
+     */
     OutputStream outputBase64(OutputStream out);
 
-    // BINARY_ENCODER, BIT7_ENCODER, BIT8_ENCODER
+    /**
+     * Creates a 'binary', '7bit' and '8bit' decoder from the InputStream.
+     * @param in the InputStream
+     * @return the decoder
+     */
     InputStream inputBinary(InputStream in);
 
-    // BINARY_ENCODER, BIT7_ENCODER, BIT8_ENCODER
+    /**
+     * Creates a 'binary', '7bit' and '8bit' encoder from the OutputStream.
+     * @param out the OutputStream
+     * @return the encoder
+     */
     OutputStream outputBinary(OutputStream out);
 
-    // B_ENCODER
-	InputStream inputB(InputStream in);
-
-	// B_ENCODER
+    /**
+     * Creates a 'b' encoder from the OutputStream.
+     * @param out the OutputStream
+     * @return the encoder
+     */
 	OutputStream outputB(OutputStream out);
 
-    // Q_ENCODER
+    /**
+     * Creates a 'q' decoder from the InputStream.
+     * @param in the InputStream
+     * @return the decoder
+     */
 	InputStream inputQ(InputStream in);
 
-	// Q_ENCODER
+	/**
+	 * Creates a 'q' encoder.
+	 * @param out the OutputStream
+	 * @param encodingWord true if we are Q-encoding a word within a phrase.
+	 * @return the encoder
+	 */
 	OutputStream outputQ(OutputStream out, boolean encodingWord);
 
-    // LINE_STREAM
+	/**
+	 * Creates a new LineInputStream that supports reading CRLF terminated lines
+	 * containing only US-ASCII characters from an input stream
+	 * @param in the InputStream
+	 * @param allowutf8	allow UTF-8 characters?
+	 * @return the LineInputStream
+	 */
 	LineInputStream inputLineStream(InputStream in, boolean allowutf8);
 
-	// LINE_STREAM
+	/**
+	 * Creates a new LineOutputStream that supports writing out Strings as a sequence of bytes terminated
+	 * by a CRLF sequence. The String must contain only US-ASCII characters.
+	 * @param out the OutputStream
+	 * @param allowutf8	allow UTF-8 characters?
+	 * @return the LineOutputStream
+	 */
 	LineOutputStream outputLineStream(OutputStream out, boolean allowutf8);
 
-    // QUOTED_PRINTABLE_ENCODER
+    /**
+     * Creates a 'quoted-printable' decoder from the InputStream.
+     * @param in the InputStream
+     * @return the decoder
+     */
 	InputStream inputQP(InputStream in);
 
-	// QUOTED_PRINTABLE_ENCODER
+    /**
+     * Creates a 'quoted-printable' encoder from the OutputStream.
+     * @param out the OutputStream
+     * @return the encoder
+     */
 	OutputStream outputQP(OutputStream out);
 
-    // SHARED_STREAM
-	InputStream inputSharedByteArray(byte[] bytes);
+	/**
+	 * Creates a new InputStream from the underlying byte array to be shared
+	 * between multiple readers.
+	 * @param buf the byte array
+	 * @return the InputStream
+	 */
+	InputStream inputSharedByteArray(byte[] buff);
 
-	// SHARED_STREAM
-	OutputStream outputSharedByteArray(int size);
-
-    // UU_ENCODER, X_UU_ENCODER, X_UUE
+    /**
+     * Creates a 'uuencode', 'x-uuencode' and 'x-uue' decoder from the InputStream.
+     * @param in the InputStream
+     * @return the decoder
+     */
 	InputStream inputUU(InputStream in);
 
-	// UU_ENCODER, X_UU_ENCODER, X_UUE
+	/**
+	 *  Creates a 'uuencode', 'x-uuencode' and 'x-uue' encoder from the OutputStream.
+	 * @param out the OutputStream
+	 * @param filename Specifies a name for the encoded buffer. It can be null.
+	 * @return the encoder
+	 */
 	OutputStream outputUU(OutputStream out, String filename);
 }

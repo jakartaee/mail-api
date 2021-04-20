@@ -28,6 +28,12 @@ public class image_jpeg extends image_gif {
 	new ActivationDataFlavor(Image.class, "image/jpeg", "JPEG Image")
     };
 
+    /**
+     * Creates a default {@code image_jpeg}.
+     */
+    public image_jpeg() {
+    }
+
     @Override
     protected ActivationDataFlavor[] getDataFlavors() {
 	return myDF;

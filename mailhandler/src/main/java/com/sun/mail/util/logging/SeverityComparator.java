@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+<<<<<<< HEAD:mailhandler/src/main/java/com/sun/mail/util/logging/SeverityComparator.java
  * Copyright (c) 2013, 2018 Jason Mehrens. All rights reserved.
+=======
+ * Copyright (c) 2013, 2021 Jason Mehrens. All rights reserved.
+>>>>>>> master:mail/src/main/java/com/sun/mail/util/logging/SeverityComparator.java
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -93,6 +97,14 @@ public class SeverityComparator implements Comparator<LogRecord>, Serializable {
     }
 
     /**
+     * Creates a default {@code SeverityComparator}.
+     */
+    public SeverityComparator() {
+        //readResolve() is not implemented in case the comparator
+        //is the target of a synchronized block.
+    }
+
+    /**
      * Identifies a single throwable that best describes the given throwable and
      * the entire {@linkplain Throwable#getCause() cause} chain. This method can
      * be overridden to change the behavior of
@@ -112,12 +124,12 @@ public class SeverityComparator implements Comparator<LogRecord>, Serializable {
         for (Throwable cause = chain; cause != null; cause = cause.getCause()) {
             root = cause;  //Find the deepest cause.
 
-            //Find the deepest nomral occurrance.
+            //Find the deepest normal occurrance.
             if (isNormal(cause)) {
                 normal = cause;
             }
 
-            //Find the deepest error that happened before a normal occurance.
+            //Find the deepest error that happened before a normal occurrance.
             if (normal == null && cause instanceof Error) {
                 high = cause;
             }

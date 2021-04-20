@@ -43,6 +43,12 @@ public abstract class SearchTerm implements Serializable {
     private static final long serialVersionUID = -6652358452205992789L;
 
     /**
+     * Creates a default {@code SearchTerm}.
+     */
+    public SearchTerm() {
+    }
+
+    /**
      * This method applies a specific match criterion to the given
      * message and returns the result.
      *

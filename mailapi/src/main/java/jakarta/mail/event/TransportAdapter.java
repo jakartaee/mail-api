@@ -25,6 +25,13 @@ package jakarta.mail.event;
  * @author John Mani
  */
 public abstract class TransportAdapter implements TransportListener {
+
+    /**
+     * Creates a default {@code TransportAdapter}.
+     */
+    public TransportAdapter() {
+    }
+
     @Override
     public void messageDelivered(TransportEvent e) {}
     @Override

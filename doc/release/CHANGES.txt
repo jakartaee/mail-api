@@ -20,6 +20,14 @@ Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
 
+		  CHANGES IN THE 2.0.2 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 2.0.2 release.
+
+E  528	CompactFormatter precision and surrogate pairs
+E  530	Address reliance on default constructors
+
+
 		  CHANGES IN THE 2.0.1 RELEASE
 		  ----------------------------
 The following bugs have been fixed in the 2.0.1 release.
