@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.mail.stream;
+package com.sun.mail.util;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -25,8 +25,6 @@ import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
-
-import com.sun.mail.util.PropUtil;
 
 /**
  * LineInputStream supports reading CRLF terminated lines that
@@ -47,7 +45,7 @@ import com.sun.mail.util.PropUtil;
  * @author Bill Shannon
  */
 
-public class LineInputStream extends FilterInputStream implements jakarta.mail.stream.LineInputStream {
+public class LineInputStream extends FilterInputStream implements jakarta.mail.util.LineInputStream {
 
     private boolean allowutf8;
     private byte[] lineBuffer = null; // reusable byte buffer

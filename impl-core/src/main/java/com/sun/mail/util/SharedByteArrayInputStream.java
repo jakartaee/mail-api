@@ -14,11 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.mail.stream;
-
-import jakarta.mail.stream.SharedInputStream;
+package com.sun.mail.util;
 
 import java.io.*;
+
+import jakarta.mail.util.SharedInputStream;
 
 /**
  * A ByteArrayInputStream that implements the SharedInputStream interface,

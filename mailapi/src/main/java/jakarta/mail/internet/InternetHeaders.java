@@ -19,8 +19,8 @@ package jakarta.mail.internet;
 import jakarta.mail.Header;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
-import jakarta.mail.stream.LineInputStream;
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.StreamProvider;
 
 import java.io.IOException;
 import java.io.InputStream;

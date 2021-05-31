@@ -19,12 +19,12 @@ package com.sun.mail.mbox;
 import jakarta.mail.*;
 import jakarta.mail.event.*;
 import jakarta.mail.internet.*;
-import jakarta.mail.stream.SharedInputStream;
 import jakarta.mail.util.*;
 import java.io.*;
 import java.util.*;
-import com.sun.mail.stream.LineInputStream;
-import com.sun.mail.stream.SharedByteArrayInputStream;
+
+import com.sun.mail.util.LineInputStream;
+import com.sun.mail.util.SharedByteArrayInputStream;
 
 /**
  * This class represents a mailbox file containing RFC822 style email messages. 

@@ -19,8 +19,8 @@ package com.sun.mail.dsn;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.internet.InternetHeaders;
-import jakarta.mail.stream.LineOutputStream;
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.StreamProvider;
 
 import java.io.EOFException;
 import java.io.IOException;

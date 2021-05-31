@@ -26,11 +26,11 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
-import com.sun.mail.stream.BASE64DecoderStream;
-import com.sun.mail.stream.BASE64EncoderStream;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.sun.mail.util.BASE64DecoderStream;
+import com.sun.mail.util.BASE64EncoderStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

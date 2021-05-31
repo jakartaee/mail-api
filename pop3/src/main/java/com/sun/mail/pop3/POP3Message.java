@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.lang.ref.SoftReference;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-import jakarta.mail.stream.SharedInputStream;
+import jakarta.mail.util.SharedInputStream;
 import jakarta.mail.event.*;
 import com.sun.mail.util.ReadableMime;
 

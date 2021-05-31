@@ -16,12 +16,13 @@
 
 package com.sun.mail.mbox;
 
-import com.sun.mail.stream.LineInputStream;
-
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.activation.*;
 import java.util.*;
+
+import com.sun.mail.util.LineInputStream;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 

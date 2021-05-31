@@ -23,8 +23,9 @@ import jakarta.activation.DataHandler;
 import jakarta.mail.Address;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
-import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.test.AsciiStringInputStream;
+import jakarta.mail.util.StreamProvider;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -189,7 +190,7 @@ public class MimeMessageTest {
 	// depend on copy constructor streaming the data
 	msg = new MimeMessage(msg);
 	assertEquals("text/x-test", msg.getContentType());
-	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, msg.getEncoding());
+	assertEquals(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder(), msg.getEncoding());
 	assertEquals("test message", getString(msg.getInputStream()));
     }
 
@@ -210,7 +211,7 @@ public class MimeMessageTest {
 	// depend on copy constructor streaming the data
 	msg = new MimeMessage(msg);
 	assertEquals("text/x-test", msg.getContentType());
-	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, msg.getEncoding());
+	assertEquals(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder(), msg.getEncoding());
 	assertEquals("test message", getString(msg.getInputStream()));
     }
 

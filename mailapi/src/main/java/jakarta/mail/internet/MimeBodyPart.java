@@ -46,9 +46,10 @@ import jakarta.mail.MessagingIOException;
 import jakarta.mail.Multipart;
 import jakarta.mail.Part;
 import jakarta.mail.Session;
-import jakarta.mail.stream.LineOutputStream;
-import jakarta.mail.stream.SharedInputStream;
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.SharedInputStream;
+import jakarta.mail.util.StreamProvider;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 
 
@@ -1432,10 +1433,10 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	    return null;
 	// quick check for known values to avoid unnecessary use
 	// of tokenizer.
-	if (s.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) || s.equalsIgnoreCase(StreamProvider.BIT8_ENCODER) ||
-		s.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER) ||
-		s.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
-		s.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
+	if (s.equalsIgnoreCase(EncoderTypes.BIT7_ENCODER.getEncoder()) || s.equalsIgnoreCase(EncoderTypes.BIT8_ENCODER.getEncoder()) ||
+		s.equalsIgnoreCase(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder()) ||
+		s.equalsIgnoreCase(EncoderTypes.BINARY_ENCODER.getEncoder()) ||
+		s.equalsIgnoreCase(EncoderTypes.BASE_64.getEncoder()))
 	    return s;
 
 	// Tokenize the header to obtain the encoding (skip comments)
@@ -1472,9 +1473,9 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	if (!ignoreMultipartEncoding || encoding == null)
 	    return encoding;
 
-	if (encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
-		encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER) ||
-		encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER))
+	if (encoding.equalsIgnoreCase(EncoderTypes.BIT7_ENCODER.getEncoder()) ||
+		encoding.equalsIgnoreCase(EncoderTypes.BIT8_ENCODER.getEncoder()) ||
+		encoding.equalsIgnoreCase(EncoderTypes.BINARY_ENCODER.getEncoder()))
 	    return encoding;	// these encodings are always valid
 
 	String type = part.getContentType();
@@ -1592,7 +1593,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 		     */
 		    String charset;
 		    String enc = part.getEncoding();
-		    if (enc != null && enc.equalsIgnoreCase(StreamProvider.BIT7_ENCODER))
+		    if (enc != null && enc.equalsIgnoreCase(EncoderTypes.BIT7_ENCODER.getEncoder()))
 			charset = "us-ascii";
 		    else
 			charset = MimeUtility.getDefaultMIMECharset();

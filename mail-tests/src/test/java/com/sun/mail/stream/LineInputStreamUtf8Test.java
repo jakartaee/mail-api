@@ -24,6 +24,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sun.mail.util.LineInputStream;
+
 import static org.junit.Assert.assertEquals;
 
 /**

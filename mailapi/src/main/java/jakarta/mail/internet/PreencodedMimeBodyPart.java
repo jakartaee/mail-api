@@ -18,8 +18,8 @@ package jakarta.mail.internet;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
-import jakarta.mail.stream.LineOutputStream;
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.StreamProvider;
 
 import java.io.IOException;
 import java.io.OutputStream;

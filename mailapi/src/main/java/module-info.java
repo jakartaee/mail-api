@@ -20,7 +20,6 @@ module jakarta.mail {
     exports jakarta.mail.internet;
     exports jakarta.mail.search;
     exports jakarta.mail.util;
-    exports jakarta.mail.stream;
 
     requires transitive jakarta.activation;
     requires transitive java.logging;
@@ -28,5 +27,5 @@ module jakarta.mail {
     requires java.desktop;	// for image/jpeg handler
     requires transitive java.security.sasl; // for OAuth2 support
     uses jakarta.mail.Provider;
-    uses jakarta.mail.stream.StreamProvider;
+    uses jakarta.mail.util.StreamProvider;
 }

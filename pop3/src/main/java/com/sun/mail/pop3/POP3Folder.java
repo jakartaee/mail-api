@@ -25,7 +25,7 @@ import java.io.EOFException;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
-import com.sun.mail.stream.LineInputStream;
+import com.sun.mail.util.LineInputStream;
 import com.sun.mail.util.MailLogger;
 
 import java.lang.reflect.Constructor;

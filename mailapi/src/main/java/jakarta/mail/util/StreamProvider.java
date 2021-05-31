@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package jakarta.mail.stream;
+package jakarta.mail.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -29,16 +29,29 @@ import java.io.OutputStream;
  */
 public interface StreamProvider {
 
-    public static final String BASE_64_ENCODER = "base64";
-    public static final String B_ENCODER = "b";
-    public static final String Q_ENCODER = "q";
-    public static final String BINARY_ENCODER = "binary";
-    public static final String BIT7_ENCODER = "7bit";
-    public static final String BIT8_ENCODER = "8bit";
-    public static final String QUOTED_PRINTABLE_ENCODER = "quoted-printable";
-    public static final String UU_ENCODER = "uuencode";
-    public static final String X_UU_ENCODER = "x-uuencode";
-    public static final String X_UUE = "x-uue";
+	public static enum EncoderTypes {
+		
+		BASE_64("base64"),
+		B_ENCODER("b"),
+		Q_ENCODER("q"),
+		BINARY_ENCODER("binary"),
+		BIT7_ENCODER("7bit"),
+		BIT8_ENCODER("8bit"),
+		QUOTED_PRINTABLE_ENCODER("quoted-printable"),
+		UU_ENCODER("uuencode"),
+		X_UU_ENCODER("x-uuencode"),
+		X_UUE("x-uue");
+		
+		private final String encoder;
+		
+		private EncoderTypes(String encoder) {
+			this.encoder = encoder;
+		}
+
+		public String getEncoder() {
+			return encoder;
+		}
+	}
 
     /**
      * Creates a 'base64' decoder from the InputStream.

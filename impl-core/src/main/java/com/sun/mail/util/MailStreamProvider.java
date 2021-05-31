@@ -14,12 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.mail.stream;
+package com.sun.mail.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.util.StreamProvider;
 
 /**
  * Contains the required encoders/decoders and streams required by the API.

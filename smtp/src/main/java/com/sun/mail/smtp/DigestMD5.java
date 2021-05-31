@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
-import com.sun.mail.stream.BASE64DecoderStream;
-import com.sun.mail.stream.BASE64EncoderStream;
+import com.sun.mail.util.BASE64DecoderStream;
+import com.sun.mail.util.BASE64EncoderStream;
 import com.sun.mail.util.ASCIIUtility;
 import com.sun.mail.util.MailLogger;
 

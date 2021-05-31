@@ -46,9 +46,9 @@ import java.util.logging.Level;
 import javax.net.ssl.SSLSocket;
 
 import com.sun.mail.auth.Ntlm;
-import com.sun.mail.stream.BASE64EncoderStream;
-import com.sun.mail.stream.LineInputStream;
-import com.sun.mail.stream.SharedByteArrayOutputStream;
+import com.sun.mail.util.BASE64EncoderStream;
+import com.sun.mail.util.LineInputStream;
+import com.sun.mail.util.SharedByteArrayOutputStream;
 import com.sun.mail.util.ASCIIUtility;
 import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.PropUtil;

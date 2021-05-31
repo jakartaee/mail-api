@@ -26,10 +26,10 @@ import jakarta.mail.Multipart;
 import jakarta.mail.MultipartDataSource;
 import jakarta.mail.Session;
 import jakarta.mail.internet.MimeUtility;
-import jakarta.mail.stream.LineInputStream;
-import jakarta.mail.stream.LineOutputStream;
-import jakarta.mail.stream.SharedInputStream;
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.SharedInputStream;
+import jakarta.mail.util.StreamProvider;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;

@@ -16,9 +16,9 @@
 
 package com.sun.mail.util;
 
-import jakarta.mail.stream.SharedInputStream;
-
 import java.io.*;
+
+import jakarta.mail.util.SharedInputStream;
 
 /**
  * A <code>SharedFileInputStream</code> is a

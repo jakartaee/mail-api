@@ -16,14 +16,6 @@
 
 package jakarta.mail.internet;
 
-import jakarta.activation.DataHandler;
-import jakarta.activation.DataSource;
-import jakarta.mail.EncodingAware;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
-import jakarta.mail.stream.LineInputStream;
-import jakarta.mail.stream.StreamProvider;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -41,6 +33,14 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.StringTokenizer;
+
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.mail.EncodingAware;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 /**
  * This is a utility class that provides various MIME related
@@ -208,21 +208,21 @@ public class MimeUtility {
 	    int i = checkAscii(is, ALL, !isText);
 	    switch (i) {
 	    case ALL_ASCII:
-		encoding = StreamProvider.BIT7_ENCODER; // all ASCII
+		encoding = EncoderTypes.BIT7_ENCODER.getEncoder(); // all ASCII
 		break;
 	    case MOSTLY_ASCII:
 		if (isText && nonAsciiCharset(cType))
-		    encoding = StreamProvider.BASE_64_ENCODER; // charset isn't compatible with ASCII
+		    encoding = EncoderTypes.BASE_64.getEncoder(); // charset isn't compatible with ASCII
 		else
-		    encoding = StreamProvider.QUOTED_PRINTABLE_ENCODER;	// mostly ASCII
+		    encoding = EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder();	// mostly ASCII
 		break;
 	    default:
-		encoding = StreamProvider.BASE_64_ENCODER; // mostly binary
+		encoding = EncoderTypes.BASE_64.getEncoder(); // mostly binary
 		break;
 	    }
 
 	} catch (Exception ex) {
-	    return StreamProvider.BASE_64_ENCODER; // what else ?!
+	    return EncoderTypes.BASE_64.getEncoder(); // what else ?!
 	} finally {
 	    // Close the input stream
 	    try {
@@ -307,7 +307,7 @@ public class MimeUtility {
 	try {
 	    cType = new ContentType(dh.getContentType());
 	} catch (Exception ex) {
-	    return StreamProvider.BASE_64_ENCODER; // what else ?!
+	    return EncoderTypes.BASE_64.getEncoder(); // what else ?!
 	}
 
 	if (cType.match("text/*")) {
@@ -320,13 +320,13 @@ public class MimeUtility {
 	    }
 	    switch (aos.getAscii()) {
 	    case ALL_ASCII:
-		encoding = StreamProvider.BIT7_ENCODER; // all ascii
+		encoding = EncoderTypes.BIT7_ENCODER.getEncoder(); // all ascii
 		break;
 	    case MOSTLY_ASCII:
-		encoding = StreamProvider.QUOTED_PRINTABLE_ENCODER; // mostly ascii
+		encoding = EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder(); // mostly ascii
 		break;
 	    default:
-		encoding = StreamProvider.BASE_64_ENCODER; // mostly binary
+		encoding = EncoderTypes.BASE_64.getEncoder(); // mostly binary
 		break;
 	    }
 	} else { // not "text"
@@ -338,9 +338,9 @@ public class MimeUtility {
 		dh.writeTo(aos);
 	    } catch (IOException ex) { }	// ignore it
 	    if (aos.getAscii() == ALL_ASCII) // all ascii
-		encoding = StreamProvider.BIT7_ENCODER;
+		encoding = EncoderTypes.BIT7_ENCODER.getEncoder();
 	    else // found atleast one non-ascii character, use b64 
-		encoding = StreamProvider.BASE_64_ENCODER;
+		encoding = EncoderTypes.BASE_64.getEncoder();
 	}
 
 	return encoding;
@@ -365,17 +365,17 @@ public class MimeUtility {
      */
     public static InputStream decode(InputStream is, String encoding)
 		throws MessagingException {
-	if (encoding.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
+	if (encoding.equalsIgnoreCase(EncoderTypes.BASE_64.getEncoder()))
 		return Session.STREAM_PROVIDER.inputBase64(is);
-	else if (encoding.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER))
+	else if (encoding.equalsIgnoreCase(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder()))
 		return Session.STREAM_PROVIDER.inputQP(is);
-	else if (encoding.equalsIgnoreCase(StreamProvider.UU_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.X_UU_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.X_UUE))
+	else if (encoding.equalsIgnoreCase(EncoderTypes.UU_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.X_UU_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.X_UUE.getEncoder()))
 		return Session.STREAM_PROVIDER.inputUU(is);
-	else if (encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER))
+	else if (encoding.equalsIgnoreCase(EncoderTypes.BINARY_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.BIT7_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.BIT8_ENCODER.getEncoder()))
 		return Session.STREAM_PROVIDER.inputBinary(is);
 	else {
 	    if (!ignoreUnknownEncoding)
@@ -400,17 +400,17 @@ public class MimeUtility {
 		throws MessagingException {
         if (encoding == null)
 	    return os;
-	else if (encoding.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
+	else if (encoding.equalsIgnoreCase(EncoderTypes.BASE_64.getEncoder()))
 		return Session.STREAM_PROVIDER.outputBase64(os);
-	else if (encoding.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER))
+	else if (encoding.equalsIgnoreCase(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder()))
         return Session.STREAM_PROVIDER.outputQP(os);
-	else if (encoding.equalsIgnoreCase(StreamProvider.UU_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.X_UU_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.X_UUE))
+	else if (encoding.equalsIgnoreCase(EncoderTypes.UU_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.X_UU_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.X_UUE.getEncoder()))
 		return Session.STREAM_PROVIDER.outputUU(os, null);
-	else if (encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
-		 encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER))
+	else if (encoding.equalsIgnoreCase(EncoderTypes.BINARY_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.BIT7_ENCODER.getEncoder()) ||
+		 encoding.equalsIgnoreCase(EncoderTypes.BIT8_ENCODER.getEncoder()))
 	    return Session.STREAM_PROVIDER.outputBinary(os);
 	else
 	    throw new MessagingException("Unknown encoding: " +encoding);
@@ -438,17 +438,17 @@ public class MimeUtility {
                 throws MessagingException {
         if (encoding == null)
             return os;
-        else if (encoding.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))
+        else if (encoding.equalsIgnoreCase(EncoderTypes.BASE_64.getEncoder()))
         	return Session.STREAM_PROVIDER.outputBase64(os);
-        else if (encoding.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER))
+        else if (encoding.equalsIgnoreCase(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder()))
         	return Session.STREAM_PROVIDER.outputQP(os);
-        else if (encoding.equalsIgnoreCase(StreamProvider.UU_ENCODER) ||
-                 encoding.equalsIgnoreCase(StreamProvider.X_UU_ENCODER) ||
-                 encoding.equalsIgnoreCase(StreamProvider.X_UUE))
+        else if (encoding.equalsIgnoreCase(EncoderTypes.UU_ENCODER.getEncoder()) ||
+                 encoding.equalsIgnoreCase(EncoderTypes.X_UU_ENCODER.getEncoder()) ||
+                 encoding.equalsIgnoreCase(EncoderTypes.X_UUE.getEncoder()))
         	return Session.STREAM_PROVIDER.outputUU(os, filename);
-        else if (encoding.equalsIgnoreCase(StreamProvider.BINARY_ENCODER) ||
-                 encoding.equalsIgnoreCase(StreamProvider.BIT7_ENCODER) ||
-                 encoding.equalsIgnoreCase(StreamProvider.BIT8_ENCODER))
+        else if (encoding.equalsIgnoreCase(EncoderTypes.BINARY_ENCODER.getEncoder()) ||
+                 encoding.equalsIgnoreCase(EncoderTypes.BIT7_ENCODER.getEncoder()) ||
+                 encoding.equalsIgnoreCase(EncoderTypes.BIT8_ENCODER.getEncoder()))
         	return Session.STREAM_PROVIDER.outputBinary(os);
         else
             throw new MessagingException("Unknown encoding: " +encoding);

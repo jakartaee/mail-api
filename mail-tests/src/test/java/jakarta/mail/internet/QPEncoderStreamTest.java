@@ -18,9 +18,10 @@ package jakarta.mail.internet;
 
 import java.io.ByteArrayOutputStream;
 
-import com.sun.mail.stream.QPEncoderStream;
-
 import org.junit.Test;
+
+import com.sun.mail.util.QPEncoderStream;
+
 import static org.junit.Assert.assertEquals;
 
 /**

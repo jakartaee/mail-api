@@ -14,14 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.mail.stream;
+package com.sun.mail.util;
 
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-
-import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class is to support writing out Strings as a sequence of bytes
@@ -35,7 +33,7 @@ import com.sun.mail.util.ASCIIUtility;
  * @author Bill Shannon
  */
 
-public class LineOutputStream extends FilterOutputStream implements jakarta.mail.stream.LineOutputStream {
+public class LineOutputStream extends FilterOutputStream implements jakarta.mail.util.LineOutputStream {
     private boolean allowutf8;
 
     private static byte[] newline;

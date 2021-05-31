@@ -63,7 +63,7 @@ import com.sun.mail.imap.ResyncData;
 import com.sun.mail.imap.Rights;
 import com.sun.mail.imap.SortTerm;
 import com.sun.mail.imap.Utility;
-import com.sun.mail.stream.BASE64EncoderStream;
+import com.sun.mail.util.BASE64EncoderStream;
 import com.sun.mail.util.ASCIIUtility;
 import com.sun.mail.util.MailLogger;
 import com.sun.mail.util.PropUtil;

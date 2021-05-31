@@ -44,10 +44,9 @@ import java.util.concurrent.Executor;
 import java.util.logging.Level;
 
 import jakarta.mail.MailLogger;
-
-import jakarta.mail.stream.LineInputStream;
-import jakarta.mail.stream.StreamProvider;
 import jakarta.mail.util.DefaultProvider;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.StreamProvider;
 
 /**
  * The Session class represents a mail session and is not subclassed.

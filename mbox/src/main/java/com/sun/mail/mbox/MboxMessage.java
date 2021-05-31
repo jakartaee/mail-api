@@ -18,13 +18,15 @@ package com.sun.mail.mbox;
 
 import java.io.*;
 import java.util.StringTokenizer;
+
+import com.sun.mail.util.LineInputStream;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import jakarta.activation.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.mail.event.MessageChangedEvent;
-import com.sun.mail.stream.LineInputStream;
 
 /**
  * This class represents an RFC822 style email message that resides in a file.

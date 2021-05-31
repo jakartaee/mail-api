@@ -39,8 +39,8 @@ import com.sun.mail.iap.ProtocolException;
 import com.sun.mail.imap.protocol.BODY;
 import com.sun.mail.imap.protocol.BODYSTRUCTURE;
 import com.sun.mail.imap.protocol.IMAPProtocol;
-import com.sun.mail.stream.LineOutputStream;
-import com.sun.mail.stream.SharedByteArrayOutputStream;
+import com.sun.mail.util.LineOutputStream;
+import com.sun.mail.util.SharedByteArrayOutputStream;
 import com.sun.mail.util.PropUtil;
 import com.sun.mail.util.ReadableMime;
 

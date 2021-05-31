@@ -16,17 +16,17 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.BodyPart;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
-import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.test.AsciiStringInputStream;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Properties;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.test.AsciiStringInputStream;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 /**
  * Test that the Content-Transfer-Encoding header is ignored
@@ -70,10 +70,10 @@ public class RestrictEncodingTest {
 	m2.setText("message=\n");
 	mbp = new MimeBodyPart();
 	mbp.setContent(m2, "message/rfc822");
-	mbp.setHeader("Content-Transfer-Encoding", StreamProvider.QUOTED_PRINTABLE_ENCODER);
+	mbp.setHeader("Content-Transfer-Encoding", EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder());
 	mp.addBodyPart(mbp);
 	m.setContent(mp);
-	m.setHeader("Content-Transfer-Encoding", StreamProvider.QUOTED_PRINTABLE_ENCODER);
+	m.setHeader("Content-Transfer-Encoding", EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder());
 
 	m = new MimeMessage(m);		// copy it
 	mp = (MimeMultipart)m.getContent();

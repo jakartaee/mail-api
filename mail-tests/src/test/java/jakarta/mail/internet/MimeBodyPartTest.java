@@ -16,21 +16,25 @@
 
 package jakarta.mail.internet;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
+import org.junit.Test;
+
 import jakarta.activation.DataHandler;
-
-import jakarta.mail.*;
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 import jakarta.mail.test.AsciiStringInputStream;
-
-import org.junit.*;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
+import jakarta.mail.util.StreamProvider;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 /**
  * Test the MimeBodyPart class.
@@ -82,7 +86,7 @@ public class MimeBodyPartTest {
 	mp = (MimeMultipart)msg.getContent();
 	mbp = (MimeBodyPart)mp.getBodyPart(0);
 	assertEquals("text/x-test", mbp.getContentType());
-	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, mbp.getEncoding());
+	assertEquals(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder(), mbp.getEncoding());
 	assertEquals("test part", getString(mbp.getInputStream()));
     }
 
@@ -111,7 +115,7 @@ public class MimeBodyPartTest {
 	mp = (MimeMultipart)msg.getContent();
 	mbp = (MimeBodyPart)mp.getBodyPart(0);
 	assertEquals("text/x-test", mbp.getContentType());
-	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, mbp.getEncoding());
+	assertEquals(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder(), mbp.getEncoding());
 	assertEquals("test part", getString(mbp.getInputStream()));
     }
 
@@ -137,7 +141,7 @@ public class MimeBodyPartTest {
 	    }
 	};
 	mbp2.setDataHandler(mbp.getDataHandler());
-	assertEquals(StreamProvider.BASE_64_ENCODER, mbp2.getEncoding());
+	assertEquals(EncoderTypes.BASE_64.getEncoder(), mbp2.getEncoding());
 	// ensure the data is correct by reading the first byte
 	InputStream in = mbp2.getInputStream();
 	assertEquals(1, in.read());

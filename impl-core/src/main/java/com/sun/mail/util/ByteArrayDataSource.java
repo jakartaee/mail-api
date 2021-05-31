@@ -18,8 +18,6 @@ package com.sun.mail.util;
 
 import java.io.*;
 
-import com.sun.mail.stream.SharedByteArrayInputStream;
-
 import jakarta.activation.*;
 import jakarta.mail.internet.*;
 

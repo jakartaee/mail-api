@@ -14,11 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.mail.stream;
+package com.sun.mail.util;
 
 import java.io.*;
-
-import com.sun.mail.util.ASCIIUtility;
 
 /**
  * This class implements a QP Decoder. It is implemented as

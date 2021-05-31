@@ -24,9 +24,8 @@ import com.sun.mail.util.PropUtil;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-
-import jakarta.mail.stream.LineOutputStream;	// XXX
-import jakarta.mail.stream.StreamProvider;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.StreamProvider;
 
 /**
  * A message/disposition-notification message content, as defined in

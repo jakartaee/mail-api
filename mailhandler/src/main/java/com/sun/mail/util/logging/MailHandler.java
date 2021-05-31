@@ -18,7 +18,13 @@
 package com.sun.mail.util.logging;
 
 import static com.sun.mail.util.logging.LogManagerProperties.fromLogManager;
-import java.io.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.URLConnection;
@@ -26,16 +32,48 @@ import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.*;
-import java.util.logging.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.logging.ErrorManager;
+import java.util.logging.Filter;
 import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.SimpleFormatter;
 
 import com.sun.mail.util.ByteArrayDataSource;
 
-import jakarta.activation.*;
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
-import jakarta.mail.stream.StreamProvider;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileTypeMap;
+import jakarta.activation.MimetypesFileTypeMap;
+import jakarta.mail.Address;
+import jakarta.mail.Authenticator;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Message;
+import jakarta.mail.MessageContext;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Part;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.Service;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.MimeUtility;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 /**
  * <code>Handler</code> that formats log records as an email message.
@@ -3290,7 +3328,7 @@ public class MailHandler extends Handler {
                     try {
                         String cte = "Content-Transfer-Encoding";
                         if (abort.getHeader(cte) == null) {
-                            abort.setHeader(cte, StreamProvider.BASE_64_ENCODER);
+                            abort.setHeader(cte, EncoderTypes.BASE_64.getEncoder());
                             abort.saveChanges();
                         } else {
                             throw xferEncoding;

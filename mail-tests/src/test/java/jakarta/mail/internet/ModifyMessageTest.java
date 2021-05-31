@@ -16,18 +16,18 @@
 
 package jakarta.mail.internet;
 
-import java.io.ByteArrayInputStream;
-import java.nio.charset.Charset;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Properties;
 
-import jakarta.mail.Session;
-import jakarta.mail.stream.StreamProvider;
-import jakarta.mail.test.AsciiStringInputStream;
-import jakarta.mail.MessagingException;
-import jakarta.mail.BodyPart;
+import org.junit.Test;
 
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.test.AsciiStringInputStream;
+import jakarta.mail.util.StreamProvider;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 /**
  * Test some of the ways you might modify a message that has been
@@ -110,10 +110,10 @@ public class ModifyMessageTest {
 	// make sure other content is not changed or re-encoded
 	MimeBodyPart mbp = (MimeBodyPart)mp.getBodyPart(1);
 	assertEquals("second part\n", mbp.getContent());
-	assertEquals(StreamProvider.QUOTED_PRINTABLE_ENCODER, mbp.getEncoding());
+	assertEquals(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder(), mbp.getEncoding());
 	mbp = (MimeBodyPart)mp.getBodyPart(2);
 	assertEquals("third part\n", mbp.getContent());
-	assertEquals(StreamProvider.BASE_64_ENCODER, mbp.getEncoding());
+	assertEquals(EncoderTypes.BASE_64.getEncoder(), mbp.getEncoding());
     }
 
     private static MimeMessage createMessage() throws MessagingException {

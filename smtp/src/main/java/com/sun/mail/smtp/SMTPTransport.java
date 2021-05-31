@@ -16,23 +16,6 @@
 
 package com.sun.mail.smtp;
 
-import jakarta.mail.Address;
-import jakarta.mail.AuthenticationFailedException;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.SendFailedException;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.URLName;
-import jakarta.mail.event.TransportEvent;
-import jakarta.mail.internet.AddressException;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.internet.MimeMultipart;
-import jakarta.mail.internet.MimePart;
-import jakarta.mail.internet.ParseException;
-import jakarta.mail.stream.StreamProvider;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -60,8 +43,8 @@ import java.util.logging.Level;
 import javax.net.ssl.SSLSocket;
 
 import com.sun.mail.auth.Ntlm;
-import com.sun.mail.stream.BASE64EncoderStream;
-import com.sun.mail.stream.LineInputStream;
+import com.sun.mail.util.BASE64EncoderStream;
+import com.sun.mail.util.LineInputStream;
 import com.sun.mail.util.ASCIIUtility;
 import com.sun.mail.util.MailConnectException;
 import com.sun.mail.util.MailLogger;
@@ -70,6 +53,24 @@ import com.sun.mail.util.SocketConnectException;
 import com.sun.mail.util.SocketFetcher;
 import com.sun.mail.util.TraceInputStream;
 import com.sun.mail.util.TraceOutputStream;
+
+import jakarta.mail.Address;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.URLName;
+import jakarta.mail.event.TransportEvent;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.ParseException;
+import jakarta.mail.util.StreamProvider;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 /**
  * This class implements the Transport abstract class using SMTP for
@@ -1581,8 +1582,8 @@ public class SMTPTransport extends Transport {
 	try {
 	    if (part.isMimeType("text/*")) {
 		String enc = part.getEncoding();
-		if (enc != null && (enc.equalsIgnoreCase(StreamProvider.QUOTED_PRINTABLE_ENCODER) ||
-		    enc.equalsIgnoreCase(StreamProvider.BASE_64_ENCODER))) {
+		if (enc != null && (enc.equalsIgnoreCase(EncoderTypes.QUOTED_PRINTABLE_ENCODER.getEncoder()) ||
+		    enc.equalsIgnoreCase(EncoderTypes.BASE_64.getEncoder()))) {
 		    InputStream is = null;
 		    try {
 			is = part.getInputStream();
@@ -1598,7 +1599,7 @@ public class SMTPTransport extends Transport {
 			     */
 			    part.setContent(part.getContent(),
 					    part.getContentType());
-			    part.setHeader("Content-Transfer-Encoding", StreamProvider.BIT8_ENCODER);
+			    part.setHeader("Content-Transfer-Encoding", EncoderTypes.BIT8_ENCODER.getEncoder());
 			    changed = true;
 			}
 		    } finally {
