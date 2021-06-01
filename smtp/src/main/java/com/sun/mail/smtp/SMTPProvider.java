@@ -16,8 +16,9 @@
 
 package com.sun.mail.smtp;
 
+import com.sun.mail.util.DefaultProvider;
+
 import jakarta.mail.Provider;
-import jakarta.mail.util.DefaultProvider;
 
 /**
  * The SMTP protocol provider.

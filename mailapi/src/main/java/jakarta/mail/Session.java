@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.net.InetAddress;
 import java.net.URL;
@@ -43,8 +44,6 @@ import java.util.StringTokenizer;
 import java.util.concurrent.Executor;
 import java.util.logging.Level;
 
-import jakarta.mail.MailLogger;
-import jakarta.mail.util.DefaultProvider;
 import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.StreamProvider;
 
@@ -202,6 +201,8 @@ import jakarta.mail.util.StreamProvider;
 
 public final class Session {
 
+	// Support legacy @DefaultProvider
+	private static final String DEFAULT_PROVIDER = "com.sun.mail.util.DefaultProvider";
     public static final StreamProvider STREAM_PROVIDER;
 
     private final Properties props;
@@ -949,6 +950,16 @@ public final class Session {
     	return props.getProperty(name); 
     }
 
+    static boolean containsDefaultProvider(Provider provider) {
+    	Annotation[] annotations = provider.getClass().getDeclaredAnnotations();
+    	for (Annotation annotation : annotations) {
+    		if (DEFAULT_PROVIDER.equals(annotation.annotationType().getName())) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     /**
      * Load the protocol providers config files.
      */
@@ -970,7 +981,7 @@ public final class Session {
 		// next, add all the non-default services
 		ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class);
 		for (Provider p : sl) {
-		    if (!p.getClass().isAnnotationPresent(DefaultProvider.class))
+		    if (!containsDefaultProvider(p))
 		    	addProvider(p);
 		}
 	
@@ -983,7 +994,7 @@ public final class Session {
 		// finally, add all the default services
 		sl = ServiceLoader.load(Provider.class);
 		for (Provider p : sl) {
-		    if (p.getClass().isAnnotationPresent(DefaultProvider.class))
+		    if (containsDefaultProvider(p))
 		    	addProvider(p);
 		}
 	

@@ -16,8 +16,9 @@
 
 package com.sun.mail.pop3;
 
+import com.sun.mail.util.DefaultProvider;
+
 import jakarta.mail.Provider;
-import jakarta.mail.util.DefaultProvider;
 
 /**
  * The POP3 SSL protocol provider.

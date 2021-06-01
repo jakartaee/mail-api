@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -14,19 +14,20 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.mail.smtp;
+package jakarta.mail;
 
-import com.sun.mail.util.DefaultProvider;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import jakarta.mail.Provider;
+import org.junit.Test;
 
-/**
- * The SMTP SSL protocol provider.
- */
-@DefaultProvider	// Remove this annotation if you copy this provider
-public class SMTPSSLProvider extends Provider {
-    public SMTPSSLProvider() {
-	super(Provider.Type.TRANSPORT, "smtps",
-	    SMTPSSLTransport.class.getName(), "Oracle", null);
-    }
+import com.sun.mail.imap.IMAPProvider;
+
+public class SessionTest {
+	
+	@Test
+	public void defaultProvider() {
+		assertTrue(Session.containsDefaultProvider(new IMAPProvider()));
+		assertFalse(Session.containsDefaultProvider(new Provider(Provider.Type.STORE, "imap", Object.class.getName(), "Oracle", null) {}));
+	}
 }
