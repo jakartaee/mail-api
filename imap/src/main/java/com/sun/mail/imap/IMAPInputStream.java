@@ -29,7 +29,6 @@ import jakarta.mail.Flags;
 import jakarta.mail.Folder;
 import jakarta.mail.FolderClosedException;
 import jakarta.mail.MessagingException;
-import jakarta.mail.MessagingIOException;
 
 /**
  * This class implements an IMAP data stream.
@@ -79,22 +78,20 @@ public class IMAPInputStream extends InputStream {
      * Do a NOOP to force any untagged EXPUNGE responses
      * and then check if this message is expunged.
      */
-    private void forceCheckExpunged() throws MessagingIOException {
+    private void forceCheckExpunged() throws IOException {
 	synchronized (msg.getMessageCacheLock()) {
 	    try {
 		msg.getProtocol().noop();
 	    } catch (ConnectionException cex) {
-		throw new MessagingIOException(msg.getFolder(),
-						cex.getMessage());
+	    	throw new IOException(new FolderClosedException(msg.getFolder(), cex.getMessage()));
 	    } catch (FolderClosedException fex) {
-		throw new MessagingIOException(fex.getFolder(),
-						fex.getMessage());
+	    	throw new IOException(new FolderClosedException(fex.getFolder(), fex.getMessage()));
 	    } catch (ProtocolException pex) {
 		// ignore it
 	    }
 	}
 	if (msg.isExpunged())
-	    throw new MessagingIOException();
+	    throw new IOException(new MessagingException());
     }
 
     /**
@@ -127,8 +124,7 @@ public class IMAPInputStream extends InputStream {
 
 		// Check whether this message is expunged
 		if (msg.isExpunged())
-		    throw new MessagingIOException(
-				"No content for expunged message");
+		    throw new IOException(new MessagingException("No content for expunged message"));
 
 		int seqnum = msg.getSequenceNumber();
 		cnt = blksize;
@@ -139,11 +135,10 @@ public class IMAPInputStream extends InputStream {
 		else
 		    b = p.fetchBody(seqnum, section, pos, cnt, readbuf);
 	    } catch (ProtocolException pex) {
-		forceCheckExpunged();
-		throw new IOException(pex.getMessage());
+	    	forceCheckExpunged();
+	    	throw new IOException(pex.getMessage());
 	    } catch (FolderClosedException fex) {
-		throw new MessagingIOException(fex.getFolder(),
-						fex.getMessage());
+	    	throw new IOException(new FolderClosedException(fex.getFolder(), fex.getMessage()));
 	    }
 
 	    if (b == null || ((ba = b.getByteArray()) == null)) {

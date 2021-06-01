@@ -26,7 +26,6 @@ import jakarta.mail.FolderClosedException;
 import jakarta.mail.MessageAware;
 import jakarta.mail.MessageContext;
 import jakarta.mail.MessagingException;
-import jakarta.mail.MessagingIOException;
 
 
 
@@ -93,12 +92,10 @@ public class MimePartDataSource implements DataSource, MessageAware {
 	    else
 		return is;
 	} catch (FolderClosedException fex) {
-	    throw new MessagingIOException(fex.getFolder(),
-						fex.getMessage());
+		throw new IOException(new FolderClosedException(fex.getFolder(), fex.getMessage(), fex));
 	} catch (MessagingException mex) {
-	    IOException ioex = new IOException(mex.getMessage());
-	    ioex.initCause(mex);
-	    throw ioex;
+		// Cause is removed because in upper stack the cause is checked. See test POP3FolderClosedExceptionTest
+	    throw new IOException(mex.getMessage());
 	}
     }
 

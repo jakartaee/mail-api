@@ -42,7 +42,6 @@ import jakarta.mail.IllegalWriteException;
 import jakarta.mail.Message;
 import jakarta.mail.MessageRemovedException;
 import jakarta.mail.MessagingException;
-import jakarta.mail.MessagingIOException;
 import jakarta.mail.Multipart;
 import jakarta.mail.Part;
 import jakarta.mail.Session;
@@ -683,11 +682,14 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	Object c;
 	try {
 	    c = getDataHandler().getContent();
-	} catch (MessagingIOException e) {
-		if (e.getFolder() != null) {
-			throw new FolderClosedException(e.getFolder(), e.getMessage());
-		} else {
+	} catch (IOException e) {
+		if (e.getCause() instanceof FolderClosedException) {
+			FolderClosedException fce = (FolderClosedException) e.getCause();
+			throw new FolderClosedException(fce.getFolder(), e.getMessage());
+		} else if(e.getCause() instanceof MessagingException) {
 			throw new MessageRemovedException(e.getMessage());
+		} else {
+			throw e;
 		}
 	}
 	if (cacheMultipart &&
