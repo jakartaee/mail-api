@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,9 +16,10 @@
 
 package jakarta.mail.internet;
 
-import java.net.*;
+import com.sun.mail.util.PropUtil;
 import java.util.concurrent.atomic.AtomicInteger;
 import jakarta.mail.Session;
+import java.util.UUID;
 
 /**
  * This is a utility class that generates unique values. The generated
@@ -36,7 +37,7 @@ class UniqueValue {
     /**
      * A global unique number, to ensure uniqueness of generated strings.
      */
-    private static AtomicInteger id = new AtomicInteger();
+    private static final AtomicInteger id = new AtomicInteger();
 
     /**
      * Get a unique value for use in a multipart boundary string.
@@ -47,12 +48,16 @@ class UniqueValue {
      */
     public static String getUniqueBoundaryValue() {
 	StringBuilder s = new StringBuilder();
-	long hash = s.hashCode();
-
-	// Unique string is ----=_Part_<part>_<hashcode>.<currentTime>
-	s.append("----=_Part_").append(id.getAndIncrement()).append("_").
-	  append(hash).append('.').
-	  append(System.currentTimeMillis());
+	s.append("----=_Part_");
+        if (PropUtil.getBooleanSystemProperty(
+                "mail.mime.multipart.boundary.format", true)) {
+            s.append(UUID.randomUUID());
+        } else {
+            // Unique string is ----=_Part_<part>_<hashcode>.<currentTime>
+            s.append(id.getAndIncrement()).append("_").
+            append(System.identityHashCode(s)).append('.').
+            append(System.currentTimeMillis());
+        }
 	return s.toString();
     }
 
@@ -71,25 +76,45 @@ class UniqueValue {
      * @see jakarta.mail.internet.InternetAddress
      */
     public static String getUniqueMessageIDValue(Session ssn) {
-	String suffix = null;
+	StringBuilder s = new StringBuilder();
+        if (messageIdFormat(ssn)) {
+            s.append(UUID.randomUUID());
+        } else {
+            // Unique string is <hashcode>.<id>.<currentTime><suffix>
+            s.append(System.identityHashCode(s)).append('.').
+            append(id.getAndIncrement()).append('.').
+            append(System.currentTimeMillis());
+        }
 
+        String suffix;
 	InternetAddress addr = InternetAddress.getLocalAddress(ssn);
 	if (addr != null)
 	    suffix = addr.getAddress();
 	else {
 	    suffix = "jakartamailuser@localhost"; // worst-case default
 	}
+
 	int at = suffix.lastIndexOf('@');
-	if (at >= 0)
-	    suffix = suffix.substring(at);
-
-	StringBuilder s = new StringBuilder();
-
-	// Unique string is <hashcode>.<id>.<currentTime><suffix>
-	s.append(s.hashCode()).append('.').
-	  append(id.getAndIncrement()).append('.').
-	  append(System.currentTimeMillis()).
-	  append(suffix);
+	if (at >= 0) {
+            s.append(suffix, at, suffix.length());
+        } else {
+            s.append(suffix);
+        }
 	return s.toString();
+    }
+    
+    private static boolean messageIdFormat(Session ssn) {
+        String k = "mail.mime.messageid.format";
+        boolean def = true;
+        if (ssn != null) {
+            return PropUtil.getBooleanProperty(ssn.getProperties(), k, def);
+        } else {  //Act like default default session without creating it.
+            return PropUtil.getBooleanSystemProperty(k, def);
+        }
+    }
+    
+    // No one should instantiate this class.
+    private UniqueValue() throws IllegalAccessException {
+        throw new IllegalAccessException(UniqueValue.class.getName());
     }
 }
