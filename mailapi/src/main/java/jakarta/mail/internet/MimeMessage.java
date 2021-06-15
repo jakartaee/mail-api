@@ -43,8 +43,8 @@ import jakarta.mail.MessageRemovedException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Multipart;
 import jakarta.mail.Session;
+import jakarta.mail.SharedInputStream;
 import jakarta.mail.util.LineOutputStream;
-import jakarta.mail.util.SharedInputStream;
 
 
 

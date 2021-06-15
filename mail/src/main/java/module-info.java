@@ -45,7 +45,6 @@ module com.sun.mail {
             com.sun.mail.smtp.SMTPSSLProvider,
             com.sun.mail.pop3.POP3Provider,
             com.sun.mail.pop3.POP3SSLProvider;
-    uses jakarta.mail.util.StreamProvider;
     provides jakarta.mail.util.StreamProvider with
         com.sun.mail.util.MailStreamProvider;
 }

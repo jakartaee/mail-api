@@ -20,15 +20,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Interface to be implemented by different mail implementations. It contains
- * the methods to instance different encoders/decoders and other streams required by the API.
+ * Service lookup is used to find implementations of this interface.
  * 
- * Implementations of this interface will need to be declared in
- * META-INF/services/jakarta.mail.stream.StreamProvider
+ * It contains the methods to instance different encoders/decoders and
+ * other streams required by the API.
  *
  */
 public interface StreamProvider {
 
+	/**
+	 * Enumeration with the different encoder types supported by the Mail API.
+	 */
 	public static enum EncoderTypes {
 		
 		BASE_64("base64"),

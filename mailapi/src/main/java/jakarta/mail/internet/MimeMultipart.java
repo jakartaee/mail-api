@@ -25,10 +25,10 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Multipart;
 import jakarta.mail.MultipartDataSource;
 import jakarta.mail.Session;
+import jakarta.mail.SharedInputStream;
 import jakarta.mail.internet.MimeUtility;
 import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.LineOutputStream;
-import jakarta.mail.util.SharedInputStream;
 import jakarta.mail.util.StreamProvider;
 
 import java.io.BufferedInputStream;
