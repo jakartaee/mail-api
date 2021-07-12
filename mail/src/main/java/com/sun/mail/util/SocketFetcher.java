@@ -607,7 +607,7 @@ public class SocketFetcher {
 	boolean idCheck = PropUtil.getBooleanProperty(props,
 			    prefix + ".ssl.checkserveridentity", false);
 	if (idCheck)
-	    checkServerIdentity(host, sslsocket);
+	    checkServerIdentity(props, prefix, host, sslsocket);
 	if (sf instanceof MailSSLSocketFactory) {
 	    MailSSLSocketFactory msf = (MailSSLSocketFactory)sf;
 	    if (!msf.isServerTrusted(host, sslsocket)) {
@@ -645,27 +645,37 @@ public class SocketFetcher {
      * Check the server from the Socket connection against the server name(s)
      * as expressed in the server certificate (RFC 2595 check).
      *
+     * @param	props	the properties
+     * @param	prefix	the property prefix
      * @param	server		name of the server expected
      * @param   sslSocket	SSLSocket connected to the server
      * @exception	IOException	if we can't verify identity of server
      */
-    private static void checkServerIdentity(String server, SSLSocket sslSocket)
+    private static void checkServerIdentity(Properties props, String prefix, String server, SSLSocket sslSocket)
 				throws IOException {
-
-	// Check against the server name(s) as expressed in server certificate
-	try {
-	    java.security.cert.Certificate[] certChain =
-		      sslSocket.getSession().getPeerCertificates();
-	    if (certChain != null && certChain.length > 0 &&
-		    certChain[0] instanceof X509Certificate &&
-		    matchCert(server, (X509Certificate)certChain[0]))
-		return;
-	} catch (SSLPeerUnverifiedException e) {
-	    sslSocket.close();
-	    IOException ioex = new IOException(
-		"Can't verify identity of server: " + server);
-	    ioex.initCause(e);
-	    throw ioex;
+	// Check using the defined hostname verifier instance, if present
+	Object hostnameVerifier = props.get(prefix + ".ssl.hostnameverifier");
+	if (hostnameVerifier != null) {
+		HostnameVerifier hnv = (HostnameVerifier) hostnameVerifier;
+		if (hnv.verify(server, sslSocket.getSession()))
+			return;
+	}
+	else {
+		// Check against the server name(s) as expressed in server certificate
+		try {
+			java.security.cert.Certificate[] certChain =
+					sslSocket.getSession().getPeerCertificates();
+			if (certChain != null && certChain.length > 0 &&
+					certChain[0] instanceof X509Certificate &&
+					matchCert(server, (X509Certificate) certChain[0]))
+				return;
+		} catch (SSLPeerUnverifiedException e) {
+			sslSocket.close();
+			IOException ioex = new IOException(
+					"Can't verify identity of server: " + server);
+			ioex.initCause(e);
+			throw ioex;
+		}
 	}
 
 	// If we get here, there is nothing to consider the server as trusted.

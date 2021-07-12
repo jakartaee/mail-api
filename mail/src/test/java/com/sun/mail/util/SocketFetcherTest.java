@@ -16,19 +16,28 @@
 
 package com.sun.mail.util;
 
+import com.sun.mail.imap.IMAPHandler;
+import com.sun.mail.test.ProtocolHandler;
+import com.sun.mail.test.TestSSLSocketFactory;
+import com.sun.mail.test.TestServer;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
+import org.junit.rules.Timeout;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Properties;
 import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
-import com.sun.mail.test.TestServer;
-import com.sun.mail.test.ProtocolHandler;
-
-import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.Timeout;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -87,6 +96,96 @@ public final class SocketFetcherTest {
     @Test
     public void testNoProxy() {
 	assertFalse("no proxy", testProxy("none", "localhost", null));
+    }
+
+    @Test
+    public void testSSLSocketFactoryHostnameVerifierAcceptsConnections() throws Exception {
+        testSSLSocketFactoryHostnameVerifier(true);
+    }
+    /**
+     * Test connecting (IMAP) with SSL using a custom hostname verifier which will
+     * reject all connections.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testSSLSocketFactoryHostnameVerifierRejectsConnections() throws Exception {
+        testSSLSocketFactoryHostnameVerifier(false);
+    }
+
+    /**
+     * Utility method for testing a custom {@link HostnameVerifier}.
+     *
+     * @param acceptConnections Whether the {@link HostnameVerifier} should accept or reject connections.
+     * @throws Exception
+     */
+    private void testSSLSocketFactoryHostnameVerifier(boolean acceptConnections) throws Exception {
+        final Properties properties = new Properties();
+        properties.setProperty("mail.imap.host", "localhost");
+        properties.setProperty("mail.imap.ssl.enable", "true");
+
+        TestSSLSocketFactory sf = new TestSSLSocketFactory();
+        properties.put("mail.imap.ssl.socketFactory", sf);
+
+        // don't fall back to non-SSL
+        properties.setProperty("mail.imap.socketFactory.fallback", "false");
+
+        class CustomHostnameVerifier implements HostnameVerifier {
+            private boolean used = false;
+
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                used = true;
+                return acceptConnections;
+            }
+
+            public boolean hasBeenUsed() {
+                return used;
+            }
+        }
+
+        CustomHostnameVerifier hnv = new CustomHostnameVerifier();
+        properties.put("mail.imap.ssl.hostnameverifier", hnv);
+        properties.setProperty("mail.imap.ssl.checkserveridentity", "true"); // Required for hostname verification
+
+        ThrowingRunnable runnable = new ThrowingRunnable() {
+            @Override
+            public void run() throws Throwable {
+                TestServer server = null;
+                try {
+                    server = new TestServer(new IMAPHandler(), true);
+                    server.start();
+
+                    properties.setProperty("mail.imap.port", "" + server.getPort());
+                    final Session session = Session.getInstance(properties);
+
+                    final Store store = session.getStore("imap");
+                    store.connect("test", "test");
+                }
+                finally {
+                    if (server != null) {
+                        server.quit();
+                    }
+                }
+            }
+        };
+
+        if (!acceptConnections) {
+            // When the hostname verifier refuses a connection, a MessagingException will be thrown.
+            assertThrows(MessagingException.class, runnable);
+        }
+        else {
+            // When the hostname verifier is not set to refuse connections, no exception should be thrown.
+            try {
+                runnable.run();
+            }
+            catch (Throwable t) {
+                fail("Unexpected exception thrown.");
+            }
+        }
+
+        // Ensure the custom hostname verifier was actually used.
+        assertTrue("Custom hostname verifier was not used.", hnv.hasBeenUsed());
     }
 
     /**
