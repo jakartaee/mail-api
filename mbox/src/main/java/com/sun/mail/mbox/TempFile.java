@@ -19,7 +19,7 @@ package com.sun.mail.mbox;
 import java.util.*;
 
 import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.SharedFileInputStream;
+import jakarta.mail.util.SharedFileInputStream;
 
 import java.net.*;
 import java.io.*;

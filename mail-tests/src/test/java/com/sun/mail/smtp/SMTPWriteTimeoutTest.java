@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.sun.mail.test.TestServer;
-import com.sun.mail.util.ByteArrayDataSource;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import org.junit.Rule;
 import org.junit.Test;

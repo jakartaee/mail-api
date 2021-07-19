@@ -19,7 +19,7 @@ package jakarta.mail.internet;
 import java.io.*;
 import java.util.*;
 
-import com.sun.mail.util.ByteArrayDataSource;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import jakarta.activation.*;
 import jakarta.mail.*;

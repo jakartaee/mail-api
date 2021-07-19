@@ -27,7 +27,7 @@ import java.io.InputStream;
 
 import javax.xml.transform.stream.StreamSource;
 
-import com.sun.mail.util.ByteArrayDataSource;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import org.junit.Test;
 

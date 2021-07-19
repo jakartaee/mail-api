@@ -47,7 +47,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.SimpleFormatter;
 
-import com.sun.mail.util.ByteArrayDataSource;
+import  jakarta.mail.util.ByteArrayDataSource;
 
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;

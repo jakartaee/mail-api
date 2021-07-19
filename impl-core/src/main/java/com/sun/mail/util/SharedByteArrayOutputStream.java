@@ -19,6 +19,8 @@ package com.sun.mail.util;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
+import jakarta.mail.util.SharedByteArrayInputStream;
+
 /**
  * A ByteArrayOutputStream that allows us to share the byte array
  * rather than copy it.  Eventually could replace this with something

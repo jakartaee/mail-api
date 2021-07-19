@@ -18,8 +18,8 @@ package jakarta.mail.internet;
 
 import java.util.*;
 
-import com.sun.mail.util.ByteArrayDataSource;
-import com.sun.mail.util.SharedByteArrayInputStream;
+import jakarta.mail.util.ByteArrayDataSource;
+import jakarta.mail.util.SharedByteArrayInputStream;
 
 import java.io.*;
 import jakarta.mail.*;

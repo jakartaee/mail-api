@@ -19,6 +19,7 @@ package com.sun.mail.util;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import jakarta.mail.util.SharedByteArrayInputStream;
 import jakarta.mail.util.StreamProvider;
 
 /**

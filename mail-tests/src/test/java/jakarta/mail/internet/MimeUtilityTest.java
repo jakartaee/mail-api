@@ -27,7 +27,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.sun.mail.util.ByteArrayDataSource;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;

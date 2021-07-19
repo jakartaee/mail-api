@@ -23,6 +23,7 @@ import jakarta.mail.Session;
 import jakarta.mail.Store;
 import jakarta.mail.StoreClosedException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
