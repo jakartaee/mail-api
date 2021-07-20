@@ -159,7 +159,6 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
 	<module>dsn</module>
 	<module>mailhandler</module>
 	<module>parent-distrib</module>
-	<module>mail-tests</module>
     </modules>
 
     <profiles>
