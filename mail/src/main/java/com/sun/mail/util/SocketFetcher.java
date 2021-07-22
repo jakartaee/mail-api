@@ -408,6 +408,54 @@ public class SocketFetcher {
 	return sf;
     }
 
+	/**
+	 * Return an instance of {@link HostnameVerifier}.
+	 * This method assumes the {@link HostnameVerifier} class provides an
+	 * accessible default constructor to instantiate the instance.
+	 *
+	 * @param hnvClassname               the class name of the {@link HostnameVerifier}.
+	 * @return                           the {@link HostnameVerifier}
+	 * @throws ClassNotFoundException    If the {@link HostnameVerifier} class cannot be found in the current class loader after also not being found in the context class loader.
+	 * @throws NoSuchMethodException     If the {@link HostnameVerifier} class does not implement a publicly accessible default constructor.
+	 * @throws InvocationTargetException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	private static HostnameVerifier getHostnameVerifier(String hnvClassname)
+			throws ClassNotFoundException,
+				NoSuchMethodException,
+				InvocationTargetException,
+				InstantiationException,
+				IllegalAccessException {
+		if (!(hnvClassname == null || hnvClassname.length() == 0)) {
+			ClassLoader ccl = getContextClassLoader();
+			Class<?> clsHostnameVerifier = null;
+
+			// Attempt to load the class from the context class loader.
+			if (ccl != null) {
+				try {
+					clsHostnameVerifier = Class.forName(hnvClassname, false, ccl);
+				} catch (ClassNotFoundException cex) {
+					// Ignore it - try the current class loader
+				}
+			}
+
+			// If the class was not resolved in the context class loader, try the current class loader.
+			if (clsHostnameVerifier == null) {
+				clsHostnameVerifier = Class.forName(hnvClassname);
+			}
+
+			// If we were able to resolve the class object, attempt to construct an instance
+			if (clsHostnameVerifier != null) {
+				// Attempt to invoke the default constructor
+				Constructor<?> defaultConstructor = clsHostnameVerifier.getConstructor();
+				return (HostnameVerifier) defaultConstructor.newInstance();
+			}
+		}
+
+		return null;
+	}
+
     /**
      * Start TLS on an existing socket.
      * Supports the "STARTTLS" command in many protocols.
@@ -655,7 +703,24 @@ public class SocketFetcher {
 				throws IOException {
 	// Check using the defined hostname verifier instance, if present
 	Object hostnameVerifier = props.get(prefix + ".ssl.hostnameverifier");
+	if (hostnameVerifier == null) {
+		String hostnameVerifierClass = props.getProperty(prefix + ".ssl.hostnameverifier.class");
+		try {
+			hostnameVerifier = getHostnameVerifier(hostnameVerifierClass);
+		}
+		catch (Exception e) {
+			sslSocket.close();
+			IOException ioex = new IOException(
+					"Can't verify identity of server: " + server
+			);
+			ioex.initCause(e);
+			throw ioex;
+		}
+	}
+
+	// Use the defined HostnameVerifier, if present
 	if (hostnameVerifier != null) {
+		logger.finer("Using HostnameVerifier " + hostnameVerifier.getClass().getName());
 		HostnameVerifier hnv = (HostnameVerifier) hostnameVerifier;
 		if (hnv.verify(server, sslSocket.getSession()))
 			return;
