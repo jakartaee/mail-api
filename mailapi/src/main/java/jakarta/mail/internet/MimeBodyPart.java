@@ -45,7 +45,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Multipart;
 import jakarta.mail.Part;
 import jakarta.mail.Session;
-import jakarta.mail.SharedInputStream;
 import jakarta.mail.util.LineOutputStream;
 import jakarta.mail.util.StreamProvider;
 import jakarta.mail.util.StreamProvider.EncoderTypes;

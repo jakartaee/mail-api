@@ -18,7 +18,7 @@ package jakarta.mail.util;
 
 import java.io.*;
 
-import jakarta.mail.SharedInputStream;
+import jakarta.mail.internet.SharedInputStream;
 
 /**
  * A ByteArrayInputStream that implements the SharedInputStream interface,

@@ -24,7 +24,6 @@ import java.io.*;
 import java.util.*;
 
 import com.sun.mail.util.LineInputStream;
-import jakarta.mail.util.SharedByteArrayInputStream;
 
 /**
  * This class represents a mailbox file containing RFC822 style email messages. 
