@@ -73,7 +73,7 @@
     <properties>
 	<mail.version>${project.version}</mail.version>
 	<mail.spec.version>2.0</mail.spec.version>
-	<activation.version>2.0.1</activation.version>
+	<activation.version>2.0.2-SNAPSHOT</activation.version>
 	<!-- defaults that are overridden in mail module -->
 	<mail.extensionName>
 	    ${project.groupId}.${project.artifactId}
@@ -149,9 +149,9 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
     </distributionManagement>
 
     <modules>
-	<module>mail</module>
 	<module>mailapi</module>
 	<module>mailapijar</module>
+	<module>mail</module>
 	<module>smtp</module>
 	<module>imap</module>
 	<module>gimap</module>
@@ -703,9 +703,14 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
 
     <dependencyManagement>
 	<dependencies>
+            <dependency>
+                <groupId>jakarta.activation</groupId>
+                <artifactId>jakarta.activation-api</artifactId>
+                <version>${activation.version}</version>
+            </dependency>
 	    <dependency>
-		<groupId>com.sun.activation</groupId>
-		<artifactId>jakarta.activation</artifactId>
+	        <groupId>com.sun.activation</groupId>
+	        <artifactId>sun-activation-registry</artifactId>
 		<version>${activation.version}</version>
 	    </dependency>
 	    <dependency>

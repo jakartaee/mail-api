@@ -48,8 +48,8 @@
     <!-- for javadoc build to succeed -->
     <dependencies>
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

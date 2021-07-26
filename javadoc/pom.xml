@@ -110,7 +110,7 @@
                                 <mkdir dir="${project.build.directory}/javadoc-ant"/>
                                 <javadoc destdir="${project.build.directory}/site/apidocs"
                                          modulesourcepath="${project.build.directory}/javadoc-sources/"
-                                         modulepath="${com.sun.activation:jakarta.activation:jar}"
+                                         modulepath="${jakarta.activation:jakarta.activation-api:jar}"
                                          author="false"
                                          docfilessubdirs="true"
                                          failonerror="true"
