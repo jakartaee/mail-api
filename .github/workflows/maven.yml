@@ -33,11 +33,13 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: ${{ matrix.java_version }}
+    - name: Cache local Maven repository
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Verify
       run: |
         cd api
-        mvn -B -U -C -V clean verify -Poss-release,staging -Dgpg.skip=true
-    - name: Check copyrights
-      run: |
-        cd api
-        mvn -B -V org.glassfish.copyright:glassfish-copyright-maven-plugin:check
+        mvn -B -U -C -V clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Poss-release,staging -Dgpg.skip=true
