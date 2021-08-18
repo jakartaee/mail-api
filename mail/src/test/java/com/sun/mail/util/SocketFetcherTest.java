@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,17 +18,19 @@ package com.sun.mail.util;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Properties;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Properties;
 
-import com.sun.mail.test.TestServer;
 import com.sun.mail.test.ProtocolHandler;
+import com.sun.mail.test.TestServer;
 
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.Timeout;
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -187,7 +189,7 @@ public final class SocketFetcherTest {
 		if (line.startsWith("Proxy-Authorization:")) {
 		    int i = line.indexOf("Basic ") + 6;
 		    String up = line.substring(i);
-		    userPassword = new String(BASE64DecoderStream.decode(
+		    userPassword = new String(Base64.getDecoder().decode(
 				    up.getBytes(StandardCharsets.US_ASCII)),
 				    StandardCharsets.UTF_8);
 		}

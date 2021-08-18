@@ -27,10 +27,9 @@
 	<version>2.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.sun.mail</groupId>
     <artifactId>jakarta.mail</artifactId>
     <packaging>jar</packaging>
-    <name>Jakarta Mail API</name>
+    <name>Jakarta Mail Implementation</name>
 
     <properties>
 	<mail.extensionName>
@@ -46,7 +45,6 @@
 	    jakarta.mail
 	</mail.implementationTitle>
 	<mail.packages.export>
-	    jakarta.mail.*; version=${mail.spec.version},
 	    com.sun.mail.imap; version=${mail.osgiversion},
 	    com.sun.mail.imap.protocol; version=${mail.osgiversion},
 	    com.sun.mail.iap; version=${mail.osgiversion},
@@ -68,78 +66,7 @@
     </properties>
 
     <build>
-	<resources>
-	    <resource>
-		<directory>src/main/resources</directory>
-		<filtering>true</filtering>
-                <excludes>
-                    <exclude>jakarta/mail/Version.java</exclude>
-                </excludes>
-	    </resource>
-	</resources>
 	<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/generated-sources/version</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/resources</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>jakarta/mail/Version.java</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--
-                Use 1.8 compiler to compile MailServiceDefinition & MailServiceDefinitions
-                which depend on the Repeatable annotation available from Java SE 8
-            -->
-	    <plugin>
-		<artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>base-compile-8</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <release>8</release>
-                            <includes>
-                                <include>jakarta/mail/MailSessionDefinition.java</include>
-                                <include>jakarta/mail/MailSessionDefinitions.java</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
-	    </plugin>
-
-	    <!--
-		Configure test plugin to find *TestSuite classes.
-	    -->
-	    <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-surefire-plugin</artifactId>
-		<configuration>
-		    <includes>
-			<include>**/*Test.java</include>
-			<include>**/*TestSuite.java</include>
-		    </includes>
-		</configuration>
-	    </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -147,18 +74,114 @@
                     <bottom>${mail.javadoc.bottom}</bottom>
                 </configuration>
             </plugin>
+            <plugin>
+		        <artifactId>maven-dependency-plugin</artifactId>
+		        <executions>
+		            <execution>
+		            <!-- download the sources -->
+		            <id>get-sources</id>
+		            <phase>generate-sources</phase>
+		            <goals>
+		                <goal>unpack</goal>
+		            </goals>
+		            <configuration>
+		                <artifactItems>
+			                <artifactItem>
+			                    <groupId>com.sun.mail</groupId>
+			                    <artifactId>impl-core</artifactId>
+			                    <version>${mail.version}</version>
+			                    <classifier>sources</classifier>
+			                    <outputDirectory>${project.build.directory}/generated-sources/sources</outputDirectory>
+			                </artifactItem>
+			                <artifactItem>
+			                    <groupId>com.sun.mail</groupId>
+			                    <artifactId>imap</artifactId>
+			                    <version>${mail.version}</version>
+			                    <classifier>sources</classifier>
+			                    <outputDirectory>${project.build.directory}/generated-sources/sources</outputDirectory>
+			                </artifactItem>
+			                <artifactItem>
+			                    <groupId>com.sun.mail</groupId>
+			                    <artifactId>pop3</artifactId>
+			                    <version>${mail.version}</version>
+			                    <classifier>sources</classifier>
+			                    <outputDirectory>${project.build.directory}/generated-sources/sources</outputDirectory>
+			                </artifactItem>
+			                <artifactItem>
+			                    <groupId>com.sun.mail</groupId>
+			                    <artifactId>smtp</artifactId>
+			                    <version>${mail.version}</version>
+			                    <classifier>sources</classifier>
+			                    <outputDirectory>${project.build.directory}/generated-sources/sources</outputDirectory>
+			                </artifactItem>
+			                <artifactItem>
+			                    <groupId>com.sun.mail</groupId>
+			                    <artifactId>logging-mailhandler</artifactId>
+			                    <version>${mail.version}</version>
+			                    <classifier>sources</classifier>
+			                    <outputDirectory>${project.build.directory}/generated-sources/sources</outputDirectory>
+			                </artifactItem>
+		                </artifactItems>
+		            </configuration>
+		            </execution>
+		        </executions>
+		        <configuration>
+		            <excludes>module-info.java</excludes>
+                </configuration>
+            </plugin>
+	    <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<configuration>
+			    <forkMode>always</forkMode>
+			    <!-- CompactFormatterTest does not provide the expected results with modules, otherwise this can be removed -->
+                <useModulePath>false</useModulePath>
+			</configuration>
+	    </plugin>
         </plugins>
     </build>
 
     <dependencies>
-	<dependency>
-	    <groupId>com.sun.activation</groupId>
-	    <artifactId>jakarta.activation</artifactId>
-	</dependency>
+		<dependency>
+		    <groupId>com.sun.activation</groupId>
+		    <artifactId>jakarta.activation</artifactId>
+		</dependency>
+		<dependency>
+	        <groupId>jakarta.mail</groupId>
+	        <artifactId>mailapi</artifactId>
+	        <version>${mail.version}</version>
+	        <scope>provided</scope>
+	    </dependency>
 	<dependency>
 	    <groupId>junit</groupId>
 	    <artifactId>junit</artifactId>
 	    <scope>test</scope>
 	</dependency>
+		<!-- Force dependencies to exist before compile the module -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>impl-core</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>imap</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>pop3</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>logging-mailhandler</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
     </dependencies>
 </project>

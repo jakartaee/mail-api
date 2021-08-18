@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,12 +17,10 @@
 package com.sun.mail.imap;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
-import java.nio.charset.StandardCharsets;
-
-import com.sun.mail.util.BASE64EncoderStream;
 
 import com.sun.mail.test.ProtocolHandler;
 
@@ -551,7 +549,7 @@ public class IMAPHandler extends ProtocolHandler {
      * Base64 encode the string.
      */
     protected String base64encode(String s) throws IOException {
-	return new String(BASE64EncoderStream.encode(s.getBytes("US-ASCII")),
+	return new String(Base64.getEncoder().encode(s.getBytes("US-ASCII")),
 			"US-ASCII");
     }
 

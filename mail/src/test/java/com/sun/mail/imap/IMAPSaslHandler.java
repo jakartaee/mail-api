@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,15 +17,20 @@
 package com.sun.mail.imap;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import java.util.Base64;
 import java.util.logging.Level;
 
-import javax.security.sasl.*;
-import javax.security.auth.callback.*;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
+import javax.security.sasl.AuthorizeCallback;
+import javax.security.sasl.RealmCallback;
+import javax.security.sasl.RealmChoiceCallback;
+import javax.security.sasl.Sasl;
+import javax.security.sasl.SaslException;
+import javax.security.sasl.SaslServer;
 
-import com.sun.mail.util.BASE64EncoderStream;
-import com.sun.mail.util.BASE64DecoderStream;
 import com.sun.mail.util.ASCIIUtility;
 
 /**
@@ -123,7 +128,7 @@ public class IMAPSaslHandler extends IMAPHandler {
 		    if (LOGGER.isLoggable(Level.FINE))
 			LOGGER.fine("SASL challenge: " +
 			    ASCIIUtility.toString(chal, 0, chal.length));
-		    byte[] ba = BASE64EncoderStream.encode(chal);
+		    byte[] ba = Base64.getEncoder().encode(chal);
 		    if (ba.length > 0)
 			cont(ASCIIUtility.toString(ba, 0, ba.length));
 		    else
@@ -131,7 +136,7 @@ public class IMAPSaslHandler extends IMAPHandler {
 		    // read response
 		    String resp = readLine();
 		    response = resp.getBytes();
-		    response = BASE64DecoderStream.decode(response);
+		    response = Base64.getDecoder().decode(response);
 		}
 	    } catch (SaslException ex) {
 		no(ex.toString());

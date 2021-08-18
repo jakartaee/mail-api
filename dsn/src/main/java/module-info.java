@@ -18,4 +18,5 @@ module com.sun.mail.dsn {
     exports com.sun.mail.dsn;
 
     requires transitive jakarta.mail;
+    requires com.sun.mail;
 }

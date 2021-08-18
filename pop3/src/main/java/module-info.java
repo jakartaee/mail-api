@@ -15,6 +15,17 @@
  */
 
 module com.sun.mail.pop3 {
+
+    exports com.sun.mail.util;
+    exports com.sun.mail.auth;
+    exports com.sun.mail.handlers;
+
+    requires transitive jakarta.activation;
+    requires transitive java.logging;
+    requires java.xml;      // for text/xml handler
+    requires java.desktop;  // for image/jpeg handler
+    requires transitive java.security.sasl; // for OAuth2 support
+
     exports com.sun.mail.pop3;
     provides jakarta.mail.Provider with
 	com.sun.mail.pop3.POP3Provider, com.sun.mail.pop3.POP3SSLProvider;

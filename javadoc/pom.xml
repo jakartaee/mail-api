@@ -27,7 +27,6 @@
 	<version>2.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.sun.mail</groupId>
     <artifactId>javadoc</artifactId>
     <packaging>pom</packaging>
     <version>2.0.2-SNAPSHOT</version>
@@ -55,31 +54,32 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
+                                    <groupId>jakarta.mail</groupId>
+                                    <artifactId>mailapi</artifactId>
+                                    <version>${mail.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>${project.build.directory}/javadoc-sources/jakarta.mail</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
                                     <groupId>com.sun.mail</groupId>
                                     <artifactId>jakarta.mail</artifactId>
                                     <version>${mail.version}</version>
                                     <classifier>sources</classifier>
-                                    <outputDirectory>
-                                        ${project.build.directory}/javadoc-sources/jakarta.mail
-                                    </outputDirectory>
+                                    <outputDirectory>${project.build.directory}/javadoc-sources/com.sun.mail</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.sun.mail</groupId>
                                     <artifactId>dsn</artifactId>
                                     <version>${mail.version}</version>
                                     <classifier>sources</classifier>
-                                    <outputDirectory>
-                                        ${project.build.directory}/javadoc-sources/com.sun.mail.dsn
-                                    </outputDirectory>
+                                    <outputDirectory>${project.build.directory}/javadoc-sources/com.sun.mail.dsn</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.sun.mail</groupId>
                                     <artifactId>gimap</artifactId>
                                     <version>${mail.version}</version>
                                     <classifier>sources</classifier>
-                                    <outputDirectory>
-                                        ${project.build.directory}/javadoc-sources/com.sun.mail.gimap
-                                    </outputDirectory>
+                                    <outputDirectory>${project.build.directory}/javadoc-sources/com.sun.mail.gimap</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -104,9 +104,6 @@
                         </goals>
 			<configuration>
                             <target>
-                                <replace file="${project.build.directory}/javadoc-sources/com.sun.mail.gimap/module-info.java"
-                                         token="requires static com.sun.mail.imap;"
-                                         value=""/>
                                 <mkdir dir="${project.build.directory}/javadoc-ant"/>
                                 <javadoc destdir="${project.build.directory}/site/apidocs"
                                          modulesourcepath="${project.build.directory}/javadoc-sources/"
@@ -130,11 +127,10 @@
                                     <header>${mail.javadoc.impl.header}</header>
                                     <group title="Jakarta Mail API Packages" packages="jakarta.mail.*"/>
                                     <group title="Implementation-specific Packages" packages="com.sun.mail.*"/>
-
                                     <fileset dir="${project.build.directory}/javadoc-sources/jakarta.mail">
-					<include name="jakarta/mail/**/*.java"/>
-				    </fileset>
-                                    <fileset dir="${project.build.directory}/javadoc-sources/jakarta.mail"
+									   <include name="jakarta/mail/**/*.java"/>
+								    </fileset>
+                                    <fileset dir="${project.build.directory}/javadoc-sources/com.sun.mail"
 					includes="
 			com/sun/mail/imap/IMAPFolder.java,
 			com/sun/mail/imap/IMAPMessage.java,
@@ -175,10 +171,7 @@
 			com/sun/mail/dsn/MultipartReport.java,
 			com/sun/mail/dsn/Report.java
 					"/>
-                                    <fileset dir="${project.build.directory}/javadoc-sources/com.sun.mail.gimap"
-					includes="
-			com/sun/mail/gimap/*.java
-					"/>
+                                    <fileset dir="${project.build.directory}/javadoc-sources/com.sun.mail.gimap" includes="com/sun/mail/gimap/*.java"/>
                                 </javadoc>
                             </target>
 			</configuration>
@@ -189,6 +182,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>mailapi</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>

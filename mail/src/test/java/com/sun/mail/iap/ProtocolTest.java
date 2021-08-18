@@ -16,13 +16,13 @@
 
 package com.sun.mail.iap;
 
+import com.sun.mail.test.NullOutputStream;
+
 import java.io.*;
 import java.lang.reflect.Method;
 import java.net.Socket;
 import java.nio.channels.SocketChannel;
 import java.util.Properties;
-
-import com.sun.mail.test.NullOutputStream;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

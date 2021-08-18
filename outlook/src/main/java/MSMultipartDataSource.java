@@ -8,9 +8,15 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import java.util.*;
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.MultipartDataSource;
+import jakarta.mail.internet.MimePart;
+import jakarta.mail.internet.MimePartDataSource;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
 
 /**
  * A special MultipartDataSource used with MSMessage.
@@ -54,7 +60,7 @@ public class MSMultipartDataSource extends MimePartDataSource
 	    throw new MessagingException("invalid multipart");
 	
 	if (pos > 0)	// we have an unencoded main body part
-	    parts.add(new MSBodyPart(content, 0, pos, "inline", "7bit"));
+	    parts.add(new MSBodyPart(content, 0, pos, "inline", EncoderTypes.BIT7_ENCODER.getEncoder()));
 	else		// no main body part
 	    pos = 0;
 
@@ -69,7 +75,7 @@ public class MSMultipartDataSource extends MimePartDataSource
 		break;
 	    pos += 3;	// skip to the end of "end"
 	    parts.add(new MSBodyPart(content, start, pos,
-					"attachment", "uuencode"));
+					"attachment", EncoderTypes.UU_ENCODER.getEncoder()));
 	}
     }
 

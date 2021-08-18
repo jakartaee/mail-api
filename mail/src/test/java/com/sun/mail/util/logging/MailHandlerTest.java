@@ -33,6 +33,9 @@ import jakarta.mail.*;
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.internet.*;
+import jakarta.mail.util.StreamProvider;
+import jakarta.mail.util.StreamProvider.EncoderTypes;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -5662,7 +5665,7 @@ public class MailHandlerTest extends AbstractLogging {
         msg.addFrom(from);
         msg.setRecipients(Message.RecipientType.TO, from);
         ByteArrayOutputStream out = new ByteArrayOutputStream(384);
-        msg.setHeader("Content-Transfer-Encoding", "base64");
+        msg.setHeader("Content-Transfer-Encoding", EncoderTypes.BASE_64.getEncoder());
         msg.saveChanges();
         try {
             msg.writeTo(out);
@@ -5686,7 +5689,7 @@ public class MailHandlerTest extends AbstractLogging {
         Address[] from = InternetAddress.parse("me@localhost", false);
         msg.addFrom(from);
         msg.setRecipients(Message.RecipientType.TO, from);
-        msg.setHeader("Content-Transfer-Encoding", "base64");
+        msg.setHeader("Content-Transfer-Encoding", EncoderTypes.BASE_64.getEncoder());
         msg.saveChanges();
         try {
             msg.writeTo(new ByteArrayOutputStream(384));

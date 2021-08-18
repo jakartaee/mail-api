@@ -14,13 +14,8 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-module jakarta.mail {
+module com.sun.mail {
 
-    exports jakarta.mail;
-    exports jakarta.mail.event;
-    exports jakarta.mail.internet;
-    exports jakarta.mail.search;
-    exports jakarta.mail.util;
     exports com.sun.mail.util;
     exports com.sun.mail.auth;
     exports com.sun.mail.handlers;
@@ -37,6 +32,7 @@ module jakarta.mail {
 
     requires transitive jakarta.activation;
     requires transitive java.logging;
+    requires jakarta.mail;
     requires java.xml;		// for text/xml handler
     requires java.desktop;	// for image/jpeg handler
     requires transitive java.security.sasl; // for OAuth2 support
@@ -49,4 +45,6 @@ module jakarta.mail {
             com.sun.mail.smtp.SMTPSSLProvider,
             com.sun.mail.pop3.POP3Provider,
             com.sun.mail.pop3.POP3SSLProvider;
+    provides jakarta.mail.util.StreamProvider with
+        com.sun.mail.util.MailStreamProvider;
 }

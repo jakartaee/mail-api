@@ -18,5 +18,6 @@ module com.sun.mail.mbox {
     exports com.sun.mail.mbox;
     exports com.sun.mail.remote;
 
+    requires transitive com.sun.mail;
     requires transitive jakarta.mail;
 }

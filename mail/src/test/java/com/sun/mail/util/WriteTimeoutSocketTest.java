@@ -16,35 +16,36 @@
 
 package com.sun.mail.util;
 
-import java.lang.reflect.*;
+import jakarta.activation.DataHandler;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.StoreClosedException;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.util.ByteArrayDataSource;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
-import java.io.InterruptedIOException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.Socket;
-import java.util.Properties;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
 import java.util.HashSet;
-
-import jakarta.mail.*;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.util.ByteArrayDataSource;
-import jakarta.activation.DataHandler;
-import javax.net.ssl.*;
+import java.util.Properties;
+import java.util.Set;
 
 import com.sun.mail.imap.IMAPHandler;
+import com.sun.mail.test.TestSSLSocketFactory;
 import com.sun.mail.test.TestServer;
 import com.sun.mail.test.TestSocketFactory;
-import com.sun.mail.test.TestSSLSocketFactory;
 
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.Timeout;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test that write timeouts work.

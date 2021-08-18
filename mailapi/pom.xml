@@ -35,17 +35,14 @@
 	<version>2.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.sun.mail</groupId>
+    <groupId>jakarta.mail</groupId>
     <artifactId>mailapi</artifactId>
     <packaging>jar</packaging>
-    <name>Jakarta Mail API (no providers)</name>
+    <name>Jakarta Mail API</name>
 
     <properties>
 	<mail.packages.export>
-	    jakarta.mail.*; version=${mail.spec.version},
-	    com.sun.mail.util; version=${mail.osgiversion},
-	    com.sun.mail.auth; version=${mail.osgiversion},
-	    com.sun.mail.handlers; version=${mail.osgiversion}
+	    jakarta.mail.*; version=${mail.spec.version}
 	</mail.packages.export>
 	<mail.bundle.symbolicName>
 	    jakarta.mail.api
@@ -53,93 +50,33 @@
 	<mail.extraClasses>jakarta/**</mail.extraClasses>
     </properties>
 
-    <profiles>
-	<!--
-	    A special profile for compiling with the real JDK 1.7 compiler.
-	    Exclude MailSessionDefinition and MailSessionDefinitions since
-	    the former requires JDK 1.8 and the latter depends on the former.
-	-->
-	<profile>
-	    <id>1.7</id>
-	    <build>
-		<plugins>
-		    <plugin>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<executions>
-			    <execution>
-				<id>default-compile</id>
-				<configuration>
-				    <excludes>
-					<exclude>
-					  jakarta/mail/MailSessionDefinition.java
-					</exclude>
-					<exclude>
-					  jakarta/mail/MailSessionDefinitions.java
-					</exclude>
-					<exclude>
-					  module-info.java
-					</exclude>
-				    </excludes>
-				</configuration>
-			    </execution>
-			</executions>
-		    </plugin>
-		</plugins>
-	    </build>
-	</profile>
-    </profiles>
-
     <build>
 	<plugins>
-	    <plugin>
-		<artifactId>maven-dependency-plugin</artifactId>
-		<executions>
-		    <execution>
-			<!-- download the sources -->
-			<id>get-sources</id>
-			<phase>generate-sources</phase>
-			<goals>
-			    <goal>unpack</goal>
-			</goals>
-			<configuration>
-			    <artifactItems>
-				<artifactItem>
-				    <groupId>com.sun.mail</groupId>
-				    <artifactId>jakarta.mail</artifactId>
-				    <version>${mail.version}</version>
-				    <classifier>sources</classifier>
-				    <outputDirectory>
-					${project.build.directory}/generated-sources/sources
-				    </outputDirectory>
-				</artifactItem>
-			    </artifactItems>
-		    <!--
-                        Don't include the provider classes in the jar file.
-
-			Don't include the metadata files from the original
-			jar file.
-		    -->
-                            <excludes>
-                                module-info.*,
-                                **/iap/**,
-                                **/imap/**,
-                                **/smtp/**,
-                                **/pop3/**,
-                                META-INF/hk2-locator/**,
-                                META-INF/services/**,
-                                META-INF/maven/**,
-                                META-INF/javamail.**,
-                                META-INF/gfprobe-provider.xml
-                            </excludes>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/generated-sources/version</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>jakarta/mail/Version.java</include>
+                                    </includes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
-            <!--
-                Use 1.8 compiler to compile MailServiceDefinition & MailServiceDefinitions
-                which depend on the Repeatable annotation available from Java SE 8
-            -->
 	    <plugin>
 		<artifactId>maven-compiler-plugin</artifactId>
 		<executions>
@@ -154,11 +91,11 @@
                                 <include>jakarta/mail/MailSessionDefinition.java</include>
                                 <include>jakarta/mail/MailSessionDefinitions.java</include>
                             </includes>
+                            <excludes><exclude>module-info.java</exclude></excludes>
 			</configuration>
 		    </execution>
 		</executions>
 	    </plugin>
-
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
@@ -173,13 +110,25 @@
                     <javadocDirectory>${project.build.directory}/generated-sources/sources</javadocDirectory>
                 </configuration>
             </plugin>
-	</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <forkMode>always</forkMode>
+                </configuration>
+            </plugin>
+	   </plugins>
     </build>
 
     <dependencies>
-	<dependency>
-	    <groupId>com.sun.activation</groupId>
-	    <artifactId>jakarta.activation</artifactId>
-	</dependency>
+		<dependency>
+		    <groupId>com.sun.activation</groupId>
+		    <artifactId>jakarta.activation</artifactId>
+		</dependency>
+	    <dependency>
+	        <groupId>junit</groupId>
+	        <artifactId>junit</artifactId>
+	        <scope>test</scope>
+	    </dependency>
     </dependencies>
 </project>

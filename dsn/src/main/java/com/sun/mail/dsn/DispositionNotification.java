@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,12 +19,13 @@ package com.sun.mail.dsn;
 import java.io.*;
 import java.util.*;
 
+import com.sun.mail.util.MailLogger;
+import com.sun.mail.util.PropUtil;
+
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-
-import com.sun.mail.util.LineOutputStream;	// XXX
-import com.sun.mail.util.PropUtil;
-import com.sun.mail.util.MailLogger;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.StreamProvider;
 
 /**
  * A message/disposition-notification message content, as defined in
@@ -112,7 +113,7 @@ public class DispositionNotification extends Report {
 	if (os instanceof LineOutputStream) {
 	    los = (LineOutputStream) os;
 	} else {
-	    los = new LineOutputStream(os);
+	    los = Session.STREAM_PROVIDER.outputLineStream(os, false);
 	}
 
 	writeInternetHeaders(notifications, los);

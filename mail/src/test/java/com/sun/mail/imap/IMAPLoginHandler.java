@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,8 +18,7 @@ package com.sun.mail.imap;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
-import com.sun.mail.util.BASE64DecoderStream;
+import java.util.Base64;
 
 /**
  * Handle IMAP connection with LOGIN authentication.
@@ -45,12 +44,12 @@ public class IMAPLoginHandler extends IMAPHandler {
 	    bad("AUTHENTICATE LOGIN does not support initial response");
 	cont(base64encode("Username"));
 	String resp = readLine();
-	String u = new String(BASE64DecoderStream.decode(
+	String u = new String(Base64.getDecoder().decode(
 				    resp.getBytes(StandardCharsets.US_ASCII)),
 				StandardCharsets.UTF_8);
 	cont(base64encode("Password"));
 	resp = readLine();
-	String p = new String(BASE64DecoderStream.decode(
+	String p = new String(Base64.getDecoder().decode(
 				    resp.getBytes(StandardCharsets.US_ASCII)),
 				StandardCharsets.UTF_8);
 	//System.out.printf("USER: %s, PASSWORD: %s%n", u, p);

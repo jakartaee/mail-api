@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,14 +16,24 @@
 
 package com.sun.mail.util;
 
-import java.io.*;
-import java.util.*;
-import jakarta.mail.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Random;
 
-import org.junit.Test;
 import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import com.sun.mail.util.BASE64DecoderStream;
+import com.sun.mail.util.BASE64EncoderStream;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test base64 encoding/decoding.
@@ -71,8 +81,8 @@ public class BASE64Test {
      */
     private static void test(String name, byte[] buf) throws IOException {
 	// first encode and decode with method
-	byte[] encoded = BASE64EncoderStream.encode(buf);
-	byte[] nbuf = BASE64DecoderStream.decode(encoded);
+	byte[] encoded = Base64.getEncoder().encode(buf);
+	byte[] nbuf = Base64.getDecoder().decode(encoded);
 	compare(name, "method", buf, nbuf);
 
 	// encode with stream, compare with method encoded version
@@ -86,7 +96,7 @@ public class BASE64Test {
 	compare(name, "encoded", encoded, sbuf);
 
 	// encode with stream, decode with method
-	nbuf = BASE64DecoderStream.decode(sbuf);
+	nbuf = Base64.getDecoder().decode(sbuf);
 	compare(name, "stream->method", buf, nbuf);
 
 	// encode with stream, decode with stream
@@ -258,7 +268,7 @@ public class BASE64Test {
 	byte[] decoded = new byte[10000];
 	for (int i = 0; i < 1000; i++)
 		decoded[i] = (byte)'A';
-	byte[] encoded = java.util.Base64.getEncoder().encode(decoded);
+	byte[] encoded = Base64.getEncoder().encode(decoded);
 	// Exceed InputStream.DEFAULT_BUFFER_SIZE
 	assertTrue(decoded.length > 8192);
 	BASE64DecoderStream sut =

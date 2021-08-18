@@ -40,45 +40,37 @@
 
     <build>
         <plugins>
-	    <plugin>
-		<artifactId>maven-dependency-plugin</artifactId>
-		<executions>
-		    <execution>
-			<!-- download the sources -->
-			<id>get-sources</id>
-			<phase>generate-sources</phase>
-			<goals>
-			    <goal>unpack</goal>
-			</goals>
-			<configuration>
-			    <artifactItems>
-				<artifactItem>
-				    <groupId>com.sun.mail</groupId>
-				    <artifactId>jakarta.mail</artifactId>
-				    <version>${mail.version}</version>
-				    <classifier>sources</classifier>
-				    <outputDirectory>
-					${project.build.directory}/generated-sources/sources
-				    </outputDirectory>
-				</artifactItem>
-			    </artifactItems>
-			</configuration>
-		    </execution>
-		</executions>
-		<configuration>
-		    <includes>
-                        ${mail.classes},
-                        ${mail.extraClasses}
-		    </includes>
-                </configuration>
+		    <plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+				    <execution>
+					<id>get-sources</id>
+					<phase>generate-sources</phase>
+					<goals>
+					    <goal>unpack</goal>
+					</goals>
+					<configuration>
+					    <artifactItems>
+						<artifactItem>
+						    <groupId>com.sun.mail</groupId>
+						    <artifactId>impl-core</artifactId>
+						    <version>${mail.version}</version>
+						    <classifier>sources</classifier>
+						    <outputDirectory>${project.build.directory}/generated-sources/sources</outputDirectory>
+						</artifactItem>
+					    </artifactItems>
+					</configuration>
+				    </execution>
+				</executions>
             </plugin>
-	</plugins>
+	   </plugins>
     </build>
 
     <dependencies>
-	<dependency>
-	    <groupId>com.sun.mail</groupId>
-	    <artifactId>mailapi</artifactId>
-	</dependency>
+	    <dependency>
+	        <groupId>jakarta.mail</groupId>
+	        <artifactId>mailapi</artifactId>
+	        <version>${mail.version}</version>
+	    </dependency>
     </dependencies>
 </project>

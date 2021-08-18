@@ -21,14 +21,5 @@ module com.sun.mail.gimap {
 	com.sun.mail.gimap.GmailProvider, com.sun.mail.gimap.GmailSSLProvider;
 
     requires jakarta.mail;
-    /*
-    following is intentionally optional/static for gimap module to work
-    with com.sun.mail:jakarta.mail (all-in-one bundle jar)
-    as well as with com.sun.mail:mailapi + com.sun.mail:imap
-    the latter deps come through maven dependency tree, therefore
-    they must be explicitely excluded if the former is being used
-    to avoid having two jars having same 'jakarta.mail' module name
-    in the environement
-    */
-    requires static com.sun.mail.imap;
+    requires com.sun.mail;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,10 +16,12 @@
 
 package com.sun.mail.imap.protocol;
 
+import com.sun.mail.test.AsciiStringInputStream;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Properties;
-import com.sun.mail.test.AsciiStringInputStream;
+
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

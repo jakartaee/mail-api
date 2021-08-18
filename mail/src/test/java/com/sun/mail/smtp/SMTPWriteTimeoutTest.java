@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,22 +16,23 @@
 
 package com.sun.mail.smtp;
 
+import jakarta.activation.DataHandler;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.MimeMessage;
+
 import java.io.IOException;
 import java.util.Properties;
 
-import jakarta.activation.DataHandler;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+import com.sun.mail.test.TestServer;
 import jakarta.mail.util.ByteArrayDataSource;
 
-import com.sun.mail.test.TestServer;
-
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.Timeout;
+
 import static org.junit.Assert.fail;
 
 /**
