@@ -140,7 +140,7 @@ public interface StreamProvider {
 	/**
 	 * Creates a new InputStream from the underlying byte array to be shared
 	 * between multiple readers.
-	 * @param buf the byte array
+	 * @param buff the byte array
 	 * @return the InputStream
 	 */
 	InputStream inputSharedByteArray(byte[] buff);

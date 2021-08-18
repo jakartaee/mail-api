@@ -22,8 +22,8 @@ mail/src/main/resources/META-INF/hk2-locator/default
 mail/src/test/java/com/sun/mail/util/logging/
 mail/src/test/resources/jakarta/mail/internet/paramdata
 mail/src/test/resources/jakarta/mail/internet/paramdatanostrict
-mail/src/test/resources/jakarta/mail/internet/tokenlist
-mail/src/test/resources/jakarta/mail/internet/addrlist
+api/src/test/resources/jakarta/mail/internet/tokenlist
+api/src/test/resources/jakarta/mail/internet/addrlist
 mail/src/test/resources/jakarta/mail/internet/MailDateFormat_old.ser
 mail/src/test/resources/jakarta/mail/internet/MailDateFormat_new.ser
 mail/src/test/resources/com/sun/mail/test/keystore.jks

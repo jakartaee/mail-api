@@ -21,11 +21,10 @@ import java.io.IOException;
 /**
  * This interface is to support writing out Strings as a sequence of bytes
  * terminated by a CRLF sequence. The String must contain only US-ASCII
- * characters.<p>
- *
+ * characters.
+ * <br>
  * The expected use is to write out RFC822 style headers to an output
- * stream. <p>
- *
+ * stream.
  */
 public interface LineOutputStream {
 

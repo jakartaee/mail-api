@@ -10,7 +10,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
 #
 
-name: Jakarta Mail CI
+name: Jakarta Mail API CI
 
 on:
   pull_request:
@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        java_version: [ 11, 16, 17-ea ]
+        java_version: [ 11, 17-ea ]
 
     steps:
     - name: Checkout for build
@@ -34,4 +34,8 @@ jobs:
         distribution: 'zulu'
         java-version: ${{ matrix.java_version }}
     - name: Verify
-      run: bash travis.sh
+      run: |
+        cd api
+        mvn -B -U -C -V clean verify -Poss-release,staging -Dgpg.skip=true
+    - name: Check copyrights
+      run:  mvn -B -V org.glassfish.copyright:glassfish-copyright-maven-plugin:check
