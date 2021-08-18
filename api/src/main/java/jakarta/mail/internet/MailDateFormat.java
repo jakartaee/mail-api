@@ -109,7 +109,7 @@ import java.util.logging.Logger;
  * allowing for a leap second; see [STD12]), and the zone MUST be within
  * the range -9959 through +9959.
  *
- * <h3><a id="synchronization">Synchronization</a></h3>
+ * <h2><a id="synchronization">Synchronization</a></h2>
  * 
  * <p>
  * Date formats are not synchronized.
