@@ -38,4 +38,6 @@ jobs:
         cd api
         mvn -B -U -C -V clean verify -Poss-release,staging -Dgpg.skip=true
     - name: Check copyrights
-      run:  mvn -B -V org.glassfish.copyright:glassfish-copyright-maven-plugin:check
+      run: |
+        cd api
+        mvn -B -V org.glassfish.copyright:glassfish-copyright-maven-plugin:check
