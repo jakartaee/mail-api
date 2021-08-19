@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Extension-Name: jakarta.mail
-Specification-Title: Jakarta Mail API Design Specification
-Specification-Version: ${mail.spec.version}
-Specification-Vendor: ${project.organization.name}
-Implementation-Title: jakarta.mail
-Implementation-Version: ${mail.version}
-Implementation-Vendor: ${project.organization.name}
-Implementation-Vendor-Id: com.sun

@@ -1,3 +1,0 @@
-# Jakarta Mail POP3 provider Oracle
-protocol=pop3; type=store; class=com.sun.mail.pop3.POP3Store; vendor=Oracle;
-protocol=pop3s; type=store; class=com.sun.mail.pop3.POP3SSLStore; vendor=Oracle;

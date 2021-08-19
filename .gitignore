@@ -1,11 +1,10 @@
 .idea/
 target/
-*/target/
 nbproject/private/
 .m2/
 webrev
-mbox/.ccls-cache/
 /bin/
 .classpath
 .project
 .settings/
+*.iml
