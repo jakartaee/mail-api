@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2010, 2021 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<!-- FindBugs exclude list for Jakarta Mail -->
+
+<FindBugsFilter>
+    <!--
+	FindBugs *really* wants us to use zero length arrays instead
+	of null.  Unfortunately, there's a bunch of places we can't
+	do this for various reasons:
+	  - The API specifies null and we can't make an incompatible change.
+	  - We use null to indicate no header and an empty array to indicate
+	    the header exists but has no entries.
+	  - We use null to indicate NIL in the protocol and an empty array
+	    to indicate an empty list "()" in the protocol.
+	This error occurs often enough that we just ignore it everywhere.
+    -->
+    <Match>
+        <Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS"/>
+    </Match>
+    <!--
+	There are a bunch of places where FindBugs complains about
+	exposing internal representations.  We exclude cases where
+	this only happens in internal classes that are never visible
+	through the public Jakarta Mail API, or cases where the user
+	passes in an object (usually an array) and can only hurt
+	themselves by modifying the array while a method is in progress,
+	or where the implementation is passing the data back to the user
+	(e.g., in an Exception) and never uses it again.
+    -->
+    <Match>
+        <Or>
+            <Class name="jakarta.mail.SendFailedException"/>
+            <Class name="jakarta.mail.event.MessageCountEvent"/>
+            <Class name="jakarta.mail.event.TransportEvent"/>
+        </Or>
+        <Or>
+            <Bug pattern="EI_EXPOSE_REP"/>
+            <Bug pattern="EI_EXPOSE_REP2"/>
+        </Or>
+    </Match>
+
+    <Match>
+        <Class name="jakarta.mail.internet.MimeBodyPart"/>
+        <Method name="&lt;init&gt;"/> <!-- match constructor -->
+        <!-- passed in byte array -->
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.util.ByteArrayDataSource"/>
+        <Method name="&lt;init&gt;"/> <!-- match constructor -->
+        <!-- passed in byte array -->
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!--
+	A few places where we catch Exception even though it's not
+	explicitly thrown.  We need to make sure that if anything
+	goes wrong we clean things up.  Perhaps these should be
+	converted to a finally block and a boolean "success" flag?
+	Most of these are related to reflection or ClassLoader
+	operations, which can fail for all sorts of unexpected reasons.
+	Some of these could be converted to use multi-catch with JDK 1.7.
+    -->
+    <Match>
+        <Class name="jakarta.mail.Session"/>
+        <Or>
+            <Method name="getService"/>
+            <Method name="loadAllResources"/>
+        </Or>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.internet.MimeUtility"/>
+        <Or>
+            <Method name="&lt;clinit&gt;"/> <!-- match static initializer -->
+            <Method name="getEncoding"/>
+        </Or>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!--
+	Yes, the "next" element in my linked list isn't ever actually
+	used, but it feels weird to only have a "prev" element.
+    -->
+    <Match>
+        <Class name="jakarta.mail.EventQueue$QueueElement"/>
+        <Field name="next"/>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+
+    <!--
+	Stupid Serializable EventObject class causes FindBugs to complain
+	about transient fields in subclasses.  I don't know why it's
+	complaining about these fields but not others, but since I don't
+	really expect anyone to serialize these events I'm just ignoring
+	this complaint.  Ditto Exception fields.
+    -->
+    <Match>
+        <Class name="jakarta.mail.event.TransportEvent"/>
+        <Or>
+            <Field name="invalid"/>
+            <Field name="validSent"/>
+            <Field name="validUnsent"/>
+        </Or>
+        <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.event.FolderEvent"/>
+        <Or>
+            <Field name="folder"/>
+            <Field name="newFolder"/>
+        </Or>
+        <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.event.MessageChangedEvent"/>
+        <Field name="msg"/>
+        <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.event.MessageCountEvent"/>
+        <Field name="msgs"/>
+        <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.event.TransportEvent"/>
+        <Field name="msg"/>
+        <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.SendFailedException"/>
+        <Or>
+            <Field name="invalid"/>
+            <Field name="validSent"/>
+            <Field name="validUnsent"/>
+        </Or>
+        <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED"/>
+    </Match>
+
+    <!--
+	These string comparisons are just optimizations.
+    -->
+    <Match>
+        <Or>
+            <Class name="jakarta.mail.URLName"/>
+            <Class name="jakarta.mail.internet.InternetAddress"/>
+        </Or>
+        <Method name="equals"/>
+        <Bug pattern="ES_COMPARING_STRINGS_WITH_EQ"/>
+    </Match>
+
+    <!--
+	This string comparison using == is to determine whether the
+	String object is a different String object.
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.MimeUtility"/>
+        <Method name="decodeText"/>
+        <Bug pattern="ES_COMPARING_STRINGS_WITH_EQ"/>
+    </Match>
+
+    <!--
+	We extract the "lang" field of an encoded string but we don't
+	currently do anything with it.  Ignore this complaint.
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.ParameterList"/>
+        <Method name="decodeValue"/>
+        <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+
+    <!--
+	The call ParameterList.set(null, "DONE") is a kludge used by the
+	IMAP provider to indicate that it's done setting parameters.
+	In other cases we *want* a null name to cause a NullPointerException.
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.ParameterList"/>
+        <Method name="set"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH"/>
+    </Match>
+
+    <!--
+	We purposely don't close these streams, which are just wrappers
+	around the original stream that needs to remain open.
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.MimeMultipart"/>
+        <Or>
+            <Method name="parse"/>
+            <Method name="parsebm"/>
+        </Or>
+        <Bug pattern="OS_OPEN_STREAM"/>
+    </Match>
+
+    <!--
+	Can't fix these errors in toString until JavaMail 1.5 because
+	it's part of the spec.  Sigh.
+    -->
+    <Match>
+        <Or>
+            <Class name="jakarta.mail.internet.ContentDisposition"/>
+            <Class name="jakarta.mail.internet.ContentType"/>
+        </Or>
+        <Method name="toString"/>
+        <Bug pattern="NP_TOSTRING_COULD_RETURN_NULL"/>
+    </Match>
+
+    <!--
+	These errors are in code imported from the JDK, where it seems
+	to be purposely using the platform default encoding.  It's safer
+	to just leave this alone and ignore the errors.
+    -->
+    <Match>
+        <Class name="jakarta.mail.URLName"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
+    </Match>
+
+    <!--
+	We're purposely using the platform default encoding because
+	we're trying to discover what the platform default encoding *is*!
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.MimeUtility"/>
+        <Method name="getDefaultJavaCharset"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
+    </Match>
+
+    <!--
+	We're purposely using the platform default encoding when a
+	charset hasn't been specified.
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.ParameterList"/>
+        <Method name="combineMultisegmentNames"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
+    </Match>
+
+    <!--
+	MimeBodyPart.headers is set in the constructor.  IMAPBodyPart has
+	perhaps paranoid defensive code to set it if it's not set.  That
+	code is protected by the object lock, but all of the reads of the
+	field are not, thus FindBugs complains.  For now I think it's
+	better to leave the defensive code in and ignore this error.
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.MimeBodyPart"/>
+        <Field name="headers"/>
+        <Bug pattern="IS2_INCONSISTENT_SYNC"/>
+    </Match>
+
+    <!--
+	These unread fields are part of the public API.
+    -->
+    <Match>
+        <Class name="jakarta.mail.Service"/>
+        <Field name="debug"/>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+    <Match>
+        <Class name="jakarta.mail.Quota$Resource"/>
+        <Field name="usage"/>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+
+    <!--
+	I know Exception.toString is never supposed to return null,
+	but this extra check is cheap insurance.
+    -->
+    <Match>
+        <Class name="jakarta.mail.MessagingException"/>
+        <Method name="toString"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
+    <!--
+	I know ClassLoader.getResources is never supposed to return null,
+	but this extra check is cheap insurance.
+    -->
+    <Match>
+        <Class name="~jakarta\.mail\.Session\$.*"/>
+        <Method name="run"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
+
+    <!--
+	These names may be confusing, but we're stuck with them.
+    -->
+    <Match>
+        <Class name="jakarta.mail.PasswordAuthentication"/>
+        <Method name="getUserName"/>
+        <Bug pattern="NM_CONFUSING"/>
+    </Match>
+
+    <!--
+	This trivial inner class extends ArrayList, but is never serialized,
+	so it doesn't really need a serialVersionUID.
+    -->
+    <Match>
+        <Class name="jakarta.mail.internet.ParameterList$MultiValue"/>
+        <Bug pattern="SE_NO_SERIALVERSIONID"/>
+    </Match>
+
+    <!--
+	The Authenticator fields are only accessible by subclasses,
+	which are only called through the one synchronized public
+	method, assuming the subclass doesn't do something crazy and
+	expose them itself.
+    -->
+    <Match>
+        <Class name="jakarta.mail.Authenticator"/>
+        <Bug pattern="IS2_INCONSISTENT_SYNC"/>
+    </Match>
+</FindBugsFilter>
