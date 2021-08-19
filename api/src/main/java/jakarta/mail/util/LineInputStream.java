@@ -23,12 +23,12 @@ import java.io.IOException;
  * contain only US-ASCII characters from an input stream. Provides
  * functionality that is similar to the deprecated 
  * <code>DataInputStream.readLine()</code>. Expected use is to read
- * lines as String objects from an IMAP/SMTP/etc. stream. <p>
- *
+ * lines as String objects from an IMAP/SMTP/etc. stream.
+ * <br>
  * This class also supports UTF-8 data by calling the appropriate
  * constructor.  Or, if the System property <code>mail.mime.allowutf8</code>
  * is set to true, an attempt will be made to interpret the data as UTF-8,
- * falling back to treating it as an 8-bit charset if that fails. <p>
+ * falling back to treating it as an 8-bit charset if that fails.
  *
  */
 public interface LineInputStream {
