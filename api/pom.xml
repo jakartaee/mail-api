@@ -106,12 +106,6 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.angus</groupId>
-            <artifactId>angus-mail</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -410,6 +404,8 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 <configuration>
                     <forkCount>2</forkCount>
                     <reuseForks>false</reuseForks>
+                    <!-- Test service loader is not loaded if modules are enabled -->
+                    <useModulePath>false</useModulePath>
                 </configuration>
             </plugin>
             <plugin>
