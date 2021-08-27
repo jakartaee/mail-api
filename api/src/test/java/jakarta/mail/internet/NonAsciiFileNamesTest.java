@@ -42,7 +42,7 @@ public class NonAsciiFileNamesTest {
 	MimeBodyPart mbp = new MimeBodyPart();
 	mbp.setText("test\n");
 	mbp.setFileName("test\u00a1\u00a2\u00a3");
-	MimeBodyPart.updateHeaders(mbp);
+	MimeBodyPart.updateHeaders(mbp, true, true, false);
 
 	String s = mbp.getHeader("Content-Disposition", null);
 	assertTrue("Content-Disposition filename", s.indexOf("filename*") >= 0);
@@ -60,7 +60,7 @@ public class NonAsciiFileNamesTest {
 	mbp.setText("test\n");
 	mbp.setHeader("Content-Type", "text/x-test");
 	mbp.setFileName("test\u00a1\u00a2\u00a3");
-	MimeBodyPart.updateHeaders(mbp);
+	MimeBodyPart.updateHeaders(mbp, true, true, false);
 
 	String s = mbp.getHeader("Content-Disposition", null);
 	assertTrue("Content-Disposition filename", s.indexOf("filename*") >= 0);

@@ -1005,7 +1005,13 @@ public class MimeMultipart extends Multipart {
      */
     protected MimeBodyPart createMimeBodyPart(InputStream is)
 				throws MessagingException {
-	return new MimeBodyPart(is);
+        if (ds != null && ds instanceof MimePartDataSource) {
+            Session session = ((MimePartDataSource)ds).getMessageContext().getSession();
+            if (session != null) {
+                return new MimeBodyPart(session, is);
+            }
+        }
+        return new MimeBodyPart(is);
     }
 
     private MimeBodyPart createMimeBodyPartIs(InputStream is)
