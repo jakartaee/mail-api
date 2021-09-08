@@ -56,13 +56,13 @@ public class MimeBodyPartTest {
         assertTrue(obp.allowutf8);
         assertTrue(obp.cacheMultipart);
         // Change the properties in opposite way
-        prop.put("mail.mime.setdefaulttextcharset", Boolean.FALSE);
-        prop.put("mail.mime.setcontenttypefilename", Boolean.FALSE);
-        prop.put("mail.mime.encodefilename", Boolean.TRUE);
-        prop.put("mail.mime.decodefilename", Boolean.TRUE);
-        prop.put("mail.mime.ignoremultipartencoding", Boolean.FALSE);
-        prop.put("mail.mime.allowutf8", Boolean.FALSE);
-        prop.put("mail.mime.cachemultipart", Boolean.FALSE);
+        prop.put("mail.mime.setdefaulttextcharset", Boolean.FALSE.toString());
+        prop.put("mail.mime.setcontenttypefilename", Boolean.FALSE.toString());
+        prop.put("mail.mime.encodefilename", Boolean.TRUE.toString());
+        prop.put("mail.mime.decodefilename", Boolean.TRUE.toString());
+        prop.put("mail.mime.ignoremultipartencoding", Boolean.FALSE.toString());
+        prop.put("mail.mime.allowutf8", Boolean.FALSE.toString());
+        prop.put("mail.mime.cachemultipart", Boolean.FALSE.toString());
         
         session = Session.getInstance(prop);
         orig = new MimeMessage(session, input);

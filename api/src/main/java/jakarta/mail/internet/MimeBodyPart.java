@@ -225,6 +225,8 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      * @param session   Session object for this message
      * @param is    the message input stream
      * @exception   MessagingException for failures
+     *
+     * @since   JavaMail 2.1
      */
     public MimeBodyPart(Session session, InputStream is) throws MessagingException {
         this(is);
