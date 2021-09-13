@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import jakarta.activation.DataSource;
+import jakarta.mail.util.StreamProvider;
 
 /**
  * Multipart is a container that holds multiple body parts. Multipart
@@ -59,6 +60,13 @@ public abstract class Multipart {
      * @since	JavaMail 1.1
      */
     protected Part parent;
+
+    /**
+     * Instance of stream provider.
+     *
+     * @since JavaMail 2.1
+     */
+    protected final StreamProvider streamProvider = StreamProvider.provider();
 
     /** 
      * Default constructor. An empty Multipart object is created.

@@ -1659,7 +1659,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	} else {
 	    Map<String, Object> params = new HashMap<>();
 	    params.put("allowutf8", allowutf8);
-	    los = Session.STREAM_PROVIDER.outputLineStream(os, allowutf8);
+	    los = StreamProvider.provider().outputLineStream(os, allowutf8);
 	}
 
 	// First, write out the header

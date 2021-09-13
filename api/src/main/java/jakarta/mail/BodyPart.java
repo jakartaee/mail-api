@@ -16,6 +16,8 @@
 
 package jakarta.mail;
 
+import jakarta.mail.util.StreamProvider;
+
 /**
  * This class models a Part that is contained within a Multipart.
  * This is an abstract class. Subclasses provide actual implementations.<p>
@@ -35,6 +37,13 @@ public abstract class BodyPart implements Part {
      * @since	JavaMail 1.1
      */
     protected Multipart parent;
+
+    /**
+     * Instance of stream provider.
+     *
+     * @since JavaMail 2.1
+     */
+    protected final StreamProvider streamProvider = StreamProvider.provider();
 
     /**
      * Creates a default {@code BodyPart}.
