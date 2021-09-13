@@ -16,21 +16,18 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.Header;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
-import jakarta.mail.util.LineInputStream;
-import jakarta.mail.util.StreamProvider;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
+
+import jakarta.mail.Header;
+import jakarta.mail.MessagingException;
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.StreamProvider;
 
 
 
@@ -407,7 +404,7 @@ public class InternetHeaders {
 	// Read header lines until a blank line. It is valid
 	// to have BodyParts with no header lines.
 	String line;
-	LineInputStream lis = Session.STREAM_PROVIDER.inputLineStream(is, allowutf8);
+	LineInputStream lis = StreamProvider.provider().inputLineStream(is, allowutf8);
 	String prevline = null;	// the previous header line, as a string
 	// a buffer to accumulate the header in, when we know it's needed
 	StringBuilder lineBuffer = new StringBuilder();

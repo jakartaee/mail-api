@@ -18,6 +18,8 @@ package jakarta.mail.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.ServiceLoader;
 
 /**
  * Service lookup is used to find implementations of this interface.
@@ -25,11 +27,14 @@ import java.io.OutputStream;
  * It contains the methods to instance different encoders/decoders and
  * other streams required by the API.
  *
+ * @since JavaMail 2.1
  */
 public interface StreamProvider {
 
 	/**
 	 * Enumeration with the different encoder types supported by the Mail API.
+	 *
+	 * @since JavaMail 2.1
 	 */
 	public static enum EncoderTypes {
 		
@@ -159,4 +164,22 @@ public interface StreamProvider {
 	 * @return the encoder
 	 */
 	OutputStream outputUU(OutputStream out, String filename);
+
+	/**
+     * Creates a stream provider object. The provider is loaded using the
+     * {@link ServiceLoader#load(Class)} method. If there are no available
+     * service providers, this method throws an IllegalStateException.
+     * Users are recommended to cache the result of this method.
+     *
+     * @return a stream provider
+     */
+    public static StreamProvider provider() {
+        ServiceLoader<StreamProvider> sl = ServiceLoader.load(StreamProvider.class);
+        Iterator<StreamProvider> iter = sl.iterator();
+        if (iter.hasNext()) {
+            return iter.next();
+        } else {
+            throw new IllegalStateException("Not provider of " + StreamProvider.class.getName() + " was found");
+        }
+    }
 }
