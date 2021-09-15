@@ -810,7 +810,7 @@ public class MimeMultipart extends Multipart {
 					// skip linear whitespace
 					while (b3 == ' ' || b3 == '\t')
 					{ b3 = in.read(); }
-					if (b3 == '\n' || b3 == '\r')
+					if (b3 == '\n' || b3 == '\r' || b3 == -1)
 					{
 						if(b3 == '\r')
 						{
