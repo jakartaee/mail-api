@@ -806,9 +806,25 @@ public class MimeMultipart extends Multipart {
 			    int b2 = in.read();
 			    if (b2 == '-') {
 				if (in.read() == '-') {
-				    complete = true;
-				    done = true;
-				    break;	// ignore trailing text
+					int b3 = in.read();
+					// skip linear whitespace
+					while (b3 == ' ' || b3 == '\t')
+					{ b3 = in.read(); }
+					if (b3 == '\n' || b3 == '\r')
+					{
+						if(b3 == '\r')
+						{
+							// consume '\n' if it follows, so that next read
+							// starts from first character of the epilogue.
+							// useful if in future epilogue extraction is added
+							in.mark(1);
+							if (in.read() != '\n')
+							{ in.reset(); }
+						}
+						complete = true;
+						done = true;
+						break;    // ignore trailing text
+					}
 				}
 			    }
 			    // skip linear whitespace
