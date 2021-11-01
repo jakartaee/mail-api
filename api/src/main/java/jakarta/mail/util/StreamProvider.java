@@ -174,12 +174,6 @@ public interface StreamProvider {
      * @return a stream provider
      */
     public static StreamProvider provider() {
-        ServiceLoader<StreamProvider> sl = ServiceLoader.load(StreamProvider.class);
-        Iterator<StreamProvider> iter = sl.iterator();
-        if (iter.hasNext()) {
-            return iter.next();
-        } else {
-            throw new IllegalStateException("Not provider of " + StreamProvider.class.getName() + " was found");
-        }
+        return FactoryFinder.find(StreamProvider.class);
     }
 }

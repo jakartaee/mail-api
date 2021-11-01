@@ -350,6 +350,10 @@
                         <Implementation-Title>${project.name}</Implementation-Title>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                         <Implementation-Build-Id>${buildNumber}</Implementation-Build-Id>
+                        <Import-Package>
+                            !org.glassfish.hk2.osgiresourcelocator,
+                            *
+                        </Import-Package>
                     </instructions>
                 </configuration>
                 <executions>
@@ -404,6 +408,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 <configuration>
                     <forkCount>2</forkCount>
                     <reuseForks>false</reuseForks>
+                    <trimStackTrace>false</trimStackTrace>
                 </configuration>
             </plugin>
             <plugin>
