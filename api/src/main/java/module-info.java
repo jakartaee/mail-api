@@ -27,4 +27,6 @@ module jakarta.mail {
 
     uses jakarta.mail.Provider;
     uses jakarta.mail.util.StreamProvider;
+    //reflective call to java.beans.Beans.instantiate
+    requires static java.desktop;
 }

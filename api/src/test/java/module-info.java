@@ -28,5 +28,6 @@ module jakarta.mail {
 
     uses jakarta.mail.Provider;
     uses jakarta.mail.util.StreamProvider;
+    uses jakarta.mail.util.FactoryFinderTest.Class2;
     provides jakarta.mail.util.StreamProvider with jakarta.mail.util.DummyStreamProvider;
 }
