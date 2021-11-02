@@ -64,6 +64,7 @@ class FactoryFinder {
         throw new IllegalStateException("Not provider of " + factoryClass.getName() + " was found");
     }
 
+    @SuppressWarnings({"unchecked"})
     private static <T> T newInstance(String className) throws RuntimeException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         checkPackageAccess(className);
