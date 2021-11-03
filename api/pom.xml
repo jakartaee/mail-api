@@ -78,7 +78,7 @@
         <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.exclude>${project.basedir}/../spotbugs-exclude.xml</spotbugs.exclude>
         <!--Maven plugins version-->
-        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.version>4.4.2.2</spotbugs.version>
     </properties>
 
     <dependencyManagement>
@@ -86,12 +86,12 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>2.1.0-RC2</version>
+                <version>2.1.0</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.angus</groupId>
                 <artifactId>angus-activation</artifactId>
-                <version>1.0.0-M1</version>
+                <version>1.0.0-M2</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -153,7 +153,6 @@
                     <configuration>
                         <skip>${spotbugs.skip}</skip>
                         <threshold>${spotbugs.threshold}</threshold>
-                        <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>${spotbugs.exclude}</excludeFilterFile>
                         <fork>true</fork>
                     </configuration>
@@ -186,7 +185,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
