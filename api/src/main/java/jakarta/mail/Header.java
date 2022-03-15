@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,6 +16,7 @@
 
 package jakarta.mail;
 
+import java.util.Objects;
 
 /**
  * The Header class stores a name/value pair to represent headers.
@@ -67,4 +68,24 @@ public class Header {
     public String getValue() {
 	return value;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, value);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj == null) {
+            return false;
+        } else if (getClass() != obj.getClass()) {
+            return false;
+        } else {
+            Header other = (Header) obj;
+            return Objects.equals(name, other.getName()) && Objects.equals(value, other.getValue());
+        }
+    }
+
 }
