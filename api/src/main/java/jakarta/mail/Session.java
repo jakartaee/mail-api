@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -261,10 +261,12 @@ public final class Session {
 	
 		// get the Class associated with the Authenticator
 		Class<?> cl;
-		if (authenticator != null)
+		if (authenticator != null) {
 		    cl = authenticator.getClass();
-		else
-		    cl = this.getClass();
+		} else {
+		    // Use implementation class, because that class loader has access to jakarta.mail module and implementation resources
+		    cl = streamProvider.getClass();
+		}
 		// load the resources
 		loadProviders(cl);
 		loadAddressMap(cl);
