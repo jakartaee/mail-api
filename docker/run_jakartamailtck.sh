@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 #
-# Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,14 +16,22 @@
 
 WGET_PROPS="-q --no-cache"
 if [ -z "$JAF_BUNDLE_URL" ];then
-  export JAF_BUNDLE_URL=https://repo1.maven.org/maven2/com/sun/activation/jakarta.activation/2.0.0-RC3/jakarta.activation-2.0.0-RC3.jar
+  export JAF_BUNDLE_URL=https://repo1.maven.org/maven2/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.jar
+fi
+if [ -z "$ANGUS_JAF_BUNDLE_URL" ];then
+  export ANGUS_JAF_BUNDLE_URL=https://repo1.maven.org/maven2/org/eclipse/angus/angus-activation/1.0.0/angus-activation-1.0.0.jar
 fi
 if [ -z "$MAIL_TCK_BUNDLE_URL" ];then
-  export MAIL_TCK_BUNDLE_URL=https://ci.eclipse.org/mail/job/mail-tck/job/2.0.0/lastSuccessfulBuild/artifact/bundles/mail-tck-2.0.0-rc1.zip
+  export MAIL_TCK_BUNDLE_URL=https://ci.eclipse.org/mail/job/mail-tck/job/master/lastSuccessfulBuild/artifact/bundles/jakarta-mail-tck-2.0.1.zip
 fi
-wget $WGET_PROPS $JAF_BUNDLE_URL -O jakarta.activation.jar
+if [ -z "$ANGUS_MAIL_BUNDLE_URL" ];then
+  export ANGUS_MAIL_BUNDLE_URL=https://repo1.maven.org/maven2/org/eclipse/angus/angus-mail/1.0.0/angus-mail-1.0.0.jar
+fi
+wget $WGET_PROPS $JAF_BUNDLE_URL -O jakarta.activation-api.jar
+wget $WGET_PROPS $ANGUS_JAF_BUNDLE_URL -O angus-activation.jar
 wget $WGET_PROPS $MAIL_TCK_BUNDLE_URL -O mailtck.zip
-cp ${WORKSPACE}/mail/target/jakarta.mail.jar ${WORKSPACE}
+wget $WGET_PROPS $ANGUS_MAIL_BUNDLE_URL -O angus-mail.jar
+cp ${WORKSPACE}/api/target/jakarta.mail-api-*.jar ${WORKSPACE}/jakarta.mail-api.jar
 
 unzip -q -o ${WORKSPACE}/mailtck.zip -d ${WORKSPACE}
 
@@ -45,7 +53,11 @@ sed -i "s#^SMTP_TO=.*#SMTP_TO=user01@james.local#g" "$TS_HOME/lib/ts.jte"
 mkdir -p ${HOME}/.m2
 
 cd $TS_HOME/tests/mailboxes
-export CLASSPATH=$TS_HOME/tests/mailboxes:$WORKSPACE/jakarta.mail.jar:$WORKSPACE/jakarta.activation.jar:$CLASSPATH
+export CLASSPATH=$TS_HOME/tests/mailboxes:$WORKSPACE/jakarta.mail-api.jar:$WORKSPACE/angus-mail.jar:$WORKSPACE/jakarta.activation-api.jar:$WORKSPACE/angus-activation.jar:$CLASSPATH
+
+ls -lrta $WORKSPACE
+echo $CLASSPATH
+
 javac -cp $CLASSPATH fpopulate.java
 java -cp $CLASSPATH fpopulate -s test1 -d imap://user01%40james.local:1234@localhost:1143
 
