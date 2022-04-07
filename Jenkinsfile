@@ -19,7 +19,7 @@ spec:
     - "james.local"
   containers:
   - name: mail-ci
-    image: jakartaee/cts-javamail-base:0.1
+    image: jakartaee/cts-javamail-base:0.3
     command:
     - cat
     tty: true
