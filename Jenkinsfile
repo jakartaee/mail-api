@@ -71,8 +71,8 @@ spec:
             cd ..
             bash -x ${WORKSPACE}/docker/build_jakartamail.sh
           """
-          archiveArtifacts artifacts: 'mail/target/*.jar'
-          stash includes: 'mail/target/*.jar', name: 'mail-bundles'
+          archiveArtifacts artifacts: '**/target/*.jar'
+          stash includes: '**/target/*.jar', name: 'mail-bundles'
         }
       }
     }
