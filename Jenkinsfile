@@ -49,11 +49,17 @@ spec:
   }
   parameters {
     string(name: 'JAF_BUNDLE_URL',
-           defaultValue: 'https://repo1.maven.org/maven2/com/sun/activation/jakarta.activation/2.0.0-RC3/jakarta.activation-2.0.0-RC3.jar',
+           defaultValue: 'https://repo1.maven.org/maven2/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.jar',
+           description: 'URL required for downloading JAF API jar' )
+    string(name: 'ANGUS_JAF_BUNDLE_URL',
+           defaultValue: 'https://repo1.maven.org/maven2/org/eclipse/angus/angus-activation/1.0.0/angus-activation-1.0.0.jar',
            description: 'URL required for downloading JAF implementation jar' )
     string(name: 'MAIL_TCK_BUNDLE_URL',
            defaultValue: 'https://ci.eclipse.org/mail/job/mail-tck/job/2.0.0/lastSuccessfulBuild/artifact/bundles/mail-tck-2.0.0-rc1.zip',
            description: 'URL required for downloading Jakarta Mail TCK zip' )
+    string(name: 'ANGUS_MAIL_BUNDLE_URL',
+           defaultValue: 'https://repo1.maven.org/maven2/org/eclipse/angus/angus-mail/1.0.0/angus-mail-1.0.0.jar',
+           description: 'URL required for downloading Angus Mail jar' )
   }
   environment {
     ANT_OPTS = "-Djavax.xml.accessExternalStylesheet=all -Djavax.xml.accessExternalSchema=all -Djavax.xml.accessExternalDTD=file,http" 
