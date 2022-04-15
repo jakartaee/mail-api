@@ -2476,7 +2476,7 @@ public class IMAPProtocol extends Protocol {
 	// is not allowed; see RFC 6855, section 3, last paragraph)
 	if (supportsUtf8() || SearchSequence.isAscii(term)) {
 	    try {
-		return issueSearch(msgSequence, term, null);
+		return issueSearch(msgSequence, term, supportsUtf8() ? StandardCharsets.UTF_8.name() : null);
 	    } catch (IOException ioex) { /* will not happen */ }
 	}
 
@@ -2537,7 +2537,7 @@ public class IMAPProtocol extends Protocol {
 
 	Response[] r;
 
-	if (charset == null) // text is all US-ASCII
+	if (charset == null || (StandardCharsets.UTF_8.name().equalsIgnoreCase(charset) && supportsUtf8())) // text is all US-ASCII
 	    r = command("SEARCH", args);
 	else
 	    r = command("SEARCH CHARSET " + charset, args);
