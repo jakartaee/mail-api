@@ -29,7 +29,8 @@ if [ -z "$ANGUS_MAIL_BUNDLE_URL" ];then
 fi
 wget $WGET_PROPS $JAF_BUNDLE_URL -O jakarta.activation-api.jar
 wget $WGET_PROPS $ANGUS_JAF_BUNDLE_URL -O angus-activation.jar
-wget $WGET_PROPS $MAIL_TCK_BUNDLE_URL -O mailtck.zip
+# There is no latest mail-tck bundle in Jenkins yet. It will use the bundle of ${WORKSPACE}/mailtck.zip.
+#wget $WGET_PROPS $MAIL_TCK_BUNDLE_URL -O mailtck.zip
 wget $WGET_PROPS $ANGUS_MAIL_BUNDLE_URL -O angus-mail.jar
 cp ${WORKSPACE}/api/target/jakarta.mail-api-*.jar ${WORKSPACE}/jakarta.mail-api.jar
 
@@ -50,6 +51,20 @@ sed -i "s#^SMTP_DOMAIN=.*#SMTP_DOMAIN=james.local#g" "$TS_HOME/lib/ts.jte"
 sed -i "s#^SMTP_FROM=.*#SMTP_FROM=user01@james.local#g" "$TS_HOME/lib/ts.jte"
 sed -i "s#^SMTP_TO=.*#SMTP_TO=user01@james.local#g" "$TS_HOME/lib/ts.jte"
 
+
+sed -i "s#^TS_HOME=.*#TS_HOME=$TS_HOME#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JAVA_HOME=.*#JAVA_HOME=$JAVA_HOME#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JARPATH=.*#JARPATH=$WORKSPACE#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JAVAMAIL_SERVER=.*#JAVAMAIL_SERVER=localhost -pn 1143#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JAVAMAIL_PROTOCOL=.*#JAVAMAIL_PROTOCOL=imap#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JAVAMAIL_TRANSPORT_PROTOCOL=.*#JAVAMAIL_TRANSPORT_PROTOCOL=smtp#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JAVAMAIL_TRANSPORT_SERVER=.*#JAVAMAIL_TRANSPORT_SERVER=localhost -tpn 1025#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JAVAMAIL_USERNAME=.*#JAVAMAIL_USERNAME=$MAIL_USER#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^JAVAMAIL_PASSWORD=.*#JAVAMAIL_PASSWORD=1234#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^SMTP_DOMAIN=.*#SMTP_DOMAIN=james.local#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^SMTP_FROM=.*#SMTP_FROM=user01@james.local#g" "$TS_HOME/lib/ts.pluggability.jte"
+sed -i "s#^SMTP_TO=.*#SMTP_TO=user01@james.local#g" "$TS_HOME/lib/ts.pluggability.jte"
+
 mkdir -p ${HOME}/.m2
 
 cd $TS_HOME/tests/mailboxes
@@ -65,13 +80,13 @@ which ant
 ant -version
 
 cd $WORKSPACE/mail-tck/
-ant -Dreport.dir=$WORKSPACE/JTreport/mail-tck -Dwork.dir=$WORKSPACE/JTwork/mail-tck run
+ant -Dreport.dir=$WORKSPACE/JTreport/mail-tck -Dwork.dir=$WORKSPACE/JTwork/mail-tck run run.pluggability
 
 HOST=`hostname -f`
 echo "1 mail-tck $HOST" > $WORKSPACE/args.txt
 
 mkdir -p $WORKSPACE/results/junitreports/
-
+JT_REPORT_DIR=$WORKSPACE/JTreport
 $JAVA_HOME/bin/java -Djunit.embed.sysout=true \
     -jar ${WORKSPACE}/docker/JTReportParser/JTReportParser.jar \
     $WORKSPACE/args.txt $WORKSPACE/JTreport $WORKSPACE/results/junitreports/ 
