@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -203,8 +202,8 @@ public final class Session {
 
 	// Support legacy @DefaultProvider
 	private static final String DEFAULT_PROVIDER = "com.sun.mail.util.DefaultProvider";
-    public static final StreamProvider STREAM_PROVIDER;
 
+	private final StreamProvider streamProvider;
     private final Properties props;
     private final Authenticator authenticator;
     private final Hashtable<URLName, PasswordAuthentication> authTable
@@ -246,13 +245,13 @@ public final class Session {
 		    // ignore any exceptions
 		}
 		confDir = dir;
-		STREAM_PROVIDER = getStreamProvider();
     }
 
     // Constructor is not public
     private Session(Properties props, Authenticator authenticator) {
 		this.props = props;
 		this.authenticator = authenticator;
+		this.streamProvider = StreamProvider.provider();
 	
 		if (Boolean.valueOf(props.getProperty("mail.debug")).booleanValue())
 		    debug = true;
@@ -272,14 +271,15 @@ public final class Session {
 		q = new EventQueue((Executor)props.get("mail.event.executor"));
     }
 
-    private static StreamProvider getStreamProvider() {
-        ServiceLoader<StreamProvider> sl = ServiceLoader.load(StreamProvider.class);
-        Iterator<StreamProvider> iter = sl.iterator();
-        if (iter.hasNext()) {
-        	return iter.next();
-        } else {
-        	throw new IllegalStateException("Not provider of " + StreamProvider.class.getName() + " was found");
-        }
+    /**
+     * Get the stream provider instance of the session.
+     *
+     * @return the stream provider
+     *
+     * @since JavaMail 2.1
+     */
+    public StreamProvider getStreamProvider() {
+        return streamProvider;
     }
 
     private final synchronized void initLogger() {
@@ -1036,7 +1036,7 @@ public final class Session {
 
     private void loadProvidersFromStream(InputStream is) throws IOException {
 		if (is != null) {
-		    LineInputStream lis = Session.STREAM_PROVIDER.inputLineStream(is, false);
+		    LineInputStream lis = streamProvider.inputLineStream(is, false);
 		    String currLine;
 	
 		    // load and process one line at a time using LineInputStream

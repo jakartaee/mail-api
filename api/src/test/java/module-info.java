@@ -20,6 +20,14 @@ module jakarta.mail {
     requires transitive jakarta.activation;
     requires junit;
 
+    exports jakarta.mail;
+    exports jakarta.mail.event;
+    exports jakarta.mail.internet;
+    exports jakarta.mail.search;
+    exports jakarta.mail.util;
+
     uses jakarta.mail.Provider;
     uses jakarta.mail.util.StreamProvider;
+    uses jakarta.mail.util.FactoryFinderTest.Class2;
+    provides jakarta.mail.util.StreamProvider with jakarta.mail.util.DummyStreamProvider;
 }

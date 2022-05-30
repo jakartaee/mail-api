@@ -258,7 +258,7 @@ public class MimeMessage extends Message implements MimePart {
 	    strict = source.strict;
 	    source.writeTo(bos);
 	    bos.close();
-	    InputStream bis = Session.STREAM_PROVIDER.inputSharedByteArray(bos.toByteArray());
+	    InputStream bis = session.getStreamProvider().inputSharedByteArray(bos.toByteArray());
 	    parse(bis);
 	    bis.close();
 	    saved = true;
@@ -1425,7 +1425,7 @@ public class MimeMessage extends Message implements MimePart {
 	if (contentStream != null)
 	    return ((SharedInputStream)contentStream).newStream(0, -1);
 	if (content != null) {
-        return Session.STREAM_PROVIDER.inputSharedByteArray(content);
+        return session.getStreamProvider().inputSharedByteArray(content);
 	}
 	throw new MessagingException("No MimeMessage content");
     }
@@ -1932,7 +1932,7 @@ public class MimeMessage extends Message implements MimePart {
 	// Else, the content is untouched, so we can just output it
 	// First, write out the header
 	Enumeration<String> hdrLines = getNonMatchingHeaderLines(ignoreList);
-    LineOutputStream los = Session.STREAM_PROVIDER.outputLineStream(os, allowutf8Headers);
+    LineOutputStream los = session.getStreamProvider().outputLineStream(os, allowutf8Headers);
 	while (hdrLines.hasMoreElements())
 	    los.writeln(hdrLines.nextElement());
 

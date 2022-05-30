@@ -16,6 +16,14 @@
 
 package jakarta.mail.internet;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import jakarta.activation.DataSource;
 import jakarta.mail.BodyPart;
 import jakarta.mail.IllegalWriteException;
@@ -25,18 +33,8 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Multipart;
 import jakarta.mail.MultipartDataSource;
 import jakarta.mail.Session;
-import jakarta.mail.internet.MimeUtility;
 import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.LineOutputStream;
-import jakarta.mail.util.StreamProvider;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 
 
@@ -524,7 +522,7 @@ public class MimeMultipart extends Multipart {
 	
 	String boundary = "--" + 
 		(new ContentType(contentType)).getParameter("boundary");
-    LineOutputStream los = Session.STREAM_PROVIDER.outputLineStream(os, false);
+    LineOutputStream los = streamProvider.outputLineStream(os, false);
 	// if there's a preamble, write it out
 	if (preamble != null) {
 	    byte[] pb = MimeUtility.getBytes(preamble);
@@ -605,7 +603,7 @@ public class MimeMultipart extends Multipart {
 
 	try {
 	    // Skip and save the preamble
-		LineInputStream lin = Session.STREAM_PROVIDER.inputLineStream(in, false);
+		LineInputStream lin = streamProvider.inputLineStream(in, false);
 	    StringBuilder preamblesb = null;
 	    String line;
 	    while ((line = lin.readLine()) != null) {
