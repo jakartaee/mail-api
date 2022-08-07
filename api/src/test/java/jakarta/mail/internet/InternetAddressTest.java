@@ -16,19 +16,18 @@
 
 package jakarta.mail.internet;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Test Internet address parsing.
@@ -36,14 +35,7 @@ import java.util.List;
  * @author Bill Shannon
  */
 
-@RunWith(Parameterized.class)
 public class InternetAddressTest {
-    private String headerName;
-    private String headerValue;
-    private String[] expected;
-    private boolean doStrict;
-    private boolean doParseHeader;
-
     static boolean strict = false;        // enforce strict RFC822 syntax
     static boolean gen_test_input = false;    // output good for input to -p
     static boolean parse_mail = false;        // parse input in mail format
@@ -52,24 +44,14 @@ public class InternetAddressTest {
     static int errors = 0;            // number of errors detected
 
     static boolean junit;
-    static List<Object[]> testData;
+    static List<Arguments> testData;
 
-    public InternetAddressTest(String headerName, String headerValue,
-                               String[] expected, boolean doStrict, boolean doParseHeader) {
-        this.headerName = headerName;
-        this.headerValue = headerValue;
-        this.expected = expected;
-        this.doStrict = doStrict;
-        this.doParseHeader = doParseHeader;
-    }
-
-    @Parameters
-    public static Collection<Object[]> data() throws IOException {
+    public static Stream<Arguments> data() throws IOException {
         junit = true;
         testData = new ArrayList<>();
         parse(new BufferedReader(new InputStreamReader(
-                InternetAddressTest.class.getResourceAsStream("addrlist"))));
-        return testData;
+            InternetAddressTest.class.getResourceAsStream("addrlist"))));
+        return testData.stream();
     }
 
     public static void main(String[] argv) throws Exception {
@@ -178,9 +160,9 @@ public class InternetAddressTest {
                 i = header.indexOf(':');
                 try {
                     if (junit)
-                        testData.add(new Object[]{
+                        testData.add(Arguments.of(
                                 header.substring(0, i), header.substring(i + 2),
-                                expect, doStrict, doParseHeader});
+                                expect, doStrict, doParseHeader));
                     else
                         test(header.substring(0, i), header.substring(i + 2),
                                 expect, doStrict, doParseHeader);
@@ -234,8 +216,10 @@ public class InternetAddressTest {
         return sb.toString();
     }
 
-    @Test
-    public void testAddress() {
+    @ParameterizedTest
+    @MethodSource("data")
+    public void testAddress(String headerName, String headerValue,
+                String[] expected, boolean doStrict, boolean doParseHeader) {
         test(headerName, headerValue, expected, doStrict, doParseHeader);
     }
 
@@ -263,9 +247,8 @@ public class InternetAddressTest {
                 if (expect != null && al.length != expect.length) {
                     pr("Expected " + expect.length + " addresses");
                     if (junit)
-                        Assert.assertEquals("For " + value +
-                                        " number of addresses",
-                                al.length, expect.length);
+                        Assertions.assertEquals(expect.length, al.length,
+                                "For " + value + " number of addresses");
                     errors++;
                 }
             }
@@ -273,15 +256,14 @@ public class InternetAddressTest {
                 if (gen_test_input)
                     pr("\t" + al[i].getAddress());    // XXX - escape newlines
                 else {
-                    pr("\t[" + (i + 1) + "] " + al[i].getAddress() +
+                    pr("\t[" + (i+1) + "] " + al[i].getAddress() +
                             "\t\tPersonal: " + n(al[i].getPersonal()));
                     if (expect != null && i < expect.length &&
                             !expect[i].equals(al[i].getAddress())) {
                         pr("\tExpected:\t" + expect[i]);
                         if (junit)
-                            Assert.assertEquals("For " + value +
-                                            " address[" + i + "]",
-                                    expect[i], al[i].getAddress());
+                            Assertions.assertEquals(expect[i], al[i].getAddress(),
+                                            "For " + value + " address[" + i + "]");
                         errors++;
                     }
                 }
@@ -313,9 +295,8 @@ public class InternetAddressTest {
                     pr("Expected length " + al.length +
                             ", got " + al2.length);
                     if (junit)
-                        Assert.assertEquals("For " + value +
-                                        " toString number of addresses",
-                                al.length, al2.length);
+                        Assertions.assertEquals(al.length, al2.length,
+                                        "For " + value + " toString number of addresses" );
                     errors++;
                 } else {
                     for (int i = 0; i < al.length; i++) {
@@ -325,9 +306,8 @@ public class InternetAddressTest {
                                     al[i].getAddress() +
                                     ", got " + al2[i].getAddress());
                             if (junit)
-                                Assert.assertEquals("For " + value +
-                                                " toString " + ta + " address[" + i + "]",
-                                        al[i].getAddress(), al2[i].getAddress());
+                                Assertions.assertEquals(al[i].getAddress(), al2[i].getAddress(),
+                                                "For " + value + " toString " + ta + " address[" + i + "]");
                             errors++;
                         }
                         String p1 = al[i].getPersonal();
@@ -337,9 +317,8 @@ public class InternetAddressTest {
                             pr("Expected personal " + n(p1) +
                                     ", got " + n(p2));
                             if (junit)
-                                Assert.assertEquals("For " + value +
-                                                " toString " + ta + " personal[" + i + "]",
-                                        p1, p2);
+                                Assertions.assertEquals(p1, p2,
+                                                "For " + value + " toString " + ta + " personal[" + i + "]");
                             errors++;
                         }
                     }
@@ -348,7 +327,7 @@ public class InternetAddressTest {
                 pr("toString FAILED!!!");
                 pr("Got Exception: " + e2);
                 if (junit)
-                    Assert.fail("For " + value +
+                    Assertions.fail("For " + value +
                             " toString got Exception: " + e2);
                 errors++;
             }
@@ -363,7 +342,7 @@ public class InternetAddressTest {
                     for (int i = 0; i < expect.length; i++)
                         pr("\tExpected:\t" + expect[i]);
                     if (junit)
-                        Assert.fail("For " + value + " expected " +
+                        Assertions.fail("For " + value + " expected " +
                                 expect.length + "addresses, got Exception: " + e);
                     errors++;
                 }

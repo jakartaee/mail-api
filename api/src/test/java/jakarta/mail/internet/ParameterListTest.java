@@ -16,18 +16,18 @@
 
 package jakarta.mail.internet;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * XXX - add more tests
  */
 public class ParameterListTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void before() {
         System.out.println("ParameterListTests");
         System.clearProperty("mail.mime.windowsfilenames");
@@ -41,7 +41,7 @@ public class ParameterListTest {
     public void testBackslash() throws Exception {
         System.clearProperty("mail.mime.windowsfilenames");
         ParameterList pl = new ParameterList("; filename=\"\\a\\b\\c.txt\"");
-        assertEquals(pl.get("filename"), "abc.txt");
+        assertEquals("abc.txt", pl.get("filename"));
     }
 
     /**

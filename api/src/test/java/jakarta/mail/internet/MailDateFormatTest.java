@@ -16,7 +16,7 @@
 
 package jakarta.mail.internet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
@@ -32,11 +32,12 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test MailDateFormat: formatting and parsing of dates as specified by
@@ -241,7 +242,7 @@ public class MailDateFormatTest {
             Date date = getStrict().parse(input);
             assertThatDate(date, "Thu, 1 Jan 2015 00:00:00 +0000 (UTC)");
         } catch (ParseException ignored) {
-            assertTrue("Not supporting CFWS is allowed", true);
+            assertTrue(true, "Not supporting CFWS is allowed");
         }
     }
 
@@ -383,48 +384,58 @@ public class MailDateFormatTest {
      * Unsupported methods. When possible, the test also demonstrates
      * why invoking the method must be prohibited.
      */
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mustProhibitSetCalendar() {
-        getDefault().setCalendar(Calendar.getInstance());
+        assertThrows(UnsupportedOperationException.class,
+        () -> getDefault().setCalendar(Calendar.getInstance()));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mustProhibitSetNumberFormat() {
-        getDefault().setNumberFormat(NumberFormat.getInstance());
+        assertThrows(UnsupportedOperationException.class,
+                () -> getDefault().setNumberFormat(NumberFormat.getInstance()));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mustProhibitApplyLocalizedPattern() {
-        SimpleDateFormat fmt = getStrict();
-        fmt.applyLocalizedPattern("yyyy");
-        Date date = mustPass(fmt, "1 Jan 2015 00:00:00 +0000");
-        assertThat(fmt.format(date), is("2015"));
+        assertThrows(UnsupportedOperationException.class, () -> {
+            SimpleDateFormat fmt = getStrict();
+            fmt.applyLocalizedPattern("yyyy");
+            Date date = mustPass(fmt, "1 Jan 2015 00:00:00 +0000");
+            assertThat(fmt.format(date), is("2015"));
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mustProhibitApplyPattern() {
-        SimpleDateFormat fmt = getStrict();
-        fmt.applyPattern("yyyy");
-        Date date = mustPass(fmt, "1 Jan 2015 00:00:00 +0000");
-        assertThat(fmt.format(date), is("2015"));
+        assertThrows(UnsupportedOperationException.class, () -> {
+            SimpleDateFormat fmt = getStrict();
+            fmt.applyPattern("yyyy");
+            Date date = mustPass(fmt, "1 Jan 2015 00:00:00 +0000");
+            assertThat(fmt.format(date), is("2015"));
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mustProhibitGet2DigitYearStart() {
-        getDefault().get2DigitYearStart();
+        assertThrows(UnsupportedOperationException.class,
+        () -> getDefault().get2DigitYearStart());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mustProhibitSet2DigitYearStart() {
-        getDefault().set2DigitYearStart(new Date());
+        assertThrows(UnsupportedOperationException.class,
+        () -> getDefault().set2DigitYearStart(new Date()));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mustProhibitSetDateFormatSymbols() {
-        SimpleDateFormat fmt = getStrict();
-        fmt.setDateFormatSymbols(new DateFormatSymbols(Locale.FRENCH));
-        Date date = mustPass(fmt, "1 Jan 2015 00:00:00 +0000");
-        assertThatDate(date, "jeu., 1 janv. 2015 00:00:00 +0000 (UTC)");
+        assertThrows(UnsupportedOperationException.class, () -> { 
+            SimpleDateFormat fmt = getStrict();
+            fmt.setDateFormatSymbols(new DateFormatSymbols(Locale.FRENCH));
+            Date date = mustPass(fmt, "1 Jan 2015 00:00:00 +0000");
+            assertThatDate(date, "jeu., 1 janv. 2015 00:00:00 +0000 (UTC)");
+        });
     }
 
     /*

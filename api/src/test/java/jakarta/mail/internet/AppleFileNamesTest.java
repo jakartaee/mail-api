@@ -16,11 +16,11 @@
 
 package jakarta.mail.internet;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test that the "mail.mime.applefilenames" System property
@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class AppleFileNamesTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void before() {
         System.out.println("AppleFileNames");
         System.setProperty("mail.mime.applefilenames", "true");
@@ -37,10 +37,10 @@ public class AppleFileNamesTest {
     @Test
     public void testProp() throws Exception {
         ParameterList pl = new ParameterList("; filename=a b.txt");
-        assertEquals(pl.get("filename"), "a b.txt");
+        assertEquals("a b.txt", pl.get("filename"));
     }
 
-    @AfterClass
+    @AfterAll
     public static void after() {
         // should be unnecessary
         System.clearProperty("mail.mime.applefilenames");

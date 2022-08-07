@@ -16,19 +16,19 @@
 
 package jakarta.mail.internet;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test the property that contols ContentDisposition non-strict mode
+ * Test the property that controls ContentDisposition non-strict mode
  */
 public class ContentDispositionNoStrictTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void before() {
         System.setProperty("mail.mime.contentdisposition.strict", "false");
     }
@@ -37,7 +37,7 @@ public class ContentDispositionNoStrictTest {
     public void testDecode() throws Exception {
         try {
             ContentDisposition cd = new ContentDisposition("\"/non/standard/stuff/here.csv\"");
-            assertNull("Content disposition must parse to null in non-strict mode", cd.getDisposition());
+            assertNull(cd.getDisposition(), "Content disposition must parse to null in non-strict mode");
         } catch (ParseException px) {
             fail("Exception must not be thrown in non-strict mode");
         }
@@ -47,13 +47,13 @@ public class ContentDispositionNoStrictTest {
     public void testDecodeWithParams() throws Exception {
         try {
             ContentDisposition cd = new ContentDisposition(" ; size=12345");
-            assertNull("Content disposition must parse to null in non-strict mode", cd.getDisposition());
+            assertNull(cd.getDisposition(), "Content disposition must parse to null in non-strict mode");
         } catch (ParseException px) {
             fail("Exception must not be thrown in non-strict mode");
         }
     }
 
-    @AfterClass
+    @AfterAll
     public static void after() {
         System.clearProperty("mail.mime.contentdisposition.strict");
     }

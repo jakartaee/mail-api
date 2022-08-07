@@ -16,20 +16,19 @@
 
 package jakarta.mail.internet;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Stream;
 
 /**
  * Test MIME HeaderTokenizer.
@@ -37,12 +36,7 @@ import java.util.Vector;
  * @author Bill Shannon
  */
 
-@RunWith(Parameterized.class)
 public class HeaderTokenizerTest {
-    private String header;
-    private String value;
-    private String[] expect;
-
     static boolean gen_test_input = false;    // output good for input to -p
     static boolean parse_mail = false;        // parse input in mail format
     static boolean return_comments = false;    // return comments as tokens
@@ -50,26 +44,20 @@ public class HeaderTokenizerTest {
     static int errors = 0;            // number of errors detected
 
     static boolean junit;
-    static List<Object[]> testData;
+    static List<Arguments> testData;
 
-    public HeaderTokenizerTest(String heder, String value, String[] expect) {
-        this.header = header;
-        this.value = value;
-        this.expect = expect;
-    }
-
-    @Parameters
-    public static Collection<Object[]> data() throws IOException {
+    public static Stream<Arguments> data() throws IOException {
         junit = true;
         testData = new ArrayList<>();
         parse(new BufferedReader(new InputStreamReader(
                 InternetAddressTest.class.getResourceAsStream("tokenlist"))));
-        return testData;
+        return testData.stream();
     }
 
-    @Test
-    public void test() {
-        test(header, value, expect);
+    @ParameterizedTest
+    @MethodSource("data")
+    public void test(String header, String value, String[] expect) {
+        testInternal(header, value, expect);
     }
 
     public static void main(String[] argv) throws Exception {
@@ -107,7 +95,7 @@ public class HeaderTokenizerTest {
                 sb.append(argv[i]);
                 sb.append(" ");
             }
-            test("To", sb.toString(), null);
+            testInternal("To", sb.toString(), null);
         } else {
             // read from stdin
             BufferedReader in =
@@ -118,7 +106,7 @@ public class HeaderTokenizerTest {
                 parse(in);
             else {
                 while ((s = in.readLine()) != null)
-                    test("To", s, null);
+                    testInternal("To", s, null);
             }
         }
         System.exit(errors);
@@ -169,12 +157,12 @@ public class HeaderTokenizerTest {
                 i = header.indexOf(':');
                 try {
                     if (junit)
-                        testData.add(new Object[]{
+                        testData.add(Arguments.of(
                                 header.substring(0, i),
                                 header.substring(i + 2),
-                                expect});
+                                expect));
                     else
-                        test(header.substring(0, i), header.substring(i + 2),
+                        testInternal(header.substring(0, i), header.substring(i + 2),
                                 expect);
                 } catch (StringIndexOutOfBoundsException e) {
                     // ignore
@@ -197,7 +185,7 @@ public class HeaderTokenizerTest {
     /**
      * Test the header's value to see if we can tokenize it as expected.
      */
-    public static void test(String header, String value, String[] expect) {
+    public static void testInternal(String header, String value, String expect[]) {
         PrintStream out = System.out;
         if (gen_test_input)
             out.println(header + ": " + value);
@@ -217,8 +205,8 @@ public class HeaderTokenizerTest {
                 out.println("Expect: " + toklist.size());
             else {
                 if (junit) {
-                    Assert.assertEquals("Number of tokens",
-                            expect.length, toklist.size());
+                    Assertions.assertEquals(expect.length, toklist.size(),
+                            "Number of tokens");
                 } else {
                     out.println("Got " + toklist.size() + " tokens:");
                     if (expect != null && toklist.size() != expect.length) {
@@ -234,15 +222,15 @@ public class HeaderTokenizerTest {
                             "\t" + tok.getValue());
                 else {
                     if (!junit)
-                        out.println("\t[" + (i + 1) + "] " + type(tok.getType()) +
+                        out.println("\t[" + (i+1) + "] " + type(tok.getType()) +
                                 "\t" + tok.getValue());
                     if (expect != null && i < expect.length) {
                         HeaderTokenizer.Token t = makeToken(expect[i]);
                         if (junit) {
-                            Assert.assertEquals("Token type",
-                                    t.getType(), tok.getType());
-                            Assert.assertEquals("Token value",
-                                    t.getValue(), tok.getValue());
+                            Assertions.assertEquals(t.getType(), tok.getType(),
+                                    "Token type");
+                            Assertions.assertEquals(t.getValue(), tok.getValue(),
+                                    "Token value");
                         } else {
                             if (t.getType() != tok.getType() ||
                                     !t.getValue().equals(tok.getValue())) {
@@ -259,8 +247,8 @@ public class HeaderTokenizerTest {
                 out.println("Expect: Exception " + e);
             else {
                 if (junit) {
-                    Assert.assertTrue("Expected exception",
-                            expect.length == 1 && expect[0].equals("Exception"));
+                    Assertions.assertTrue(expect.length == 1 && expect[0].equals("Exception"),
+                            "Expected exception");
                 } else {
                     out.println("Got Exception: " + e);
                     if (expect != null &&

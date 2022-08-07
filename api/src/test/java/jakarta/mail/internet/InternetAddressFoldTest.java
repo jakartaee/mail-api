@@ -16,18 +16,17 @@
 
 package jakarta.mail.internet;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Test InternetAddress folding.
@@ -35,24 +34,14 @@ import java.util.List;
  * @author Bill Shannon
  */
 
-@RunWith(Parameterized.class)
 public class InternetAddressFoldTest {
-    private InternetAddress[] orig;
-    private String expect;
+    private static List<Arguments> testData;
 
-    private static List<Object[]> testData;
-
-    public InternetAddressFoldTest(InternetAddress[] orig, String expect) {
-        this.orig = orig;
-        this.expect = expect;
-    }
-
-    @Parameters
-    public static Collection<Object[]> data() throws Exception {
+    public static Stream<Arguments> data() throws Exception {
         testData = new ArrayList<>();
         parse(new BufferedReader(new InputStreamReader(
                 InternetAddressFoldTest.class.getResourceAsStream("addrfolddata"))));
-        return testData;
+        return testData.stream();
     }
 
     /**
@@ -80,7 +69,7 @@ public class InternetAddressFoldTest {
             if (!e.equals("EXPECT"))
                 throw new IOException("TEST DATA FORMAT ERROR, MISSING EXPECT");
             String expect = readString(in);
-            testData.add(new Object[]{orig, expect});
+            testData.add(Arguments.of(orig, expect));
         }
     }
 
@@ -97,8 +86,9 @@ public class InternetAddressFoldTest {
         return sb.toString();
     }
 
-    @Test
-    public void testFold() {
-        Assert.assertEquals("Fold", expect, InternetAddress.toString(orig, 0));
+    @ParameterizedTest
+    @MethodSource("data")
+    public void testFold(InternetAddress[] orig, String expect) {
+        Assertions.assertEquals(expect, InternetAddress.toString(orig, 0), "Fold");
     }
 }

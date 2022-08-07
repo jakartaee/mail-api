@@ -20,7 +20,7 @@ import jakarta.mail.Flags;
 import jakarta.mail.Message;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.NewsAddress;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -29,7 +29,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * SearchTerm serialization test.

@@ -16,12 +16,12 @@
 
 package jakarta.mail.internet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test Internet address parsing that can't be tested using paramterized test.
+ * Test Internet address parsing that can't be tested using parameterized test.
  *
  * @author Bill Shannon
  */
