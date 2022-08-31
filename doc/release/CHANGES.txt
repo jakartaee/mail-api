@@ -19,6 +19,10 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
+		  CHANGES IN THE 2.1.0 RELEASE
+		  ----------------------------
+The API implementation has been moved to a new project in https://github.com/eclipse-ee4j/angus-mail
+
 
 		  CHANGES IN THE 2.0.2 RELEASE
 		  ----------------------------
