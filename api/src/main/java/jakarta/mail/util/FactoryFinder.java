@@ -82,18 +82,8 @@ class FactoryFinder {
     }
 
     private static String fromSystemProperty(String factoryId) {
-        String systemProp = getSystemProperty(factoryId);
+        String systemProp = System.getProperty(factoryId);
         return systemProp;
-    }
-
-    private static String getSystemProperty(final String property) {
-        String value = AccessController.doPrivileged(new PrivilegedAction<String>() {
-            @Override
-            public String run() {
-                return System.getProperty(property);
-            }
-        });
-        return value;
     }
 
     private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
@@ -126,20 +116,15 @@ class FactoryFinder {
     private static <T> T factoryFromServiceLoader(Class<T> factory) {
         try {
             ServiceLoader<T> sl = ServiceLoader.load(factory);
-            return System.getSecurityManager() != null ?
-                    AccessController.doPrivileged((PrivilegedAction<T>)() -> findFirst(sl)) : findFirst(sl);
+            Iterator<T> iter = sl.iterator();
+            if (iter.hasNext()) {
+                return iter.next();
+            } else {
+                return null;
+            }
         } catch (Throwable t) {
             // For example, ServiceConfigurationError can be thrown if the factory class is not declared with 'uses' in module-info
             throw new IllegalStateException("Cannot load " + factory + " as ServiceLoader", t);
-        }
-    }
-    
-    private static <T> T findFirst(ServiceLoader<T> sl) {
-        Iterator<T> iter = sl.iterator();
-        if (iter.hasNext()) {
-            return iter.next();
-        } else {
-            return null;
         }
     }
     
