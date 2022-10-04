@@ -21,6 +21,7 @@ longer available.
 
 		  CHANGES IN THE 2.1.1 RELEASE
 		  ----------------------------
+E  594	Implement equals() and hashcode() on jakarta.mail.Header
 E  598	expected resource not found: /META-INF/javamail.default.address.map
 E  621	j.m.u.FactoryFinder.factoryFromServiceLoader needs PrivilegedAction
 
