@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -126,15 +126,20 @@ class FactoryFinder {
     private static <T> T factoryFromServiceLoader(Class<T> factory) {
         try {
             ServiceLoader<T> sl = ServiceLoader.load(factory);
-            Iterator<T> iter = sl.iterator();
-            if (iter.hasNext()) {
-                return iter.next();
-            } else {
-                return null;
-            }
+            return System.getSecurityManager() != null ?
+                    AccessController.doPrivileged((PrivilegedAction<T>)() -> findFirst(sl)) : findFirst(sl);
         } catch (Throwable t) {
             // For example, ServiceConfigurationError can be thrown if the factory class is not declared with 'uses' in module-info
             throw new IllegalStateException("Cannot load " + factory + " as ServiceLoader", t);
+        }
+    }
+    
+    private static <T> T findFirst(ServiceLoader<T> sl) {
+        Iterator<T> iter = sl.iterator();
+        if (iter.hasNext()) {
+            return iter.next();
+        } else {
+            return null;
         }
     }
     
