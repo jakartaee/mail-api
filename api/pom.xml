@@ -116,6 +116,18 @@
             <artifactId>angus-activation</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>biz.aQute.bnd</groupId>
+            <artifactId>biz.aQute.bnd.annotation</artifactId>
+            <version>6.3.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.annotation</artifactId>
+            <version>8.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -359,10 +371,6 @@
                         <Implementation-Title>${project.name}</Implementation-Title>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                         <Implementation-Build-Id>${buildNumber}</Implementation-Build-Id>
-                        <Import-Package>
-                            !org.glassfish.hk2.osgiresourcelocator,
-                            *
-                        </Import-Package>
                     </instructions>
                 </configuration>
                 <executions>

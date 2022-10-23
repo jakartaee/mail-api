@@ -54,13 +54,6 @@ class FactoryFinder {
             return factory;
         }
 
-        // handling Glassfish/OSGi (platform specific default)
-        if (isOsgi()) {
-            T result = lookupUsingOSGiServiceLoader(factoryId);
-            if (result != null) {
-                return result;
-            }
-        }
         throw new IllegalStateException("Not provider of " + factoryClass.getName() + " was found");
     }
 
@@ -84,33 +77,6 @@ class FactoryFinder {
     private static String fromSystemProperty(String factoryId) {
         String systemProp = System.getProperty(factoryId);
         return systemProp;
-    }
-
-    private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
-
-    private static boolean isOsgi() {
-        try {
-            Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
-            return true;
-        } catch (ClassNotFoundException ignored) {
-        }
-        return false;
-    }
-
-    @SuppressWarnings({"unchecked"})
-    private static <T> T lookupUsingOSGiServiceLoader(String factoryId) {
-        try {
-            // Use reflection to avoid having any dependency on HK2 ServiceLoader class
-            Class<?> serviceClass = Class.forName(factoryId);
-            Class<?>[] args = new Class<?>[]{serviceClass};
-            Class<?> target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
-            Method m = target.getMethod("lookupProviderInstances", Class.class);
-            Iterator<?> iter = ((Iterable<?>) m.invoke(null, (Object[]) args)).iterator();
-            return iter.hasNext() ? (T) iter.next() : null;
-        } catch (Exception ignored) {
-            // log and continue
-            return null;
-        }
     }
 
     private static <T> T factoryFromServiceLoader(Class<T> factory) {

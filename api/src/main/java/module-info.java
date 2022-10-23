@@ -29,4 +29,6 @@ module jakarta.mail {
     uses jakarta.mail.util.StreamProvider;
     //reflective call to java.beans.Beans.instantiate
     requires static java.desktop;
+    //annotations for OSGi service loader mediator
+    requires static biz.aQute.bnd.annotation;
 }
