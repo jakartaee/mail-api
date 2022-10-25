@@ -198,7 +198,6 @@ import jakarta.mail.util.StreamProvider;
  * @author Max Spivak
  */
 
-@aQute.bnd.annotation.spi.ServiceConsumer(value = Provider.class)
 public final class Session {
 
 	// Support legacy @DefaultProvider

@@ -116,18 +116,6 @@
             <artifactId>angus-activation</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>biz.aQute.bnd</groupId>
-            <artifactId>biz.aQute.bnd.annotation</artifactId>
-            <version>6.3.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.annotation</artifactId>
-            <version>8.1.0</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -371,6 +359,16 @@
                         <Implementation-Title>${project.name}</Implementation-Title>
                         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                         <Implementation-Build-Id>${buildNumber}</Implementation-Build-Id>
+                        <Require-Capability><![CDATA[
+                          osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.processor)
+                            (version>=1.0.0)(!(version>=2.0.0)))",
+                          osgi.serviceloader;
+                            filter:="(osgi.serviceloader=jakarta.mail.util.StreamProvider)";
+                              cardinality:=multiple;resolution:=optional,
+                          osgi.serviceloader;
+                            filter:="(osgi.serviceloader=jakarta.mail.Provider)";
+                              cardinality:=multiple;resolution:=optional]]>
+                        </Require-Capability>
                     </instructions>
                 </configuration>
                 <executions>

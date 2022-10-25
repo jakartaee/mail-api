@@ -31,7 +31,6 @@ import java.util.ServiceLoader;
  *
  * @since JavaMail 2.1
  */
-@aQute.bnd.annotation.spi.ServiceConsumer(value = StreamProvider.class)
 public interface StreamProvider {
 
 	/**
