@@ -6,12 +6,12 @@
 Jakarta Mail defines a platform-independent and protocol-independent
 framework to build mail and messaging applications.
 
-**IMPORTANT:** Implementation of the Jakarta Mail API, aka JakartaMail (formerly JavaMail),
+**IMPORTANT:** The implementation of the Jakarta Mail API, aka JakartaMail (formerly JavaMail),
 is no longer part of this repository.
 As part of breaking tight integration between Jakarta Mail API and the implementation,
 its sources were moved to the new project - [Eclipse Angus](https://github.com/eclipse-ee4j/angus-mail) -
 and further development continues there. [Eclipse Angus](https://github.com/eclipse-ee4j/angus-mail) 
-is direct accessor of JavaMail/JakartaMail.
+is the direct successor of JavaMail/JakartaMail.
 
 See the [Jakarta Mail web site](https://eclipse-ee4j.github.io/mail).
 
