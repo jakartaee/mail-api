@@ -55,8 +55,8 @@ class FactoryFinder {
         }
 
         // handling Glassfish/OSGi (platform specific default)
-        if (isOsgi()) {
-            T result = lookupUsingOSGiServiceLoader(factoryId);
+        if (isHk2Available()) {
+            T result = lookupUsingHk2ServiceLoader(factoryId);
             if (result != null) {
                 return result;
             }
@@ -88,7 +88,7 @@ class FactoryFinder {
 
     private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
 
-    private static boolean isOsgi() {
+    private static boolean isHk2Available() {
         try {
             Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
             return true;
@@ -98,7 +98,7 @@ class FactoryFinder {
     }
 
     @SuppressWarnings({"unchecked"})
-    private static <T> T lookupUsingOSGiServiceLoader(String factoryId) {
+    private static <T> T lookupUsingHk2ServiceLoader(String factoryId) {
         try {
             // Use reflection to avoid having any dependency on HK2 ServiceLoader class
             Class<?> serviceClass = Class.forName(factoryId);
