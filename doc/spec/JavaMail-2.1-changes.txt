@@ -9,7 +9,7 @@ API introduced in Jakarta Mail 2.1.  The numbers in parentheses
 are bug numbers; you can find more information about the
 bug reports at:
 
-    https://github.com/eclipse-ee4j/mail/issues/<bug number>
+    https://github.com/jakartaee/mail-api/issues/<bug number>
 
 Please send comments and feedback to  mail-dev@eclipse.org.
 
