@@ -29,8 +29,16 @@ if [ -z "$ANGUS_MAIL_BUNDLE_URL" ];then
 fi
 wget $WGET_PROPS $JAF_BUNDLE_URL -O jakarta.activation-api.jar
 wget $WGET_PROPS $ANGUS_JAF_BUNDLE_URL -O angus-activation.jar
+# ---------------------------------------------
 # There is no latest mail-tck bundle in Jenkins yet. It will use the bundle of ${WORKSPACE}/mailtck.zip.
 #wget $WGET_PROPS $MAIL_TCK_BUNDLE_URL -O mailtck.zip
+git clone https://github.com/jakartaee/mail-tck.git
+cd mail-tck
+ant -f release.xml clean core
+mv mail-tck-*.zip ../mailtck.zip
+cd ..
+# ---------------------------------------------
+
 wget $WGET_PROPS $ANGUS_MAIL_BUNDLE_URL -O angus-mail.jar
 cp ${WORKSPACE}/api/target/jakarta.mail-api-*.jar ${WORKSPACE}/jakarta.mail-api.jar
 
