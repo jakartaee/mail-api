@@ -363,6 +363,16 @@
                             !org.glassfish.hk2.osgiresourcelocator,
                             *
                         </Import-Package>
+                        <Require-Capability><![CDATA[
+                          osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.processor)
+                            (version>=1.0.0)(!(version>=2.0.0)))",
+                          osgi.serviceloader;
+                            filter:="(osgi.serviceloader=jakarta.mail.util.StreamProvider)";
+                              cardinality:=multiple,
+                          osgi.serviceloader;
+                            filter:="(osgi.serviceloader=jakarta.mail.Provider)";
+                              cardinality:=multiple]]>
+                        </Require-Capability>
                     </instructions>
                 </configuration>
                 <executions>
