@@ -4,7 +4,7 @@ Issue Tracker and looking up each bug you're interested in.
 Bug IDs that start with "E" can be found in the GitHub Issue Tracker
 for the Eclipse EE4J Jakarta Mail project (after removing the "E"):
 
-	https://github.com/eclipse-ee4j/mail/issues/<bug-number>
+	https://github.com/jakartaee/mail-api/issues/<bug-number>
 
 Bug IDs that start with "GH" can be found in the GitHub Issue Tracker
 (after removing the "GH"):

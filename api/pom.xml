@@ -35,14 +35,14 @@
     <description>${project.name} ${spec.version} Specification API</description>
 
     <scm>
-        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/mail.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/mail.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/mail</url>
+        <connection>scm:git:ssh://git@github.com/jakartaee/mail-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/jakartaee/mail-api.git</developerConnection>
+        <url>https://github.com/jakartaee/mail-api</url>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/eclipse-ee4j/mail/issues</url>
+        <url>https://github.com/jakartaee/mail-api/issues</url>
     </issueManagement>
 
     <licenses>

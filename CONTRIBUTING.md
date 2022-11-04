@@ -1,45 +1,32 @@
-# Contributing to Eclipse Project for Jakarta Mail
+# Contributing to Jakarta Mail
 
 Thanks for your interest in this project.
 
 ## Project description
 
-The Jakarta Mail API provides a platform-independent and protocol-independent
-framework to build mail and messaging applications. The Jakarta Mail API is
-available as an optional package for use with the Java SE platform and is also
-included in the Java EE platform.
+Jakarta Mail™ defines a platform-independent and protocol-independent
+framework to build mail and messaging applications.
 
-* [https://projects.eclipse.org/projects/ee4j.mail](https://projects.eclipse.org/projects/ee4j.mail)
+* https://projects.eclipse.org/projects/ee4j.mail
+
+## Terms of Use
+
+This repository is subject to the Terms of Use of the Eclipse Foundation
+
+* http://www.eclipse.org/legal/termsofuse.php
 
 ## Developer resources
 
 Information regarding source code management, builds, coding standards, and
 more.
 
-* [https://eclipse-ee4j.github.io/mail/Contributions](https://eclipse-ee4j.github.io/mail/Contributions)
-* [https://projects.eclipse.org/projects/ee4j.mail/developer](https://projects.eclipse.org/projects/ee4j.mail/developer)
+* https://projects.eclipse.org/projects/ee4j.mail/developer
 
 The project maintains the following source code repositories
 
-* [https://github.com/eclipse-ee4j/mail](https://github.com/eclipse-ee4j/mail)
-* [https://github.com/eclipse-ee4j/mail-spec](https://github.com/eclipse-ee4j/mail-spec)
-* [https://github.com/eclipse-ee4j/mail-tck](https://github.com/eclipse-ee4j/mail-tck)
-
-## Eclipse Contributor Agreement
-
-Before your contribution can be accepted by the project team contributors must
-electronically sign the Eclipse Contributor Agreement (ECA).
-
-* [http://www.eclipse.org/legal/ECA.php](http://www.eclipse.org/legal/ECA.php)
-
-Commits that are provided by non-committers must have a Signed-off-by field in
-the footer indicating that the author is aware of the terms by which the
-contribution has been provided to the project. The non-committer must
-additionally have an Eclipse Foundation account and must have a signed Eclipse
-Contributor Agreement (ECA) on file.
-
-For more information, please see the Eclipse Committer Handbook:
-[https://www.eclipse.org/projects/handbook/#resources-commit](https://www.eclipse.org/projects/handbook/#resources-commit)
+* https://github.com/jakartaee/mail-api
+* https://github.com/jakartaee/mail-tck
+* https://github.com/jakartaee/mail-spec
 
 ## Eclipse Development Process
 
@@ -56,8 +43,24 @@ Jakarta EE specification projects.
 * https://jakarta.ee/about/jesp/
 * https://www.eclipse.org/legal/efsp_non_assert.php
 
+## Eclipse Contributor Agreement
+
+In order to be able to contribute to Eclipse Foundation projects you must
+electronically sign the Eclipse Contributor Agreement (ECA).
+
+* http://www.eclipse.org/legal/ECA.php
+
+The ECA provides the Eclipse Foundation with a permanent record that you agree
+that each of your contributions will comply with the commitments documented in
+the Developer Certificate of Origin (DCO). Having an ECA on file associated with
+the email address matching the "Author" field of your contribution's Git commits
+fulfills the DCO's requirement that you sign-off on your contributions.
+
+For more information, please see the Eclipse Committer Handbook:
+https://www.eclipse.org/projects/handbook/#resources-commit
+
 ## Contact
 
 Contact the project developers via the project's "dev" list.
 
-* [https://accounts.eclipse.org/mailing-list/mail-dev](https://accounts.eclipse.org/mailing-list/mail-dev)
+* https://accounts.eclipse.org/mailing-list/mail-dev

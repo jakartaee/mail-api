@@ -1,6 +1,6 @@
 # Jakarta Mail
 
-[![Build Status](https://github.com/eclipse-ee4j/mail/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/eclipse-ee4j/mail/actions/workflows/maven.yml?branch=master)
+[![Build Status](https://github.com/jakartaee/mail-api/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/jakartaee/mail-api/actions/workflows/maven.yml?branch=master)
 [![Jakarta Staging (Snapshots)](https://img.shields.io/nexus/s/https/jakarta.oss.sonatype.org/jakarta.mail/jakarta.mail-api.svg)](https://jakarta.oss.sonatype.org/content/repositories/staging/jakarta/mail/jakarta.mail-api/)
 
 Jakarta Mail defines a platform-independent and protocol-independent
@@ -13,7 +13,7 @@ its sources were moved to the new project - [Eclipse Angus](https://github.com/e
 and further development continues there. [Eclipse Angus](https://github.com/eclipse-ee4j/angus-mail) 
 is the direct successor of JavaMail/JakartaMail.
 
-See the [Jakarta Mail web site](https://eclipse-ee4j.github.io/mail).
+See the [Jakarta Mail web site](https://jakartaee.github.io/mail-api/).
 
 ## License
 
@@ -38,8 +38,8 @@ We use [contribution policy](CONTRIBUTING.md), which means we can only accept co
 the terms of [Eclipse Contributor Agreement](http://www.eclipse.org/legal/ECA.php).
 
 ## Links
-* [Jakarta Mail web site](https://eclipse-ee4j.github.io/mail)
-* [Jakarta Mail Specification project](https://github.com/eclipse-ee4j/mail-spec)
-* [Jakarta Mail TCK project](https://github.com/eclipse-ee4j/mail-tck)
+* [Jakarta Mail web site](https://jakartaee.github.io/mail-api/)
+* [Jakarta Mail Specification project](https://github.com/jakartaee/mail-spec)
+* [Jakarta Mail TCK project](https://github.com/jakartaee/mail-tck)
 * [Jakarta Mail API nightly build job](https://ci.eclipse.org/mail/job/mail-api-build/)
 * [Eclipse Angus project](https://github.com/eclipse-ee4j/angus-mail)
