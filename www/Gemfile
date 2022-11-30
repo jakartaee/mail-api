@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+gem 'github-pages', group: :jekyll_plugins
+#gem 'jekyll-theme-eclipsefdn'
+gem 'jekyll-theme-jakarta-ee'
+
+gem "webrick", "~> 1.7"

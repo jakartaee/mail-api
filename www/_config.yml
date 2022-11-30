@@ -1,0 +1,16 @@
+github: [metadata]
+remote_theme: jakartaee/jekyll-theme-jakarta-ee
+
+title: [Jakarta Mail]
+description: [Specification]
+
+links:
+  source: https://github.com/jakartaee/mail-api
+  javadocs: docs/api/
+  download: https://github.com/eclipse-ee4j/mail/releases
+  mailinglist: https://accounts.eclipse.org/mailing-list/mail-dev
+  faq: FAQ
+  contrib: CONTRIBUTING
+
+include:
+  - CONTRIBUTING.md

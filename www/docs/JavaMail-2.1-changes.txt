@@ -1,0 +1,26 @@
+
+		JavaMail 2.1
+		============
+
+		(Updated August 19, 2021)
+
+Following is a description of the changes to the Jakarta Mail
+API introduced in Jakarta Mail 2.1.  The numbers in parentheses
+are bug numbers; you can find more information about the
+bug reports at:
+
+    https://github.com/jakartaee/mail-api/issues/<bug number>
+
+Please send comments and feedback to  mail-dev@eclipse.org.
+
+Jakarta Mail 2.1 will also require at least Java SE 8.
+
+
+===================================================================
+
+1. Provide standalone jakarta.mail-api jar file (567)
+-----------------------------------------------------------------------------
+
+Previous version of the Jakarta Mail API was provided in a jar containing APIs together
+with implementation classes. This is no longer true and standalone jakarta.mail-api jar
+file is available.

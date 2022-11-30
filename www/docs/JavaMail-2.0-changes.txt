@@ -1,0 +1,26 @@
+
+		JavaMail 2.0
+		============
+
+		(Updated October 23, 2020)
+
+Following is a description of the changes to the Jakarta Mail
+API introduced in Jakarta Mail 2.0.  The numbers in parentheses
+are bug numbers; you can find more information about the
+bug reports at:
+
+    https://github.com/eclipse-ee4j/mail/issues/<bug number>
+
+Please send comments and feedback to  mail-dev@eclipse.org.
+
+Jakarta Mail 2.0 will also require at least Java SE 8.
+
+
+===================================================================
+
+1. API package namespace is jakarta.mail
+-----------------------------------------------------------------------------
+
+Previous version of the Jakarta Mail Specification which is based on
+JavaMail 1.6 used javax.mail package namespace.
+New Jakarta Mail Specification uses jakarta.mail package namespace instead.

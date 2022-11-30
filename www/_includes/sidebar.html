@@ -1,0 +1,72 @@
+<!-- nav -->
+<aside id="main-sidebar">
+    <ul id="leftnav" class="ul-left-nav fa-ul hidden-print">
+
+        <li class="separator">
+            <a class="separator">Project Resources</a>
+        </li>
+
+        {% if site.links.source %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.source }}">Sources</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.javadocs %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.javadocs }}">APIs</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.docs %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.docs }}">Documentation</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.faq %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.faq }}">FAQ</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.download %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.download }}">Download</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.hide_issuetracker != true %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.github.issues_url }}">Issue Tracker</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.mailinglist %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.mailinglist }}">Mailing list</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.minutes %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.minutes }}">Meeting Minutes</a>
+        </li>
+        {% endif %}
+
+        {% if site.links.contrib %}
+        <li>
+            <i class="fa fa-caret-right fa-fw"></i>
+            <a target="_self" href="{{ site.links.contrib }}">Contributing</a>
+        </li>
+        {% endif %}
+    </ul>
+</aside>
