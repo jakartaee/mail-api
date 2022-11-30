@@ -9,8 +9,8 @@ framework to build mail and messaging applications.
 **IMPORTANT:** The implementation of the Jakarta Mail API, aka JakartaMail (formerly JavaMail),
 is no longer part of this repository.
 As part of breaking tight integration between Jakarta Mail API and the implementation,
-its sources were moved to the new project - [Eclipse Angus](https://github.com/eclipse-ee4j/angus-mail) -
-and further development continues there. [Eclipse Angus](https://github.com/eclipse-ee4j/angus-mail) 
+its sources were moved to the new project - [Eclipse Angus](https://eclipse-ee4j.github.io/angus-mail) -
+and further development continues there. [Eclipse Angus](https://eclipse-ee4j.github.io/angus-mail) 
 is the direct successor of JavaMail/JakartaMail.
 
 See the [Jakarta Mail web site](https://jakartaee.github.io/mail-api/).
@@ -42,4 +42,5 @@ the terms of [Eclipse Contributor Agreement](http://www.eclipse.org/legal/ECA.ph
 * [Jakarta Mail Specification project](https://github.com/jakartaee/mail-spec)
 * [Jakarta Mail TCK project](https://github.com/jakartaee/mail-tck)
 * [Jakarta Mail API nightly build job](https://ci.eclipse.org/mail/job/mail-api-build/)
-* [Eclipse Angus project](https://github.com/eclipse-ee4j/angus-mail)
+* [Mailing list](https://accounts.eclipse.org/mailing-list/mail-dev)
+* [Eclipse Angus project](https://eclipse-ee4j.github.io/angus-mail)

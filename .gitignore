@@ -8,3 +8,12 @@ webrev
 .project
 .settings/
 *.iml
+
+_site
+www/CONTRIBUTING.md
+www/docs/api
+www/docs/CHANGES.txt
+www/vendor
+www/.sass-cache
+www/.jekyll-cache
+www/.jekyll-metadata
