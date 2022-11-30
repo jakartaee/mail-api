@@ -107,15 +107,15 @@ The following table provides easy access to the latest release. Most
 people will only need the main Jakarta Mail implementation in the
 jakarta.mail.jar file.
 
-|Item|Description|
-|:---|:----------|
-|[jakarta.mail.jar](https://github.com/eclipse-ee4j/mail/releases/download/2.0.1/jakarta.mail-2.0.1.jar/jakarta.mail-2.0.1.jar)|The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
-|[README.txt](docs/README.txt)|Overview of the release|
-|[NOTES.txt](docs/NOTES.txt)|Additional notes about using Jakarta Mail|
-|[SSLNOTES.txt](docs/SSLNOTES.txt)|Notes on using SSL/TLS with Jakarta Mail|
-|[NTLMNOTES.txt](docs/NTLMNOTES.txt)|Notes on using NTLM authentication with Jakarta Mail|
-|[CHANGES.txt](docs/CHANGES.txt)|Changes since the previous release|
-|[COMPAT.txt](docs/COMPAT.txt)|Important notes about compatibility|
+| Item                                                                                                                            |Description|
+|:--------------------------------------------------------------------------------------------------------------------------------|:----------|
+| [jakarta.mail.jar](https://github.com/jakartaee/mail-api/releases/download/2.0.1/jakarta.mail-2.0.1.jar/jakarta.mail-2.0.1.jar) |The Jakarta Mail implementation, including the SMTP, IMAP, and POP3 protocol providers|
+| [README.txt](docs/README.txt)                                                                                                   |Overview of the release|
+| [NOTES.txt](docs/NOTES.txt)                                                                                                     |Additional notes about using Jakarta Mail|
+| [SSLNOTES.txt](docs/SSLNOTES.txt)                                                                                               |Notes on using SSL/TLS with Jakarta Mail|
+| [NTLMNOTES.txt](docs/NTLMNOTES.txt)                                                                                             |Notes on using NTLM authentication with Jakarta Mail|
+| [CHANGES.txt](docs/CHANGES.txt)                                                                                                 |Changes since the previous release|
+| [COMPAT.txt](docs/COMPAT.txt)                                                                                                   |Important notes about compatibility|
 
 
 In addition, the Jakarta Mail jar files are published to the Maven repository.
@@ -177,7 +177,7 @@ the JavaMail API specification:
 # <a name="Samples"></a>Samples
 
 Some sample programs showing how to use the Jakarta Mail APIs are available
-[here](https://github.com/eclipse-ee4j/mail/releases/download/2.0.1/jakartamail-samples.zip).
+[here](https://github.com/jakartaee/mail-api/releases/download/2.0.1/jakartamail-samples.zip).
 
 <br/>
 
@@ -198,7 +198,7 @@ Or, post a question on [Stack Overflow](http://stackoverflow.com/) using the
 # <a name="Bugs"></a>Bugs
 
 Jakarta Mail bugs are tracked in the
-[GitHub Jakarta Mail project issue tracker](https://github.com/eclipse-ee4j/mail/issues).
+[GitHub Jakarta Mail project issue tracker](https://github.com/jakartaee/mail-api/issues).
 
 <br/>
 
@@ -295,7 +295,7 @@ particular operating systems or environments:
 See [Build Instructions](Build-Instructions) for instructions on how to
 download and build the most recent Jakarta Mail source code. You can also
 find a bundle of the source code for the most recent Jakarta Mail release
-in the [Releases](https://github.com/eclipse-ee4j/mail/releases) area of
+in the [Releases](https://github.com/jakartaee/mail-api/releases) area of
 this project.
 
 If you're interested in contributing to Jakarta Mail, see the
