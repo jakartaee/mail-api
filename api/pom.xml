@@ -79,6 +79,9 @@
         <spotbugs.exclude>${project.basedir}/../spotbugs-exclude.xml</spotbugs.exclude>
         <!--Maven plugins version-->
         <spotbugs.version>4.4.2.2</spotbugs.version>
+
+        <!-- version identifier in jakarta.mail.Version -->
+        <mail.version>${project.version}</mail.version>
     </properties>
 
     <dependencyManagement>
@@ -395,6 +398,10 @@
                             <addDefaultEntries>false</addDefaultEntries>
                         </manifest>
                     </archive>
+                    <excludes>
+                        <!-- avoid getting (re)sources, such as Version.java, to the binary -->
+                        <exclude>**/*.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
