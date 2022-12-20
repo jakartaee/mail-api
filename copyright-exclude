@@ -29,3 +29,4 @@ mail/src/test/resources/jakarta/mail/internet/MailDateFormat_new.ser
 mail/src/test/resources/com/sun/mail/test/keystore.jks
 mail/src/main/java/doc-files/speclicense.html
 docker/JTReportParser/
+www/
