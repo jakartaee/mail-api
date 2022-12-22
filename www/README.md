@@ -9,7 +9,7 @@ and is also included in the
 [Jakarta EE platform](http://jakarta.ee) and the
 [Java EE platform](http://www.oracle.com/technetwork/java/javaee/index.html).
 
-**NOTE:** The documentation for the implementation of this specification, Angus Mail , is available
+**NOTE:** The documentation for the implementation of this specification, Angus Mail, is available
 [here](https://eclipse-ee4j.github.io/angus-mail/), the documentation for older versions,
 Jakarta Mail/JavaMail, is available [here](README-JakartaMail)
 
@@ -23,6 +23,12 @@ Jakarta Mail/JavaMail, is available [here](README-JakartaMail)
 * [Development Releases](#Development_Releases)
 
 # <a name="Latest_News"></a>Latest News
+
+## December TBD, 2022 - Jakarta Mail 2.1.1 Final Release ##
+
+The 2.1.1 release is a bug fix release of the Jakarta Mail project
+in the 2.1.x line, and includes several bug fixes and enhancements.
+See [changes](docs/JavaMail-2.1-changes.txt) for details.
 
 ## November 20, 2021 - Jakarta Mail 2.1.0 Final Release ##
 
