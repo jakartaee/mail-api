@@ -28,7 +28,7 @@ Jakarta Mail/JavaMail, is available [here](README-JakartaMail)
 
 The 2.1.1 release is a bug fix release of the Jakarta Mail project
 in the 2.1.x line, and includes several bug fixes and enhancements.
-See [changes](docs/JavaMail-2.1-changes.txt) for details.
+See [changelog](docs/CHANGES.txt) for details.
 
 ## November 20, 2021 - Jakarta Mail 2.1.0 Final Release ##
 
