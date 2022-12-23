@@ -173,7 +173,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>5.1.1</version>
+                    <version>5.1.8</version>
                     <configuration>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
@@ -353,6 +353,7 @@
                             <addDefaultEntries>false</addDefaultEntries>
                         </manifest>
                     </archive>
+                    <niceManifest>true</niceManifest>
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Specification-Title>${spec.title}</Specification-Title>
@@ -369,13 +370,15 @@
                         <!-- optional to allow usage with hk2 resource locator as a fallback -->
                         <Require-Capability><![CDATA[
                           osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.processor)
-                            (version>=1.0.0)(!(version>=2.0.0)))",
-                          osgi.serviceloader;
-                            filter:="(osgi.serviceloader=jakarta.mail.util.StreamProvider)";
+                            (version>=1.0.0)(!(version>=2.0.0)))";resolution:=optional,
+                          osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.mail.Provider)";
+                            osgi.serviceloader="jakarta.mail.Provider";
                               cardinality:=multiple;resolution:=optional,
-                          osgi.serviceloader;
-                            filter:="(osgi.serviceloader=jakarta.mail.Provider)";
-                              cardinality:=multiple;resolution:=optional]]>
+                          osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.mail.util.StreamProvider)";
+                            osgi.serviceloader="jakarta.mail.util.StreamProvider";
+                              cardinality:=multiple;resolution:=optional,
+                          osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+                            ]]>
                         </Require-Capability>
                     </instructions>
                 </configuration>
