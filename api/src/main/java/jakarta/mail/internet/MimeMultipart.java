@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -1003,8 +1003,8 @@ public class MimeMultipart extends Multipart {
      */
     protected MimeBodyPart createMimeBodyPart(InputStream is)
 				throws MessagingException {
-        if (ds != null && ds instanceof MimePartDataSource) {
-            Session session = ((MimePartDataSource)ds).getMessageContext().getSession();
+        if (ds instanceof MessageAware) {
+            Session session = ((MessageAware)ds).getMessageContext().getSession();
             if (session != null) {
                 return new MimeBodyPart(session, is);
             }
