@@ -119,9 +119,13 @@ class FactoryFinder {
             Iterator<T> iter = sl.iterator();
             if (iter.hasNext()) {
                 return iter.next();
-            } else {
-                return null;
             }
+            sl = ServiceLoader.load(factory, factory.getClassLoader());
+            iter = sl.iterator();
+            if (iter.hasNext()) {
+                return iter.next();
+            }
+            return null;
         } catch (Throwable t) {
             // For example, ServiceConfigurationError can be thrown if the factory class is not declared with 'uses' in module-info
             throw new IllegalStateException("Cannot load " + factory + " as ServiceLoader", t);
