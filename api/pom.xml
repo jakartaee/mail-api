@@ -338,7 +338,7 @@
                         </goals>
                         <configuration>
                             <release>8</release>
-                            <createMissingPackageInfoClass>true</createMissingPackageInfoClass>
+                            <createMissingPackageInfoClass>false</createMissingPackageInfoClass>
                             <excludes>
                                 <exclude>module-info.java</exclude>
                             </excludes>
