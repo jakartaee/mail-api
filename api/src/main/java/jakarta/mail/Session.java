@@ -431,7 +431,7 @@ public final class Session {
      * value of the <code>mail.debug</code> property is used to
      * initialize the per-Session debugging flag.  Subsequent calls to
      * the <code>setDebug</code> method manipulate the per-Session
-     * debugging flag and have no affect on the <code>mail.debug</code>
+     * debugging flag and have no effect on the <code>mail.debug</code>
      * property.
      *
      * @param debug	Debug setting
