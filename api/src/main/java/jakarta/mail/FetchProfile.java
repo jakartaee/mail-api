@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -50,7 +50,7 @@ import java.util.Vector;
  *  fp.add("X-mailer");
  *  folder.fetch(msgs, fp);
  *
- * </pre></blockquote><p>
+ * </pre></blockquote>
  *
  * @see jakarta.mail.Folder#fetch
  * @author John Mani
@@ -107,7 +107,7 @@ public class FetchProfile {
 	 * SIZE is a fetch profile item that can be included in a
 	 * <code>FetchProfile</code> during a fetch request to a Folder.
 	 * This item indicates that the sizes of the messages in the specified 
-	 * range should be prefetched. <p>
+	 * range should be prefetched.
 	 *
 	 * @since	JavaMail 1.5
 	 */

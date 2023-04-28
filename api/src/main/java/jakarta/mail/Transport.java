@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -104,7 +104,7 @@ public abstract class Transport extends Service {
      * Send the message to the specified addresses, ignoring any
      * recipients specified in the message itself. The
      * <code>send</code> method calls the <code>saveChanges</code>
-     * method on the message before sending it. <p>
+     * method on the message before sending it.
      *
      * @param	msg	the message to send
      * @param	addresses the addresses to which to send the message

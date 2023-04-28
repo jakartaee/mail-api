@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -597,7 +597,7 @@ public final class Session {
      * object cannot be obtained, NoSuchProviderException is thrown.
      *
      * The "scheme" part of the URL string (Refer RFC 1738) is used 
-     * to locate the Store protocol. <p>
+     * to locate the Store protocol.
      *
      * @param	url	URLName that represents the desired Store
      * @return		a closed Store object
@@ -661,7 +661,7 @@ public final class Session {
      * Note that RFC 1738 also specifies the syntax for the 
      * "schemepart" for IP-based protocols (IMAP4, POP3, etc.).
      * Providers of IP-based mail Stores should implement that
-     * syntax for referring to Folders. <p>
+     * syntax for referring to Folders.
      *
      * @param	url	URLName that represents the desired folder
      * @return		Folder
@@ -720,7 +720,7 @@ public final class Session {
      * Transport object cannot be obtained, NoSuchProviderException is thrown.
      *
      * The "scheme" part of the URL string (Refer RFC 1738) is used 
-     * to locate the Transport protocol. <p>
+     * to locate the Transport protocol.
      *
      * @param	url	URLName that represents the desired Transport
      * @return		a closed Transport object

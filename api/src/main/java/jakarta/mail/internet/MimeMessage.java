@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -85,7 +85,7 @@ import jakarta.mail.util.LineOutputStream;
  * header fields must be folded (wrapped) before being sent if they
  * exceed the line length limitation for the transport (1000 bytes for
  * SMTP).  Received headers may have been folded.  The application is
- * responsible for folding and unfolding headers as appropriate. <p>
+ * responsible for folding and unfolding headers as appropriate.
  *
  * @author John Mani
  * @author Bill Shannon
@@ -1454,7 +1454,7 @@ public class MimeMessage extends Message implements MimePart {
      *	
      *		.... &lt;other DataSource methods&gt;
      *  }
-     * </pre></blockquote><p>
+     * </pre></blockquote>
      *
      * @exception	MessagingException for failures
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -49,7 +49,7 @@ import java.util.NoSuchElementException;
  *	UIDFolder uf = (UIDFolder)f;
  *	long uid = uf.getUID(msg);
  *
- * </pre></blockquote><p>
+ * </pre></blockquote>
  *
  * @author Bill Shannon
  * @author John Mani
@@ -109,7 +109,7 @@ public interface UIDFolder {
      *	Message[] newMsgs =
      *		uf.getMessagesByUID(lastSeenUID + 1, UIDFolder.MAXUID);
      *
-     * </pre></blockquote><p>
+     * </pre></blockquote>
      *
      * @since JavaMail 1.6
      */
@@ -196,7 +196,7 @@ public interface UIDFolder {
      * while it was open and thus this value may be out of
      * date. <p>
      *
-     * If the value is unknown, -1 is returned.  <p>
+     * If the value is unknown, -1 is returned.
      *
      * @return		the UIDNEXT value, or -1 if unknown
      * @exception	MessagingException for failures
