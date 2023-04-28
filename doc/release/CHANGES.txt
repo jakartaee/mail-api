@@ -21,7 +21,10 @@ longer available.
 
 		  CHANGES IN THE 2.1.2 RELEASE
           ----------------------------
+E  629  jakarta.mail-api-2.1.0.jar does not work in OSGi environment (hk2servicelocator)
 E  660  jakarta.mail-api is not a Multi Release JAR
+E  664  Typo in Session.setDebug Javadoc
+
 
 		  CHANGES IN THE 2.1.1 RELEASE
 		  ----------------------------
