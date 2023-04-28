@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -46,7 +46,7 @@ import jakarta.mail.search.SearchTerm;
  * To send a message, an appropriate subclass of Message (e.g., 
  * MimeMessage) is instantiated, the attributes and content are 
  * filled in, and the message is sent using the <code>Transport.send</code> 
- * method. <p>
+ * method.
  *
  * @author John Mani
  * @author Bill Shannon
@@ -495,7 +495,7 @@ public abstract class Message implements Part {
      *
      * Modifying any of the flags in this returned Flags object will 
      * not affect the flags of this message. Use <code>setFlags()</code>
-     * to do that. <p>
+     * to do that.
      *
      * @return		Flags object containing the flags for this message
      * @see 		jakarta.mail.Flags

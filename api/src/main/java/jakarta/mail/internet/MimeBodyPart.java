@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -73,7 +73,7 @@ import jakarta.mail.util.StreamProvider.EncoderTypes;
  * header fields must be folded (wrapped) before being sent if they
  * exceed the line length limitation for the transport (1000 bytes for
  * SMTP).  Received headers may have been folded.  The application is
- * responsible for folding and unfolding headers as appropriate. <p>
+ * responsible for folding and unfolding headers as appropriate.
  *
  * @author John Mani
  * @author Bill Shannon
@@ -602,7 +602,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      * Produce the raw bytes of the content. This method is used
      * when creating a DataHandler object for the content. Subclasses
      * that can provide a separate input stream for just the Part
-     * content might want to override this method. <p>
+     * content might want to override this method.
      * 
      * @return	an InputStream containing the raw bytes
      * @exception	MessagingException for failures

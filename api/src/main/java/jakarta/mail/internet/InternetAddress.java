@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -196,7 +196,7 @@ public class InternetAddress extends Address implements Cloneable {
      * Set the personal name. If the name contains non US-ASCII
      * characters, then the name will be encoded using the specified
      * charset as per RFC 2047. If the name contains only US-ASCII
-     * characters, no encoding is done and the name is used as is. <p>
+     * characters, no encoding is done and the name is used as is.
      *
      * @param	name 	personal name
      * @param	charset	MIME charset to be used to encode the name as 
@@ -218,7 +218,7 @@ public class InternetAddress extends Address implements Cloneable {
      * Set the personal name. If the name contains non US-ASCII
      * characters, then the name will be encoded using the platform's 
      * default charset. If the name contains only US-ASCII characters,
-     * no encoding is done and the name is used as is. <p>
+     * no encoding is done and the name is used as is.
      *
      * @param	name 	personal name
      * @see 	#setPersonal(String name, String charset)
@@ -410,7 +410,7 @@ public class InternetAddress extends Address implements Cloneable {
      * Convert the given array of InternetAddress objects into
      * a comma separated sequence of address strings. The
      * resulting string contains only US-ASCII characters, and
-     * hence is mail-safe. <p>
+     * hence is mail-safe.
      *
      * @param addresses	array of InternetAddress objects
      * @exception 	ClassCastException if any address object in the 
@@ -425,7 +425,7 @@ public class InternetAddress extends Address implements Cloneable {
     /**
      * Convert the given array of InternetAddress objects into
      * a comma separated sequence of address strings. The
-     * resulting string contains Unicode characters. <p>
+     * resulting string contains Unicode characters.
      *
      * @param addresses	array of InternetAddress objects
      * @exception 	ClassCastException if any address object in the 

@@ -39,7 +39,7 @@ public interface LineInputStream {
      * A common error is a CR-CR-NL sequence, which will also terminate
      * a line.
      * The line terminator is not returned as part of the returned 
-     * String. Returns null if no data is available. <p>
+     * String. Returns null if no data is available.
      *
      * @return		the line
      * @exception	IOException	for I/O errors
