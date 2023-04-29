@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -105,7 +105,11 @@ class FactoryFinder {
             Class<?>[] args = new Class<?>[]{serviceClass};
             Class<?> target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
             Method m = target.getMethod("lookupProviderInstances", Class.class);
-            Iterator<?> iter = ((Iterable<?>) m.invoke(null, (Object[]) args)).iterator();
+            Iterable<?> iterable = ((Iterable<?>) m.invoke(null, (Object[]) args));
+            if (iterable == null) {
+                return null;
+            }
+            Iterator<?> iter = iterable.iterator();
             return iter.hasNext() ? (T) iter.next() : null;
         } catch (Exception ignored) {
             // log and continue

@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URL;
 import java.security.AccessController;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -986,7 +988,17 @@ public final class Session {
 		    if (!containsDefaultProvider(p))
 		    	addProvider(p);
 		}
-	
+
+		// + handle Glassfish/OSGi (platform specific default)
+		if (isHk2Available()) {
+			Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class.getName());
+			while (iter.hasNext()) {
+				Provider p = iter.next();
+				if (!containsDefaultProvider(p))
+					addProvider(p);
+			}
+		}
+
 		// load the META-INF/javamail.providers file supplied by an application
 		loadAllResources("META-INF/javamail.providers", cl, loader);
 	
@@ -999,7 +1011,18 @@ public final class Session {
 		    if (containsDefaultProvider(p))
 		    	addProvider(p);
 		}
-	
+
+		// + handle Glassfish/OSGi (platform specific default)
+		if (isHk2Available()) {
+			Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class.getName());
+			while (iter.hasNext()) {
+				Provider p = iter.next();
+				if (containsDefaultProvider(p)) {
+					addProvider(p);
+				}
+			}
+		}
+
 		/*
 		 * If we haven't loaded any providers, fake it.
 		 */
@@ -1366,6 +1389,34 @@ public final class Session {
     EventQueue getEventQueue() {
     	return q;
     }
+
+    private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
+
+    private static boolean isHk2Available() {
+        try {
+            Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
+            return true;
+        } catch (ClassNotFoundException ignored) {
+        }
+        return false;
+    }
+
+    @SuppressWarnings({"unchecked"})
+    private <T> Iterator<T> lookupUsingHk2ServiceLoader(String factoryId) {
+        try {
+            // Use reflection to avoid having any dependency on HK2 ServiceLoader class
+            Class<?> serviceClass = Class.forName(factoryId);
+            Class<?>[] args = new Class<?>[]{serviceClass};
+            Class<?> target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
+            Method m = target.getMethod("lookupProviderInstances", Class.class);
+            Iterable<T> result = ((Iterable<T>) m.invoke(null, (Object[]) args));
+            return result != null ? result.iterator() : Collections.emptyIterator();
+        } catch (Exception ignored) {
+            // log and continue
+            return Collections.emptyIterator();
+        }
+    }
+
 }
 
 /**
