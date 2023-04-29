@@ -64,6 +64,7 @@ spec:
   environment {
     ANT_OPTS = "-Djavax.xml.accessExternalStylesheet=all -Djavax.xml.accessExternalSchema=all -Djavax.xml.accessExternalDTD=file,http" 
     MAIL_USER="user01@james.local"
+    MAVEN_OPTS="-Pstaging"
     MAVEN_ARGS="-Pstaging"
   }
   stages {
