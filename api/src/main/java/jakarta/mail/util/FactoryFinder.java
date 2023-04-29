@@ -17,8 +17,6 @@
 package jakarta.mail.util;
 
 import java.lang.reflect.Method;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
@@ -30,10 +28,9 @@ class FactoryFinder {
      * The arguments supplied must be used in order
      * This method is package private so that this code can be shared.
      *
+     * @param factoryClass factory abstract class or interface to be found
      * @return the {@code Class} object of the specified message factory
-     *
-     * @param factoryClass          factory abstract class or interface to be found
-     * @exception RuntimeException if there is an error
+     * @throws RuntimeException if there is an error
      */
     static <T> T find(Class<T> factoryClass) throws RuntimeException {
 
@@ -131,7 +128,7 @@ class FactoryFinder {
             throw new IllegalStateException("Cannot load " + factory + " as ServiceLoader", t);
         }
     }
-    
+
     private static void checkPackageAccess(String className) {
         // make sure that the current thread has an access to the package of the given name.
         SecurityManager s = System.getSecurityManager();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,7 +16,9 @@
 
 package jakarta.mail.search;
 
-import jakarta.mail.*;
+import jakarta.mail.Flags;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
 
 /**
  * This class implements comparisons for Message Flags.
@@ -48,79 +50,79 @@ public final class FlagTerm extends SearchTerm {
     /**
      * Constructor.
      *
-     * @param flags	Flags object containing the flags to check for
-     * @param set	the flag setting to check for
+     * @param flags Flags object containing the flags to check for
+     * @param set   the flag setting to check for
      */
     public FlagTerm(Flags flags, boolean set) {
-	this.flags = flags;
-	this.set = set;
+        this.flags = flags;
+        this.set = set;
     }
 
     /**
      * Return the Flags to test.
      *
-     * @return	the flags
+     * @return the flags
      */
     public Flags getFlags() {
-	return (Flags)flags.clone();
+        return (Flags) flags.clone();
     }
 
     /**
      * Return true if testing whether the flags are set.
      *
-     * @return	true if testing whether the flags are set
+     * @return true if testing whether the flags are set
      */
     public boolean getTestSet() {
-	return set;
+        return set;
     }
 
     /**
      * The comparison method.
      *
-     * @param msg	The flag comparison is applied to this Message
-     * @return		true if the comparson succeeds, otherwise false.
+     * @param msg The flag comparison is applied to this Message
+     * @return true if the comparson succeeds, otherwise false.
      */
     @Override
     public boolean match(Message msg) {
 
-	try {
-	    Flags f = msg.getFlags();
-	    if (set) { // This is easy
-		if (f.contains(flags))
-		    return true;
-		else 
-		    return false;
-	    }
+        try {
+            Flags f = msg.getFlags();
+            if (set) { // This is easy
+                if (f.contains(flags))
+                    return true;
+                else
+                    return false;
+            }
 
-	    // Return true if ALL flags in the passed in Flags
-	    // object are NOT set in this Message.
+            // Return true if ALL flags in the passed in Flags
+            // object are NOT set in this Message.
 
-	    // Got to do this the hard way ...
-	    Flags.Flag[] sf = flags.getSystemFlags();
+            // Got to do this the hard way ...
+            Flags.Flag[] sf = flags.getSystemFlags();
 
-	    // Check each flag in the passed in Flags object
-	    for (int i = 0; i < sf.length; i++) {
-		if (f.contains(sf[i]))
-		    // this flag IS set in this Message, get out.
-		    return false;
-	    }
+            // Check each flag in the passed in Flags object
+            for (int i = 0; i < sf.length; i++) {
+                if (f.contains(sf[i]))
+                    // this flag IS set in this Message, get out.
+                    return false;
+            }
 
-	    String[] s = flags.getUserFlags();
+            String[] s = flags.getUserFlags();
 
-	    // Check each flag in the passed in Flags object
-	    for (int i = 0; i < s.length; i++) {
-		if (f.contains(s[i]))
-		    // this flag IS set in this Message, get out.
-		    return false;
-	    }
+            // Check each flag in the passed in Flags object
+            for (int i = 0; i < s.length; i++) {
+                if (f.contains(s[i]))
+                    // this flag IS set in this Message, get out.
+                    return false;
+            }
 
-	    return true;
+            return true;
 
-	} catch (MessagingException e) {
-	    return false;
-	} catch (RuntimeException e) {
-	    return false;
-	}
+        } catch (MessagingException e) {
+            return false;
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
     /**
@@ -128,10 +130,10 @@ public final class FlagTerm extends SearchTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof FlagTerm))
-	    return false;
-	FlagTerm ft = (FlagTerm)obj;
-	return ft.set == this.set && ft.flags.equals(this.flags);
+        if (!(obj instanceof FlagTerm))
+            return false;
+        FlagTerm ft = (FlagTerm) obj;
+        return ft.set == this.set && ft.flags.equals(this.flags);
     }
 
     /**
@@ -139,6 +141,6 @@ public final class FlagTerm extends SearchTerm {
      */
     @Override
     public int hashCode() {
-	return set ? flags.hashCode() : ~flags.hashCode();
+        return set ? flags.hashCode() : ~flags.hashCode();
     }
 }

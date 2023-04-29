@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,14 +16,19 @@
 
 package jakarta.mail.search;
 
-import java.io.*;
+import jakarta.mail.Flags;
+import jakarta.mail.Message;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.NewsAddress;
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 
-import jakarta.mail.*;
-import jakarta.mail.search.*;
-import jakarta.mail.internet.*;
-
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -36,39 +41,39 @@ public class SearchTermSerializationTest {
 
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
-	// construct a SearchTerm using all SearchTerm types
-	SearchTerm term = new AndTerm(new SearchTerm[] {
-	    new BodyTerm("text"),
-	    new FlagTerm(new Flags(Flags.Flag.RECENT), true),
-	    new FromStringTerm("foo@bar"),
-	    new HeaderTerm("X-Mailer", "dtmail"),
-	    new MessageIDTerm("12345@sun.com"),
-	    new MessageNumberTerm(42),
-	    new NotTerm(
-		new OrTerm(
-		    new ReceivedDateTerm(ReceivedDateTerm.LT, new Date()),
-		    new RecipientStringTerm(Message.RecipientType.CC, "foo")
-		)
-	    ),
-	    new RecipientTerm(MimeMessage.RecipientType.NEWSGROUPS,
-				new NewsAddress("comp.lang.java", "newshost")),
-	    new SentDateTerm(SentDateTerm.NE, new Date()),
-	    new SizeTerm(SizeTerm.LT, 1000),
-	    new SubjectTerm("test")
-	});
+        // construct a SearchTerm using all SearchTerm types
+        SearchTerm term = new AndTerm(new SearchTerm[]{
+                new BodyTerm("text"),
+                new FlagTerm(new Flags(Flags.Flag.RECENT), true),
+                new FromStringTerm("foo@bar"),
+                new HeaderTerm("X-Mailer", "dtmail"),
+                new MessageIDTerm("12345@sun.com"),
+                new MessageNumberTerm(42),
+                new NotTerm(
+                        new OrTerm(
+                                new ReceivedDateTerm(ReceivedDateTerm.LT, new Date()),
+                                new RecipientStringTerm(Message.RecipientType.CC, "foo")
+                        )
+                ),
+                new RecipientTerm(MimeMessage.RecipientType.NEWSGROUPS,
+                        new NewsAddress("comp.lang.java", "newshost")),
+                new SentDateTerm(SentDateTerm.NE, new Date()),
+                new SizeTerm(SizeTerm.LT, 1000),
+                new SubjectTerm("test")
+        });
 
-	// serialize it to a byte array
-	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	ObjectOutputStream oos = new ObjectOutputStream(bos);
-	oos.writeObject(term);
-	bos.close();
+        // serialize it to a byte array
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(term);
+        bos.close();
 
-	// read it back in
-	ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-	ObjectInputStream ois = new ObjectInputStream(bis);
-	SearchTerm term2 = (SearchTerm)ois.readObject();
+        // read it back in
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        SearchTerm term2 = (SearchTerm) ois.readObject();
 
-	// compare it with the original
-	assertEquals(term, term2);
+        // compare it with the original
+        assertEquals(term, term2);
     }
 }

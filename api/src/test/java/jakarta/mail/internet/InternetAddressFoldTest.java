@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,15 +16,18 @@
 
 package jakarta.mail.internet;
 
-import java.io.*;
-import java.util.*;
-import jakarta.mail.internet.InternetAddress;
-
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Test InternetAddress folding.
@@ -40,16 +43,16 @@ public class InternetAddressFoldTest {
     private static List<Object[]> testData;
 
     public InternetAddressFoldTest(InternetAddress[] orig, String expect) {
-	this.orig = orig;
-	this.expect = expect;
+        this.orig = orig;
+        this.expect = expect;
     }
 
     @Parameters
     public static Collection<Object[]> data() throws Exception {
-	testData = new ArrayList<>();
-	parse(new BufferedReader(new InputStreamReader(
-	    InternetAddressFoldTest.class.getResourceAsStream("addrfolddata"))));
-	return testData;
+        testData = new ArrayList<>();
+        parse(new BufferedReader(new InputStreamReader(
+                InternetAddressFoldTest.class.getResourceAsStream("addrfolddata"))));
+        return testData;
     }
 
     /**
@@ -63,22 +66,22 @@ public class InternetAddressFoldTest {
      * address1, ..., addressN$
      */
     private static void parse(BufferedReader in) throws Exception {
-	String line;
-	while ((line = in.readLine()) != null) {
-	    if (line.startsWith("#") || line.length() == 0)
-		continue;
-	    if (!line.startsWith("FOLD"))
-		throw new IOException("TEST DATA FORMAT ERROR, MISSING FOLD");
-	    int count = Integer.parseInt(line.substring(5));
-	    InternetAddress[] orig = new InternetAddress[count];
-	    for (int i = 0; i < count; i++)
-		orig[i] = new InternetAddress(readString(in));
-	    String e = in.readLine();
-	    if (!e.equals("EXPECT"))
-		throw new IOException("TEST DATA FORMAT ERROR, MISSING EXPECT");
-	    String expect = readString(in);
-	    testData.add(new Object[] { orig, expect });
-	}
+        String line;
+        while ((line = in.readLine()) != null) {
+            if (line.startsWith("#") || line.length() == 0)
+                continue;
+            if (!line.startsWith("FOLD"))
+                throw new IOException("TEST DATA FORMAT ERROR, MISSING FOLD");
+            int count = Integer.parseInt(line.substring(5));
+            InternetAddress[] orig = new InternetAddress[count];
+            for (int i = 0; i < count; i++)
+                orig[i] = new InternetAddress(readString(in));
+            String e = in.readLine();
+            if (!e.equals("EXPECT"))
+                throw new IOException("TEST DATA FORMAT ERROR, MISSING EXPECT");
+            String expect = readString(in);
+            testData.add(new Object[]{orig, expect});
+        }
     }
 
     /**
@@ -86,16 +89,16 @@ public class InternetAddressFoldTest {
      * especially including CR and LF.
      */
     private static String readString(BufferedReader in) throws IOException {
-	StringBuffer sb = new StringBuffer();
-	int c;
-	while ((c = in.read()) != '$')
-	    sb.append((char)c);
-	in.readLine();	// throw away rest of line
-	return sb.toString();
+        StringBuffer sb = new StringBuffer();
+        int c;
+        while ((c = in.read()) != '$')
+            sb.append((char) c);
+        in.readLine();    // throw away rest of line
+        return sb.toString();
     }
 
     @Test
     public void testFold() {
-	Assert.assertEquals("Fold", expect, InternetAddress.toString(orig, 0));
+        Assert.assertEquals("Fold", expect, InternetAddress.toString(orig, 0));
     }
 }

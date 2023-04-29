@@ -20,9 +20,9 @@ package jakarta.mail;
  * This exception is thrown when a method is invoked on a Messaging object
  * and the Folder that owns that object has died due to some reason. <p>
  *
- * Following the exception, the Folder is reset to the "closed" state. 
- * All messaging objects owned by the Folder should be considered invalid. 
- * The Folder can be reopened using the "open" method to reestablish the 
+ * Following the exception, the Folder is reset to the "closed" state.
+ * All messaging objects owned by the Folder should be considered invalid.
+ * The Folder can be reopened using the "open" method to reestablish the
  * lost connection. <p>
  *
  * The getMessage() method returns more detailed information about the
@@ -35,26 +35,26 @@ public class FolderClosedException extends MessagingException {
     transient private Folder folder;
 
     private static final long serialVersionUID = 1687879213433302315L;
-    
+
     /**
      * Constructs a FolderClosedException.
      *
-     * @param folder	The Folder
+     * @param folder The Folder
      */
     public FolderClosedException(Folder folder) {
-	this(folder, null);
+        this(folder, null);
     }
 
     /**
      * Constructs a FolderClosedException with the specified
      * detail message.
      *
-     * @param folder 	The Folder
-     * @param message	The detailed error message
+     * @param folder  The Folder
+     * @param message The detailed error message
      */
     public FolderClosedException(Folder folder, String message) {
-	super(message);
-	this.folder = folder;
+        super(message);
+        this.folder = folder;
     }
 
     /**
@@ -62,22 +62,22 @@ public class FolderClosedException extends MessagingException {
      * detail message and embedded exception.  The exception is chained
      * to this exception.
      *
-     * @param folder 	The Folder
-     * @param message	The detailed error message
-     * @param e		The embedded exception
-     * @since		JavaMail 1.5
+     * @param folder  The Folder
+     * @param message The detailed error message
+     * @param e       The embedded exception
+     * @since JavaMail 1.5
      */
     public FolderClosedException(Folder folder, String message, Exception e) {
-	super(message, e);
-	this.folder = folder;
+        super(message, e);
+        this.folder = folder;
     }
 
     /**
      * Returns the dead Folder object
      *
-     * @return	the dead Folder object
+     * @return the dead Folder object
      */
     public Folder getFolder() {
-	return folder;
+        return folder;
     }
 }

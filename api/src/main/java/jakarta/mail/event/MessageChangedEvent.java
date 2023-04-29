@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,7 @@
 
 package jakarta.mail.event;
 
-import java.util.*;
-import jakarta.mail.*;
+import jakarta.mail.Message;
 
 /**
  * This class models Message change events.
@@ -27,10 +26,14 @@ import jakarta.mail.*;
 
 public class MessageChangedEvent extends MailEvent {
 
-    /** The message's flags changed. */
-    public static final int FLAGS_CHANGED 	= 1;
-    /** The message's envelope (headers, but not body) changed. */
-    public static final int ENVELOPE_CHANGED 	= 2;
+    /**
+     * The message's flags changed.
+     */
+    public static final int FLAGS_CHANGED = 1;
+    /**
+     * The message's envelope (headers, but not body) changed.
+     */
+    public static final int ENVELOPE_CHANGED = 2;
 
     /**
      * The event type.
@@ -48,30 +51,33 @@ public class MessageChangedEvent extends MailEvent {
 
     /**
      * Constructor.
-     * @param source  	The folder that owns the message
-     * @param type	The change type
-     * @param msg	The changed message 
+     *
+     * @param source The folder that owns the message
+     * @param type   The change type
+     * @param msg    The changed message
      */
     public MessageChangedEvent(Object source, int type, Message msg) {
-	super(source);
-	this.msg = msg;
-	this.type = type;
+        super(source);
+        this.msg = msg;
+        this.type = type;
     }
 
     /**
      * Return the type of this event.
-     * @return  type
+     *
+     * @return type
      */
     public int getMessageChangeType() {
-	return type;
+        return type;
     }
 
     /**
      * Return the changed Message.
-     * @return  the message
+     *
+     * @return the message
      */
     public Message getMessage() {
-	return msg;
+        return msg;
     }
 
     /**
@@ -79,6 +85,6 @@ public class MessageChangedEvent extends MailEvent {
      */
     @Override
     public void dispatch(Object listener) {
-	((MessageChangedListener)listener).messageChanged(this);
+        ((MessageChangedListener) listener).messageChanged(this);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -34,16 +34,15 @@ import java.net.InetAddress;
  * All methods that request authentication have a default implementation
  * that fails.
  *
+ * @author Bill Foote
+ * @author Bill Shannon
  * @see java.net.Authenticator
  * @see jakarta.mail.Session#getInstance(java.util.Properties,
- *					jakarta.mail.Authenticator)
+ * jakarta.mail.Authenticator)
  * @see jakarta.mail.Session#getDefaultInstance(java.util.Properties,
- *					jakarta.mail.Authenticator)
+ * jakarta.mail.Authenticator)
  * @see jakarta.mail.Session#requestPasswordAuthentication
  * @see jakarta.mail.PasswordAuthentication
- *
- * @author  Bill Foote
- * @author  Bill Shannon
  */
 public abstract class Authenticator {
 
@@ -66,39 +65,38 @@ public abstract class Authenticator {
      * Ask the authenticator for a password.
      * <p>
      *
-     * @param addr The InetAddress of the site requesting authorization,
-     *             or null if not known.
-     * @param port the port for the requested connection
+     * @param addr     The InetAddress of the site requesting authorization,
+     *                 or null if not known.
+     * @param port     the port for the requested connection
      * @param protocol The protocol that's requesting the connection
-     *          (@see java.net.Authenticator.getProtocol())
-     * @param prompt A prompt string for the user
-     *
+     *                 (@see java.net.Authenticator.getProtocol())
+     * @param prompt   A prompt string for the user
      * @return The username/password, or null if one can't be gotten.
      */
     final synchronized PasswordAuthentication requestPasswordAuthentication(
-				InetAddress addr, int port, String protocol,
-				String prompt, String defaultUserName) {
-	requestingSite = addr;
-	requestingPort = port;
-	requestingProtocol = protocol;
-	requestingPrompt = prompt;
-	requestingUserName = defaultUserName;
-	return getPasswordAuthentication();
+            InetAddress addr, int port, String protocol,
+            String prompt, String defaultUserName) {
+        requestingSite = addr;
+        requestingPort = port;
+        requestingProtocol = protocol;
+        requestingPrompt = prompt;
+        requestingUserName = defaultUserName;
+        return getPasswordAuthentication();
     }
 
     /**
      * @return the InetAddress of the site requesting authorization, or null
-     *		if it's not available.
+     * if it's not available.
      */
     protected final InetAddress getRequestingSite() {
-	return requestingSite;
+        return requestingSite;
     }
 
     /**
      * @return the port for the requested connection
      */
     protected final int getRequestingPort() {
-	return requestingPort;
+        return requestingPort;
     }
 
     /**
@@ -106,25 +104,24 @@ public abstract class Authenticator {
      * will be based on a URLName.
      *
      * @return the protcol
-     *
      * @see jakarta.mail.URLName#getProtocol
      */
     protected final String getRequestingProtocol() {
-	return requestingProtocol;
+        return requestingProtocol;
     }
 
     /**
      * @return the prompt string given by the requestor
      */
     protected final String getRequestingPrompt() {
-	return requestingPrompt;
+        return requestingPrompt;
     }
 
     /**
      * @return the default user name given by the requestor
      */
     protected final String getDefaultUserName() {
-	return requestingUserName;
+        return requestingUserName;
     }
 
     /**
@@ -135,10 +132,11 @@ public abstract class Authenticator {
      * information, the dialog needs to block until the user supplies the
      * information.  This method can not simply return after showing the
      * dialog.
+     *
      * @return The PasswordAuthentication collected from the
-     *		user, or null if none is provided.
+     * user, or null if none is provided.
      */
     protected PasswordAuthentication getPasswordAuthentication() {
-	return null;
+        return null;
     }
 }

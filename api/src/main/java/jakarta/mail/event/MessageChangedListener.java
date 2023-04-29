@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,6 @@
 
 package jakarta.mail.event;
 
-import java.util.*;
-
 /**
  * This is the Listener interface for MessageChanged events
  *
@@ -29,7 +27,7 @@ public interface MessageChangedListener extends java.util.EventListener {
      * Invoked when a message is changed. The change-type specifies
      * what changed.
      *
-     * @param	e	the MessageChangedEvent
+     * @param e the MessageChangedEvent
      * @see MessageChangedEvent#FLAGS_CHANGED
      * @see MessageChangedEvent#ENVELOPE_CHANGED
      */

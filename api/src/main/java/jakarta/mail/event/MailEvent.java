@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -30,7 +30,7 @@ public abstract class MailEvent extends EventObject {
     /**
      * Construct a MailEvent referring to the given source.
      *
-     * @param	source	the source of the event
+     * @param source the source of the event
      */
     public MailEvent(Object source) {
         super(source);
@@ -40,7 +40,7 @@ public abstract class MailEvent extends EventObject {
      * This method invokes the appropriate method on a listener for
      * this event. Subclasses provide the implementation.
      *
-     * @param	listener	the listener to invoke on
+     * @param listener the listener to invoke on
      */
     public abstract void dispatch(Object listener);
 }

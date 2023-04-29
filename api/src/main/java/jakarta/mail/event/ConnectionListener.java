@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,6 @@
 
 package jakarta.mail.event;
 
-import java.util.*;
-
 /**
  * This is the Listener interface for Connection events.
  *
@@ -29,7 +27,7 @@ public interface ConnectionListener extends java.util.EventListener {
     /**
      * Invoked when a Store/Folder/Transport is opened.
      *
-     * @param	e	the ConnectionEvent
+     * @param e the ConnectionEvent
      */
     public void opened(ConnectionEvent e);
 
@@ -37,14 +35,14 @@ public interface ConnectionListener extends java.util.EventListener {
      * Invoked when a Store is disconnected. Note that a folder
      * cannot be disconnected, so a folder will not fire this event
      *
-     * @param	e	the ConnectionEvent
+     * @param e the ConnectionEvent
      */
     public void disconnected(ConnectionEvent e);
 
     /**
      * Invoked when a Store/Folder/Transport is closed.
      *
-     * @param	e	the ConnectionEvent
+     * @param e the ConnectionEvent
      */
     public void closed(ConnectionEvent e);
 }

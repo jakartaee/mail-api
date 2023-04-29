@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,7 +16,10 @@
 
 package jakarta.mail.internet;
 
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,19 +30,19 @@ public class WindowsFileNamesTest {
 
     @BeforeClass
     public static void before() {
-	System.out.println("WindowsFileNames");
-	System.setProperty("mail.mime.windowsfilenames", "true");
+        System.out.println("WindowsFileNames");
+        System.setProperty("mail.mime.windowsfilenames", "true");
     }
 
     @Test
     public void testProp() throws Exception {
-	ParameterList pl = new ParameterList("; filename=\"\\a\\b\\c.txt\"");
-	assertEquals(pl.get("filename"), "\\a\\b\\c.txt");
+        ParameterList pl = new ParameterList("; filename=\"\\a\\b\\c.txt\"");
+        assertEquals(pl.get("filename"), "\\a\\b\\c.txt");
     }
 
     @AfterClass
     public static void after() {
-	// should be unnecessary
-	System.clearProperty("mail.mime.windowsfilenames");
+        // should be unnecessary
+        System.clearProperty("mail.mime.windowsfilenames");
     }
 }

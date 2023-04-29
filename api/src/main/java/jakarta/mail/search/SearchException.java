@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -33,14 +33,15 @@ public class SearchException extends MessagingException {
      * Constructs a SearchException with no detail message.
      */
     public SearchException() {
-	super();
+        super();
     }
 
     /**
      * Constructs a SearchException with the specified detail message.
-     * @param s		the detail message
+     *
+     * @param s the detail message
      */
     public SearchException(String s) {
-	super(s);
+        super(s);
     }
 }

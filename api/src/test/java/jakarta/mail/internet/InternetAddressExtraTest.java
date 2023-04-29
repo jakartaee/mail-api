@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,9 +16,6 @@
 
 package jakarta.mail.internet;
 
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.AddressException;
-
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
@@ -32,32 +29,32 @@ import static org.junit.Assert.fail;
 public class InternetAddressExtraTest {
     @Test
     public void testNewlineInDomainLiteral() throws Exception {
-	InternetAddress ia = new InternetAddress("test@[\r\nfoo]", "test");
-	try {
-	    ia.validate();
-	    fail("validation succeeded");
-	} catch (AddressException ex) {
-	    // success!
-	}
+        InternetAddress ia = new InternetAddress("test@[\r\nfoo]", "test");
+        try {
+            ia.validate();
+            fail("validation succeeded");
+        } catch (AddressException ex) {
+            // success!
+        }
     }
 
     @Test
     public void testNewlineInLocal() throws Exception {
-	InternetAddress ia =
-	    new InternetAddress("\"test\r\nfoo\"@example.com", "test");
-	try {
-	    ia.validate();
-	    fail("validation succeeded");
-	} catch (AddressException ex) {
-	    // success!
-	}
+        InternetAddress ia =
+                new InternetAddress("\"test\r\nfoo\"@example.com", "test");
+        try {
+            ia.validate();
+            fail("validation succeeded");
+        } catch (AddressException ex) {
+            // success!
+        }
     }
 
     @Test
     public void testNewlineInLocalWithWhitespace() throws Exception {
-	InternetAddress ia =
-	    new InternetAddress("\"test\r\n foo\"@example.com", "test");
-	ia.validate();
-	// success!
+        InternetAddress ia =
+                new InternetAddress("\"test\r\n foo\"@example.com", "test");
+        ia.validate();
+        // success!
     }
 }

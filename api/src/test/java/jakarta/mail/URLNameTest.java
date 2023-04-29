@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,9 +16,10 @@
 
 package jakarta.mail;
 
+import org.junit.Test;
+
 import java.net.URL;
 
-import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,13 +28,13 @@ import static org.junit.Assert.assertEquals;
  * XXX - for now, just some simple regression tests for reported bugs.
  */
 public class URLNameTest {
- 
+
     @Test
     public void testReflexiveEquality() throws Exception {
-	URLName u = new URLName("test");
-	assertEquals(u, u);	// bug 6365
-	u = new URLName("imap://test.com/INBOX");
-	assertEquals(u, u);
+        URLName u = new URLName("test");
+        assertEquals(u, u);    // bug 6365
+        u = new URLName("imap://test.com/INBOX");
+        assertEquals(u, u);
     }
 
     /**
@@ -43,16 +44,16 @@ public class URLNameTest {
      */
     @Test
     public void testFile() throws Exception {
-	URLName u = new URLName("http://host/file");
-	assertEquals("file", u.getFile());
-	u = new URLName("http://host:123/file");
-	assertEquals("file", u.getFile());
-	u = new URLName("http://host/");
-	assertEquals("", u.getFile());
-	u = new URLName("http://host");
-	assertEquals(null, u.getFile());
-	u = new URLName("http://host:123");
-	assertEquals(null, u.getFile());
+        URLName u = new URLName("http://host/file");
+        assertEquals("file", u.getFile());
+        u = new URLName("http://host:123/file");
+        assertEquals("file", u.getFile());
+        u = new URLName("http://host/");
+        assertEquals("", u.getFile());
+        u = new URLName("http://host");
+        assertEquals(null, u.getFile());
+        u = new URLName("http://host:123");
+        assertEquals(null, u.getFile());
     }
 
     /**
@@ -61,19 +62,19 @@ public class URLNameTest {
      */
     @Test
     public void testURL() throws Exception {
-	// Note: must use a protocol supported by the URL class
-	URLName u = new URLName("http://host/file");
-	assertEquals("file", u.getFile());
-	URL url = u.getURL();
-	assertEquals(u.toString(), url.toString());
-	u = new URLName("http://host:123/file");
-	url = u.getURL();
-	assertEquals(u.toString(), url.toString());
-	u = new URLName("http://host:123/");
-	url = u.getURL();
-	assertEquals(u.toString(), url.toString());
-	u = new URLName("http://host:123");
-	url = u.getURL();
-	assertEquals(u.toString(), url.toString());
+        // Note: must use a protocol supported by the URL class
+        URLName u = new URLName("http://host/file");
+        assertEquals("file", u.getFile());
+        URL url = u.getURL();
+        assertEquals(u.toString(), url.toString());
+        u = new URLName("http://host:123/file");
+        url = u.getURL();
+        assertEquals(u.toString(), url.toString());
+        u = new URLName("http://host:123/");
+        url = u.getURL();
+        assertEquals(u.toString(), url.toString());
+        u = new URLName("http://host:123");
+        url = u.getURL();
+        assertEquals(u.toString(), url.toString());
     }
 }

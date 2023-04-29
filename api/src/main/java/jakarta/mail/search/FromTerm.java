@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,8 @@
 
 package jakarta.mail.search;
 
-import jakarta.mail.Message;
 import jakarta.mail.Address;
+import jakarta.mail.Message;
 
 /**
  * This class implements comparisons for the From Address header.
@@ -31,35 +31,36 @@ public final class FromTerm extends AddressTerm {
 
     /**
      * Constructor
-     * @param address	The Address to be compared
+     *
+     * @param address The Address to be compared
      */
     public FromTerm(Address address) {
-	super(address);
+        super(address);
     }
 
     /**
      * The address comparator.
      *
-     * @param msg	The address comparison is applied to this Message
-     * @return		true if the comparison succeeds, otherwise false
+     * @param msg The address comparison is applied to this Message
+     * @return true if the comparison succeeds, otherwise false
      */
     @Override
     public boolean match(Message msg) {
-	Address[] from;
+        Address[] from;
 
-	try {
-	    from = msg.getFrom();
-	} catch (Exception e) {
-	    return false;
-	}
+        try {
+            from = msg.getFrom();
+        } catch (Exception e) {
+            return false;
+        }
 
-	if (from == null)
-	    return false;
+        if (from == null)
+            return false;
 
-	for (int i=0; i < from.length; i++)
-	    if (super.match(from[i]))
-		return true;
-	return false;
+        for (int i = 0; i < from.length; i++)
+            if (super.match(from[i]))
+                return true;
+        return false;
     }
 
     /**
@@ -67,8 +68,8 @@ public final class FromTerm extends AddressTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof FromTerm))
-	    return false;
-	return super.equals(obj);
+        if (!(obj instanceof FromTerm))
+            return false;
+        return super.equals(obj);
     }
 }

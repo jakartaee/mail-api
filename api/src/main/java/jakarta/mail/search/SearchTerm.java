@@ -16,9 +16,9 @@
 
 package jakarta.mail.search;
 
-import java.io.Serializable;
-
 import jakarta.mail.Message;
+
+import java.io.Serializable;
 
 /**
  * Search criteria are expressed as a tree of search-terms, forming
@@ -52,8 +52,8 @@ public abstract class SearchTerm implements Serializable {
      * This method applies a specific match criterion to the given
      * message and returns the result.
      *
-     * @param msg	The match criterion is applied on this message
-     * @return		true, it the match succeeds, false if the match fails
+     * @param msg The match criterion is applied on this message
+     * @return true, it the match succeeds, false if the match fails
      */
 
     public abstract boolean match(Message msg);

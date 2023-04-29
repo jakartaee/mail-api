@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,9 +16,8 @@
 
 package jakarta.mail.internet;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import org.junit.Test;
+
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.FieldPosition;
@@ -31,19 +30,19 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import org.junit.Test;
 
 /**
  * Test MailDateFormat: formatting and parsing of dates as specified by
  * <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a>.
  *
- * @author	Anthony Vanelverdinghe
+ * @author Anthony Vanelverdinghe
  */
 public class MailDateFormatTest {
 
@@ -209,13 +208,13 @@ public class MailDateFormatTest {
     @Test
     public void mustFailFastIfDayContainsTooManyDigits() {
         mustFail(getLenient(),
-		"100000000000000000000000000000001 Jan 2015 00:00 +0000", 0);
+                "100000000000000000000000000000001 Jan 2015 00:00 +0000", 0);
     }
 
     @Test
     public void mustFailFastIfYearContainsTooManyDigits() {
         mustFail(getLenient(),
-		"1 Jan 100000000000000000000000000000002015 00:00 +0000", 6);
+                "1 Jan 100000000000000000000000000000002015 00:00 +0000", 6);
     }
 
     @Test
@@ -273,9 +272,9 @@ public class MailDateFormatTest {
     public void mustAcceptValidDayMonthNames() {
         SimpleDateFormat fmt = getDefault();
         for (String dayMonth : new String[]{
-            "Mon, 5 Jan", "Tue, 3 Feb", "Wed, 4 Mar", "Thu, 2 Apr",
-            "Fri, 1 May", "Sat, 6 Jun", "Sun, 5 Jul", "Sat, 1 Aug",
-            "Tue, 1 Sep", "Thu, 1 Oct", "Sun, 1 Nov", "Tue, 1 Dec"
+                "Mon, 5 Jan", "Tue, 3 Feb", "Wed, 4 Mar", "Thu, 2 Apr",
+                "Fri, 1 May", "Sat, 6 Jun", "Sun, 5 Jul", "Sat, 1 Aug",
+                "Tue, 1 Sep", "Thu, 1 Oct", "Sun, 1 Nov", "Tue, 1 Dec"
         }) {
             mustPass(fmt, dayMonth + " 2015 00:00:00 +0000");
         }
@@ -365,7 +364,7 @@ public class MailDateFormatTest {
     public void lenientMustAcceptNonMilitaryZoneNames() {
         SimpleDateFormat fmt = getLenient();
         for (String zoneName : new String[]{"GMT", "UT",
-            "EDT", "EST", "CDT", "CST", "MDT", "MST", "PDT", "PST"}) {
+                "EDT", "EST", "CDT", "CST", "MDT", "MST", "PDT", "PST"}) {
             mustPass(fmt, "1 Jan 2015 00:00 " + zoneName);
         }
     }
@@ -381,7 +380,7 @@ public class MailDateFormatTest {
     }
 
     /*
-     * Unsupported methods. When possible, the test also demonstrates 
+     * Unsupported methods. When possible, the test also demonstrates
      * why invoking the method must be prohibited.
      */
     @Test(expected = UnsupportedOperationException.class)

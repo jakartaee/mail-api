@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -36,55 +36,56 @@ public abstract class DateTerm extends ComparisonTerm {
 
     /**
      * Constructor.
+     *
      * @param comparison the comparison type
-     * @param date  The Date to be compared against
+     * @param date       The Date to be compared against
      */
     protected DateTerm(int comparison, Date date) {
-	this.comparison = comparison;
-	this.date = date;
+        this.comparison = comparison;
+        this.date = date;
     }
 
     /**
      * Return the Date to compare with.
      *
-     * @return	the date
+     * @return the date
      */
     public Date getDate() {
-	return new Date(date.getTime());
+        return new Date(date.getTime());
     }
 
     /**
      * Return the type of comparison.
      *
-     * @return	the comparison type
+     * @return the comparison type
      */
     public int getComparison() {
-	return comparison;
+        return comparison;
     }
 
     /**
      * The date comparison method.
      *
-     * @param d	the date in the constructor is compared with this date
-     * @return  true if the dates match, otherwise false
+     * @param d the date in the constructor is compared with this date
+     * @return true if the dates match, otherwise false
      */
     protected boolean match(Date d) {
-	switch (comparison) {
-	    case LE: 
-		return d.before(date) || d.equals(date);
-	    case LT:
-		return d.before(date);
-	    case EQ:
-		return d.equals(date);
-	    case NE:
-		return !d.equals(date);
-	    case GT:
-		return d.after(date);
-	    case GE:
-		return d.after(date) || d.equals(date);
-	    default:
-		return false;
-	}
+        switch (comparison) {
+            case LE:
+                return d.before(date) || d.equals(date);
+            case LT:
+                return d.before(date);
+            case EQ:
+                return d.equals(date);
+            case NE:
+                return !d.equals(date);
+            case GT:
+                return d.after(date);
+            case GE:
+                return d.after(date) || d.equals(date);
+            default:
+                return false;
+        }
     }
 
     /**
@@ -92,10 +93,10 @@ public abstract class DateTerm extends ComparisonTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof DateTerm))
-	    return false;
-	DateTerm dt = (DateTerm)obj;
-	return dt.date.equals(this.date) && super.equals(obj);
+        if (!(obj instanceof DateTerm))
+            return false;
+        DateTerm dt = (DateTerm) obj;
+        return dt.date.equals(this.date) && super.equals(obj);
     }
 
     /**
@@ -103,6 +104,6 @@ public abstract class DateTerm extends ComparisonTerm {
      */
     @Override
     public int hashCode() {
-	return date.hashCode() + super.hashCode();
+        return date.hashCode() + super.hashCode();
     }
 }

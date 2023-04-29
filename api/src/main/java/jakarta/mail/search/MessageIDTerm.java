@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,7 +19,7 @@ package jakarta.mail.search;
 import jakarta.mail.Message;
 
 /**
- * This term models the RFC822 "MessageId" - a message-id for 
+ * This term models the RFC822 "MessageId" - a message-id for
  * Internet messages that is supposed to be unique per message.
  * Clients can use this term to search a folder for a message given
  * its MessageId. <p>
@@ -36,37 +36,37 @@ public final class MessageIDTerm extends StringTerm {
     /**
      * Constructor.
      *
-     * @param msgid  the msgid to search for
+     * @param msgid the msgid to search for
      */
     public MessageIDTerm(String msgid) {
-	// Note: comparison is case-insensitive
-	super(msgid);
+        // Note: comparison is case-insensitive
+        super(msgid);
     }
 
     /**
      * The match method.
      *
-     * @param msg	the match is applied to this Message's 
-     *			Message-ID header
-     * @return		true if the match succeeds, otherwise false
+     * @param msg the match is applied to this Message's
+     *            Message-ID header
+     * @return true if the match succeeds, otherwise false
      */
     @Override
     public boolean match(Message msg) {
-	String[] s;
+        String[] s;
 
-	try {
-	    s = msg.getHeader("Message-ID");
-	} catch (Exception e) {
-	    return false;
-	}
+        try {
+            s = msg.getHeader("Message-ID");
+        } catch (Exception e) {
+            return false;
+        }
 
-	if (s == null)
-	    return false;
+        if (s == null)
+            return false;
 
-	for (int i=0; i < s.length; i++)
-	    if (super.match(s[i]))
-		return true;
-	return false;
+        for (int i = 0; i < s.length; i++)
+            if (super.match(s[i]))
+                return true;
+        return false;
     }
 
     /**
@@ -74,8 +74,8 @@ public final class MessageIDTerm extends StringTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof MessageIDTerm))
-	    return false;
-	return super.equals(obj);
+        if (!(obj instanceof MessageIDTerm))
+            return false;
+        return super.equals(obj);
     }
 }

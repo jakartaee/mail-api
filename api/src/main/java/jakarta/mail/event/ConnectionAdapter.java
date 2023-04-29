@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -34,9 +34,14 @@ public abstract class ConnectionAdapter implements ConnectionListener {
     }
 
     @Override
-    public void opened(ConnectionEvent e) {}
+    public void opened(ConnectionEvent e) {
+    }
+
     @Override
-    public void disconnected(ConnectionEvent e) {}
+    public void disconnected(ConnectionEvent e) {
+    }
+
     @Override
-    public void closed(ConnectionEvent e) {}
+    public void closed(ConnectionEvent e) {
+    }
 }

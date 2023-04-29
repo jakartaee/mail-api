@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,57 +16,57 @@
 
 package jakarta.mail;
 
+import jakarta.mail.event.MailEvent;
+
 import java.util.EventListener;
 import java.util.Vector;
-import java.util.Queue;
 import java.util.WeakHashMap;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Executor;
-import jakarta.mail.event.MailEvent;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Package private class used by Store & Folder to dispatch events.
  * This class implements an event queue, and a dispatcher thread that
  * dequeues and dispatches events from the queue.
  *
- * @author	Bill Shannon
+ * @author Bill Shannon
  */
 class EventQueue implements Runnable {
 
     private volatile BlockingQueue<QueueElement> q;
     private Executor executor;
 
-    private static WeakHashMap<ClassLoader,EventQueue> appq;
+    private static WeakHashMap<ClassLoader, EventQueue> appq;
 
     /**
      * A special event that causes the queue processing task to terminate.
      */
     static class TerminatorEvent extends MailEvent {
-	private static final long serialVersionUID = -2481895000841664111L;
+        private static final long serialVersionUID = -2481895000841664111L;
 
-	TerminatorEvent() {
-	    super(new Object());
-	}
+        TerminatorEvent() {
+            super(new Object());
+        }
 
-	@Override
-	public void dispatch(Object listener) {
-	    // Kill the event dispatching thread.
-	    Thread.currentThread().interrupt();
-	}
+        @Override
+        public void dispatch(Object listener) {
+            // Kill the event dispatching thread.
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
      * A "struct" to put on the queue.
      */
     static class QueueElement {
-	MailEvent event = null;
-	Vector<? extends EventListener> vector = null;
+        MailEvent event = null;
+        Vector<? extends EventListener> vector = null;
 
-	QueueElement(MailEvent event, Vector<? extends EventListener> vector) {
-	    this.event = event;
-	    this.vector = vector;
-	}
+        QueueElement(MailEvent event, Vector<? extends EventListener> vector) {
+            this.event = event;
+            this.vector = vector;
+        }
     }
 
     /**
@@ -74,38 +74,38 @@ class EventQueue implements Runnable {
      * If the Executor is null, threads will be created as needed.
      */
     EventQueue(Executor ex) {
-	this.executor = ex;
+        this.executor = ex;
     }
 
     /**
      * Enqueue an event.
      */
     synchronized void enqueue(MailEvent event,
-	    Vector<? extends EventListener> vector) {
-	// if this is the first event, create the queue and start the event task
-	if (q == null) {
-	    q = new LinkedBlockingQueue<>();
-	    if (executor != null) {
-		executor.execute(this);
-	    } else {
-		Thread qThread = new Thread(this, "Jakarta-Mail-EventQueue");
-		qThread.setDaemon(true);  // not a user thread
-		qThread.start();
-	    }
-	}
-	q.add(new QueueElement(event, vector));
+                              Vector<? extends EventListener> vector) {
+        // if this is the first event, create the queue and start the event task
+        if (q == null) {
+            q = new LinkedBlockingQueue<>();
+            if (executor != null) {
+                executor.execute(this);
+            } else {
+                Thread qThread = new Thread(this, "Jakarta-Mail-EventQueue");
+                qThread.setDaemon(true);  // not a user thread
+                qThread.start();
+            }
+        }
+        q.add(new QueueElement(event, vector));
     }
 
     /**
      * Terminate the task running the queue, but only if there is a queue.
      */
     synchronized void terminateQueue() {
-	if (q != null) {
-	    Vector<EventListener> dummyListeners = new Vector<>();
-	    dummyListeners.setSize(1); // need atleast one listener
-	    q.add(new QueueElement(new TerminatorEvent(), dummyListeners));
-	    q = null;
-	}
+        if (q != null) {
+            Vector<EventListener> dummyListeners = new Vector<>();
+            dummyListeners.setSize(1); // need atleast one listener
+            q.add(new QueueElement(new TerminatorEvent(), dummyListeners));
+            q = null;
+        }
     }
 
     /**
@@ -113,15 +113,15 @@ class EventQueue implements Runnable {
      * Application scoping is based on the thread's context class loader.
      */
     static synchronized EventQueue getApplicationEventQueue(Executor ex) {
-	ClassLoader cl = Session.getContextClassLoader();
-	if (appq == null)
-	    appq = new WeakHashMap<>();
-	EventQueue q = appq.get(cl);
-	if (q == null) {
-	    q = new EventQueue(ex);
-	    appq.put(cl, q);
-	}
-	return q;
+        ClassLoader cl = Session.getContextClassLoader();
+        if (appq == null)
+            appq = new WeakHashMap<>();
+        EventQueue q = appq.get(cl);
+        if (q == null) {
+            q = new EventQueue(ex);
+            appq.put(cl, q);
+        }
+        return q;
     }
 
     /**
@@ -130,30 +130,32 @@ class EventQueue implements Runnable {
     @Override
     public void run() {
 
-	BlockingQueue<QueueElement> bq = q;
-	if (bq == null)
-	    return;
-	try {
-	    loop:
-	    for (;;) {
-		// block until an item is available
-		QueueElement qe = bq.take();
-		MailEvent e = qe.event;
-		Vector<? extends EventListener> v = qe.vector;
+        BlockingQueue<QueueElement> bq = q;
+        if (bq == null)
+            return;
+        try {
+            loop:
+            for (; ; ) {
+                // block until an item is available
+                QueueElement qe = bq.take();
+                MailEvent e = qe.event;
+                Vector<? extends EventListener> v = qe.vector;
 
-		for (int i = 0; i < v.size(); i++)
-		    try {
-			e.dispatch(v.elementAt(i));
-		    } catch (Throwable t) {
-			if (t instanceof InterruptedException)
-			    break loop;
-			// ignore anything else thrown by the listener
-		    }
+                for (int i = 0; i < v.size(); i++)
+                    try {
+                        e.dispatch(v.elementAt(i));
+                    } catch (Throwable t) {
+                        if (t instanceof InterruptedException)
+                            break loop;
+                        // ignore anything else thrown by the listener
+                    }
 
-		qe = null; e = null; v = null;
-	    }
-	} catch (InterruptedException e) {
-	    // just die
-	}
+                qe = null;
+                e = null;
+                v = null;
+            }
+        } catch (InterruptedException e) {
+            // just die
+        }
     }
 }

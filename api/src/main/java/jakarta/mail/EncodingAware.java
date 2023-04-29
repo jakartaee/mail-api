@@ -26,20 +26,20 @@ package jakarta.mail;
  * could be created that forces all files to be base64 encoded:
  * <blockquote><pre>
  *  public class Base64FileDataSource extends FileDataSource
- *					implements EncodingAware {
- *	public Base64FileDataSource(File file) {
- *	    super(file);
- *	}
+ * 					implements EncodingAware {
+ * 	public Base64FileDataSource(File file) {
+ * 	    super(file);
+ *    }
  *
- *	// implements EncodingAware.getEncoding()
- *	public String getEncoding() {
- *	    return "base64";
- *	}
+ * 	// implements EncodingAware.getEncoding()
+ * 	public String getEncoding() {
+ * 	    return "base64";
+ *    }
  *  }
  * </pre></blockquote>
  *
- * @since	JavaMail 1.5
- * @author	Bill Shannon
+ * @author Bill Shannon
+ * @since JavaMail 1.5
  */
 
 public interface EncodingAware {
@@ -49,7 +49,7 @@ public interface EncodingAware {
      * or null to indicate that an appropriate value should be chosen
      * by the caller.
      *
-     * @return		the Content-Transfer-Encoding value, or null
+     * @return the Content-Transfer-Encoding value, or null
      */
     public String getEncoding();
 }
