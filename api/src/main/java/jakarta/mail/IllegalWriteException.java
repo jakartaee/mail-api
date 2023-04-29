@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,7 +19,7 @@ package jakarta.mail;
 
 /**
  * The exception thrown when a write is attempted on a read-only attribute
- * of any Messaging object. 
+ * of any Messaging object.
  *
  * @author John Mani
  */
@@ -32,17 +32,17 @@ public class IllegalWriteException extends MessagingException {
      * Constructs an IllegalWriteException with no detail message.
      */
     public IllegalWriteException() {
-	super();
+        super();
     }
 
     /**
      * Constructs an IllegalWriteException with the specified
      * detail message.
      *
-     * @param s		The detailed error message
+     * @param s The detailed error message
      */
     public IllegalWriteException(String s) {
-	super(s);
+        super(s);
     }
 
     /**
@@ -50,11 +50,11 @@ public class IllegalWriteException extends MessagingException {
      * detail message and embedded exception.  The exception is chained
      * to this exception.
      *
-     * @param s		The detailed error message
-     * @param e		The embedded exception
-     * @since		JavaMail 1.5
+     * @param s The detailed error message
+     * @param e The embedded exception
+     * @since JavaMail 1.5
      */
     public IllegalWriteException(String s, Exception e) {
-	super(s, e);
+        super(s, e);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -29,44 +29,44 @@ public class Header {
     /**
      * The name of the header.
      *
-     * @since	JavaMail 1.4
+     * @since JavaMail 1.4
      */
     protected String name;
 
     /**
      * The value of the header.
      *
-     * @since	JavaMail 1.4
+     * @since JavaMail 1.4
      */
     protected String value;
 
     /**
      * Construct a Header object.
      *
-     * @param name	name of the header
-     * @param value	value of the header
+     * @param name  name of the header
+     * @param value value of the header
      */
     public Header(String name, String value) {
-	this.name = name;
-	this.value = value;
+        this.name = name;
+        this.value = value;
     }
 
     /**
      * Returns the name of this header.
      *
-     * @return 		name of the header
+     * @return name of the header
      */
     public String getName() {
-	return name;
+        return name;
     }
 
     /**
      * Returns the value of this header.
      *
-     * @return 		value of the header
+     * @return value of the header
      */
     public String getValue() {
-	return value;
+        return value;
     }
 
     @Override

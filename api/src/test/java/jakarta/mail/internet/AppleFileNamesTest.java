@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,7 +16,10 @@
 
 package jakarta.mail.internet;
 
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,19 +30,19 @@ public class AppleFileNamesTest {
 
     @BeforeClass
     public static void before() {
-	System.out.println("AppleFileNames");
-	System.setProperty("mail.mime.applefilenames", "true");
+        System.out.println("AppleFileNames");
+        System.setProperty("mail.mime.applefilenames", "true");
     }
 
     @Test
     public void testProp() throws Exception {
-	ParameterList pl = new ParameterList("; filename=a b.txt");
-	assertEquals(pl.get("filename"), "a b.txt");
+        ParameterList pl = new ParameterList("; filename=a b.txt");
+        assertEquals(pl.get("filename"), "a b.txt");
     }
 
     @AfterClass
     public static void after() {
-	// should be unnecessary
-	System.clearProperty("mail.mime.applefilenames");
+        // should be unnecessary
+        System.clearProperty("mail.mime.applefilenames");
     }
 }

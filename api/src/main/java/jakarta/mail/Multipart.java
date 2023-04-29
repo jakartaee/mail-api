@@ -16,24 +16,23 @@
 
 package jakarta.mail;
 
-import java.util.Vector;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.IOException;
-import jakarta.activation.DataSource;
 import jakarta.mail.util.StreamProvider;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Vector;
 
 /**
  * Multipart is a container that holds multiple body parts. Multipart
  * provides methods to retrieve and set its subparts. <p>
- * 
- * Multipart also acts as the base class for the content object returned 
+ *
+ * Multipart also acts as the base class for the content object returned
  * by most Multipart DataContentHandlers. For example, invoking getContent()
  * on a DataHandler whose source is a "multipart/signed" data source may
  * return an appropriate subclass of Multipart. <p>
  *
  * Some messaging systems provide different subtypes of Multiparts. For
- * example, MIME specifies a set of subtypes that include "alternative", 
+ * example, MIME specifies a set of subtypes that include "alternative",
  * "mixed", "related", "parallel", "signed", etc. <p>
  *
  * Multipart is an abstract class.  Subclasses provide actual implementations.
@@ -57,7 +56,8 @@ public abstract class Multipart {
     /**
      * The <code>Part</code> containing this <code>Multipart</code>,
      * if known.
-     * @since	JavaMail 1.1
+     *
+     * @since JavaMail 1.1
      */
     protected Part parent;
 
@@ -68,34 +68,35 @@ public abstract class Multipart {
      */
     protected final StreamProvider streamProvider = StreamProvider.provider();
 
-    /** 
+    /**
      * Default constructor. An empty Multipart object is created.
      */
-    protected Multipart() { }
+    protected Multipart() {
+    }
 
     /**
      * Setup this Multipart object from the given MultipartDataSource. <p>
      *
-     * The method adds the MultipartDataSource's BodyPart 
+     * The method adds the MultipartDataSource's BodyPart
      * objects into this Multipart. This Multipart's contentType is
      * set to that of the MultipartDataSource. <p>
      *
-     * This method is typically used in those cases where one 
+     * This method is typically used in those cases where one
      * has a multipart data source that has already been pre-parsed into
-     * the individual body parts (for example, an IMAP datasource), but 
+     * the individual body parts (for example, an IMAP datasource), but
      * needs to create an appropriate Multipart subclass that represents
-     * a specific multipart subtype. 
-     * 
-     * @param	mp	Multipart datasource
-     * @exception       MessagingException for failures
+     * a specific multipart subtype.
+     *
+     * @param mp Multipart datasource
+     * @throws MessagingException for failures
      */
     protected synchronized void setMultipartDataSource(MultipartDataSource mp)
-			throws MessagingException {
-	contentType = mp.getContentType();
+            throws MessagingException {
+        contentType = mp.getContentType();
 
-	int count = mp.getCount();
-	for (int i = 0; i < count; i++)
-	    addBodyPart(mp.getBodyPart(i));
+        int count = mp.getCount();
+        for (int i = 0; i < count; i++)
+            addBodyPart(mp.getBodyPart(i));
     }
 
     /**
@@ -104,104 +105,104 @@ public abstract class Multipart {
      * This implementation just returns the value of the
      * <code>contentType</code> field.
      *
-     * @return 	content-type
-     * @see	#contentType
+     * @return content-type
+     * @see #contentType
      */
     public synchronized String getContentType() {
-	return contentType;
+        return contentType;
     }
 
     /**
      * Return the number of enclosed BodyPart objects.
      *
-     * @return		number of parts
-     * @exception       MessagingException for failures
-     * @see		#parts
+     * @return number of parts
+     * @throws MessagingException for failures
+     * @see #parts
      */
     public synchronized int getCount() throws MessagingException {
-	if (parts == null)
-	    return 0;
+        if (parts == null)
+            return 0;
 
-	return parts.size();
+        return parts.size();
     }
 
     /**
      * Get the specified Part.  Parts are numbered starting at 0.
      *
-     * @param index	the index of the desired Part
-     * @return		the Part
-     * @exception       IndexOutOfBoundsException if the given index
-     *			is out of range.
-     * @exception       MessagingException for other failures
+     * @param index the index of the desired Part
+     * @return the Part
+     * @throws IndexOutOfBoundsException if the given index
+     *                                      is out of range.
+     * @throws MessagingException        for other failures
      */
     public synchronized BodyPart getBodyPart(int index)
-				throws MessagingException {
-	if (parts == null)
-	    throw new IndexOutOfBoundsException("No such BodyPart");
+            throws MessagingException {
+        if (parts == null)
+            throw new IndexOutOfBoundsException("No such BodyPart");
 
-	return parts.elementAt(index);
+        return parts.elementAt(index);
     }
 
     /**
      * Remove the specified part from the multipart message.
      * Shifts all the parts after the removed part down one.
      *
-     * @param   part	The part to remove
-     * @return		true if part removed, false otherwise
-     * @exception	MessagingException if no such Part exists
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
+     * @param part The part to remove
+     * @return true if part removed, false otherwise
+     * @throws MessagingException    if no such Part exists
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
      */
     public synchronized boolean removeBodyPart(BodyPart part)
-				throws MessagingException {
-	if (parts == null)
-	    throw new MessagingException("No such body part");
+            throws MessagingException {
+        if (parts == null)
+            throw new MessagingException("No such body part");
 
-	boolean ret = parts.removeElement(part);
-	part.setParent(null);
-	return ret;
+        boolean ret = parts.removeElement(part);
+        part.setParent(null);
+        return ret;
     }
 
     /**
      * Remove the part at specified location (starting from 0).
      * Shifts all the parts after the removed part down one.
      *
-     * @param   index	Index of the part to remove
-     * @exception       IndexOutOfBoundsException if the given index
-     *			is out of range.
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	MessagingException for other failures
+     * @param index Index of the part to remove
+     * @throws IndexOutOfBoundsException if the given index
+     *                                      is out of range.
+     * @throws IllegalWriteException     if the underlying
+     *                                      implementation does not support modification
+     *                                      of existing values
+     * @throws MessagingException        for other failures
      */
     public synchronized void removeBodyPart(int index)
-				throws MessagingException {
-	if (parts == null)
-	    throw new IndexOutOfBoundsException("No such BodyPart");
+            throws MessagingException {
+        if (parts == null)
+            throw new IndexOutOfBoundsException("No such BodyPart");
 
-	BodyPart part = parts.elementAt(index);
-	parts.removeElementAt(index);
-	part.setParent(null);
+        BodyPart part = parts.elementAt(index);
+        parts.removeElementAt(index);
+        part.setParent(null);
     }
 
     /**
-     * Adds a Part to the multipart.  The BodyPart is appended to 
+     * Adds a Part to the multipart.  The BodyPart is appended to
      * the list of existing Parts.
      *
-     * @param  part  The Part to be appended
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception       MessagingException for other failures
+     * @param part The Part to be appended
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws MessagingException    for other failures
      */
-    public synchronized void addBodyPart(BodyPart part) 
-		throws MessagingException {
-	if (parts == null)
-	    parts = new Vector<>();
+    public synchronized void addBodyPart(BodyPart part)
+            throws MessagingException {
+        if (parts == null)
+            parts = new Vector<>();
 
-	parts.addElement(part);
-	part.setParent(this);
+        parts.addElement(part);
+        part.setParent(this);
     }
 
     /**
@@ -211,20 +212,20 @@ public abstract class Multipart {
      * is larger than the number of parts present, the
      * BodyPart is appended to the end.
      *
-     * @param  part  The BodyPart to be inserted
-     * @param  index Location where to insert the part
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception       MessagingException for other failures
+     * @param part  The BodyPart to be inserted
+     * @param index Location where to insert the part
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws MessagingException    for other failures
      */
-    public synchronized void addBodyPart(BodyPart part, int index) 
-				throws MessagingException {
-	if (parts == null)
-	    parts = new Vector<>();
+    public synchronized void addBodyPart(BodyPart part, int index)
+            throws MessagingException {
+        if (parts == null)
+            parts = new Vector<>();
 
-	parts.insertElementAt(part, index);
-	part.setParent(this);
+        parts.insertElementAt(part, index);
+        part.setParent(this);
     }
 
     /**
@@ -232,23 +233,23 @@ public abstract class Multipart {
      * OutputStream. The implementation subclass decides the
      * appropriate encoding algorithm to be used. The bytestream
      * is typically used for sending.
-     * 
-     * @param	os	the stream to write to
-     * @exception       IOException if an IO related exception occurs
-     * @exception       MessagingException for other failures
+     *
+     * @param os the stream to write to
+     * @throws IOException        if an IO related exception occurs
+     * @throws MessagingException for other failures
      */
-    public abstract void writeTo(OutputStream os) 
-		throws IOException, MessagingException;
+    public abstract void writeTo(OutputStream os)
+            throws IOException, MessagingException;
 
     /**
      * Return the <code>Part</code> that contains this <code>Multipart</code>
      * object, or <code>null</code> if not known.
      *
-     * @return	the parent Part
-     * @since	JavaMail 1.1
+     * @return the parent Part
+     * @since JavaMail 1.1
      */
     public synchronized Part getParent() {
-	return parent;
+        return parent;
     }
 
     /**
@@ -259,10 +260,10 @@ public abstract class Multipart {
      * <code>Multipart</code> is being removed from its containing
      * <code>Part</code>.
      *
-     * @param	parent	the parent Part
-     * @since	JavaMail 1.1
+     * @param parent the parent Part
+     * @since JavaMail 1.1
      */
     public synchronized void setParent(Part parent) {
-	this.parent = parent;
+        this.parent = parent;
     }
 }

@@ -30,29 +30,29 @@ public class ReadOnlyFolderException extends MessagingException {
     transient private Folder folder;
 
     private static final long serialVersionUID = 5711829372799039325L;
-    
+
     /**
      * Constructs a ReadOnlyFolderException with the specified
      * folder and no detail message.
      *
-     * @param folder	the Folder
-     * @since 		JavaMail 1.2
+     * @param folder the Folder
+     * @since JavaMail 1.2
      */
     public ReadOnlyFolderException(Folder folder) {
-	this(folder, null);
+        this(folder, null);
     }
 
     /**
      * Constructs a ReadOnlyFolderException with the specified
      * detail message.
      *
-     * @param folder 	The Folder
-     * @param message	The detailed error message
-     * @since 		JavaMail 1.2
+     * @param folder  The Folder
+     * @param message The detailed error message
+     * @since JavaMail 1.2
      */
     public ReadOnlyFolderException(Folder folder, String message) {
-	super(message);
-	this.folder = folder;
+        super(message);
+        this.folder = folder;
     }
 
     /**
@@ -60,23 +60,23 @@ public class ReadOnlyFolderException extends MessagingException {
      * detail message and embedded exception.  The exception is chained
      * to this exception.
      *
-     * @param folder 	The Folder
-     * @param message	The detailed error message
-     * @param e		The embedded exception
-     * @since		JavaMail 1.5
+     * @param folder  The Folder
+     * @param message The detailed error message
+     * @param e       The embedded exception
+     * @since JavaMail 1.5
      */
     public ReadOnlyFolderException(Folder folder, String message, Exception e) {
-	super(message, e);
-	this.folder = folder;
+        super(message, e);
+        this.folder = folder;
     }
 
     /**
      * Returns the Folder object.
      *
-     * @return	the Folder
-     * @since 		JavaMail 1.2
+     * @return the Folder
+     * @since JavaMail 1.2
      */
     public Folder getFolder() {
-	return folder;
+        return folder;
     }
 }

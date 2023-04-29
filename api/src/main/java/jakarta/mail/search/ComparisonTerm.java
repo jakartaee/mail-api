@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -53,10 +53,10 @@ public abstract class ComparisonTerm extends SearchTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof ComparisonTerm))
-	    return false;
-	ComparisonTerm ct = (ComparisonTerm)obj;
-	return ct.comparison == this.comparison;
+        if (!(obj instanceof ComparisonTerm))
+            return false;
+        ComparisonTerm ct = (ComparisonTerm) obj;
+        return ct.comparison == this.comparison;
     }
 
     /**
@@ -64,6 +64,6 @@ public abstract class ComparisonTerm extends SearchTerm {
      */
     @Override
     public int hashCode() {
-	return comparison;
+        return comparison;
     }
 }

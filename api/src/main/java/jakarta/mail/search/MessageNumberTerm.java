@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,29 +31,29 @@ public final class MessageNumberTerm extends IntegerComparisonTerm {
     /**
      * Constructor.
      *
-     * @param number  the Message number
+     * @param number the Message number
      */
     public MessageNumberTerm(int number) {
-	super(EQ, number);
+        super(EQ, number);
     }
 
     /**
      * The match method.
      *
-     * @param msg	the Message number is matched with this Message
-     * @return		true if the match succeeds, otherwise false
+     * @param msg the Message number is matched with this Message
+     * @return true if the match succeeds, otherwise false
      */
     @Override
     public boolean match(Message msg) {
-	int msgno;
+        int msgno;
 
-	try {
-	    msgno = msg.getMessageNumber();
-	} catch (Exception e) {
-	    return false;
-	}
-	
-	return super.match(msgno);
+        try {
+            msgno = msg.getMessageNumber();
+        } catch (Exception e) {
+            return false;
+        }
+
+        return super.match(msgno);
     }
 
     /**
@@ -61,8 +61,8 @@ public final class MessageNumberTerm extends IntegerComparisonTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof MessageNumberTerm))
-	    return false;
-	return super.equals(obj);
+        if (!(obj instanceof MessageNumberTerm))
+            return false;
+        return super.equals(obj);
     }
 }

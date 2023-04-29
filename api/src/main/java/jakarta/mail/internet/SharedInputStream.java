@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,7 +16,7 @@
 
 package jakarta.mail.internet;
 
-import java.io.*;
+import java.io.InputStream;
 
 /**
  * An InputStream that is backed by data that can be shared by multiple
@@ -31,7 +31,7 @@ import java.io.*;
  * that might be shared by multiple instances of <code>SharedInputStream</code>
  * until all shared instances have been closed.
  *
- * @author  Bill Shannon
+ * @author Bill Shannon
  * @since JavaMail 1.2
  */
 
@@ -40,7 +40,7 @@ public interface SharedInputStream {
      * Return the current position in the InputStream, as an
      * offset from the beginning of the InputStream.
      *
-     * @return	the current position
+     * @return the current position
      */
     public long getPosition();
 
@@ -52,9 +52,9 @@ public interface SharedInputStream {
      * at the same place as this stream.  The returned InputStream
      * will also implement the SharedInputStream interface.
      *
-     * @param	start	the starting position
-     * @param	end	the ending position + 1
-     * @return		the new stream
+     * @param start the starting position
+     * @param end   the ending position + 1
+     * @return the new stream
      */
     public InputStream newStream(long start, long end);
 }

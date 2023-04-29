@@ -16,12 +16,12 @@
 
 package jakarta.mail;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import org.junit.Test;
 
 import java.util.Date;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class HeaderTest {
 
@@ -30,7 +30,8 @@ public class HeaderTest {
         Header h1 = new Header("a", "b");
         Header h2 = new Header("a", "b");
         Header h3 = new Header("b", "a");
-        Header h4 = new Header("a", "b") {};
+        Header h4 = new Header("a", "b") {
+        };
         assertEquals(h1, h2);
         assertEquals(h1, h1);
         assertNotEquals(h1, h3);

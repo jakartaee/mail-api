@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -34,7 +34,8 @@ public abstract class BodyPart implements Part {
     /**
      * The <code>Multipart</code> object containing this <code>BodyPart</code>,
      * if known.
-     * @since	JavaMail 1.1
+     *
+     * @since JavaMail 1.1
      */
     protected Multipart parent;
 
@@ -55,10 +56,10 @@ public abstract class BodyPart implements Part {
      * Return the containing <code>Multipart</code> object,
      * or <code>null</code> if not known.
      *
-     * @return	the parent Multipart
+     * @return the parent Multipart
      */
     public Multipart getParent() {
-	return parent;
+        return parent;
     }
 
     /**
@@ -67,9 +68,10 @@ public abstract class BodyPart implements Part {
      * <code>addBodyPart</code> method.  <code>parent</code> may be
      * <code>null</code> if the <code>BodyPart</code> is being removed
      * from its containing <code>Multipart</code>.
-     * @since	JavaMail 1.1
+     *
+     * @since JavaMail 1.1
      */
     void setParent(Multipart parent) {
-	this.parent = parent;
+        this.parent = parent;
     }
 }

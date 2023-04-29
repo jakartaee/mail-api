@@ -22,7 +22,7 @@ package jakarta.mail;
  * This exception should be treated as a fatal error; in particular any
  * messaging object belonging to that Store must be considered invalid. <p>
  *
- * The connect method may be invoked on the dead Store object to 
+ * The connect method may be invoked on the dead Store object to
  * revive it. <p>
  *
  * The getMessage() method returns more detailed information about the
@@ -39,22 +39,22 @@ public class StoreClosedException extends MessagingException {
     /**
      * Constructs a StoreClosedException with no detail message.
      *
-     * @param store	The dead Store object
+     * @param store The dead Store object
      */
     public StoreClosedException(Store store) {
-	this(store, null);
+        this(store, null);
     }
 
     /**
      * Constructs a StoreClosedException with the specified
      * detail message.
      *
-     * @param store	The dead Store object
-     * @param message	The detailed error message
+     * @param store   The dead Store object
+     * @param message The detailed error message
      */
     public StoreClosedException(Store store, String message) {
-	super(message);
-	this.store = store;
+        super(message);
+        this.store = store;
     }
 
     /**
@@ -62,22 +62,22 @@ public class StoreClosedException extends MessagingException {
      * detail message and embedded exception.  The exception is chained
      * to this exception.
      *
-     * @param store	The dead Store object
-     * @param message	The detailed error message
-     * @param e		The embedded exception
-     * @since		JavaMail 1.5
+     * @param store   The dead Store object
+     * @param message The detailed error message
+     * @param e       The embedded exception
+     * @since JavaMail 1.5
      */
     public StoreClosedException(Store store, String message, Exception e) {
-	super(message, e);
-	this.store = store;
+        super(message, e);
+        this.store = store;
     }
 
     /**
      * Returns the dead Store object.
      *
-     * @return	the dead Store object
+     * @return the dead Store object
      */
     public Store getStore() {
-	return store;
+        return store;
     }
 }

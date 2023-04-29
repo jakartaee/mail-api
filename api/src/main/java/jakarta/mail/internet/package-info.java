@@ -33,7 +33,7 @@
  * how the string is interpreted.  For example, use
  * </P>
  * <PRE>
- * 	session.setProperty("mail.mime.address.strict", "false");
+ * session.setProperty("mail.mime.address.strict", "false");
  * </PRE>
  * <P>
  * to set the <CODE>mail.mime.address.strict</CODE> property,
@@ -77,7 +77,7 @@
  * how the string is interpreted.  For example, use
  * </P>
  * <PRE>
- * 	System.setProperty("mail.mime.decodetext.strict", "false");
+ * System.setProperty("mail.mime.decodetext.strict", "false");
  * </PRE>
  * <P>
  * to set the <CODE>mail.mime.decodetext.strict</CODE> property,

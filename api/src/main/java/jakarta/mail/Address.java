@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -42,15 +42,15 @@ public abstract class Address implements Serializable {
     /**
      * Return a type string that identifies this address type.
      *
-     * @return	address type
-     * @see	jakarta.mail.internet.InternetAddress
+     * @return address type
+     * @see jakarta.mail.internet.InternetAddress
      */
     public abstract String getType();
 
     /**
      * Return a String representation of this address object.
      *
-     * @return	string representation of this address
+     * @return string representation of this address
      */
     @Override
     public abstract String toString();
@@ -65,7 +65,7 @@ public abstract class Address implements Serializable {
      * <code>equals</code> and <code>hashCode</code> - objects that
      * compare as equal must have the same hashCode.
      *
-     * @param	address	Address object
+     * @param address Address object
      */
     @Override
     public abstract boolean equals(Object address);

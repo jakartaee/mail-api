@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,8 @@
 
 package jakarta.mail.event;
 
-import java.util.*;
-import jakarta.mail.*;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
 
 /**
  * This class notifies changes in the number of messages in a folder. <p>
@@ -38,10 +38,14 @@ import jakarta.mail.*;
 
 public class MessageCountEvent extends MailEvent {
 
-    /** The messages were added to their folder */
-    public static final int ADDED 		= 1;
-    /** The messages were removed from their folder */
-    public static final int REMOVED 		= 2;
+    /**
+     * The messages were added to their folder
+     */
+    public static final int ADDED = 1;
+    /**
+     * The messages were removed from their folder
+     */
+    public static final int REMOVED = 2;
 
     /**
      * The event type.
@@ -52,7 +56,7 @@ public class MessageCountEvent extends MailEvent {
 
     /**
      * If true, this event is the result of an explicit
-     * expunge by this client, and the messages in this 
+     * expunge by this client, and the messages in this
      * folder have been renumbered to account for this.
      * If false, this event is the result of an expunge
      * by external sources.
@@ -70,30 +74,31 @@ public class MessageCountEvent extends MailEvent {
 
     /**
      * Constructor.
-     * @param folder  	The containing folder
-     * @param type	The event type
-     * @param removed	If true, this event is the result of an explicit
-     *			expunge by this client, and the messages in this 
-     *			folder have been renumbered to account for this.
-     *			If false, this event is the result of an expunge
-     *			by external sources.
      *
-     * @param msgs	The messages added/removed
+     * @param folder  The containing folder
+     * @param type    The event type
+     * @param removed If true, this event is the result of an explicit
+     *                expunge by this client, and the messages in this
+     *                folder have been renumbered to account for this.
+     *                If false, this event is the result of an expunge
+     *                by external sources.
+     * @param msgs    The messages added/removed
      */
-    public MessageCountEvent(Folder folder, int type, 
-			     boolean removed, Message[] msgs) {
-	super(folder);
-	this.type = type;
-	this.removed = removed;
-	this.msgs = msgs;
+    public MessageCountEvent(Folder folder, int type,
+                             boolean removed, Message[] msgs) {
+        super(folder);
+        this.type = type;
+        this.removed = removed;
+        this.msgs = msgs;
     }
 
     /**
      * Return the type of this event.
-     * @return  type
+     *
+     * @return type
      */
     public int getType() {
-	return type;
+        return type;
     }
 
     /**
@@ -107,18 +112,19 @@ public class MessageCountEvent extends MailEvent {
      * Note that this method is valid only if the type of this event
      * is <code>REMOVED</code>
      *
-     * @return	true if the message has been removed
+     * @return true if the message has been removed
      */
     public boolean isRemoved() {
-	return removed;
+        return removed;
     }
 
     /**
      * Return the array of messages added or removed.
+     *
      * @return array of messages
      */
     public Message[] getMessages() {
-	return msgs;
+        return msgs;
     }
 
     /**
@@ -126,9 +132,9 @@ public class MessageCountEvent extends MailEvent {
      */
     @Override
     public void dispatch(Object listener) {
-	if (type == ADDED)
-	    ((MessageCountListener)listener).messagesAdded(this);
-	else // REMOVED
-	    ((MessageCountListener)listener).messagesRemoved(this);
+        if (type == ADDED)
+            ((MessageCountListener) listener).messagesAdded(this);
+        else // REMOVED
+            ((MessageCountListener) listener).messagesRemoved(this);
     }
 }

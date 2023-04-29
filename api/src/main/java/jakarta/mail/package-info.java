@@ -32,22 +32,22 @@
  * The code to send a plain text message can be as simple as the following:
  * </P>
  * <PRE>
- *     Properties props = new Properties();
- *     props.put("mail.smtp.host", "my-mail-server");
- *     Session session = Session.getInstance(props, null);
+ * Properties props = new Properties();
+ * props.put("mail.smtp.host", "my-mail-server");
+ * Session session = Session.getInstance(props, null);
  *
- *     try {
- * 	MimeMessage msg = new MimeMessage(session);
- * 	msg.setFrom("me@example.com");
- * 	msg.setRecipients(Message.RecipientType.TO,
- * 			  "you@example.com");
- * 	msg.setSubject("Jakarta Mail hello world example");
- * 	msg.setSentDate(new Date());
- * 	msg.setText("Hello, world!\n");
- * 	Transport.send(msg, "me@example.com", "my-password");
- *     } catch (MessagingException mex) {
- * 	System.out.println("send failed, exception: " + mex);
- *     }
+ * try {
+ * MimeMessage msg = new MimeMessage(session);
+ * msg.setFrom("me@example.com");
+ * msg.setRecipients(Message.RecipientType.TO,
+ * "you@example.com");
+ * msg.setSubject("Jakarta Mail hello world example");
+ * msg.setSentDate(new Date());
+ * msg.setText("Hello, world!\n");
+ * Transport.send(msg, "me@example.com", "my-password");
+ * } catch (MessagingException mex) {
+ * System.out.println("send failed, exception: " + mex);
+ * }
  * </PRE>
  * <P>
  * The Jakarta Mail download bundle contains many more complete examples
@@ -71,7 +71,7 @@
  * how the string is interpreted.  For example, use
  * </P>
  * <PRE>
- * 	props.put("mail.debug", "true");
+ * props.put("mail.debug", "true");
  * </PRE>
  * <P>
  * to set the <code>mail.debug</code> property, which is of type boolean.

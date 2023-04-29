@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -33,9 +33,14 @@ public abstract class FolderAdapter implements FolderListener {
     }
 
     @Override
-    public void folderCreated(FolderEvent e) {}
+    public void folderCreated(FolderEvent e) {
+    }
+
     @Override
-    public void folderRenamed(FolderEvent e) {}
+    public void folderRenamed(FolderEvent e) {
+    }
+
     @Override
-    public void folderDeleted(FolderEvent e) {}
+    public void folderDeleted(FolderEvent e) {
+    }
 }

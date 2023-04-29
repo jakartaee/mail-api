@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,6 @@
 
 package jakarta.mail.event;
 
-import java.util.*;
-
 /**
  * This is the Listener interface for Folder events.
  *
@@ -28,21 +26,21 @@ public interface FolderListener extends java.util.EventListener {
     /**
      * Invoked when a Folder is created.
      *
-     * @param	e	the FolderEvent
+     * @param e the FolderEvent
      */
     public void folderCreated(FolderEvent e);
 
     /**
      * Invoked when a folder is deleted.
      *
-     * @param	e	the FolderEvent
+     * @param e the FolderEvent
      */
     public void folderDeleted(FolderEvent e);
 
     /**
      * Invoked when a folder is renamed.
      *
-     * @param	e	the FolderEvent
+     * @param e the FolderEvent
      */
     public void folderRenamed(FolderEvent e);
 }

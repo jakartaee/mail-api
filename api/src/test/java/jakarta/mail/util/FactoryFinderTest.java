@@ -16,13 +16,11 @@
 
 package jakarta.mail.util;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
-
-import java.util.ServiceConfigurationError;
-
-import org.junit.Test;
 
 public class FactoryFinderTest {
 
@@ -32,13 +30,13 @@ public class FactoryFinderTest {
         Class1 impl = FactoryFinder.find(Class1.class);
         assertEquals(Class2.class, impl.getClass());
     }
-    
+
     @Test
     public void specifiedInServiceLoader() {
         StreamProvider impl = FactoryFinder.find(StreamProvider.class);
         assertEquals(DummyStreamProvider.class, impl.getClass());
     }
-    
+
     @Test
     public void doesNotExist() {
         try {
@@ -56,8 +54,13 @@ public class FactoryFinderTest {
 //            assertEquals(ServiceConfigurationError.class, e.getCause().getClass());
 //        }
     }
-    
-    public static class Class1 {}
-    public static class Class2 extends Class1 {}
-    public static class Class3 {}
+
+    public static class Class1 {
+    }
+
+    public static class Class2 extends Class1 {
+    }
+
+    public static class Class3 {
+    }
 }
