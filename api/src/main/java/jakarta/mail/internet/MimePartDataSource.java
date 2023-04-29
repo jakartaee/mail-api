@@ -26,7 +26,9 @@ import jakarta.mail.FolderClosedException;
 import jakarta.mail.MessageAware;
 import jakarta.mail.MessageContext;
 import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 
+import static jakarta.mail.internet.MimeBodyPart.*;
 
 
 /**
@@ -39,6 +41,8 @@ import jakarta.mail.MessagingException;
  */
 
 public class MimePartDataSource implements DataSource, MessageAware {
+
+    protected boolean ignoreMultipartEncoding = IGNORE_MULTIPART_ENCODING;
     /**
      * The MimePart that provides the data for this DataSource.
      *
@@ -54,7 +58,13 @@ public class MimePartDataSource implements DataSource, MessageAware {
      * @param	part	the MimePart
      */
     public MimePartDataSource(MimePart part) {
-	this.part = part;
+        this.part = part;
+	    this.context = new MessageContext(part);
+	    Session session = context.getSession();
+	    if (session != null) {
+	        this.ignoreMultipartEncoding = MimeUtility.getBooleanProperty(session.getProperties(),
+	                "mail.mime.ignoremultipartencoding", ignoreMultipartEncoding);
+	    }
     }
 
     /**
@@ -86,7 +96,7 @@ public class MimePartDataSource implements DataSource, MessageAware {
 		throw new MessagingException("Unknown part");
 	    
 	    String encoding =
-		MimeBodyPart.restrictEncoding(part, part.getEncoding());
+		MimeBodyPart.restrictEncoding(part, part.getEncoding(), ignoreMultipartEncoding);
 	    if (encoding != null)
 		return MimeUtility.decode(is, encoding);
 	    else
@@ -149,9 +159,7 @@ public class MimePartDataSource implements DataSource, MessageAware {
      * @since JavaMail 1.1
      */
     @Override
-    public synchronized MessageContext getMessageContext() {
-	if (context == null)
-	    context = new MessageContext(part);
-	return context;
+    public MessageContext getMessageContext() {
+        return context;
     }
 }

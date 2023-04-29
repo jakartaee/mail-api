@@ -30,6 +30,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
@@ -87,29 +88,30 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 
     // Paranoia:
     // allow this last minute change to be disabled if it causes problems
-    private static final boolean setDefaultTextCharset =
-	MimeUtility.getBooleanSystemProperty(
-	    "mail.mime.setdefaulttextcharset", true);
-
-    private static final boolean setContentTypeFileName =
-	MimeUtility.getBooleanSystemProperty(
-	    "mail.mime.setcontenttypefilename", true);
-
-    private static final boolean encodeFileName =
-	MimeUtility.getBooleanSystemProperty("mail.mime.encodefilename", false);
-    private static final boolean decodeFileName =
-	MimeUtility.getBooleanSystemProperty("mail.mime.decodefilename", false);
-    private static final boolean ignoreMultipartEncoding =
-	MimeUtility.getBooleanSystemProperty(
-	    "mail.mime.ignoremultipartencoding", true);
-    private static final boolean allowutf8 =
-	MimeUtility.getBooleanSystemProperty("mail.mime.allowutf8", true);
-
+    static final boolean SET_DEFAULT_TEXT_CHARSET =
+            MimeUtility.getBooleanSystemProperty("mail.mime.setdefaulttextcharset", true);
+    static final boolean SET_CONTENT_TYPE_FILE_NAME =
+            MimeUtility.getBooleanSystemProperty("mail.mime.setcontenttypefilename", true);
+    static final boolean ENCODE_FILE_NAME =
+            MimeUtility.getBooleanSystemProperty("mail.mime.encodefilename", false);
+    static final boolean DECODE_FILE_NAME =
+            MimeUtility.getBooleanSystemProperty("mail.mime.decodefilename", false);
+    static final boolean IGNORE_MULTIPART_ENCODING =
+            MimeUtility.getBooleanSystemProperty("mail.mime.ignoremultipartencoding", true);
+    static final boolean ALLOW_UTF8 =
+            MimeUtility.getBooleanSystemProperty("mail.mime.allowutf8", true);
     // Paranoia:
     // allow this last minute change to be disabled if it causes problems
-    static final boolean cacheMultipart = 	// accessed by MimeMessage
-	MimeUtility.getBooleanSystemProperty("mail.mime.cachemultipart", true);
+    static final boolean CACHE_MULTIPART =   // accessed by MimeMessage
+            MimeUtility.getBooleanSystemProperty("mail.mime.cachemultipart", true);
 
+    protected boolean setDefaultTextCharset = SET_DEFAULT_TEXT_CHARSET;
+    protected boolean setContentTypeFileName = SET_CONTENT_TYPE_FILE_NAME;
+    protected boolean encodeFileName = ENCODE_FILE_NAME;
+    protected boolean decodeFileName = DECODE_FILE_NAME;
+    protected boolean ignoreMultipartEncoding = IGNORE_MULTIPART_ENCODING;
+    protected boolean allowutf8 = ALLOW_UTF8;
+    protected boolean cacheMultipart = CACHE_MULTIPART;
 
     /**
      * The DataHandler object representing this Part's content.
@@ -214,6 +216,36 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	super();
 	this.headers = headers;
 	this.content = content;
+    }
+
+    /**
+     * Initializes MimeBodyPart from the InputStream is and it overwrites
+     * properties from session.
+     *
+     * @param session   Session object for this message
+     * @param is    the message input stream
+     * @exception   MessagingException for failures
+     *
+     * @since   JavaMail 2.1
+     */
+    public MimeBodyPart(Session session, InputStream is) throws MessagingException {
+        this(is);
+        initializeProperties(session);
+    }
+
+    /**
+     * Set the values from session properties if exist, otherwise it keeps the previous value.
+     * @param session the not null session
+     */
+    private void initializeProperties(Session session) {
+        Properties props = session.getProperties();
+        setDefaultTextCharset =  MimeUtility.getBooleanProperty(props, "mail.mime.setdefaulttextcharset", setDefaultTextCharset);
+        setContentTypeFileName =  MimeUtility.getBooleanProperty(props, "mail.mime.setcontenttypefilename", setContentTypeFileName);
+        encodeFileName =  MimeUtility.getBooleanProperty(props, "mail.mime.encodefilename", encodeFileName);
+        decodeFileName =  MimeUtility.getBooleanProperty(props, "mail.mime.decodefilename", decodeFileName);
+        ignoreMultipartEncoding =  MimeUtility.getBooleanProperty(props, "mail.mime.ignoremultipartencoding", ignoreMultipartEncoding);
+        allowutf8 =  MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", allowutf8);
+        cacheMultipart =  MimeUtility.getBooleanProperty(props, "mail.mime.cachemultipart", cacheMultipart);
     }
 
     /**
@@ -546,7 +578,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      */
     @Override
     public String getFileName() throws MessagingException {
-	return getFileName(this);
+	return getFileName(this, decodeFileName);
     }
 
     /**
@@ -574,7 +606,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      */
     @Override
     public void setFileName(String filename) throws MessagingException {
-	setFileName(this, filename);
+	setFileName(this, filename, encodeFileName, setContentTypeFileName);
     }
 
     /**
@@ -998,7 +1030,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     @Override
     public void writeTo(OutputStream os)
 				throws IOException, MessagingException {
-	writeTo(this, os, null);
+	writeTo(this, os, null, allowutf8, ignoreMultipartEncoding);
     }
 
     /**
@@ -1174,7 +1206,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      * @exception	MessagingException for failures
      */
     protected void updateHeaders() throws MessagingException {
-	updateHeaders(this);
+	updateHeaders(this, setDefaultTextCharset, setContentTypeFileName, encodeFileName);
 	/*
 	 * If we've cached a Multipart or Message object then
 	 * we're now committed to using this instance of the
@@ -1290,7 +1322,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	}
     }
 
-    static String getFileName(MimePart part) throws MessagingException {
+    static String getFileName(MimePart part, boolean decodeFileName) throws MessagingException {
 	String filename = null;
 	String s = part.getHeader("Content-Disposition", null);
 
@@ -1320,7 +1352,8 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	return filename;
     }
 
-    static void setFileName(MimePart part, String name) 
+    static void setFileName(MimePart part, String name, boolean encodeFileName,
+            boolean setContentTypeFileName) 
 		throws MessagingException {
 	if (encodeFileName && name != null) {
 	    try {
@@ -1469,7 +1502,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      * Content-Type of the specified MimePart.  Returns
      * either the original encoding or null.
      */
-    static String restrictEncoding(MimePart part, String encoding)
+    static String restrictEncoding(MimePart part, String encoding, boolean ignoreMultipartEncoding)
 				throws MessagingException {
 	if (!ignoreMultipartEncoding || encoding == null)
 	    return encoding;
@@ -1502,7 +1535,8 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	return encoding;
     }
 
-    static void updateHeaders(MimePart part) throws MessagingException {
+    static void updateHeaders(MimePart part, boolean setDefaultTextCharset, boolean setContentTypeFileName,
+            boolean encodeFileName) throws MessagingException {
 	DataHandler dh = part.getDataHandler();
 	if (dh == null) // Huh ?
 	    return;
@@ -1649,8 +1683,8 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 	part.removeHeader("Content-Transfer-Encoding");
     }
     
-    static void writeTo(MimePart part, OutputStream os, String[] ignoreList)
-			throws IOException, MessagingException {
+    static void writeTo(MimePart part, OutputStream os, String[] ignoreList, boolean allowutf8,
+            boolean ignoreMultipartEncoding) throws IOException, MessagingException {
 
 	// see if we already have a LOS
 	LineOutputStream los = null;
@@ -1697,7 +1731,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 		    os.write(buf, 0, len);
 	    } else {
 		os = MimeUtility.encode(os,
-			restrictEncoding(part, part.getEncoding()));
+			restrictEncoding(part, part.getEncoding(), ignoreMultipartEncoding));
 		part.getDataHandler().writeTo(os);
 	    }
 	} finally {

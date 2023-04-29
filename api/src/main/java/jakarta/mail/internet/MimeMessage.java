@@ -45,6 +45,8 @@ import jakarta.mail.Multipart;
 import jakarta.mail.Session;
 import jakarta.mail.util.LineOutputStream;
 
+import static jakarta.mail.internet.MimeBodyPart.*;
+
 
 
 /**
@@ -176,8 +178,20 @@ public class MimeMessage extends Message implements MimePart {
 
     // Should addresses in headers be parsed in "strict" mode?
     private boolean strict = true;
+    
+    protected boolean setDefaultTextCharset = SET_DEFAULT_TEXT_CHARSET;
+    protected boolean setContentTypeFileName = SET_CONTENT_TYPE_FILE_NAME;
+    protected boolean encodeFileName = ENCODE_FILE_NAME;
+    protected boolean decodeFileName = DECODE_FILE_NAME;
+    protected boolean ignoreMultipartEncoding = IGNORE_MULTIPART_ENCODING;
+    /*
+     *  This is not a duplicate of allowutf8Headers. When mail.mime.allowutf8
+     *  is not defined, this value is 'true'. Meanwhile allowutf8Headers is 'false'
+     */
+    protected boolean allowutf8 = ALLOW_UTF8;
+    protected boolean cacheMultipart = CACHE_MULTIPART;
     // Is UTF-8 allowed in headers?
-    private boolean allowutf8 = false;
+    private boolean allowutf8Headers = false;
 
     /**
      * Default constructor. An empty message object is created.
@@ -312,14 +326,21 @@ public class MimeMessage extends Message implements MimePart {
     }
 
     /**
-     * Set the strict flag based on property.
+     * Set the properties from session if exists, otherwise it keeps the previous value.
      */
     private void initStrict() {
-	if (session != null) {
-	    Properties props = session.getProperties();
-	    strict = MimeUtility.getBooleanProperty(props, "mail.mime.address.strict", true);
-	    allowutf8 = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", false);
-	}
+    	if (session != null) {
+    	    Properties props = session.getProperties();
+    	    strict = MimeUtility.getBooleanProperty(props, "mail.mime.address.strict", true);
+    	    allowutf8Headers = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", false);
+    	    setDefaultTextCharset = MimeUtility.getBooleanProperty(props, "mail.mime.setdefaulttextcharset", setDefaultTextCharset);
+    	    setContentTypeFileName = MimeUtility.getBooleanProperty(props, "mail.mime.setcontenttypefilename", setContentTypeFileName);
+    	    encodeFileName = MimeUtility.getBooleanProperty(props, "mail.mime.encodefilename", encodeFileName);
+    	    decodeFileName = MimeUtility.getBooleanProperty(props, "mail.mime.decodefilename", decodeFileName);
+    	    ignoreMultipartEncoding = MimeUtility.getBooleanProperty(props, "mail.mime.ignoremultipartencoding", ignoreMultipartEncoding);
+    	    allowutf8 = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", allowutf8);
+    	    cacheMultipart = MimeUtility.getBooleanProperty(props, "mail.mime.cachemultipart", cacheMultipart);
+    	}
     }
 
     /**
@@ -750,7 +771,7 @@ public class MimeMessage extends Message implements MimePart {
     private void setAddressHeader(String name, Address[] addresses)
 			throws MessagingException {
 	String s;
-	if (allowutf8)
+	if (allowutf8Headers)
 	    s = InternetAddress.toUnicodeString(addresses, name.length() + 2);
 	else
 	    s = InternetAddress.toString(addresses, name.length() + 2);
@@ -774,7 +795,7 @@ public class MimeMessage extends Message implements MimePart {
 	    System.arraycopy(addresses, 0, anew, a.length, addresses.length);
 	}
 	String s;
-	if (allowutf8)
+	if (allowutf8Headers)
 	    s = InternetAddress.toUnicodeString(anew, name.length() + 2);
 	else
 	    s = InternetAddress.toString(anew, name.length() + 2);
@@ -1318,7 +1339,7 @@ public class MimeMessage extends Message implements MimePart {
      */
     @Override
     public String getFileName() throws MessagingException {
-	return MimeBodyPart.getFileName(this);
+	return MimeBodyPart.getFileName(this, decodeFileName);
     }
 
     /**
@@ -1343,7 +1364,7 @@ public class MimeMessage extends Message implements MimePart {
      */
     @Override
     public void setFileName(String filename) throws MessagingException {
-	MimeBodyPart.setFileName(this, filename);	
+	MimeBodyPart.setFileName(this, filename, encodeFileName, setContentTypeFileName);	
     }
 
     private String getHeaderName(Message.RecipientType type)
@@ -1506,7 +1527,7 @@ public class MimeMessage extends Message implements MimePart {
 			throw e;
 		}
 	}
-	if (MimeBodyPart.cacheMultipart &&
+	if (cacheMultipart &&
 		(c instanceof Multipart || c instanceof Message) &&
 		(content != null || contentStream != null)) {
 	    cachedContent = c;
@@ -1904,14 +1925,14 @@ public class MimeMessage extends Message implements MimePart {
 	    saveChanges();
 
 	if (modified) {
-	    MimeBodyPart.writeTo(this, os, ignoreList);
+	    MimeBodyPart.writeTo(this, os, ignoreList, allowutf8, ignoreMultipartEncoding);
 	    return;
 	}
 
 	// Else, the content is untouched, so we can just output it
 	// First, write out the header
 	Enumeration<String> hdrLines = getNonMatchingHeaderLines(ignoreList);
-    LineOutputStream los = session.getStreamProvider().outputLineStream(os, allowutf8);
+    LineOutputStream los = session.getStreamProvider().outputLineStream(os, allowutf8Headers);
 	while (hdrLines.hasMoreElements())
 	    los.writeln(hdrLines.nextElement());
 
@@ -2262,7 +2283,7 @@ public class MimeMessage extends Message implements MimePart {
      * @exception  	MessagingException for other failures
      */
     protected synchronized void updateHeaders() throws MessagingException {
-	MimeBodyPart.updateHeaders(this);	
+	MimeBodyPart.updateHeaders(this, setDefaultTextCharset, setContentTypeFileName, encodeFileName);	
 	setHeader("MIME-Version", "1.0");
 	if (getHeader("Date") == null)
 	    setSentDate(new Date());
@@ -2295,7 +2316,7 @@ public class MimeMessage extends Message implements MimePart {
      */
     protected InternetHeaders createInternetHeaders(InputStream is)
 				throws MessagingException {
-	return new InternetHeaders(is, allowutf8);
+	return new InternetHeaders(is, allowutf8Headers);
     }
 
     /**

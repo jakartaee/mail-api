@@ -32,6 +32,7 @@ import jakarta.mail.MessageContext;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Multipart;
 import jakarta.mail.MultipartDataSource;
+import jakarta.mail.Session;
 import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.LineOutputStream;
 
@@ -1002,7 +1003,13 @@ public class MimeMultipart extends Multipart {
      */
     protected MimeBodyPart createMimeBodyPart(InputStream is)
 				throws MessagingException {
-	return new MimeBodyPart(is);
+        if (ds instanceof MessageAware) {
+            Session session = ((MessageAware)ds).getMessageContext().getSession();
+            if (session != null) {
+                return new MimeBodyPart(session, is);
+            }
+        }
+        return new MimeBodyPart(is);
     }
 
     private MimeBodyPart createMimeBodyPartIs(InputStream is)
