@@ -72,7 +72,7 @@ public class HeaderTokenizerTest {
         test(header, value, expect);
     }
 
-    public static void main(String argv[]) throws Exception {
+    public static void main(String[] argv) throws Exception {
         int optind;
         for (optind = 0; optind < argv.length; optind++) {
             if (argv[optind].equals("-")) {
@@ -197,7 +197,7 @@ public class HeaderTokenizerTest {
     /**
      * Test the header's value to see if we can tokenize it as expected.
      */
-    public static void test(String header, String value, String expect[]) {
+    public static void test(String header, String value, String[] expect) {
         PrintStream out = System.out;
         if (gen_test_input)
             out.println(header + ": " + value);

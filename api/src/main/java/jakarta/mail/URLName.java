@@ -619,7 +619,7 @@ public class URLName {
     }
 
 
-    /**
+    /*
      * The class contains a utility method for converting from
      * a MIME format called "<code>x-www-form-urlencoded</code>"
      * to a <code>String</code>

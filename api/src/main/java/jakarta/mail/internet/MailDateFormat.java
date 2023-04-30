@@ -329,14 +329,6 @@ public class MailDateFormat extends SimpleDateFormat {
     /**
      * Returns the date, as specified by the parameters.
      *
-     * @param dayName
-     * @param day
-     * @param month
-     * @param year
-     * @param hour
-     * @param minute
-     * @param second
-     * @param zone
      * @return the date, as specified by the parameters
      * @throws IllegalArgumentException if this instance's Calendar is
      *                                     non-lenient and any of the parameters have invalid values, or if dayName

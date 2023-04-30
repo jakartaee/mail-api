@@ -1430,5 +1430,5 @@ public final class Session {
  * code that loads resources from stream.
  */
 interface StreamLoader {
-    public void load(InputStream is) throws IOException;
+    void load(InputStream is) throws IOException;
 }

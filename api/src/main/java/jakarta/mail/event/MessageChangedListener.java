@@ -31,5 +31,5 @@ public interface MessageChangedListener extends java.util.EventListener {
      * @see MessageChangedEvent#FLAGS_CHANGED
      * @see MessageChangedEvent#ENVELOPE_CHANGED
      */
-    public void messageChanged(MessageChangedEvent e);
+    void messageChanged(MessageChangedEvent e);
 }

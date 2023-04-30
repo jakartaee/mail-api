@@ -250,7 +250,7 @@ public class SharedFileInputStream extends BufferedInputStream
                 int nsz = pos * 2;
                 if (nsz > marklimit)
                     nsz = marklimit;
-                byte nbuf[] = new byte[nsz];
+                byte[] nbuf = new byte[nsz];
                 System.arraycopy(buf, 0, nbuf, 0, pos);
                 buf = nbuf;
             }
@@ -329,7 +329,7 @@ public class SharedFileInputStream extends BufferedInputStream
      * @throws IOException if an I/O error occurs.
      */
     @Override
-    public synchronized int read(byte b[], int off, int len)
+    public synchronized int read(byte[] b, int off, int len)
             throws IOException {
         ensureOpen();
         if ((off | len | (off + len) | (b.length - (off + len))) < 0) {

@@ -28,19 +28,19 @@ public interface FolderListener extends java.util.EventListener {
      *
      * @param e the FolderEvent
      */
-    public void folderCreated(FolderEvent e);
+    void folderCreated(FolderEvent e);
 
     /**
      * Invoked when a folder is deleted.
      *
      * @param e the FolderEvent
      */
-    public void folderDeleted(FolderEvent e);
+    void folderDeleted(FolderEvent e);
 
     /**
      * Invoked when a folder is renamed.
      *
      * @param e the FolderEvent
      */
-    public void folderRenamed(FolderEvent e);
+    void folderRenamed(FolderEvent e);
 }

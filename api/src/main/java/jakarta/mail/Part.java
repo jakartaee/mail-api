@@ -89,7 +89,7 @@ public interface Part {
      * @return size of content in bytes
      * @throws MessagingException for failures
      */
-    public int getSize() throws MessagingException;
+    int getSize() throws MessagingException;
 
     /**
      * Return the number of lines in the content of this part.
@@ -102,7 +102,7 @@ public interface Part {
      * @return number of lines in the content.
      * @throws MessagingException for failures
      */
-    public int getLineCount() throws MessagingException;
+    int getLineCount() throws MessagingException;
 
     /**
      * Returns the Content-Type of the content of this part.
@@ -114,7 +114,7 @@ public interface Part {
      * @throws MessagingException for failures
      * @see jakarta.activation.DataHandler
      */
-    public String getContentType() throws MessagingException;
+    String getContentType() throws MessagingException;
 
     /**
      * Is this Part of the specified MIME type?  This method
@@ -134,7 +134,7 @@ public interface Part {
      * @return true if this part is of the specified type
      * @throws MessagingException for failures
      */
-    public boolean isMimeType(String mimeType) throws MessagingException;
+    boolean isMimeType(String mimeType) throws MessagingException;
 
     /**
      * This part should be presented as an attachment.
@@ -142,7 +142,7 @@ public interface Part {
      * @see #getDisposition
      * @see #setDisposition
      */
-    public static final String ATTACHMENT = "attachment";
+    String ATTACHMENT = "attachment";
 
     /**
      * This part should be presented inline.
@@ -150,7 +150,7 @@ public interface Part {
      * @see #getDisposition
      * @see #setDisposition
      */
-    public static final String INLINE = "inline";
+    String INLINE = "inline";
 
     /**
      * Return the disposition of this part.  The disposition
@@ -169,7 +169,7 @@ public interface Part {
      * @see #INLINE
      * @see #getFileName
      */
-    public String getDisposition() throws MessagingException;
+    String getDisposition() throws MessagingException;
 
     /**
      * Set the disposition of this part.
@@ -184,7 +184,7 @@ public interface Part {
      * @see #INLINE
      * @see #setFileName
      */
-    public void setDisposition(String disposition) throws MessagingException;
+    void setDisposition(String disposition) throws MessagingException;
 
     /**
      * Return a description String for this part. This typically
@@ -194,7 +194,7 @@ public interface Part {
      * @return description of this part
      * @throws MessagingException for failures
      */
-    public String getDescription() throws MessagingException;
+    String getDescription() throws MessagingException;
 
     /**
      * Set a description String for this part. This typically
@@ -207,7 +207,7 @@ public interface Part {
      *                                  from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void setDescription(String description) throws MessagingException;
+    void setDescription(String description) throws MessagingException;
 
     /**
      * Get the filename associated with this part, if possible.
@@ -218,7 +218,7 @@ public interface Part {
      * @return Filename to associate with this part
      * @throws MessagingException for failures
      */
-    public String getFileName() throws MessagingException;
+    String getFileName() throws MessagingException;
 
     /**
      * Set the filename associated with this part, if possible.
@@ -233,7 +233,7 @@ public interface Part {
      *                                  from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void setFileName(String filename) throws MessagingException;
+    void setFileName(String filename) throws MessagingException;
 
     /**
      * Return an input stream for this part's "content". Any
@@ -251,7 +251,7 @@ public interface Part {
      * @see #getDataHandler
      * @see jakarta.activation.DataHandler#getInputStream
      */
-    public InputStream getInputStream()
+    InputStream getInputStream()
             throws IOException, MessagingException;
 
     /**
@@ -262,7 +262,7 @@ public interface Part {
      * @return DataHandler for the content
      * @throws MessagingException for failures
      */
-    public DataHandler getDataHandler() throws MessagingException;
+    DataHandler getDataHandler() throws MessagingException;
 
     /**
      * Return the content as a Java object. The type of the returned
@@ -282,7 +282,7 @@ public interface Part {
      * @throws MessagingException for other failures
      * @see jakarta.activation.DataHandler#getContent
      */
-    public Object getContent() throws IOException, MessagingException;
+    Object getContent() throws IOException, MessagingException;
 
     /**
      * This method provides the mechanism to set this part's content.
@@ -295,7 +295,7 @@ public interface Part {
      *                                  from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void setDataHandler(DataHandler dh) throws MessagingException;
+    void setDataHandler(DataHandler dh) throws MessagingException;
 
     /**
      * A convenience method for setting this part's content.  The part
@@ -315,7 +315,7 @@ public interface Part {
      *                                  from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void setContent(Object obj, String type)
+    void setContent(Object obj, String type)
             throws MessagingException;
 
     /**
@@ -330,7 +330,7 @@ public interface Part {
      *                                  from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void setText(String text) throws MessagingException;
+    void setText(String text) throws MessagingException;
 
     /**
      * This method sets the given Multipart object as this message's
@@ -344,7 +344,7 @@ public interface Part {
      *                                  from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void setContent(Multipart mp) throws MessagingException;
+    void setContent(Multipart mp) throws MessagingException;
 
     /**
      * Output a bytestream for this Part. This bytestream is
@@ -364,7 +364,7 @@ public interface Part {
      *                               data to be written
      * @see jakarta.activation.DataHandler#writeTo
      */
-    public void writeTo(OutputStream os) throws IOException, MessagingException;
+    void writeTo(OutputStream os) throws IOException, MessagingException;
 
     /**
      * Get all the headers for this header name. Returns <code>null</code>
@@ -375,7 +375,7 @@ public interface Part {
      * this name
      * @throws MessagingException for failures
      */
-    public String[] getHeader(String header_name)
+    String[] getHeader(String header_name)
             throws MessagingException;
 
     /**
@@ -391,7 +391,7 @@ public interface Part {
      *                                  obtained from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void setHeader(String header_name, String header_value)
+    void setHeader(String header_name, String header_value)
             throws MessagingException;
 
     /**
@@ -406,7 +406,7 @@ public interface Part {
      *                                  obtained from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void addHeader(String header_name, String header_value)
+    void addHeader(String header_name, String header_value)
             throws MessagingException;
 
     /**
@@ -420,7 +420,7 @@ public interface Part {
      *                                  obtained from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void removeHeader(String header_name)
+    void removeHeader(String header_name)
             throws MessagingException;
 
     /**
@@ -430,7 +430,7 @@ public interface Part {
      * @return enumeration of Header objects
      * @throws MessagingException for failures
      */
-    public Enumeration<Header> getAllHeaders() throws MessagingException;
+    Enumeration<Header> getAllHeaders() throws MessagingException;
 
     /**
      * Return matching headers from this part as an Enumeration of
@@ -440,7 +440,7 @@ public interface Part {
      * @return enumeration of Header objects
      * @throws MessagingException for failures
      */
-    public Enumeration<Header> getMatchingHeaders(String[] header_names)
+    Enumeration<Header> getMatchingHeaders(String[] header_names)
             throws MessagingException;
 
     /**
@@ -451,6 +451,6 @@ public interface Part {
      * @return enumeration of Header objects
      * @throws MessagingException for failures
      */
-    public Enumeration<Header> getNonMatchingHeaders(String[] header_names)
+    Enumeration<Header> getNonMatchingHeaders(String[] header_names)
             throws MessagingException;
 }

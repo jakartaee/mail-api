@@ -32,7 +32,7 @@ public interface TransportListener extends java.util.EventListener {
      *
      * @param e TransportEvent
      */
-    public void messageDelivered(TransportEvent e);
+    void messageDelivered(TransportEvent e);
 
     /**
      * Invoked when a Message is not delivered.
@@ -40,7 +40,7 @@ public interface TransportListener extends java.util.EventListener {
      * @param e TransportEvent
      * @see TransportEvent
      */
-    public void messageNotDelivered(TransportEvent e);
+    void messageNotDelivered(TransportEvent e);
 
     /**
      * Invoked when a Message is partially delivered.
@@ -48,5 +48,5 @@ public interface TransportListener extends java.util.EventListener {
      * @param e TransportEvent
      * @see TransportEvent
      */
-    public void messagePartiallyDelivered(TransportEvent e);
+    void messagePartiallyDelivered(TransportEvent e);
 }

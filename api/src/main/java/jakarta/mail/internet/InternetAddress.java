@@ -94,7 +94,7 @@ public class InternetAddress extends Address implements Cloneable {
      */
     public InternetAddress(String address) throws AddressException {
         // use our address parsing utility routine to parse the string
-        InternetAddress a[] = parse(address, true);
+        InternetAddress[] a = parse(address, true);
         // if we got back anything other than a single address, it's an error
         if (a.length != 1)
             throw new AddressException("Illegal address", address);

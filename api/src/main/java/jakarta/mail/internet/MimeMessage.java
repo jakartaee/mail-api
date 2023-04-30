@@ -1727,7 +1727,7 @@ public class MimeMessage extends Message implements MimePart {
                 subject = "Re: " + subject;
             reply.setHeader("Subject", subject);
         }
-        Address a[] = getReplyTo();
+        Address[] a = getReplyTo();
         reply.setRecipients(Message.RecipientType.TO, a);
         if (replyToAll) {
             List<Address> v = new ArrayList<>();

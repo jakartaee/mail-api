@@ -330,7 +330,7 @@ public class HeaderTokenizer {
                 return collectString(endOfAtom, keepEscapes);
             }
             currentPos++; // re-position currentPos
-            char ch[] = new char[1];
+            char[] ch = new char[1];
             ch[0] = c;
             return new Token((int) c, new String(ch));
         }

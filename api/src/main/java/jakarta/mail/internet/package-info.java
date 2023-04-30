@@ -512,7 +512,7 @@
  * With some network configurations, InetAddress.getCanonicalHostName may be
  * slow or may return an address instead of a host name.
  * In that case, setting this System property to false will cause the
- * {@link java.net.InetAddress#getHostName InetAddress.getHostName}
+ * {@link java.net.InetAddress#getHostName() InetAddress.getHostName()}
  * method to be used instead.
  * The default is true.
  * </TD>

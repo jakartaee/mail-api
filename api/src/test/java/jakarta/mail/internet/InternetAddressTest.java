@@ -72,7 +72,7 @@ public class InternetAddressTest {
         return testData;
     }
 
-    public static void main(String argv[]) throws Exception {
+    public static void main(String[] argv) throws Exception {
         verbose = true;        // default for standalone
         int optind;
         for (optind = 0; optind < argv.length; optind++) {
@@ -242,7 +242,7 @@ public class InternetAddressTest {
     /**
      * Test the header's value to see if we can parse it as expected.
      */
-    public static void test(String header, String value, String expect[],
+    public static void test(String header, String value, String[] expect,
                             boolean doStrict, boolean doParseHeader) {
         PrintStream out = System.out;
         if (gen_test_input)

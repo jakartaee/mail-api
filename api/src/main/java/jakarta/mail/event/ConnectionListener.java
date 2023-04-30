@@ -29,7 +29,7 @@ public interface ConnectionListener extends java.util.EventListener {
      *
      * @param e the ConnectionEvent
      */
-    public void opened(ConnectionEvent e);
+    void opened(ConnectionEvent e);
 
     /**
      * Invoked when a Store is disconnected. Note that a folder
@@ -37,12 +37,12 @@ public interface ConnectionListener extends java.util.EventListener {
      *
      * @param e the ConnectionEvent
      */
-    public void disconnected(ConnectionEvent e);
+    void disconnected(ConnectionEvent e);
 
     /**
      * Invoked when a Store/Folder/Transport is closed.
      *
      * @param e the ConnectionEvent
      */
-    public void closed(ConnectionEvent e);
+    void closed(ConnectionEvent e);
 }

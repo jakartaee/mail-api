@@ -37,7 +37,7 @@ public interface StreamProvider {
      *
      * @since JavaMail 2.1
      */
-    public static enum EncoderTypes {
+    enum EncoderTypes {
 
         BASE_64("base64"),
         B_ENCODER("b"),
@@ -52,7 +52,7 @@ public interface StreamProvider {
 
         private final String encoder;
 
-        private EncoderTypes(String encoder) {
+        EncoderTypes(String encoder) {
             this.encoder = encoder;
         }
 
@@ -188,7 +188,7 @@ public interface StreamProvider {
      *
      * @return a stream provider
      */
-    public static StreamProvider provider() {
+    static StreamProvider provider() {
         if (System.getSecurityManager() != null) {
             return AccessController.doPrivileged(new PrivilegedAction<StreamProvider>() {
                 public StreamProvider run() {
