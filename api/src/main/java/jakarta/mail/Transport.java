@@ -20,6 +20,7 @@ import jakarta.mail.event.TransportEvent;
 import jakarta.mail.event.TransportListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -251,8 +252,7 @@ public abstract class Transport extends Service {
             if ((transport = s.getTransport(protaddresses[0])) == null) {
                 // Could not find an appropriate Transport ..
                 // Mark these addresses invalid.
-                for (int j = 0; j < protaddresses.length; j++)
-                    invalid.add(protaddresses[j]);
+                Collections.addAll(invalid, protaddresses);
                 continue;
             }
             try {
@@ -269,20 +269,17 @@ public abstract class Transport extends Service {
                 // retrieve invalid addresses
                 Address[] a = sex.getInvalidAddresses();
                 if (a != null)
-                    for (int j = 0; j < a.length; j++)
-                        invalid.add(a[j]);
+                    Collections.addAll(invalid, a);
 
                 // retrieve validSent addresses
                 a = sex.getValidSentAddresses();
                 if (a != null)
-                    for (int k = 0; k < a.length; k++)
-                        validSent.add(a[k]);
+                    Collections.addAll(validSent, a);
 
                 // retrieve validUnsent addresses
                 Address[] c = sex.getValidUnsentAddresses();
                 if (c != null)
-                    for (int l = 0; l < c.length; l++)
-                        validUnsent.add(c[l]);
+                    Collections.addAll(validUnsent, c);
             } catch (MessagingException mex) {
                 sendFailed = true;
                 // chain the exception we're catching to any previous ones

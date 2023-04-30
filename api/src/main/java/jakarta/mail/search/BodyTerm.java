@@ -89,9 +89,7 @@ public final class BodyTerm extends StringTerm {
             } else if (p.isMimeType("message/rfc822")) {
                 return matchPart((Part) p.getContent());
             }
-        } catch (MessagingException ex) {
-        } catch (IOException ex) {
-        } catch (RuntimeException ex) {
+        } catch (MessagingException | RuntimeException | IOException ex) {
         }
         return false;
     }

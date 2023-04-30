@@ -544,7 +544,7 @@ public class MimeMultipart extends Multipart {
         } else {
             for (int i = 0; i < parts.size(); i++) {
                 los.writeln(boundary); // put out boundary
-                ((MimeBodyPart) parts.elementAt(i)).writeTo(os);
+                parts.elementAt(i).writeTo(os);
                 los.writeln(); // put out empty line
             }
         }

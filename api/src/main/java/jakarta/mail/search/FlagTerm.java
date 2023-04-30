@@ -118,9 +118,7 @@ public final class FlagTerm extends SearchTerm {
 
             return true;
 
-        } catch (MessagingException e) {
-            return false;
-        } catch (RuntimeException e) {
+        } catch (MessagingException | RuntimeException e) {
             return false;
         }
     }

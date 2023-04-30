@@ -510,7 +510,7 @@ public final class Session {
      */
     public synchronized Provider getProvider(String protocol) throws NoSuchProviderException {
 
-        if (protocol == null || protocol.length() <= 0) {
+        if (protocol == null || protocol.length() == 0) {
             throw new NoSuchProviderException("Invalid protocol: null");
         }
 
@@ -538,7 +538,7 @@ public final class Session {
             throw new NoSuchProviderException("No provider for " + protocol);
         } else {
             if (logger.isLoggable(Level.FINE)) {
-                logger.fine("getProvider() returning " + _provider.toString());
+                logger.fine("getProvider() returning " + _provider);
             }
             return _provider;
         }
@@ -1053,9 +1053,9 @@ public final class Session {
             // dump the output of the tables for debugging
             logger.config("Tables of loaded providers");
             logger.config("Providers Listed By Class Name: " +
-                    providersByClassName.toString());
+                    providersByClassName);
             logger.config("Providers Listed By Protocol: " +
-                    providersByProtocol.toString());
+                    providersByProtocol);
         }
     }
 
@@ -1102,7 +1102,7 @@ public final class Session {
 
                 // check if a valid Provider; else, continue
                 if (type == null || protocol == null || className == null
-                        || protocol.length() <= 0 || className.length() <= 0) {
+                        || protocol.length() == 0 || className.length() == 0) {
 
                     logger.log(Level.CONFIG, "Bad provider entry: {0}",
                             currLine);
@@ -1189,12 +1189,9 @@ public final class Session {
             logger.log(Level.CONFIG, "successfully loaded file: {0}", name);
         } catch (FileNotFoundException fex) {
             // ignore it
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             if (logger.isLoggable(Level.CONFIG))
                 logger.log(Level.CONFIG, "not loading file: " + name, e);
-        } catch (SecurityException sex) {
-            if (logger.isLoggable(Level.CONFIG))
-                logger.log(Level.CONFIG, "not loading file: " + name, sex);
         } finally {
             try {
                 if (clis != null)
@@ -1220,10 +1217,8 @@ public final class Session {
                     logger.log(Level.WARNING,
                             "expected resource not found: {0}", name);
             }
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             logger.log(Level.CONFIG, "Exception loading resource", e);
-        } catch (SecurityException sex) {
-            logger.log(Level.CONFIG, "Exception loading resource", sex);
         } finally {
             try {
                 if (clis != null)
@@ -1267,12 +1262,9 @@ public final class Session {
                         }
                     } catch (FileNotFoundException fex) {
                         // ignore it
-                    } catch (IOException ioex) {
+                    } catch (IOException | SecurityException ioex) {
                         logger.log(Level.CONFIG, "Exception loading resource",
                                 ioex);
-                    } catch (SecurityException sex) {
-                        logger.log(Level.CONFIG, "Exception loading resource",
-                                sex);
                     } finally {
                         try {
                             if (clis != null)
@@ -1349,8 +1341,7 @@ public final class Session {
                         ret = new URL[v.size()];
                         v.toArray(ret);
                     }
-                } catch (IOException ioex) {
-                } catch (SecurityException ex) {
+                } catch (IOException | SecurityException ioex) {
                 }
                 return ret;
             }
@@ -1369,8 +1360,7 @@ public final class Session {
                         ret = new URL[v.size()];
                         v.toArray(ret);
                     }
-                } catch (IOException ioex) {
-                } catch (SecurityException ex) {
+                } catch (IOException | SecurityException ioex) {
                 }
                 return ret;
             }

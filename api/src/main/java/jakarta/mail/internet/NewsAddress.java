@@ -165,12 +165,12 @@ public class NewsAddress extends Address {
             return null;
 
         StringBuilder s =
-                new StringBuilder(((NewsAddress) addresses[0]).toString());
+                new StringBuilder(addresses[0].toString());
         int used = s.length();
         for (int i = 1; i < addresses.length; i++) {
             s.append(",");
             used++;
-            String ng = ((NewsAddress) addresses[i]).toString();
+            String ng = addresses[i].toString();
             if (used + ng.length() > 76) {
                 s.append("\r\n\t");
                 used = 8;
@@ -199,6 +199,6 @@ public class NewsAddress extends Address {
             String ng = st.nextToken();
             nglist.add(new NewsAddress(ng));
         }
-        return nglist.toArray(new NewsAddress[nglist.size()]);
+        return nglist.toArray(new NewsAddress[0]);
     }
 }

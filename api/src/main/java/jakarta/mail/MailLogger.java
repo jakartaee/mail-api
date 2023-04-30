@@ -226,7 +226,7 @@ final class MailLogger {
      */
     public void log(Level level, String msg, Object param1) {
         if (debug) {
-            msg = MessageFormat.format(msg, new Object[]{param1});
+            msg = MessageFormat.format(msg, param1);
             debugOut(msg);
         }
 

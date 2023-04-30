@@ -132,7 +132,7 @@ public class MessagingException extends Exception {
                 sb.append(mex.superToString());
                 n = mex.next;
             } else {
-                sb.append(n.toString());
+                sb.append(n);
                 n = null;
             }
         }

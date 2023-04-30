@@ -307,7 +307,7 @@ public class SharedFileInputStream extends BufferedInputStream
             avail = count - pos;
             if (avail <= 0) return -1;
         }
-        int cnt = (avail < len) ? avail : len;
+        int cnt = Math.min(avail, len);
         System.arraycopy(buf, pos, b, off, cnt);
         pos += cnt;
         return cnt;
@@ -378,7 +378,7 @@ public class SharedFileInputStream extends BufferedInputStream
                 return 0;
         }
 
-        long skipped = (avail < n) ? avail : n;
+        long skipped = Math.min(avail, n);
         pos += skipped;
         return skipped;
     }

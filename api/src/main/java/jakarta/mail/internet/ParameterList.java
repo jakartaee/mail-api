@@ -778,7 +778,7 @@ public class ParameterList {
         } catch (UnsupportedEncodingException ex) {
             return null;
         }
-        StringBuffer sb = new StringBuffer(b.length + charset.length() + 2);
+        StringBuilder sb = new StringBuilder(b.length + charset.length() + 2);
         sb.append(charset).append("''");
         for (int i = 0; i < b.length; i++) {
             char c = (char) (b[i] & 0xff);
@@ -822,12 +822,9 @@ public class ParameterList {
             // String lang = value.substring(i + 1, li);
             v.value = value.substring(li + 1);
             v.charset = charset;
-        } catch (NumberFormatException nex) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException nex) {
             if (decodeParametersStrict)
                 throw new ParseException(nex.toString());
-        } catch (StringIndexOutOfBoundsException ex) {
-            if (decodeParametersStrict)
-                throw new ParseException(ex.toString());
         }
         return v;
     }
@@ -854,10 +851,7 @@ public class ParameterList {
                     String hex = value.substring(i + 1, i + 3);
                     c = (char) Integer.parseInt(hex, 16);
                     i += 2;
-                } catch (NumberFormatException ex) {
-                    if (decodeParametersStrict)
-                        throw new ParseException(ex.toString());
-                } catch (StringIndexOutOfBoundsException ex) {
+                } catch (NumberFormatException | StringIndexOutOfBoundsException ex) {
                     if (decodeParametersStrict)
                         throw new ParseException(ex.toString());
                 }
@@ -888,10 +882,7 @@ public class ParameterList {
                     String hex = value.substring(i + 1, i + 3);
                     c = (char) Integer.parseInt(hex, 16);
                     i += 2;
-                } catch (NumberFormatException ex) {
-                    if (decodeParametersStrict)
-                        throw new ParseException(ex.toString());
-                } catch (StringIndexOutOfBoundsException ex) {
+                } catch (NumberFormatException | StringIndexOutOfBoundsException ex) {
                     if (decodeParametersStrict)
                         throw new ParseException(ex.toString());
                 }
