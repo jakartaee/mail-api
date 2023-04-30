@@ -51,5 +51,5 @@ public interface EncodingAware {
      *
      * @return the Content-Transfer-Encoding value, or null
      */
-    public String getEncoding();
+    String getEncoding();
 }

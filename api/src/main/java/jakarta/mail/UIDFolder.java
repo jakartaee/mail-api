@@ -65,7 +65,7 @@ public interface UIDFolder {
      *
      * @see FetchProfile
      */
-    public static class FetchProfileItem extends FetchProfile.Item {
+    class FetchProfileItem extends FetchProfile.Item {
         protected FetchProfileItem(String name) {
             super(name);
         }
@@ -96,7 +96,7 @@ public interface UIDFolder {
      *
      * @see #getMessagesByUID
      */
-    public static final long LASTUID = -1;
+    long LASTUID = -1;
 
     /**
      * The largest value possible for a UID, a 32-bit unsigned integer.
@@ -113,7 +113,7 @@ public interface UIDFolder {
      *
      * @since JavaMail 1.6
      */
-    public static final long MAXUID = 0xffffffffL; // max 32-bit unsigned int
+    long MAXUID = 0xffffffffL; // max 32-bit unsigned int
 
     /**
      * Returns the UIDValidity value associated with this folder. <p>
@@ -125,7 +125,7 @@ public interface UIDFolder {
      * @return UIDValidity
      * @throws MessagingException for failures
      */
-    public long getUIDValidity() throws MessagingException;
+    long getUIDValidity() throws MessagingException;
 
     /**
      * Get the Message corresponding to the given UID. If no such
@@ -136,7 +136,7 @@ public interface UIDFolder {
      * if no message corresponding to this UID is obtained.
      * @throws MessagingException for failures
      */
-    public Message getMessageByUID(long uid) throws MessagingException;
+    Message getMessageByUID(long uid) throws MessagingException;
 
     /**
      * Get the Messages specified by the given range. The special
@@ -155,7 +155,7 @@ public interface UIDFolder {
      * @throws MessagingException for failures
      * @see #LASTUID
      */
-    public Message[] getMessagesByUID(long start, long end)
+    Message[] getMessagesByUID(long start, long end)
             throws MessagingException;
 
     /**
@@ -170,7 +170,7 @@ public interface UIDFolder {
      * @return array of Message objects
      * @throws MessagingException for failures
      */
-    public Message[] getMessagesByUID(long[] uids)
+    Message[] getMessagesByUID(long[] uids)
             throws MessagingException;
 
     /**
@@ -184,7 +184,7 @@ public interface UIDFolder {
      *                                   is not in this Folder.
      * @throws MessagingException     for other failures
      */
-    public long getUID(Message message) throws MessagingException;
+    long getUID(Message message) throws MessagingException;
 
     /**
      * Returns the predicted UID that will be assigned to the
@@ -202,5 +202,5 @@ public interface UIDFolder {
      * @throws MessagingException for failures
      * @since JavaMail 1.6
      */
-    public long getUIDNext() throws MessagingException;
+    long getUIDNext() throws MessagingException;
 }

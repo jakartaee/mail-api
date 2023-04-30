@@ -1585,7 +1585,7 @@ public class MimeUtility {
         int linelen = 0;
         boolean longLine = false, badEOL = false;
         boolean checkEOL = encodeEolStrict && breakOnNonAscii;
-        byte buf[] = null;
+        byte[] buf = null;
         if (max != 0) {
             block = (max == ALL) ? 4096 : Math.min(max, 4096);
             buf = new byte[block];
@@ -1793,12 +1793,12 @@ class AsciiOutputStream extends OutputStream {
     }
 
     @Override
-    public void write(byte b[]) throws IOException {
+    public void write(byte[] b) throws IOException {
         write(b, 0, b.length);
     }
 
     @Override
-    public void write(byte b[], int off, int len) throws IOException {
+    public void write(byte[] b, int off, int len) throws IOException {
         len += off;
         for (int i = off; i < len; i++)
             check(b[i]);

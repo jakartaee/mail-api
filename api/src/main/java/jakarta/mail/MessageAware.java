@@ -32,5 +32,5 @@ public interface MessageAware {
      *
      * @return the message context
      */
-    public MessageContext getMessageContext();
+    MessageContext getMessageContext();
 }

@@ -154,7 +154,7 @@ public class InternetHeaders {
         private Iterator<InternetHeader> e;    // enum object of headers List
         // XXX - is this overkill?  should we step through in index
         // order instead?
-        private String names[];    // names to match, or not
+        private String[] names;    // names to match, or not
         private boolean match;    // return matching headers?
         private boolean want_line;    // return header lines?
         private InternetHeader next_header; // the next header to be returned
@@ -165,7 +165,7 @@ public class InternetHeaders {
          * matching or non-matching headers, and whether to return
          * header lines or Header objects.
          */
-        MatchEnum(List<InternetHeader> v, String n[], boolean m, boolean l) {
+        MatchEnum(List<InternetHeader> v, String[] n, boolean m, boolean l) {
             e = v.iterator();
             names = n;
             match = m;
@@ -479,7 +479,7 @@ public class InternetHeaders {
         if (v.size() == 0)
             return (null);
         // convert List to an array for return
-        String r[] = new String[v.size()];
+        String[] r = new String[v.size()];
         r = v.toArray(r);
         return (r);
     }
@@ -497,7 +497,7 @@ public class InternetHeaders {
      * this name, or null if none
      */
     public String getHeader(String name, String delimiter) {
-        String s[] = getHeader(name);
+        String[] s = getHeader(name);
 
         if (s == null)
             return null;

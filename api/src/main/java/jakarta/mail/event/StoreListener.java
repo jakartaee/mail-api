@@ -31,5 +31,5 @@ public interface StoreListener extends java.util.EventListener {
      * @see StoreEvent#ALERT
      * @see StoreEvent#NOTICE
      */
-    public void notification(StoreEvent e);
+    void notification(StoreEvent e);
 }

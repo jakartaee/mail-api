@@ -42,7 +42,7 @@ public interface MultipartDataSource extends DataSource {
      *
      * @return number of parts
      */
-    public int getCount();
+    int getCount();
 
     /**
      * Get the specified Part.  Parts are numbered starting at 0.
@@ -53,6 +53,6 @@ public interface MultipartDataSource extends DataSource {
      *                                      is out of range.
      * @throws MessagingException        for other failures
      */
-    public BodyPart getBodyPart(int index) throws MessagingException;
+    BodyPart getBodyPart(int index) throws MessagingException;
 
 }

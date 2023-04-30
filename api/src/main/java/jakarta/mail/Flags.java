@@ -537,7 +537,7 @@ public class Flags implements Cloneable, Serializable {
         return sb.toString();
     }
 
-    /*****
+    /*
      public static void main(String argv[]) throws Exception {
      // a new flags object
      Flags f1 = new Flags();

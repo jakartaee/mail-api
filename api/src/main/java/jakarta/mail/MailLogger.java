@@ -393,7 +393,7 @@ final class MailLogger {
      */
     private StackTraceElement inferCaller() {
         // Get the stack trace.
-        StackTraceElement stack[] = (new Throwable()).getStackTrace();
+        StackTraceElement[] stack = (new Throwable()).getStackTrace();
         // First, search back to a method in the Logger class.
         int ix = 0;
         while (ix < stack.length) {

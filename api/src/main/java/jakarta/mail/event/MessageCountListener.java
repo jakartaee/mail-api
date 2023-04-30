@@ -28,12 +28,12 @@ public interface MessageCountListener extends java.util.EventListener {
      *
      * @param e the MessageCountEvent
      */
-    public void messagesAdded(MessageCountEvent e);
+    void messagesAdded(MessageCountEvent e);
 
     /**
      * Invoked when messages are removed (expunged) from a folder.
      *
      * @param e the MessageCountEvent
      */
-    public void messagesRemoved(MessageCountEvent e);
+    void messagesRemoved(MessageCountEvent e);
 }

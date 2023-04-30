@@ -63,7 +63,7 @@ public interface MimePart extends Part {
      * this name
      * @throws MessagingException for failures
      */
-    public String getHeader(String name, String delimiter)
+    String getHeader(String name, String delimiter)
             throws MessagingException;
 
     /**
@@ -76,7 +76,7 @@ public interface MimePart extends Part {
      *                                  obtained from a READ_ONLY folder
      * @throws MessagingException    for other failures
      */
-    public void addHeaderLine(String line) throws MessagingException;
+    void addHeaderLine(String line) throws MessagingException;
 
     /**
      * Get all header lines as an Enumeration of Strings. A Header
@@ -86,7 +86,7 @@ public interface MimePart extends Part {
      * @return an Enumeration of Strings
      * @throws MessagingException for failures
      */
-    public Enumeration<String> getAllHeaderLines() throws MessagingException;
+    Enumeration<String> getAllHeaderLines() throws MessagingException;
 
     /**
      * Get matching header lines as an Enumeration of Strings.
@@ -97,7 +97,7 @@ public interface MimePart extends Part {
      * @return an Enumeration of Strings
      * @throws MessagingException for failures
      */
-    public Enumeration<String> getMatchingHeaderLines(String[] names)
+    Enumeration<String> getMatchingHeaderLines(String[] names)
             throws MessagingException;
 
     /**
@@ -109,7 +109,7 @@ public interface MimePart extends Part {
      * @return an Enumeration of Strings
      * @throws MessagingException for failures
      */
-    public Enumeration<String> getNonMatchingHeaderLines(String[] names)
+    Enumeration<String> getNonMatchingHeaderLines(String[] names)
             throws MessagingException;
 
     /**
@@ -118,7 +118,7 @@ public interface MimePart extends Part {
      * @return content-transfer-encoding
      * @throws MessagingException for failures
      */
-    public String getEncoding() throws MessagingException;
+    String getEncoding() throws MessagingException;
 
     /**
      * Get the Content-ID of this part. Returns null if none present.
@@ -126,7 +126,7 @@ public interface MimePart extends Part {
      * @return content-ID
      * @throws MessagingException for failures
      */
-    public String getContentID() throws MessagingException;
+    String getContentID() throws MessagingException;
 
     /**
      * Get the Content-MD5 digest of this part. Returns null if
@@ -135,7 +135,7 @@ public interface MimePart extends Part {
      * @return content-MD5
      * @throws MessagingException for failures
      */
-    public String getContentMD5() throws MessagingException;
+    String getContentMD5() throws MessagingException;
 
     /**
      * Set the Content-MD5 of this part.
@@ -146,7 +146,7 @@ public interface MimePart extends Part {
      * @throws IllegalStateException if this Part is
      *                                  obtained from a READ_ONLY folder
      */
-    public void setContentMD5(String md5) throws MessagingException;
+    void setContentMD5(String md5) throws MessagingException;
 
     /**
      * Get the language tags specified in the Content-Language header
@@ -157,7 +157,7 @@ public interface MimePart extends Part {
      * @return array of content language strings
      * @throws MessagingException for failures
      */
-    public String[] getContentLanguage() throws MessagingException;
+    String[] getContentLanguage() throws MessagingException;
 
     /**
      * Set the Content-Language header of this MimePart. The
@@ -169,7 +169,7 @@ public interface MimePart extends Part {
      * @throws IllegalStateException if this Part is
      *                                  obtained from a READ_ONLY folder
      */
-    public void setContentLanguage(String[] languages)
+    void setContentLanguage(String[] languages)
             throws MessagingException;
 
     /**
@@ -192,7 +192,7 @@ public interface MimePart extends Part {
      * @see #setText(String text, String charset)
      */
     @Override
-    public void setText(String text) throws MessagingException;
+    void setText(String text) throws MessagingException;
 
     /**
      * Convenience method that sets the given String as this part's
@@ -205,7 +205,7 @@ public interface MimePart extends Part {
      * @param charset the charset to use for the text
      * @throws MessagingException if an error occurs
      */
-    public void setText(String text, String charset)
+    void setText(String text, String charset)
             throws MessagingException;
 
     /**
@@ -221,6 +221,6 @@ public interface MimePart extends Part {
      * @throws MessagingException if an error occurs
      * @since JavaMail 1.4
      */
-    public void setText(String text, String charset, String subtype)
+    void setText(String text, String charset, String subtype)
             throws MessagingException;
 }
