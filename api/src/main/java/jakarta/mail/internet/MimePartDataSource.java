@@ -136,7 +136,7 @@ public class MimePartDataSource implements DataSource, MessageAware {
     public String getName() {
         try {
             if (part instanceof MimeBodyPart)
-                return ((MimeBodyPart) part).getFileName();
+                return part.getFileName();
         } catch (MessagingException mex) {
             // ignore it
         }

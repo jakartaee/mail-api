@@ -1826,7 +1826,7 @@ public class MimeMessage extends Message implements MimePart {
             boolean found = false;
             // search the list for this address
             for (int j = 0; j < v.size(); j++) {
-                if (((InternetAddress) v.get(j)).equals(addrs[i])) {
+                if (v.get(j).equals(addrs[i])) {
                     // found it; count it and remove it from the input array
                     found = true;
                     gone++;

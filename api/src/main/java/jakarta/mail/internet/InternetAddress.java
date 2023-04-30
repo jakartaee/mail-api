@@ -605,8 +605,7 @@ public class InternetAddress extends Address implements Cloneable {
     public static InternetAddress getLocalAddress(Session session) {
         try {
             return _getLocalAddress(session);
-        } catch (SecurityException sex) {    // ignore it
-        } catch (AddressException ex) {        // ignore it
+        } catch (SecurityException | AddressException sex) {    // ignore it
         } catch (UnknownHostException ex) {
         }    // ignore it
         return null;

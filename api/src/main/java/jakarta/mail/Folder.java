@@ -1307,7 +1307,7 @@ public abstract class Folder implements AutoCloseable {
             }
         }
 
-        return matchedMsgs.toArray(new Message[matchedMsgs.size()]);
+        return matchedMsgs.toArray(new Message[0]);
     }
 
     /*
@@ -1626,7 +1626,6 @@ public abstract class Folder implements AutoCloseable {
     /*
      * Add the event and vector of listeners to the queue to be delivered.
      */
-    @SuppressWarnings("unchecked")
     private void queueEvent(MailEvent event,
                             Vector<? extends EventListener> vector) {
         /*
@@ -1637,7 +1636,8 @@ public abstract class Folder implements AutoCloseable {
          * of this event will not take effect until after the event is
          * delivered.
          */
-        Vector<? extends EventListener> v = (Vector) vector.clone();
+        @SuppressWarnings("unchecked")
+        Vector<? extends EventListener> v = (Vector<? extends EventListener>) vector.clone();
         q.enqueue(event, v);
     }
 

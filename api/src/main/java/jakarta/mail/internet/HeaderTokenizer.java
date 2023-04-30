@@ -332,7 +332,7 @@ public class HeaderTokenizer {
             currentPos++; // re-position currentPos
             char[] ch = new char[1];
             ch[0] = c;
-            return new Token((int) c, new String(ch));
+            return new Token(c, new String(ch));
         }
 
         // Check for ATOM

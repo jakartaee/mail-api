@@ -177,7 +177,7 @@ public class Flags implements Cloneable, Serializable {
     public Flags(Flags flags) {
         this.system_flags = flags.system_flags;
         if (flags.user_flags != null)
-            this.user_flags = (Hashtable) flags.user_flags.clone();
+            this.user_flags = (Hashtable<String, String>) flags.user_flags.clone();
     }
 
     /**
@@ -492,7 +492,7 @@ public class Flags implements Cloneable, Serializable {
             // ignore, can't happen
         }
         if (this.user_flags != null)
-            f.user_flags = (Hashtable) this.user_flags.clone();
+            f.user_flags = (Hashtable<String, String>) this.user_flags.clone();
         return f;
     }
 

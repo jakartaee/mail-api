@@ -582,7 +582,7 @@ public class MimeUtility {
          * This handles the most common case of unencoded headers
          * efficiently.
          */
-        if (etext.indexOf("=?") == -1)
+        if (!etext.contains("=?"))
             return etext;
 
         // Encoded words found. Start decoding ...
@@ -977,7 +977,7 @@ public class MimeUtility {
         int start = 0, i;
         StringBuilder buf = new StringBuilder();
         while ((i = word.indexOf("=?", start)) >= 0) {
-            buf.append(word.substring(start, i));
+            buf.append(word, start, i);
             // find first '?' after opening '=?' - end of charset
             int end = word.indexOf('?', i + 2);
             if (end < 0)
@@ -1038,7 +1038,7 @@ public class MimeUtility {
                 // need to escape them and then quote the whole string
                 StringBuilder sb = new StringBuilder(len + 3);
                 sb.append('"');
-                sb.append(word.substring(0, i));
+                sb.append(word, 0, i);
                 int lastc = 0;
                 for (int j = i; j < len; j++) {
                     char cc = word.charAt(j);
@@ -1123,7 +1123,7 @@ public class MimeUtility {
                 used = 0;
                 break;
             }
-            sb.append(s.substring(0, lastspace));
+            sb.append(s, 0, lastspace);
             sb.append("\r\n");
             lastc = s.charAt(lastspace);
             sb.append(lastc);
@@ -1199,8 +1199,8 @@ public class MimeUtility {
                 // strip it out, but leave in the line break
                 if (sb == null)
                     sb = new StringBuilder(s.length());
-                sb.append(s.substring(0, start - 1));
-                sb.append(s.substring(start, i));
+                sb.append(s, 0, start - 1);
+                sb.append(s, start, i);
                 s = s.substring(i);
             } else {
                 char c;
@@ -1210,13 +1210,13 @@ public class MimeUtility {
                 if (i >= slen || (c = s.charAt(i)) == ' ' || c == '\t') {
                     if (sb == null)
                         sb = new StringBuilder(s.length());
-                    sb.append(s.substring(0, start));
+                    sb.append(s, 0, start);
                     s = s.substring(i);
                 } else {
                     // it's not a continuation line, just leave in the newline
                     if (sb == null)
                         sb = new StringBuilder(s.length());
-                    sb.append(s.substring(0, i));
+                    sb.append(s, 0, i);
                     s = s.substring(i);
                 }
             }
@@ -1511,7 +1511,7 @@ public class MimeUtility {
         int l = s.length();
 
         for (int i = 0; i < l; i++) {
-            if (nonascii((int) s.charAt(i))) // non-ascii
+            if (nonascii(s.charAt(i))) // non-ascii
                 non_ascii++;
             else
                 ascii++;

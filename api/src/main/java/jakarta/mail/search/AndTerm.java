@@ -56,8 +56,7 @@ public final class AndTerm extends SearchTerm {
      */
     public AndTerm(SearchTerm[] t) {
         terms = new SearchTerm[t.length]; // clone the array
-        for (int i = 0; i < t.length; i++)
-            terms[i] = t[i];
+        System.arraycopy(t, 0, terms, 0, t.length);
     }
 
     /**

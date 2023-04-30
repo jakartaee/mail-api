@@ -46,13 +46,9 @@ class MimeUtil {
                 if (clsHandler == null)
                     clsHandler = Class.forName(cth);
                 meth = clsHandler.getMethod("cleanContentType",
-                        new Class<?>[]{MimePart.class, String.class});
+                        MimePart.class, String.class);
             }
-        } catch (ClassNotFoundException ex) {
-            // ignore it
-        } catch (NoSuchMethodException ex) {
-            // ignore it
-        } catch (RuntimeException ex) {
+        } catch (ClassNotFoundException | RuntimeException | NoSuchMethodException ex) {
             // ignore it
         } finally {
             cleanContentType = meth;

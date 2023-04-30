@@ -19,13 +19,14 @@ package jakarta.mail;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 import java.util.Locale;
+import java.util.Objects;
 
 
 /**
@@ -201,7 +202,7 @@ public class URLName {
                 // add port (if needed)
                 if (port != -1) {
                     tempURL.append(":");
-                    tempURL.append(Integer.toString(port));
+                    tempURL.append(port);
                 }
                 if (file != null)
                     tempURL.append("/");
@@ -424,8 +425,7 @@ public class URLName {
         URLName u2 = (URLName) obj;
 
         // compare protocols
-        if (!(protocol == u2.protocol ||
-                (protocol != null && protocol.equals(u2.protocol))))
+        if (!(Objects.equals(protocol, u2.protocol)))
             return false;
 
         // compare hosts
@@ -445,8 +445,7 @@ public class URLName {
         // at this point, hosts match
 
         // compare usernames
-        if (!(username == u2.username ||
-                (username != null && username.equals(u2.username))))
+        if (!(Objects.equals(username, u2.username)))
             return false;
 
         // Forget about password since it doesn't
@@ -566,7 +565,7 @@ public class URLName {
             return null;
         // the common case is no encoding is needed
         for (int i = 0; i < s.length(); i++) {
-            int c = (int) s.charAt(i);
+            int c = s.charAt(i);
             if (c == ' ' || !dontNeedEncoding.get(c))
                 return _encode(s);
         }
@@ -580,7 +579,7 @@ public class URLName {
         OutputStreamWriter writer = new OutputStreamWriter(buf);
 
         for (int i = 0; i < s.length(); i++) {
-            int c = (int) s.charAt(i);
+            int c = s.charAt(i);
             if (dontNeedEncoding.get(c)) {
                 if (c == ' ') {
                     c = '+';
@@ -680,12 +679,8 @@ public class URLName {
         }
         // Undo conversion to external encoding
         String result = sb.toString();
-        try {
-            byte[] inputBytes = result.getBytes("8859_1");
-            result = new String(inputBytes);
-        } catch (UnsupportedEncodingException e) {
-            // The system should always have 8859_1
-        }
+        byte[] inputBytes = result.getBytes(StandardCharsets.ISO_8859_1);
+        result = new String(inputBytes);
         return result;
     }
 
