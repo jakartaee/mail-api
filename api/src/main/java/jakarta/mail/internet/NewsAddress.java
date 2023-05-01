@@ -32,8 +32,15 @@ import java.util.StringTokenizer;
 
 public class NewsAddress extends Address {
 
+    /**
+     * The newsgroup.
+     */
     protected String newsgroup;
-    protected String host;    // may be null
+
+    /**
+     * The host. May be {@code null}.
+     */
+    protected String host;
 
     private static final long serialVersionUID = -4203797299824684143L;
 

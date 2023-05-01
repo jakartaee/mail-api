@@ -521,6 +521,11 @@ public class MimeMessage extends Message implements MimePart {
         public static final RecipientType NEWSGROUPS =
                 new RecipientType("Newsgroups");
 
+        /**
+         * Constructor for use by subclasses.
+         *
+         * @param type the recipient type
+         */
         protected RecipientType(String type) {
             super(type);
         }

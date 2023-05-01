@@ -31,8 +31,18 @@ package jakarta.mail;
  */
 
 public class SendFailedException extends MessagingException {
+
+    /**
+     * The invalid addresses.
+     */
     transient protected Address[] invalid;
+    /**
+     * Valid addresses to which message was sent.
+     */
     transient protected Address[] validSent;
+    /**
+     * Valid addresses to which message was not sent.
+     */
     transient protected Address[] validUnsent;
 
     private static final long serialVersionUID = -6457531621682372913L;

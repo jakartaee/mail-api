@@ -26,11 +26,29 @@ package jakarta.mail.search;
 public abstract class ComparisonTerm extends SearchTerm {
     private static final long serialVersionUID = 1456646953666474308L;
 
+    /**
+     * Less than or equal to, "{@code <=}", comparison.
+     */
     public static final int LE = 1;
+    /**
+     * Less than, "{@code <}", comparison.
+     */
     public static final int LT = 2;
+    /**
+     * Equal to, "{@code =}", comparison.
+     */
     public static final int EQ = 3;
+    /**
+     * Not equal to, "{@code !=}", comparison.
+     */
     public static final int NE = 4;
+    /**
+     * Greater than, "{@code >}", comparison.
+     */
     public static final int GT = 5;
+    /**
+     * Greater than or equal to, "{@code >=}", comparison.
+     */
     public static final int GE = 6;
 
     /**

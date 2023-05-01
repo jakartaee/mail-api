@@ -32,6 +32,12 @@ public abstract class IntegerComparisonTerm extends ComparisonTerm {
 
     private static final long serialVersionUID = -6963571240154302484L;
 
+    /**
+     * Constructor.
+     *
+     * @param comparison the type of comparison.
+     * @param number the number to compare with.
+     */
     protected IntegerComparisonTerm(int comparison, int number) {
         this.comparison = comparison;
         this.number = number;
@@ -55,6 +61,12 @@ public abstract class IntegerComparisonTerm extends ComparisonTerm {
         return comparison;
     }
 
+    /**
+     * Match against the argument {@code i}.
+     *
+     * @param i the integer to match
+     * @return true if given integer matches this comparison; otherwise false
+     */
     protected boolean match(int i) {
         switch (comparison) {
             case LE:

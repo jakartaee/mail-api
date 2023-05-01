@@ -40,7 +40,10 @@ import java.util.StringTokenizer;
 
 public class InternetAddress extends Address implements Cloneable {
 
-    protected String address; // email address
+    /**
+     * The email address.
+     */
+    protected String address;
 
     /**
      * The personal name.

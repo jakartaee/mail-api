@@ -36,7 +36,13 @@ public class Provider {
      */
 
     public static class Type {
+        /**
+         * The Provider of type {@code STORE}.
+         */
         public static final Type STORE = new Type("STORE");
+        /**
+         * The Provider of type {@code TRANSPORT}.
+         */
         public static final Type TRANSPORT = new Type("TRANSPORT");
 
         private String type;
