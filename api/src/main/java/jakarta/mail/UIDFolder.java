@@ -66,6 +66,11 @@ public interface UIDFolder {
      * @see FetchProfile
      */
     class FetchProfileItem extends FetchProfile.Item {
+        /**
+         * Constructor for an item.
+         *
+         * @param name the item name
+         */
         protected FetchProfileItem(String name) {
             super(name);
         }

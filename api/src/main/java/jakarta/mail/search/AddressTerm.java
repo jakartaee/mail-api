@@ -35,6 +35,11 @@ public abstract class AddressTerm extends SearchTerm {
 
     private static final long serialVersionUID = 2005405551929769980L;
 
+    /**
+     * Constructor.
+     *
+     * @param address the address to match with.
+     */
     protected AddressTerm(Address address) {
         this.address = address;
     }

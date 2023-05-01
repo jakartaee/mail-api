@@ -34,6 +34,11 @@ public final class NotTerm extends SearchTerm {
 
     private static final long serialVersionUID = 7152293214217310216L;
 
+    /**
+     * Constructor.
+     *
+     * @param t the term to negate.
+     */
     public NotTerm(SearchTerm t) {
         term = t;
     }

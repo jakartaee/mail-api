@@ -81,6 +81,12 @@ public abstract class StringTerm extends SearchTerm {
         return ignoreCase;
     }
 
+    /**
+     * The match method.
+     *
+     * @param s The pattern search is applied on given String
+     * @return true if given string matches this pattern; otherwise false
+     */
     protected boolean match(String s) {
         int len = s.length() - pattern.length();
         for (int i = 0; i <= len; i++) {
