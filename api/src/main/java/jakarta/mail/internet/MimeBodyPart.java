@@ -41,6 +41,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -947,7 +948,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      * @since JavaMail 1.4
      */
     public void saveFile(File file) throws IOException, MessagingException {
-        Files.copy(getInputStream(), file.toPath());
+        Files.copy(getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     /**
