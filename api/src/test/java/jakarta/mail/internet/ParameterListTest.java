@@ -71,14 +71,33 @@ public class ParameterListTest {
         assertTrue(pls.indexOf("p*0=") >= 0);
         assertTrue(pls.indexOf("p*1=") >= 0);
     }
-    
+
+    @Test
+    public void testUtf8() throws Exception {
+        String disposition = ";\n" +
+                             " filename*0*=utf-8''XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--111111111-XXXXXXXXXXX;\n" +
+                             " filename*1*=XXXXXXXXXXXXXXXXXXXXXXXXXXX.pdf";
+        ParameterList parameterList = new ParameterList(disposition);
+        assertEquals("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--111111111-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.pdf", parameterList.get("filename"));
+    }
+
     @Test
     public void testQEncoding() throws Exception {
+        String disposition = ";\n" +
+                             " filename==?utf-8?Q?XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--111111111-XXXXXXXXXXXXXXXXXXX?=\n" +
+                             " =?utf-8?Q?XXXXXXXXXXXXXXXXXXX=2Epdf?=;";
+        ParameterList parameterList = new ParameterList(disposition);
+        assertEquals("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--111111111-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.pdf", parameterList.get("filename"));
+    }
+    
+    @Test
+    public void testQEncodingAndUtf8() throws Exception {
         String disposition = ";\n" +
                              " filename==?utf-8?Q?XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--111111111-XXXXXXXXXXXXXXXXXXX?=\n" +
                              " =?utf-8?Q?XXXXXXXXXXXXXXXXXXX=2Epdf?=;\n" +
                              " filename*0*=utf-8''XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--111111111-XXXXXXXXXXX;\n" +
                              " filename*1*=XXXXXXXXXXXXXXXXXXXXXXXXXXX.pdf";
-        new ParameterList(disposition);
+        ParameterList parameterList = new ParameterList(disposition);
+        assertEquals("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--111111111-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.pdf", parameterList.get("filename"));
     }
 }
