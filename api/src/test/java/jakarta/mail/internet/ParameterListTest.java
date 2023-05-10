@@ -41,7 +41,7 @@ public class ParameterListTest {
     public void testBackslash() throws Exception {
         System.clearProperty("mail.mime.windowsfilenames");
         ParameterList pl = new ParameterList("; filename=\"\\a\\b\\c.txt\"");
-        assertEquals(pl.get("filename"), "abc.txt");
+        assertEquals("abc.txt", pl.get("filename"));
     }
 
     /**
