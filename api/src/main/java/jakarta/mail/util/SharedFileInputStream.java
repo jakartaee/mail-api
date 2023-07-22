@@ -85,6 +85,12 @@ public class SharedFileInputStream extends BufferedInputStream
     private boolean master = true;
 
     /**
+     * Reference to the top level stream in order not to be junked by garbage collection when there is a remaining derived stream.
+     * null if this is a top level stream
+     */
+    private SharedFileInputStream masterInputStream = null;
+
+    /**
      * A shared class that keeps track of the references
      * to a particular file so it can be closed when the
      * last reference is gone.
@@ -211,9 +217,10 @@ public class SharedFileInputStream extends BufferedInputStream
     /**
      * Used internally by the <code>newStream</code> method.
      */
-    private SharedFileInputStream(SharedFile sf, long start, long len,
+    private SharedFileInputStream(SharedFileInputStream masterInputStream, SharedFile sf, long start, long len,
                                   int bufsize) {
         super(null);
+        this.masterInputStream = masterInputStream;
         this.master = false;
         this.sf = sf;
         this.in = sf.open();
@@ -511,7 +518,15 @@ public class SharedFileInputStream extends BufferedInputStream
             throw new IllegalArgumentException("start < 0");
         if (end == -1)
             end = datalen;
-        return new SharedFileInputStream(sf,
+
+        SharedFileInputStream masterIs;
+
+        if (this.master)
+            masterIs = this;
+        else
+            masterIs = this.masterInputStream;
+
+        return new SharedFileInputStream(masterIs, sf,
                 this.start + start, end - start, bufsize);
     }
 
