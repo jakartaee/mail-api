@@ -480,6 +480,7 @@ public class SharedFileInputStream extends BufferedInputStream
             sf = null;
             in = null;
             buf = null;
+            rootInputStream = null;
         }
     }
 
