@@ -28,26 +28,30 @@ public class SharedFileInputStreamTest {
 
     @Test
     public void testChild() throws Exception {
-        File file = File.createTempFile("test", "test");
+        File file = File.createTempFile(SharedFileInputStreamTest.class.getName(), "testChild");
 
         try (InputStream childStream = new SharedFileInputStream(file).newStream(0, -1)) {
             System.gc();
             childStream.read();
         } catch (IOException e) {
             fail("IOException is not expected");
+        } finally {
+            file.delete();
         }
     }
 
 
     @Test
     public void testGrandChild() throws Exception {
-        File file = File.createTempFile("test", "test");
+        File file = File.createTempFile(SharedFileInputStreamTest.class.getName(), "testGrandChild");
 
         try (InputStream grandChild = ((SharedFileInputStream) new SharedFileInputStream(file).newStream(0, -1)).newStream(0, -1)) {
             System.gc();
             grandChild.read();
         } catch (IOException e) {
             fail("IOException is not expected");
+        } finally {
+            file.delete();
         }
     }
 }
