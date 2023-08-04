@@ -24,6 +24,14 @@ import java.io.InputStream;
 
 import static org.junit.Assert.fail;
 
+/**
+ * Please note:
+ * In version 2.1.2 Final Release, a difference in test results was observed based on the choice of assertion method.
+ * Invoking stream.read() directly yielded distinct outcomes compared to using Assertions.assertDoesNotThrow() from JUnit 5.
+ * This divergence is likely attributed to scope of the code.
+ * After the patch, this issue did not reoccur. However, it remains essential to be attentive
+ * If any changes are deemed necessary, please ensure a comprehensive review and thorough testing to uphold the original behavior.
+ */
 public class SharedFileInputStreamTest {
 
     @Test
