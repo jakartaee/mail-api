@@ -35,15 +35,6 @@ import java.lang.ref.Reference;
  * A <code>RandomAccessFile</code> object is used to
  * access the file data. <p>
  *
- * Note that when the SharedFileInputStream is closed,
- * all streams created with the <code>newStream</code>
- * method are also closed.  This allows the creator of the
- * SharedFileInputStream object to control access to the
- * underlying file and ensure that it is closed when
- * needed, to avoid leaking file descriptors.  Note also
- * that this behavior contradicts the requirements of
- * SharedInputStream and may change in a future release.
- *
  * @author Bill Shannon
  * @since JavaMail 1.4
  */
