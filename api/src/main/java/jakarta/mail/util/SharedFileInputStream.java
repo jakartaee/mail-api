@@ -79,18 +79,6 @@ public class SharedFileInputStream extends BufferedInputStream
     protected long datalen;
 
     /**
-     * True if this is a top level stream created directly by "new".
-     * False if this is a derived stream created by newStream.
-     */
-    private boolean root = true;
-
-    /**
-     * Reference to the top level stream in order not to be junked by garbage collection when there is a remaining derived stream.
-     * null if this is a top level stream
-     */
-    private SharedFileInputStream rootInputStream = null;
-
-    /**
      * A shared class that keeps track of the references
      * to a particular file so it can be closed when the
      * last reference is gone.
@@ -115,20 +103,6 @@ public class SharedFileInputStream extends BufferedInputStream
         public synchronized void close() throws IOException {
             if (cnt > 0 && --cnt <= 0)
                 in.close();
-        }
-
-        public synchronized void forceClose() throws IOException {
-            if (cnt > 0) {
-                // normal case, close exceptions propagated
-                cnt = 0;
-                in.close();
-            } else {
-                // should already be closed, ignore exception
-                try {
-                    in.close();
-                } catch (IOException ioex) {
-                }
-            }
         }
 
         @Override
@@ -217,11 +191,9 @@ public class SharedFileInputStream extends BufferedInputStream
     /**
      * Used internally by the <code>newStream</code> method.
      */
-    private SharedFileInputStream(SharedFileInputStream rootInputStream, SharedFile sf, long start, long len,
+    private SharedFileInputStream(SharedFile sf, long start, long len,
                                   int bufsize) {
         super(null);
-        this.rootInputStream = rootInputStream;
-        this.root = false;
         this.sf = sf;
         this.in = sf.open();
         this.start = start;
@@ -472,15 +444,11 @@ public class SharedFileInputStream extends BufferedInputStream
         if (in == null)
             return;
         try {
-            if (root)
-                sf.forceClose();
-            else
-                sf.close();
+            sf.close();
         } finally {
             sf = null;
             in = null;
             buf = null;
-            rootInputStream = null;
         }
     }
 
@@ -520,14 +488,7 @@ public class SharedFileInputStream extends BufferedInputStream
         if (end == -1)
             end = datalen;
 
-        SharedFileInputStream rootIs;
-
-        if (this.root)
-            rootIs = this;
-        else
-            rootIs = this.rootInputStream;
-
-        return new SharedFileInputStream(rootIs, sf,
+        return new SharedFileInputStream(sf,
                 this.start + start, end - start, bufsize);
     }
 
