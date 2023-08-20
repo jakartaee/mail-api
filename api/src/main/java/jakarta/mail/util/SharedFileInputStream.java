@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.lang.ref.Reference;
 
 /**
  * A <code>SharedFileInputStream</code> is a
@@ -106,7 +107,7 @@ public class SharedFileInputStream extends BufferedInputStream
         }
 
         @Override
-        protected void finalize() throws Throwable {
+        protected synchronized void finalize() throws Throwable {
             try {
                 in.close();
             } finally {
@@ -449,6 +450,7 @@ public class SharedFileInputStream extends BufferedInputStream
             sf = null;
             in = null;
             buf = null;
+            Reference.reachabilityFence(this);
         }
     }
 
@@ -481,15 +483,19 @@ public class SharedFileInputStream extends BufferedInputStream
      */
     @Override
     public synchronized InputStream newStream(long start, long end) {
-        if (in == null)
-            throw new RuntimeException("Stream closed");
-        if (start < 0)
-            throw new IllegalArgumentException("start < 0");
-        if (end == -1)
-            end = datalen;
+        try {
+            if (in == null)
+                throw new RuntimeException("Stream closed");
+            if (start < 0)
+                throw new IllegalArgumentException("start < 0");
+            if (end == -1)
+                end = datalen;
 
-        return new SharedFileInputStream(sf,
-                this.start + start, end - start, bufsize);
+            return new SharedFileInputStream(sf,
+                    this.start + start, end - start, bufsize);
+        } finally {
+            Reference.reachabilityFence(this);
+        }
     }
 
     // for testing...
@@ -514,7 +520,7 @@ public class SharedFileInputStream extends BufferedInputStream
      * Force this stream to close.
      */
     @Override
-    protected void finalize() throws Throwable {
+    protected synchronized void finalize() throws Throwable {
         super.finalize();
         close();
     }
