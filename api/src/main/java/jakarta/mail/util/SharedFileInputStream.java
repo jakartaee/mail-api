@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-import java.lang.ref.Reference;
+import java.util.Objects;
 
 /**
  * A <code>SharedFileInputStream</code> is a
@@ -441,7 +441,7 @@ public class SharedFileInputStream extends BufferedInputStream
             sf = null;
             in = null;
             buf = null;
-            Reference.reachabilityFence(this);
+            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
         }
     }
 
@@ -485,7 +485,7 @@ public class SharedFileInputStream extends BufferedInputStream
             return new SharedFileInputStream(sf,
                     this.start + start, end - start, bufsize);
         } finally {
-            Reference.reachabilityFence(this);
+            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
         }
     }
 
