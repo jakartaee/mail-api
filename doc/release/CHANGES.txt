@@ -19,6 +19,11 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
+          CHANGES IN THE 2.1.3 RELEASE
+          ----------------------------
+E  695  SharedFileInputStream should comply with spec
+
+
 		  CHANGES IN THE 2.1.2 RELEASE
           ----------------------------
 E  629  jakarta.mail-api-2.1.0.jar does not work in OSGi environment (hk2servicelocator)

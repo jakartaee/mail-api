@@ -4,6 +4,15 @@
 		    Jakarta Mail API 2.0.1 release
 		    ------------------------------
 
+-- Jakarta Mail 2.1.3 --
+
+- SharedFileInputStream should comply with spec
+
+    The root SharedFileInputStream no longer closes all streams
+    created with the newStream. This behavior was not compliant with
+    the contract specified in the SharedInputStream interface
+    which specifies that all streams must be closed before the shared resource is closed.
+
 -- Jakarta Mail 2.0.0 --
 
 The Jakarta Mail 2.0 specification is the successor of the Jakarta
