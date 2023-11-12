@@ -33,46 +33,71 @@ class FactoryFinder {
      * @throws RuntimeException if there is an error
      */
     static <T> T find(Class<T> factoryClass) throws RuntimeException {
+        T result;
+        result = find(factoryClass, Thread.currentThread().getContextClassLoader());
+        if (result != null) {
+            return result;
+        }
 
+        result = find(factoryClass, factoryClass.getClassLoader());
+        if (result != null) {
+            return result;
+        }
+
+        result = find(factoryClass, FactoryFinder.class.getClassLoader());
+        if (result != null) {
+            return result;
+        }
+
+        result = find(factoryClass, ClassLoader.getSystemClassLoader());
+        if (result != null) {
+            return result;
+        }
+
+        throw new IllegalStateException("No provider of " + factoryClass.getName() + " was found");
+    }
+
+    private static <T> T find(Class<T> factoryClass, ClassLoader loader) throws RuntimeException {
         String factoryId = factoryClass.getName();
 
         // Use the system property first
         String className = fromSystemProperty(factoryId);
         if (className != null) {
-            T result = newInstance(className);
+            T result = newInstance(className, factoryClass, loader);
             if (result != null) {
                 return result;
             }
         }
 
         // standard services: java.util.ServiceLoader
-        T factory = factoryFromServiceLoader(factoryClass);
+        T factory = factoryFromServiceLoader(factoryClass, loader);
         if (factory != null) {
             return factory;
         }
 
         // handling Glassfish/OSGi (platform specific default)
-        if (isHk2Available()) {
-            T result = lookupUsingHk2ServiceLoader(factoryId);
-            if (result != null) {
-                return result;
-            }
+
+        T result = lookupUsingHk2ServiceLoader(factoryId, factoryClass, loader);
+        if (result != null) {
+            return result;
         }
-        throw new IllegalStateException("Not provider of " + factoryClass.getName() + " was found");
+
+        return null;
     }
 
     @SuppressWarnings({"unchecked"})
-    private static <T> T newInstance(String className) throws RuntimeException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    private static <T> T newInstance(String className, Class<T> factoryClass, ClassLoader classLoader) throws RuntimeException {
         checkPackageAccess(className);
-        Class<T> clazz = null;
         try {
+            Class<T> clazz;
             if (classLoader == null) {
                 clazz = (Class<T>) Class.forName(className);
             } else {
-                clazz = (Class<T>) classLoader.loadClass(className);
+                clazz = (Class<T>) Class.forName(className, false, classLoader);
             }
-            return clazz.getConstructor().newInstance();
+            return clazz.asSubclass(factoryClass).getConstructor().newInstance();
+        } catch (ClassCastException wrongLoader) {
+            return null;
         } catch (ReflectiveOperationException e) {
             throw new IllegalArgumentException("Cannot instance " + className, e);
         }
@@ -85,44 +110,43 @@ class FactoryFinder {
 
     private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
 
-    private static boolean isHk2Available() {
-        try {
-            Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
-            return true;
-        } catch (ClassNotFoundException ignored) {
-        }
-        return false;
-    }
-
     @SuppressWarnings({"unchecked"})
-    private static <T> T lookupUsingHk2ServiceLoader(String factoryId) {
+    private static <T> T lookupUsingHk2ServiceLoader(String factoryId, Class<T> factoryClass, ClassLoader loader) {
+        Class<?> target;
+        try {
+            target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME, false, loader);
+        } catch (ClassNotFoundException ignored) {
+            return null;
+        }
+
         try {
             // Use reflection to avoid having any dependency on HK2 ServiceLoader class
-            Class<?> serviceClass = Class.forName(factoryId);
+            Class<?> serviceClass = Class.forName(factoryId, false, loader);
             Class<?>[] args = new Class<?>[]{serviceClass};
-            Class<?> target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
             Method m = target.getMethod("lookupProviderInstances", Class.class);
             Iterable<?> iterable = ((Iterable<?>) m.invoke(null, (Object[]) args));
             if (iterable == null) {
                 return null;
             }
             Iterator<?> iter = iterable.iterator();
-            return iter.hasNext() ? (T) iter.next() : null;
+            return iter.hasNext() ? factoryClass.cast(iter.next()) : null;
         } catch (Exception ignored) {
             // log and continue
             return null;
         }
     }
 
-    private static <T> T factoryFromServiceLoader(Class<T> factory) {
+    private static <T> T factoryFromServiceLoader(Class<T> factory, ClassLoader loader) {
         try {
-            ServiceLoader<T> sl = ServiceLoader.load(factory);
+            ServiceLoader<T> sl = ServiceLoader.load(factory, loader);
             Iterator<T> iter = sl.iterator();
             if (iter.hasNext()) {
-                return iter.next();
+                return factory.cast(iter.next());
             } else {
                 return null;
             }
+        }  catch (ClassCastException wrongLoader) {
+            return null;
         } catch (Throwable t) {
             // For example, ServiceConfigurationError can be thrown if the factory class is not declared with 'uses' in module-info
             throw new IllegalStateException("Cannot load " + factory + " as ServiceLoader", t);
