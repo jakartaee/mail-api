@@ -255,7 +255,7 @@ public final class Session {
         this.authenticator = authenticator;
         this.streamProvider = StreamProvider.provider();
 
-        if (Boolean.valueOf(props.getProperty("mail.debug")).booleanValue())
+        if (Boolean.parseBoolean(props.getProperty("mail.debug")))
             debug = true;
 
         initLogger();
@@ -983,21 +983,20 @@ public final class Session {
         }
 
         // next, add all the non-default services
-        ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class);
+        ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class, cl.getClassLoader());
         for (Provider p : sl) {
             if (!containsDefaultProvider(p))
                 addProvider(p);
         }
 
         // + handle Glassfish/OSGi (platform specific default)
-        if (isHk2Available()) {
-            Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class.getName());
-            while (iter.hasNext()) {
-                Provider p = iter.next();
-                if (!containsDefaultProvider(p))
-                    addProvider(p);
-            }
+        Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class, cl.getClassLoader());
+        while (iter.hasNext()) {
+            Provider p = iter.next();
+            if (!containsDefaultProvider(p))
+                addProvider(p);
         }
+        
 
         // load the META-INF/javamail.providers file supplied by an application
         loadAllResources("META-INF/javamail.providers", cl, loader);
@@ -1006,27 +1005,26 @@ public final class Session {
         loadResource("/META-INF/javamail.default.providers", cl, loader, false);
 
         // finally, add all the default services
-        sl = ServiceLoader.load(Provider.class);
+        sl = ServiceLoader.load(Provider.class, cl.getClassLoader());
         for (Provider p : sl) {
             if (containsDefaultProvider(p))
                 addProvider(p);
         }
 
         // + handle Glassfish/OSGi (platform specific default)
-        if (isHk2Available()) {
-            Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class.getName());
-            while (iter.hasNext()) {
-                Provider p = iter.next();
-                if (containsDefaultProvider(p)) {
-                    addProvider(p);
-                }
+        iter = lookupUsingHk2ServiceLoader(Provider.class, cl.getClassLoader());
+        while (iter.hasNext()) {
+            Provider p = iter.next();
+            if (containsDefaultProvider(p)) {
+                addProvider(p);
             }
         }
+        
 
         /*
          * If we haven't loaded any providers, fake it.
          */
-        if (providers.size() == 0) {
+        if (providers.isEmpty()) {
             logger.config("failed to load any providers, using defaults");
             // failed to load any providers, initialize with our defaults
             addProvider(new Provider(Provider.Type.STORE,
@@ -1388,22 +1386,19 @@ public final class Session {
 
     private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
 
-    private static boolean isHk2Available() {
-        try {
-            Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
-            return true;
-        } catch (ClassNotFoundException ignored) {
-        }
-        return false;
-    }
-
     @SuppressWarnings({"unchecked"})
-    private <T> Iterator<T> lookupUsingHk2ServiceLoader(String factoryId) {
+    private <T> Iterator<T> lookupUsingHk2ServiceLoader(Class<T> factoryId, ClassLoader loader) {
+        Class<?> target;
+        try {
+            target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME, false, loader);
+        } catch (ClassNotFoundException ignored) {
+            return Collections.emptyIterator();
+        }
+        
         try {
             // Use reflection to avoid having any dependency on HK2 ServiceLoader class
-            Class<?> serviceClass = Class.forName(factoryId);
+            Class<?> serviceClass = Class.forName(factoryId.getName(), false, loader);
             Class<?>[] args = new Class<?>[]{serviceClass};
-            Class<?> target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
             Method m = target.getMethod("lookupProviderInstances", Class.class);
             Iterable<T> result = ((Iterable<T>) m.invoke(null, (Object[]) args));
             return result != null ? result.iterator() : Collections.emptyIterator();

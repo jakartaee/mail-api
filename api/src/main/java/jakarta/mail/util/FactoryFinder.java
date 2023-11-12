@@ -44,11 +44,6 @@ class FactoryFinder {
             return result;
         }
 
-        result = find(factoryClass, FactoryFinder.class.getClassLoader());
-        if (result != null) {
-            return result;
-        }
-
         result = find(factoryClass, ClassLoader.getSystemClassLoader());
         if (result != null) {
             return result;
