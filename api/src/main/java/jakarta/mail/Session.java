@@ -36,6 +36,7 @@ import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -1384,30 +1385,47 @@ public final class Session {
         return q;
     }
 
-    private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
+    private static Class<?>[] getHk2ServiceLoaderTargets(Class<?> factoryClass) {
+        ClassLoader[] loaders = new ClassLoader[]{
+                Thread.currentThread().getContextClassLoader(), 
+                    factoryClass.getClassLoader(), 
+                    ClassLoader.getSystemClassLoader()};
+        
+        Class<?>[] classes = new Class<?>[loaders.length];
+        int w = 0;
+        for (ClassLoader loader : loaders) {
+            if (loader != null) {
+                try {
+                    classes[w++] = Class.forName("org.glassfish.hk2.osgiresourcelocator.ServiceLoader", false, loader);
+                } catch (ClassNotFoundException | LinkageError ignored) {  
+                }
+            }
+        }
+        
+        if (classes.length != w) {
+           classes = Arrays.copyOf(classes, w);
+        }
+        return classes;
+    }
 
     @SuppressWarnings({"unchecked"})
     private <T> Iterator<T> lookupUsingHk2ServiceLoader(Class<T> factoryId, ClassLoader loader) {
-        Class<?> target;
-        try {
-            target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME, false, loader);
-        } catch (ClassNotFoundException ignored) {
-            return Collections.emptyIterator();
+        for (Class<?> target : getHk2ServiceLoaderTargets(factoryId)) {
+            try {
+                // Use reflection to avoid having any dependency on HK2 ServiceLoader class
+                Class<?> serviceClass = Class.forName(factoryId.getName(), false, loader);
+                Class<?>[] args = new Class<?>[]{serviceClass};
+                Method m = target.getMethod("lookupProviderInstances", Class.class);
+                Iterable<T> result = ((Iterable<T>) m.invoke(null, (Object[]) args));
+                if (result != null) {
+                    return result.iterator();
+                }
+            } catch (Exception ignored) {
+                // log and continue
+            }
         }
-        
-        try {
-            // Use reflection to avoid having any dependency on HK2 ServiceLoader class
-            Class<?> serviceClass = Class.forName(factoryId.getName(), false, loader);
-            Class<?>[] args = new Class<?>[]{serviceClass};
-            Method m = target.getMethod("lookupProviderInstances", Class.class);
-            Iterable<T> result = ((Iterable<T>) m.invoke(null, (Object[]) args));
-            return result != null ? result.iterator() : Collections.emptyIterator();
-        } catch (Exception ignored) {
-            // log and continue
-            return Collections.emptyIterator();
-        }
+        return Collections.emptyIterator();
     }
-
 }
 
 /**
