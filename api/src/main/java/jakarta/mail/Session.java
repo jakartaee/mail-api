@@ -982,16 +982,25 @@ public final class Session {
                 loadFile(confDir + "javamail.providers", loader);
         } catch (SecurityException ex) {
         }
+        
+        ClassLoader gcl = cl.getClassLoader();
+        if (gcl == null) {
+           gcl = Provider.class.getClassLoader();
+        }
+        
+        if (gcl == null) {
+           gcl = ClassLoader.getSystemClassLoader();
+        }
 
         // next, add all the non-default services
-        ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class, cl.getClassLoader());
+        ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class, gcl);
         for (Provider p : sl) {
             if (!containsDefaultProvider(p))
                 addProvider(p);
         }
 
         // + handle Glassfish/OSGi (platform specific default)
-        Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class, cl.getClassLoader());
+        Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class, gcl);
         while (iter.hasNext()) {
             Provider p = iter.next();
             if (!containsDefaultProvider(p))
@@ -1006,14 +1015,14 @@ public final class Session {
         loadResource("/META-INF/javamail.default.providers", cl, loader, false);
 
         // finally, add all the default services
-        sl = ServiceLoader.load(Provider.class, cl.getClassLoader());
+        sl = ServiceLoader.load(Provider.class, gcl);
         for (Provider p : sl) {
             if (containsDefaultProvider(p))
                 addProvider(p);
         }
 
         // + handle Glassfish/OSGi (platform specific default)
-        iter = lookupUsingHk2ServiceLoader(Provider.class, cl.getClassLoader());
+        iter = lookupUsingHk2ServiceLoader(Provider.class, gcl);
         while (iter.hasNext()) {
             Provider p = iter.next();
             if (containsDefaultProvider(p)) {
