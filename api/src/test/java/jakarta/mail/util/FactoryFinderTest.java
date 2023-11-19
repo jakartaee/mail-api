@@ -74,11 +74,14 @@ public class FactoryFinderTest {
     }
 
     public static class Class1 {
+        public Class1() {}
     }
 
     public static class Class2 extends Class1 {
+        public Class2() {}
     }
 
     public static class Class3 {
+        public Class3() {}
     }
 }
