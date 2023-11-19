@@ -1029,7 +1029,6 @@ public final class Session {
             }
         }
 
-
         /*
          * If we haven't loaded any providers, fake it.
          */
