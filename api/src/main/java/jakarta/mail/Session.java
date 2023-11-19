@@ -982,12 +982,12 @@ public final class Session {
                 loadFile(confDir + "javamail.providers", loader);
         } catch (SecurityException ex) {
         }
-        
+
         ClassLoader gcl = cl.getClassLoader();
         if (gcl == null) {
            gcl = Provider.class.getClassLoader();
         }
-        
+
         if (gcl == null) {
            gcl = ClassLoader.getSystemClassLoader();
         }
@@ -1006,7 +1006,7 @@ public final class Session {
             if (!containsDefaultProvider(p))
                 addProvider(p);
         }
-        
+
 
         // load the META-INF/javamail.providers file supplied by an application
         loadAllResources("META-INF/javamail.providers", cl, loader);
@@ -1029,7 +1029,7 @@ public final class Session {
                 addProvider(p);
             }
         }
-        
+
 
         /*
          * If we haven't loaded any providers, fake it.
@@ -1315,6 +1315,46 @@ public final class Session {
         );
     }
 
+    static ClassLoader[] getClassLoaders(final Class<?>... classes) {
+        return AccessController.doPrivileged(
+                new PrivilegedAction<ClassLoader[]>() {
+                    @Override
+                    public ClassLoader[] run() {
+                        ClassLoader[] loaders = new ClassLoader[classes.length];
+                        int w = 0;
+                        for (Class<?> k : classes) {
+                            ClassLoader cl = null;
+                            if (k == Thread.class) {
+                                try {
+                                    cl = Thread.currentThread().getContextClassLoader();
+                                } catch (SecurityException ex) {
+                                }
+                            } else if (k == System.class) {
+                                try {
+                                    cl = ClassLoader.getSystemClassLoader();
+                                } catch (SecurityException ex) {
+                                }
+                            } else {
+                                try {
+                                    cl = k.getClassLoader();
+                                } catch (SecurityException ex) {
+                                }
+                            }
+
+                            if (cl != null) {
+                               loaders[w++] = cl;
+                            }
+                        }
+
+                        if (loaders.length != w) {
+                            loaders = Arrays.copyOf(loaders, w);
+                        }
+                        return loaders;
+                    }
+                }
+        );
+    }
+
     private static InputStream getResourceAsStream(final Class<?> c, final String name) throws IOException {
         try {
             return AccessController.doPrivileged(
@@ -1395,22 +1435,19 @@ public final class Session {
     }
 
     private static Class<?>[] getHk2ServiceLoaderTargets(Class<?> factoryClass) {
-        ClassLoader[] loaders = new ClassLoader[]{
-                Thread.currentThread().getContextClassLoader(), 
-                    factoryClass.getClassLoader(), 
-                    ClassLoader.getSystemClassLoader()};
-        
+        ClassLoader[] loaders = getClassLoaders(Thread.class, factoryClass, System.class);
+
         Class<?>[] classes = new Class<?>[loaders.length];
         int w = 0;
         for (ClassLoader loader : loaders) {
             if (loader != null) {
                 try {
                     classes[w++] = Class.forName("org.glassfish.hk2.osgiresourcelocator.ServiceLoader", false, loader);
-                } catch (ClassNotFoundException | LinkageError ignored) {  
+                } catch (ClassNotFoundException | LinkageError ignored) {
                 }
             }
         }
-        
+
         if (classes.length != w) {
            classes = Arrays.copyOf(classes, w);
         }
