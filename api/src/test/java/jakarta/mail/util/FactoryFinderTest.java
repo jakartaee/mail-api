@@ -24,6 +24,9 @@ import static org.junit.Assert.fail;
 
 public class FactoryFinderTest {
 
+    public FactoryFinderTest() {
+    }
+
     @Test
     public void specifiedInSystemProperty() {
         System.setProperty(Class1.class.getName(), Class2.class.getName());
@@ -53,6 +56,21 @@ public class FactoryFinderTest {
 //            // java.util.ServiceConfigurationError: jakarta.mail.util.FactoryFinderTest$Class3: module jakarta.mail does not declare `uses`
 //            assertEquals(ServiceConfigurationError.class, e.getCause().getClass());
 //        }
+    }
+
+
+    @Test
+    public void contextClassLoaderIsBootLoader() {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader((ClassLoader) null);
+        //Thread.currentThread().setContextClassLoader(ClassLoader.getPlatformClassLoader());
+        try {
+            doesNotExist();
+            specifiedInSystemProperty();
+            specifiedInServiceLoader();
+        } finally {
+            Thread.currentThread().setContextClassLoader(cl);
+        }
     }
 
     public static class Class1 {
