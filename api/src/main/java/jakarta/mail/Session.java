@@ -983,15 +983,15 @@ public final class Session {
         } catch (SecurityException ex) {
         }
 
-        ClassLoader gcl = cl.getClassLoader();
-        if (gcl == null) {
-           gcl = Provider.class.getClassLoader();
+        
+        ClassLoader gcl;
+        ClassLoader[] loaders = getClassLoaders(cl, Thread.class, System.class);
+        if (loaders.length != 0) {
+            gcl = loaders[0];
+        } else {
+            gcl = getContextClassLoader();
         }
-
-        if (gcl == null) {
-           gcl = ClassLoader.getSystemClassLoader();
-        }
-
+        
         // next, add all the non-default services
         ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class, gcl);
         for (Provider p : sl) {
@@ -1038,22 +1038,22 @@ public final class Session {
             logger.config("failed to load any providers, using defaults");
             // failed to load any providers, initialize with our defaults
             addProvider(new Provider(Provider.Type.STORE,
-                    "imap", "com.sun.mail.imap.IMAPStore",
+                    "imap", "org.eclipse.angus.mail.imap.IMAPStore",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.STORE,
-                    "imaps", "com.sun.mail.imap.IMAPSSLStore",
+                    "imaps", "org.eclipse.angus.mail.imap.IMAPSSLStore",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.STORE,
-                    "pop3", "com.sun.mail.pop3.POP3Store",
+                    "pop3", "org.eclipse.angus.mail.pop3.POP3Store",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.STORE,
-                    "pop3s", "com.sun.mail.pop3.POP3SSLStore",
+                    "pop3s", "org.eclipse.angus.mail.pop3.POP3SSLStore",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.TRANSPORT,
-                    "smtp", "com.sun.mail.smtp.SMTPTransport",
+                    "smtp", "org.eclipse.angus.mail.smtp.SMTPTransport",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.TRANSPORT,
-                    "smtps", "com.sun.mail.smtp.SMTPSSLTransport",
+                    "smtps", "org.eclipse.angus.mail.smtp.SMTPSSLTransport",
                     "Oracle", Version.version));
         }
 
@@ -1315,7 +1315,7 @@ public final class Session {
         );
     }
 
-    static ClassLoader[] getClassLoaders(final Class<?>... classes) {
+    private static ClassLoader[] getClassLoaders(final Class<?>... classes) {
         return AccessController.doPrivileged(
                 new PrivilegedAction<ClassLoader[]>() {
                     @Override
