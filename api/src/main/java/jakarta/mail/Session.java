@@ -1007,7 +1007,6 @@ public final class Session {
                 addProvider(p);
         }
 
-
         // load the META-INF/javamail.providers file supplied by an application
         loadAllResources("META-INF/javamail.providers", cl, loader);
 
