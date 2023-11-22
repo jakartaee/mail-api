@@ -983,13 +983,13 @@ public final class Session {
         } catch (SecurityException ex) {
         }
 
-        
+        //Fetch classloader of given class, falling back to others if needed.
         ClassLoader gcl;
         ClassLoader[] loaders = getClassLoaders(cl, Thread.class, System.class);
         if (loaders.length != 0) {
             gcl = loaders[0];
         } else {
-            gcl = getContextClassLoader();
+            gcl = getContextClassLoader(); //Fail safe
         }
         
         // next, add all the non-default services
