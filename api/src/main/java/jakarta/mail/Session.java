@@ -1441,8 +1441,8 @@ public final class Session {
             if (loader != null) {
                 try {
                     classes[w++] = Class.forName("org.glassfish.hk2.osgiresourcelocator.ServiceLoader", false, loader);
-                } catch (ClassNotFoundException | LinkageError ignored) {
-                }
+                } catch (Exception | LinkageError ignored) {
+                }  //GlassFish class loaders can throw undocumented exceptions
             }
         }
 
