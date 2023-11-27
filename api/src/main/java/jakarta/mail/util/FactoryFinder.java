@@ -66,16 +66,23 @@ class FactoryFinder {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         checkPackageAccess(className);
         Class<T> clazz = null;
+        T t = null;
         try {
-            if (classLoader == null) {
-                clazz = (Class<T>) Class.forName(className);
-            } else {
+            if (classLoader != null) {
                 clazz = (Class<T>) classLoader.loadClass(className);
             }
-            return clazz.getConstructor().newInstance();
+            t = clazz.getConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
-            throw new IllegalArgumentException("Cannot instance " + className, e);
+        	//Going for second option
         }
+        if(t == null) {
+	        try {
+	        	t =  (T)Class.forName(className).getConstructor().newInstance();
+		    } catch ( ReflectiveOperationException e) {
+		    	throw new IllegalArgumentException("Cannot instance " + className, e);
+		    }
+        }
+        return t;
     }
 
     private static String fromSystemProperty(String factoryId) {
