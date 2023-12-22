@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.util.Objects;
 
 /**
  * A <code>SharedFileInputStream</code> is a
@@ -33,15 +34,6 @@ import java.io.RandomAccessFile;
  * other streams that represent subsets of the file.
  * A <code>RandomAccessFile</code> object is used to
  * access the file data. <p>
- *
- * Note that when the SharedFileInputStream is closed,
- * all streams created with the <code>newStream</code>
- * method are also closed.  This allows the creator of the
- * SharedFileInputStream object to control access to the
- * underlying file and ensure that it is closed when
- * needed, to avoid leaking file descriptors.  Note also
- * that this behavior contradicts the requirements of
- * SharedInputStream and may change in a future release.
  *
  * @author Bill Shannon
  * @since JavaMail 1.4
@@ -79,12 +71,6 @@ public class SharedFileInputStream extends BufferedInputStream
     protected long datalen;
 
     /**
-     * True if this is a top level stream created directly by "new".
-     * False if this is a derived stream created by newStream.
-     */
-    private boolean master = true;
-
-    /**
      * A shared class that keeps track of the references
      * to a particular file so it can be closed when the
      * last reference is gone.
@@ -111,22 +97,8 @@ public class SharedFileInputStream extends BufferedInputStream
                 in.close();
         }
 
-        public synchronized void forceClose() throws IOException {
-            if (cnt > 0) {
-                // normal case, close exceptions propagated
-                cnt = 0;
-                in.close();
-            } else {
-                // should already be closed, ignore exception
-                try {
-                    in.close();
-                } catch (IOException ioex) {
-                }
-            }
-        }
-
         @Override
-        protected void finalize() throws Throwable {
+        protected synchronized void finalize() throws Throwable {
             try {
                 in.close();
             } finally {
@@ -214,7 +186,6 @@ public class SharedFileInputStream extends BufferedInputStream
     private SharedFileInputStream(SharedFile sf, long start, long len,
                                   int bufsize) {
         super(null);
-        this.master = false;
         this.sf = sf;
         this.in = sf.open();
         this.start = start;
@@ -465,14 +436,12 @@ public class SharedFileInputStream extends BufferedInputStream
         if (in == null)
             return;
         try {
-            if (master)
-                sf.forceClose();
-            else
-                sf.close();
+            sf.close();
         } finally {
             sf = null;
             in = null;
             buf = null;
+            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
         }
     }
 
@@ -505,14 +474,19 @@ public class SharedFileInputStream extends BufferedInputStream
      */
     @Override
     public synchronized InputStream newStream(long start, long end) {
-        if (in == null)
-            throw new RuntimeException("Stream closed");
-        if (start < 0)
-            throw new IllegalArgumentException("start < 0");
-        if (end == -1)
-            end = datalen;
-        return new SharedFileInputStream(sf,
-                this.start + start, end - start, bufsize);
+        try {
+            if (in == null)
+                throw new RuntimeException("Stream closed");
+            if (start < 0)
+                throw new IllegalArgumentException("start < 0");
+            if (end == -1)
+                end = datalen;
+
+            return new SharedFileInputStream(sf,
+                    this.start + start, end - start, bufsize);
+        } finally {
+            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
+        }
     }
 
     // for testing...
@@ -537,7 +511,7 @@ public class SharedFileInputStream extends BufferedInputStream
      * Force this stream to close.
      */
     @Override
-    protected void finalize() throws Throwable {
+    protected synchronized void finalize() throws Throwable {
         super.finalize();
         close();
     }
