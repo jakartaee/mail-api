@@ -21,6 +21,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DummyStreamProvider implements StreamProvider {
+    
+    public DummyStreamProvider() {
+    }
 
     @Override
     public InputStream inputBase64(InputStream in) {

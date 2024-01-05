@@ -36,6 +36,7 @@ import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -255,7 +256,7 @@ public final class Session {
         this.authenticator = authenticator;
         this.streamProvider = StreamProvider.provider();
 
-        if (Boolean.valueOf(props.getProperty("mail.debug")).booleanValue())
+        if (Boolean.parseBoolean(props.getProperty("mail.debug")))
             debug = true;
 
         initLogger();
@@ -982,21 +983,28 @@ public final class Session {
         } catch (SecurityException ex) {
         }
 
+        //Fetch classloader of given class, falling back to others if needed.
+        ClassLoader gcl;
+        ClassLoader[] loaders = getClassLoaders(cl, Thread.class, System.class);
+        if (loaders.length != 0) {
+            gcl = loaders[0];
+        } else {
+            gcl = getContextClassLoader(); //Fail safe
+        }
+        
         // next, add all the non-default services
-        ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class);
+        ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class, gcl);
         for (Provider p : sl) {
             if (!containsDefaultProvider(p))
                 addProvider(p);
         }
 
         // + handle Glassfish/OSGi (platform specific default)
-        if (isHk2Available()) {
-            Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class.getName());
-            while (iter.hasNext()) {
-                Provider p = iter.next();
-                if (!containsDefaultProvider(p))
-                    addProvider(p);
-            }
+        Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class, gcl);
+        while (iter.hasNext()) {
+            Provider p = iter.next();
+            if (!containsDefaultProvider(p))
+                addProvider(p);
         }
 
         // load the META-INF/javamail.providers file supplied by an application
@@ -1006,46 +1014,44 @@ public final class Session {
         loadResource("/META-INF/javamail.default.providers", cl, loader, false);
 
         // finally, add all the default services
-        sl = ServiceLoader.load(Provider.class);
+        sl = ServiceLoader.load(Provider.class, gcl);
         for (Provider p : sl) {
             if (containsDefaultProvider(p))
                 addProvider(p);
         }
 
         // + handle Glassfish/OSGi (platform specific default)
-        if (isHk2Available()) {
-            Iterator<Provider> iter = lookupUsingHk2ServiceLoader(Provider.class.getName());
-            while (iter.hasNext()) {
-                Provider p = iter.next();
-                if (containsDefaultProvider(p)) {
-                    addProvider(p);
-                }
+        iter = lookupUsingHk2ServiceLoader(Provider.class, gcl);
+        while (iter.hasNext()) {
+            Provider p = iter.next();
+            if (containsDefaultProvider(p)) {
+                addProvider(p);
             }
         }
 
         /*
          * If we haven't loaded any providers, fake it.
          */
-        if (providers.size() == 0) {
+        if (providers.isEmpty()) {
             logger.config("failed to load any providers, using defaults");
             // failed to load any providers, initialize with our defaults
             addProvider(new Provider(Provider.Type.STORE,
-                    "imap", "com.sun.mail.imap.IMAPStore",
+                    "imap", "org.eclipse.angus.mail.imap.IMAPStore",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.STORE,
-                    "imaps", "com.sun.mail.imap.IMAPSSLStore",
+                    "imaps", "org.eclipse.angus.mail.imap.IMAPSSLStore",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.STORE,
-                    "pop3", "com.sun.mail.pop3.POP3Store",
+                    "pop3", "org.eclipse.angus.mail.pop3.POP3Store",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.STORE,
-                    "pop3s", "com.sun.mail.pop3.POP3SSLStore",
+                    "pop3s", "org.eclipse.angus.mail.pop3.POP3SSLStore",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.TRANSPORT,
-                    "smtp", "com.sun.mail.smtp.SMTPTransport",
+                    "smtp", "org.eclipse.angus.mail.smtp.SMTPTransport",
                     "Oracle", Version.version));
             addProvider(new Provider(Provider.Type.TRANSPORT,
-                    "smtps", "com.sun.mail.smtp.SMTPSSLTransport",
+                    "smtps", "org.eclipse.angus.mail.smtp.SMTPSSLTransport",
                     "Oracle", Version.version));
         }
 
@@ -1307,6 +1313,46 @@ public final class Session {
         );
     }
 
+    private static ClassLoader[] getClassLoaders(final Class<?>... classes) {
+        return AccessController.doPrivileged(
+                new PrivilegedAction<ClassLoader[]>() {
+                    @Override
+                    public ClassLoader[] run() {
+                        ClassLoader[] loaders = new ClassLoader[classes.length];
+                        int w = 0;
+                        for (Class<?> k : classes) {
+                            ClassLoader cl = null;
+                            if (k == Thread.class) {
+                                try {
+                                    cl = Thread.currentThread().getContextClassLoader();
+                                } catch (SecurityException ex) {
+                                }
+                            } else if (k == System.class) {
+                                try {
+                                    cl = ClassLoader.getSystemClassLoader();
+                                } catch (SecurityException ex) {
+                                }
+                            } else {
+                                try {
+                                    cl = k.getClassLoader();
+                                } catch (SecurityException ex) {
+                                }
+                            }
+
+                            if (cl != null) {
+                               loaders[w++] = cl;
+                            }
+                        }
+
+                        if (loaders.length != w) {
+                            loaders = Arrays.copyOf(loaders, w);
+                        }
+                        return loaders;
+                    }
+                }
+        );
+    }
+
     private static InputStream getResourceAsStream(final Class<?> c, final String name) throws IOException {
         try {
             return AccessController.doPrivileged(
@@ -1386,33 +1432,44 @@ public final class Session {
         return q;
     }
 
-    private static final String OSGI_SERVICE_LOADER_CLASS_NAME = "org.glassfish.hk2.osgiresourcelocator.ServiceLoader";
+    private static Class<?>[] getHk2ServiceLoaderTargets(Class<?> factoryClass) {
+        ClassLoader[] loaders = getClassLoaders(Thread.class, factoryClass, System.class);
 
-    private static boolean isHk2Available() {
-        try {
-            Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
-            return true;
-        } catch (ClassNotFoundException ignored) {
+        Class<?>[] classes = new Class<?>[loaders.length];
+        int w = 0;
+        for (ClassLoader loader : loaders) {
+            if (loader != null) {
+                try {
+                    classes[w++] = Class.forName("org.glassfish.hk2.osgiresourcelocator.ServiceLoader", false, loader);
+                } catch (Exception | LinkageError ignored) {
+                }  //GlassFish class loaders can throw undocumented exceptions
+            }
         }
-        return false;
+
+        if (classes.length != w) {
+           classes = Arrays.copyOf(classes, w);
+        }
+        return classes;
     }
 
     @SuppressWarnings({"unchecked"})
-    private <T> Iterator<T> lookupUsingHk2ServiceLoader(String factoryId) {
-        try {
-            // Use reflection to avoid having any dependency on HK2 ServiceLoader class
-            Class<?> serviceClass = Class.forName(factoryId);
-            Class<?>[] args = new Class<?>[]{serviceClass};
-            Class<?> target = Class.forName(OSGI_SERVICE_LOADER_CLASS_NAME);
-            Method m = target.getMethod("lookupProviderInstances", Class.class);
-            Iterable<T> result = ((Iterable<T>) m.invoke(null, (Object[]) args));
-            return result != null ? result.iterator() : Collections.emptyIterator();
-        } catch (Exception ignored) {
-            // log and continue
-            return Collections.emptyIterator();
+    private <T> Iterator<T> lookupUsingHk2ServiceLoader(Class<T> factoryId, ClassLoader loader) {
+        for (Class<?> target : getHk2ServiceLoaderTargets(factoryId)) {
+            try {
+                // Use reflection to avoid having any dependency on HK2 ServiceLoader class
+                Class<?> serviceClass = Class.forName(factoryId.getName(), false, loader);
+                Class<?>[] args = new Class<?>[]{serviceClass};
+                Method m = target.getMethod("lookupProviderInstances", Class.class);
+                Iterable<T> result = ((Iterable<T>) m.invoke(null, (Object[]) args));
+                if (result != null) {
+                    return result.iterator();
+                }
+            } catch (Exception ignored) {
+                // log and continue
+            }
         }
+        return Collections.emptyIterator();
     }
-
 }
 
 /**

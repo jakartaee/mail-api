@@ -19,9 +19,10 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
-          CHANGES IN THE 2.1.3 RELEASE
-          ----------------------------
+      CHANGES IN THE 2.1.3 RELEASE
+      ----------------------------
 E  695  SharedFileInputStream should comply with spec
+E  665  Jakarta Mail erroneously assumes that classes can be loaded from Thread#getContextClassLoader
 
 
 		  CHANGES IN THE 2.1.2 RELEASE
