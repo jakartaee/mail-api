@@ -26,7 +26,6 @@ E  665  Jakarta Mail erroneously assumes that classes can be loaded from Thread#
 E  695  SharedFileInputStream should comply with spec
 
 
-
 		  CHANGES IN THE 2.1.2 RELEASE
           ----------------------------
 E  629  jakarta.mail-api-2.1.0.jar does not work in OSGi environment (hk2servicelocator)
