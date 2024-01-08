@@ -816,43 +816,37 @@ public final class Session {
                     null, null, null);
         }
 
-        Object service = null;
-
         // get the ClassLoader associated with the Authenticator
-        ClassLoader cl;
+        Class<?> acl;
         if (authenticator != null)
-            cl = authenticator.getClass().getClassLoader();
+            acl = authenticator.getClass();
         else
-            cl = this.getClass().getClassLoader();
+            acl = streamProvider.getClass();
 
-        // now load the class
         Class<?> serviceClass = null;
-        try {
-            // First try the "application's" class loader.
-            ClassLoader ccl = getContextClassLoader();
-            if (ccl != null)
-                try {
-                    serviceClass =
-                            Class.forName(provider.getClassName(), false, ccl);
-                } catch (ClassNotFoundException ex) {
-                    // ignore it
-                }
-            if (serviceClass == null || !type.isAssignableFrom(serviceClass))
-                serviceClass =
-                        Class.forName(provider.getClassName(), false, cl);
+        for (ClassLoader l : getClassLoaders(Thread.class,
+                                        provider.getClass(),
+                                        acl,
+                                        streamProvider.getClass(),
+                                        getClass(),
+                                        System.class)) {
+            try {
+                //load and verify provider is compatible in this classloader
+                serviceClass = Class.forName(provider.getClassName(),
+                            false, l).asSubclass(type);
+                break;
+            } catch (ClassNotFoundException | ClassCastException ex) {
+                // ignore it
+            }
+        }
 
-            if (!type.isAssignableFrom(serviceClass))
-                throw new ClassCastException(
-                        type.getName() + " " + serviceClass.getName());
-        } catch (Exception ex1) {
+        if (serviceClass == null) {
             // That didn't work, now try the "system" class loader.
             // (Need both of these because JDK 1.1 class loaders
             // may not delegate to their parent class loader.)
             try {
-                serviceClass = Class.forName(provider.getClassName());
-                if (!type.isAssignableFrom(serviceClass))
-                    throw new ClassCastException(
-                            type.getName() + " " + serviceClass.getName());
+                serviceClass = Class.forName(provider.getClassName())
+                                        .asSubclass(type);
             } catch (Exception ex) {
                 // Nothing worked, give up.
                 logger.log(Level.FINE, "Exception loading provider", ex);
@@ -866,14 +860,11 @@ public final class Session {
             Constructor<?> cons = serviceClass.getConstructor(c);
 
             Object[] o = {this, url};
-            service = cons.newInstance(o);
-
+            return type.cast(cons.newInstance(o));
         } catch (Exception ex) {
             logger.log(Level.FINE, "Exception loading provider", ex);
             throw new NoSuchProviderException(provider.getProtocol());
         }
-
-        return type.cast(service);
     }
 
     /**
@@ -991,7 +982,7 @@ public final class Session {
         } else {
             gcl = getContextClassLoader(); //Fail safe
         }
-        
+
         // next, add all the non-default services
         ServiceLoader<Provider> sl = ServiceLoader.load(Provider.class, gcl);
         for (Provider p : sl) {

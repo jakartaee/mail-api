@@ -21,8 +21,9 @@ longer available.
 
       CHANGES IN THE 2.1.3 RELEASE
       ----------------------------
-E  695  SharedFileInputStream should comply with spec
+E  631  Session.getService does not use proper classloader in OSGI environment
 E  665  Jakarta Mail erroneously assumes that classes can be loaded from Thread#getContextClassLoader
+E  695  SharedFileInputStream should comply with spec
 
 
 		  CHANGES IN THE 2.1.2 RELEASE
