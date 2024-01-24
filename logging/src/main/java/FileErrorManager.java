@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2019 Jason Mehrens. All Rights Reserved.
+ * Copyright (c) 2009, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2024 Jason Mehrens. All Rights Reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,6 @@
 
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.logging.ErrorManager;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -262,13 +260,7 @@ public class FileErrorManager extends ErrorManager {
         String dir = manager.getProperty(
                 getClass().getName().concat(".pattern"));
         if (dir == null) {
-            dir = AccessController.doPrivileged(new PrivilegedAction<String>() {
-
-                @Override
-                public String run() {
-                    return System.getProperty("java.io.tmpdir", ".");
-                }
-            });
+            dir = System.getProperty("java.io.tmpdir", ".");
         }
         return new File(dir);
     }
