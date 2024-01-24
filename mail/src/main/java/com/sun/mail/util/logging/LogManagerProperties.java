@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2021 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2021 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2024 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -21,7 +21,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.UndeclaredThrowableException;
-import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.*;
 import java.util.logging.*;
@@ -81,7 +80,7 @@ final class LogManagerProperties extends Properties {
     private static final Method ZDT_OF_INSTANT;
 
     /**
-     * MethodHandle is available starting at JDK7 and Andriod API 26.
+     * MethodHandle is available starting at JDK7 and Android API 26.
      */
     static { //Added in JDK16 see JDK-8245302
         Method lrtid = null;
@@ -94,7 +93,7 @@ final class LogManagerProperties extends Properties {
         LR_GET_LONG_TID = lrtid;
     }
 
-    static {
+    static { //Added in JDK9 see JDK-8072645
         Method lrgi = null;
         Method zisd = null;
         Method zdtoi = null;
@@ -105,7 +104,6 @@ final class LogManagerProperties extends Properties {
             zisd = findClass("java.time.ZoneId")
                     .getMethod("systemDefault");
             if (!Modifier.isStatic(zisd.getModifiers())) {
-                zisd = null;
                 throw new NoSuchMethodException(zisd.toString());
             }
 
@@ -115,7 +113,6 @@ final class LogManagerProperties extends Properties {
             if (!Modifier.isStatic(zdtoi.getModifiers())
                     || !Comparable.class.isAssignableFrom(
                             zdtoi.getReturnType())) {
-                zdtoi = null;
                 throw new NoSuchMethodException(zdtoi.toString());
             }
         } catch (final RuntimeException ignore) {
@@ -155,7 +152,7 @@ final class LogManagerProperties extends Properties {
      */
     private static Object loadLogManager() {
         Object m;
-        try {
+        try { //GAE will forbid access to LogManager
             m = LogManager.getLogManager();
         } catch (final LinkageError restricted) {
             m = readConfiguration();
@@ -247,8 +244,23 @@ final class LogManagerProperties extends Properties {
         if (m != null) {
             try {
                 if (m instanceof LogManager) {
-                    checked = true;
-                    ((LogManager) m).checkAccess();
+                    try {
+                        LogManager.class.getMethod("checkAccess").invoke(m);
+                        checked = true;
+                    } catch (InvocationTargetException ite) {
+                        Throwable cause = ite.getCause();
+                        if (cause instanceof SecurityException) {
+                            checked = true;
+                            throw (SecurityException) cause;
+                        }
+
+                        if (cause instanceof UnsupportedOperationException) {
+                           checked = true;
+                        }
+                    } catch (NoSuchMethodException removed) {
+                        checked = true;
+                    } catch (ReflectiveOperationException fallthrough) {
+                    }
                 }
             } catch (final SecurityException notAllowed) {
                 if (checked) {
@@ -256,7 +268,7 @@ final class LogManagerProperties extends Properties {
                 }
             } catch (final LinkageError restricted) {
             } catch (final RuntimeException unexpected) {
-            }
+            } //GAE will forbid access to LogManager
         }
 
         if (!checked) {
@@ -279,24 +291,14 @@ final class LogManagerProperties extends Properties {
          * indirect way of checking for LoggingPermission when the LogManager is
          * not present. The root logger will lazy create handlers so the global
          * logger is used instead as it is a known named logger with well
-         * defined behavior. If the global logger is a subclass then fallback to
-         * using the SecurityManager.
+         * defined behavior.  Contractually, Logger::remove will check
+         * permission before checking if the argument is null.
+         * See JDK-8023168
          */
-        boolean checked = false;
         final Logger global = Logger.getLogger("global");
         try {
-            if (Logger.class == global.getClass()) {
-                global.removeHandler((Handler) null);
-                checked = true;
-            }
+            global.removeHandler((Handler) null);
         } catch (final NullPointerException unexpected) {
-        }
-
-        if (!checked) {
-            final SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                sm.checkPermission(new LoggingPermission("control", null));
-            }
         }
     }
 
@@ -784,18 +786,12 @@ final class LogManagerProperties extends Properties {
      * @param ite any invocation target.
      * @return the exception.
      * @throws VirtualMachineError if present as cause.
-     * @throws ThreadDeath if present as cause.
      * @since JavaMail 1.4.5
      */
     private static Exception paramOrError(InvocationTargetException ite) {
         final Throwable cause = ite.getCause();
-        if (cause != null) {
-            //Bitwise inclusive OR produces tighter bytecode for instanceof
-            //and matches with multicatch syntax.
-            if (cause instanceof VirtualMachineError
-                    | cause instanceof ThreadDeath) {
-                throw (Error) cause;
-            }
+        if (cause instanceof VirtualMachineError) {
+            throw (Error) cause;
         }
         return ite;
     }
@@ -871,7 +867,7 @@ final class LogManagerProperties extends Properties {
      * @return any array of class loaders. Indexes may be null.
      */
     private static ClassLoader[] getClassLoaders() {
-        return AccessController.doPrivileged(new PrivilegedAction<ClassLoader[]>() {
+        return runOrDoPrivileged(new PrivilegedAction<ClassLoader[]>() {
 
             @SuppressWarnings("override") //JDK-6954234
             public ClassLoader[] run() {
@@ -891,6 +887,61 @@ final class LogManagerProperties extends Properties {
             }
         });
     }
+
+    /**
+     * Executes a PrivilegedAction without permissions then falling back to
+     * running with elevated permissions.
+     *
+     * Any unchecked exceptions from the action are passed through this API.
+     *
+     * @param <T> the action return type.
+     * @param a the PrivilegedAction object.
+     * @return the result.
+     * @throws NullPointerException if the given action is null.
+     * @throws UndeclaredThrowableException if a checked exception is thrown.
+     * @since JavaMail 1.6.7
+     */
+    static <T> T runOrDoPrivileged(final PrivilegedAction<T> a) {
+        if (a == null) {
+            throw new NullPointerException();
+        }
+        try {
+            return a.run();
+        } catch (SecurityException sandbox) {
+            return invokeAccessController(a);
+        }
+    }
+
+    /**
+     * Reflective call to access controller for sandbox environments.
+     * Any unchecked exceptions from the action are passed through this API.
+     *
+     * @param <T> the return type of the action.
+     * @param a a non-null action.
+     * @return the result.
+     * @throws UnsupportedOperationException if not allowed.
+     * @throws UndeclaredThrowableException if a checked exception is thrown.
+     * @since JavaMail 1.6.7
+     */
+    @SuppressWarnings("unchecked")
+    private static <T> T invokeAccessController(final PrivilegedAction<T> a) {
+        assert a != null;
+        try {
+            Class<?> c = Class.forName("java.security.AccessController");
+            return (T) c.getMethod("doPrivileged", PrivilegedAction.class)
+                    .invoke((Object) null, a);
+        } catch (ReflectiveOperationException roe) {
+            Throwable cause = roe.getCause();
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            } else if (cause instanceof Error) {
+                throw (Error) cause;
+            } else {
+                throw new UndeclaredThrowableException(roe);
+            }
+        }
+    }
+
     /**
      * The namespace prefix to search LogManager and defaults.
      */

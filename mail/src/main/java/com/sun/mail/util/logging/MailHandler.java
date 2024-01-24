@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2020 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2009, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2024 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,7 +24,6 @@ import java.net.InetAddress;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
-import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.*;
 import java.util.logging.*;
@@ -578,7 +577,7 @@ public class MailHandler extends Handler {
         if (record == null) { //JDK-8233979
             return false;
         }
-        
+
         int levelValue = getLevel().intValue();
         if (record.getLevel().intValue() < levelValue || levelValue == offValue) {
             return false;
@@ -4139,7 +4138,7 @@ public class MailHandler extends Handler {
                 } else {
                     pa = new GetAndSetContext(ccl);
                 }
-                return AccessController.doPrivileged(pa);
+                return LogManagerProperties.runOrDoPrivileged(pa);
             } catch (final SecurityException ignore) {
             }
         }

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2016, 2021 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2016, 2021 Jason Mehrens. All rights reserved.
+ * Copyright (c) 2016, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2024 Jason Mehrens. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -307,7 +307,7 @@ abstract class AbstractLogging {
     /**
      * Checks that the given class is not dependent on the
      * {@code javax.annotation} classes as they are not present in all
-     * environments.
+     * environments and were present in JDK.
      *
      * @param k the class to inspect.
      * @throws Exception if there is a problem.
