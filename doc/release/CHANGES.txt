@@ -19,6 +19,12 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
+		  CHANGES IN THE 1.6.8 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 1.6.8 release.
+
+E  700  Test failure with java-21 on LogManagerPropertiesTest
+
 
 		  CHANGES IN THE 1.6.7 RELEASE
 		  ----------------------------
@@ -110,7 +116,7 @@ GH  334	gimap set labels error with some non english characters
 The following bugs have been fixed in the 1.6.1 release.
 
 GH  262	Some IMAP servers send EXPUNGE responses for unknown messages
-GH  278	BODYSTRUCTURE Parser fails on specific IMAP Server response 
+GH  278	BODYSTRUCTURE Parser fails on specific IMAP Server response
 GH  283	clean up connections when closing IMAPStore
 GH  287	Allow relaxed Content-Disposition parsing
 GH  289	use a different IMAP tag prefix for each connection
@@ -831,7 +837,7 @@ The following bugs have been fixed in the 1.1.2 release.
 <no id>	fix bug in SMTP output that sometimes duplicated "."
 <no id>	close SMTP transport on I/O error
 4230541	don't send SMTP NOOP unnecessarily
-4216666 IMAP provider INTERNALDATE formatter error, causing 
+4216666 IMAP provider INTERNALDATE formatter error, causing
 	problems during appendMessages()
 4227888 IMAP provider does not honor the UID item in its FetchProfile
 

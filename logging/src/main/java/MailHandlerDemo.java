@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2009, 2018 Jason Mehrens. All Rights Reserved.
+ * Copyright (c) 2009, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2024 Jason Mehrens. All Rights Reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -139,19 +139,6 @@ public class MailHandlerDemo {
                     + ManagementFactory.getRuntimeMXBean().getName());
             err.println(prefix + ": java.security.debug="
                     + System.getProperty("java.security.debug"));
-            SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                err.println(prefix + ": SecurityManager.class="
-                        + sm.getClass().getName());
-                err.println(prefix + ": SecurityManager classLoader="
-                        + toString(sm.getClass().getClassLoader()));
-                err.println(prefix + ": SecurityManager.toString=" + sm);
-            } else {
-                err.println(prefix + ": SecurityManager.class=null");
-                err.println(prefix + ": SecurityManager.toString=null");
-                err.println(prefix + ": SecurityManager classLoader=null");
-            }
-
             String policy = System.getProperty("java.security.policy");
             if (policy != null) {
                 File f = new File(policy);
