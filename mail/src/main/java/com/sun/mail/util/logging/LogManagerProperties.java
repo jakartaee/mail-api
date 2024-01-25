@@ -899,7 +899,7 @@ final class LogManagerProperties extends Properties {
      * @return the result.
      * @throws NullPointerException if the given action is null.
      * @throws UndeclaredThrowableException if a checked exception is thrown.
-     * @since JavaMail 1.6.7
+     * @since JavaMail 1.6.8
      */
     static <T> T runOrDoPrivileged(final PrivilegedAction<T> a) {
         if (a == null) {
@@ -921,7 +921,7 @@ final class LogManagerProperties extends Properties {
      * @return the result.
      * @throws UnsupportedOperationException if not allowed.
      * @throws UndeclaredThrowableException if a checked exception is thrown.
-     * @since JavaMail 1.6.7
+     * @since JavaMail 1.6.8
      */
     @SuppressWarnings("unchecked")
     private static <T> T invokeAccessController(final PrivilegedAction<T> a) {

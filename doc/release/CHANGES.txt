@@ -19,6 +19,12 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
+		  CHANGES IN THE 1.6.8 RELEASE
+		  ----------------------------
+The following bugs have been fixed in the 1.6.8 release.
+
+E  700  Test failure with java-21 on LogManagerPropertiesTest
+
 
 		  CHANGES IN THE 1.6.7 RELEASE
 		  ----------------------------
@@ -27,7 +33,6 @@ The following bugs have been fixed in the 1.6.7 release.
 E  528	CompactFormatter precision and surrogate pairs
 E  529	CompactFormatter support for LogRecord::getLongThreadID
 E  535	The final release of 1.6.6 identifies itself as 1.6.6-SNAPSHOT.
-E  700  Test failure with java-21 on LogManagerPropertiesTest
 
 
 		  CHANGES IN THE 1.6.6 RELEASE

@@ -92,14 +92,6 @@ public class MailHandlerTest extends AbstractLogging {
         anyClassPathDir = null;
     }
 
-    private static void assumeNoJit() {
-        CompilationMXBean c = ManagementFactory.getCompilationMXBean();
-        if (c != null) { //-Xint
-            Assume.assumeNoException(new IllegalArgumentException(
-                    c.getName() + " must be disabled."));
-        }
-    }
-
     private static void fullFence() {
         LogManager.getLogManager().getProperty("");
     }
@@ -153,24 +145,6 @@ public class MailHandlerTest extends AbstractLogging {
         } else {
             PENDING.remove();
         }
-    }
-
-    private static Field setAccessible(Field f) {
-        f.setAccessible(true);
-        try {
-            assumeNoJit();
-            if (Modifier.isFinal(f.getModifiers())) {
-                Field mod = Field.class.getDeclaredField("modifiers");
-                mod.setAccessible(true);
-                mod.setInt(f, f.getModifiers() & ~Modifier.FINAL);
-                return mod;
-            }
-        } catch (RuntimeException re) {
-            Assume.assumeNoException(re);
-        } catch (Exception e) {
-            Assume.assumeNoException(e);
-        }
-        throw new AssertionError();
     }
 
     private static void set(ClassLoader expect) {
