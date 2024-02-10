@@ -16,18 +16,20 @@
 
 package jakarta.mail.internet;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
+
+
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * Test header folding.
@@ -35,26 +37,15 @@ import java.util.List;
  * @author Bill Shannon
  */
 
-@RunWith(Parameterized.class)
 public class FoldTest {
-    private String direction;
-    private String orig;
-    private String expect;
 
-    private static List<Object[]> testData;
+    private static List<Arguments> testData;
 
-    public FoldTest(String direction, String orig, String expect) {
-        this.direction = direction;
-        this.orig = orig;
-        this.expect = expect;
-    }
-
-    @Parameters
-    public static Collection<Object[]> data() throws IOException {
+    public static Stream<Arguments> data() throws IOException {
         testData = new ArrayList<>();
         parse(new BufferedReader(new InputStreamReader(
                 FoldTest.class.getResourceAsStream("folddata"))));
-        return testData;
+        return testData.stream();
     }
 
     /**
@@ -72,13 +63,13 @@ public class FoldTest {
                 continue;
             String orig = readString(in);
             if (line.equals("BOTH")) {
-                testData.add(new Object[]{line, orig, null});
+                testData.add(arguments(line, orig, null));
             } else {
                 String e = in.readLine();
                 if (!e.equals("EXPECT"))
                     throw new IOException("TEST DATA FORMAT ERROR");
                 String expect = readString(in);
-                testData.add(new Object[]{line, orig, expect});
+                testData.add(arguments(line, orig, expect));
             }
         }
     }
@@ -96,18 +87,19 @@ public class FoldTest {
         return sb.toString();
     }
 
-    @Test
-    public void testFold() {
+    @ParameterizedTest
+    @MethodSource("data")
+    public void testFold(String direction, String orig, String expect) {
         if (direction.equals("BOTH")) {
             String fs = MimeUtility.fold(0, orig);
             String us = MimeUtility.unfold(fs);
-            Assert.assertEquals(orig, us);
+            Assertions.assertEquals(orig, us);
         } else if (direction.equals("FOLD")) {
-            Assert.assertEquals("Fold", expect, MimeUtility.fold(0, orig));
+            Assertions.assertEquals(expect, MimeUtility.fold(0, orig), "Fold");
         } else if (direction.equals("UNFOLD")) {
-            Assert.assertEquals("Unfold", expect, MimeUtility.unfold(orig));
+            Assertions.assertEquals(expect, MimeUtility.unfold(orig), "Unfold");
         } else {
-            Assert.fail("Unknown direction: " + direction);
+            Assertions.fail("Unknown direction: " + direction);
         }
     }
 }

@@ -16,18 +16,18 @@
 
 package jakarta.mail.internet;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test the property that contols ContentDisposition non-strict mode
+ * Test the property that controls ContentDisposition non-strict mode
  */
 public class ContentDispositionStrictTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void before() {
         System.setProperty("mail.mime.contentdisposition.strict", "true");
     }
@@ -42,7 +42,7 @@ public class ContentDispositionStrictTest {
         }
     }
 
-    @AfterClass
+    @AfterAll
     public static void after() {
         System.clearProperty("mail.mime.contentdisposition.strict");
     }

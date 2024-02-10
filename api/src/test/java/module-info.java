@@ -18,7 +18,9 @@ module jakarta.mail {
 
     requires java.logging;
     requires transitive jakarta.activation;
-    requires junit;
+    requires transitive org.junit.jupiter.api;
+    requires transitive org.junit.jupiter.params;
+    requires org.hamcrest;
 
     exports jakarta.mail;
     exports jakarta.mail.event;

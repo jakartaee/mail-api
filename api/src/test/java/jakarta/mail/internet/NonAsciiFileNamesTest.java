@@ -16,11 +16,11 @@
 
 package jakarta.mail.internet;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test that non-ASCII file names are encoded by default.
@@ -29,7 +29,7 @@ public class NonAsciiFileNamesTest {
 
     private static String charset;
 
-    @BeforeClass
+    @BeforeAll
     public static void before() {
         System.out.println("NonAsciiFileNames");
         charset = System.getProperty("mail.mime.charset");
@@ -47,9 +47,9 @@ public class NonAsciiFileNamesTest {
         MimeBodyPart.updateHeaders(mbp);
 
         String s = mbp.getHeader("Content-Disposition", null);
-        assertTrue("Content-Disposition filename", s.indexOf("filename*") >= 0);
+        assertTrue(s.indexOf("filename*") >= 0, "Content-Disposition filename");
         s = mbp.getHeader("Content-Type", null);
-        assertTrue("Content-Type name", s.indexOf("name*") >= 0);
+        assertTrue(s.indexOf("name*") >= 0, "Content-Type name");
     }
 
     /**
@@ -65,12 +65,12 @@ public class NonAsciiFileNamesTest {
         MimeBodyPart.updateHeaders(mbp);
 
         String s = mbp.getHeader("Content-Disposition", null);
-        assertTrue("Content-Disposition filename", s.indexOf("filename*") >= 0);
+        assertTrue(s.indexOf("filename*") >= 0, "Content-Disposition filename");
         s = mbp.getHeader("Content-Type", null);
-        assertTrue("Content-Type name", s.indexOf("name*") >= 0);
+        assertTrue(s.indexOf("name*") >= 0, "Content-Type name");
     }
 
-    @AfterClass
+    @AfterAll
     public static void after() {
         if (charset == null)
             System.clearProperty("mail.mime.charset");
