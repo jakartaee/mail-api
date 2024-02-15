@@ -66,6 +66,7 @@
     <properties>
         <spec.version>2.1</spec.version>
         <spec.title>Jakarta Mail Specification</spec.title>
+        <project.build.outputTimestamp>2024-02-14T00:00:00Z</project.build.outputTimestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javadoc.title>Jakarta Mail API documentation</javadoc.title>
         <legal.doc.source>${project.basedir}/..</legal.doc.source>
