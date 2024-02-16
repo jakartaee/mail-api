@@ -23,6 +23,7 @@ longer available.
 		  ----------------------------
 The following bugs have been fixed in the 1.6.8 release.
 
+E  451  NTLM Auth type3flags set after array is copied
 E  700  Test failure with java-21 on LogManagerPropertiesTest
 
 
