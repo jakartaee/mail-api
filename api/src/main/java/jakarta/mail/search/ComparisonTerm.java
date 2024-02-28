@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -26,11 +26,29 @@ package jakarta.mail.search;
 public abstract class ComparisonTerm extends SearchTerm {
     private static final long serialVersionUID = 1456646953666474308L;
 
+    /**
+     * Less than or equal to, "{@code <=}", comparison.
+     */
     public static final int LE = 1;
+    /**
+     * Less than, "{@code <}", comparison.
+     */
     public static final int LT = 2;
+    /**
+     * Equal to, "{@code =}", comparison.
+     */
     public static final int EQ = 3;
+    /**
+     * Not equal to, "{@code !=}", comparison.
+     */
     public static final int NE = 4;
+    /**
+     * Greater than, "{@code >}", comparison.
+     */
     public static final int GT = 5;
+    /**
+     * Greater than or equal to, "{@code >=}", comparison.
+     */
     public static final int GE = 6;
 
     /**
@@ -53,10 +71,10 @@ public abstract class ComparisonTerm extends SearchTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof ComparisonTerm))
-	    return false;
-	ComparisonTerm ct = (ComparisonTerm)obj;
-	return ct.comparison == this.comparison;
+        if (!(obj instanceof ComparisonTerm))
+            return false;
+        ComparisonTerm ct = (ComparisonTerm) obj;
+        return ct.comparison == this.comparison;
     }
 
     /**
@@ -64,6 +82,6 @@ public abstract class ComparisonTerm extends SearchTerm {
      */
     @Override
     public int hashCode() {
-	return comparison;
+        return comparison;
     }
 }

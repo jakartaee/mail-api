@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -32,46 +32,58 @@ public abstract class IntegerComparisonTerm extends ComparisonTerm {
 
     private static final long serialVersionUID = -6963571240154302484L;
 
+    /**
+     * Constructor.
+     *
+     * @param comparison the type of comparison.
+     * @param number the number to compare with.
+     */
     protected IntegerComparisonTerm(int comparison, int number) {
-	this.comparison = comparison;
-	this.number = number;
+        this.comparison = comparison;
+        this.number = number;
     }
 
     /**
      * Return the number to compare with.
      *
-     * @return	the number
+     * @return the number
      */
     public int getNumber() {
-	return number;
+        return number;
     }
 
     /**
      * Return the type of comparison.
      *
-     * @return	the comparison type
+     * @return the comparison type
      */
     public int getComparison() {
-	return comparison;
+        return comparison;
     }
 
+    /**
+     * Match against the argument {@code i}.
+     *
+     * @param i the integer to match
+     * @return true if given integer matches this comparison; otherwise false
+     */
     protected boolean match(int i) {
-	switch (comparison) {
-	    case LE: 
-		return i <= number;
-	    case LT:
-		return i < number;
-	    case EQ:
-		return i == number;
-	    case NE:
-		return i != number;
-	    case GT:
-		return i > number;
-	    case GE:
-		return i >= number;
-	    default:
-		return false;
-	}
+        switch (comparison) {
+            case LE:
+                return i <= number;
+            case LT:
+                return i < number;
+            case EQ:
+                return i == number;
+            case NE:
+                return i != number;
+            case GT:
+                return i > number;
+            case GE:
+                return i >= number;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -79,10 +91,10 @@ public abstract class IntegerComparisonTerm extends ComparisonTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof IntegerComparisonTerm))
-	    return false;
-	IntegerComparisonTerm ict = (IntegerComparisonTerm)obj;
-	return ict.number == this.number && super.equals(obj);
+        if (!(obj instanceof IntegerComparisonTerm))
+            return false;
+        IntegerComparisonTerm ict = (IntegerComparisonTerm) obj;
+        return ict.number == this.number && super.equals(obj);
     }
 
     /**
@@ -90,6 +102,6 @@ public abstract class IntegerComparisonTerm extends ComparisonTerm {
      */
     @Override
     public int hashCode() {
-	return number + super.hashCode();
+        return number + super.hashCode();
     }
 }

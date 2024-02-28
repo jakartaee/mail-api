@@ -16,6 +16,21 @@
 
 package jakarta.mail.internet;
 
+import jakarta.activation.DataHandler;
+import jakarta.mail.Address;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.FolderClosedException;
+import jakarta.mail.Header;
+import jakarta.mail.IllegalWriteException;
+import jakarta.mail.Message;
+import jakarta.mail.MessageRemovedException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.util.LineOutputStream;
+import jakarta.mail.util.StreamProvider;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -34,21 +49,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-
-import jakarta.activation.DataHandler;
-import jakarta.mail.Address;
-import jakarta.mail.Flags;
-import jakarta.mail.Folder;
-import jakarta.mail.FolderClosedException;
-import jakarta.mail.Header;
-import jakarta.mail.IllegalWriteException;
-import jakarta.mail.Message;
-import jakarta.mail.MessageRemovedException;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Multipart;
-import jakarta.mail.Session;
-import jakarta.mail.util.LineOutputStream;
-
+import java.util.ServiceConfigurationError;
 
 
 /**
@@ -57,9 +58,9 @@ import jakarta.mail.util.LineOutputStream;
  * interface. <p>
  *
  * Clients wanting to create new MIME style messages will instantiate
- * an empty MimeMessage object and then fill it with appropriate 
+ * an empty MimeMessage object and then fill it with appropriate
  * attributes and content. <p>
- * 
+ *
  * Service providers that implement MIME compliant backend stores may
  * want to subclass MimeMessage and override certain methods to provide
  * specific implementations. The simplest case is probably a provider
@@ -78,7 +79,7 @@ import jakarta.mail.util.LineOutputStream;
  *
  * <hr><strong>A note on RFC 822 and MIME headers</strong><p>
  *
- * RFC 822 header fields <strong>must</strong> contain only 
+ * RFC 822 header fields <strong>must</strong> contain only
  * US-ASCII characters. MIME allows non ASCII characters to be present
  * in certain portions of certain headers, by encoding those characters.
  * RFC 2047 specifies the rules for doing this. The MimeUtility
@@ -89,17 +90,17 @@ import jakarta.mail.util.LineOutputStream;
  * header fields must be folded (wrapped) before being sent if they
  * exceed the line length limitation for the transport (1000 bytes for
  * SMTP).  Received headers may have been folded.  The application is
- * responsible for folding and unfolding headers as appropriate. <p>
+ * responsible for folding and unfolding headers as appropriate.
  *
  * @author John Mani
  * @author Bill Shannon
  * @author Max Spivak
  * @author Kanwar Oberoi
- * @see	jakarta.mail.internet.MimeUtility
- * @see	jakarta.mail.Part
- * @see	jakarta.mail.Message
- * @see	jakarta.mail.internet.MimePart
- * @see	jakarta.mail.internet.InternetAddress
+ * @see jakarta.mail.internet.MimeUtility
+ * @see jakarta.mail.Part
+ * @see jakarta.mail.Message
+ * @see jakarta.mail.internet.MimePart
+ * @see jakarta.mail.internet.InternetAddress
  */
 
 public class MimeMessage extends Message implements MimePart {
@@ -121,7 +122,7 @@ public class MimeMessage extends Message implements MimePart {
      * the content of this message.  In this case, <code>content</code>
      * will be null.
      *
-     * @since	JavaMail 1.2
+     * @since JavaMail 1.2
      */
     protected InputStream contentStream;
 
@@ -132,7 +133,7 @@ public class MimeMessage extends Message implements MimePart {
     protected InternetHeaders headers;
 
     /**
-     * The Flags for this message. 
+     * The Flags for this message.
      */
     protected Flags flags;
 
@@ -144,7 +145,7 @@ public class MimeMessage extends Message implements MimePart {
      * set to true when an empty message is created or when the
      * <code>saveChanges</code> method is called.
      *
-     * @since	JavaMail 1.2
+     * @since JavaMail 1.2
      */
     protected boolean modified = false;
 
@@ -157,7 +158,7 @@ public class MimeMessage extends Message implements MimePart {
      * common mistake of forgetting to call the <code>saveChanges</code>
      * method on a newly constructed message.
      *
-     * @since	JavaMail 1.2
+     * @since JavaMail 1.2
      */
     protected boolean saved = false;
 
@@ -171,7 +172,7 @@ public class MimeMessage extends Message implements MimePart {
      * would return a Multipart or MimeMessage object.  This field is
      * is cleared by the {@link #setDataHandler} method.
      *
-     * @since	JavaMail 1.5
+     * @since JavaMail 1.5
      */
     protected Object cachedContent;
 
@@ -192,14 +193,14 @@ public class MimeMessage extends Message implements MimePart {
      * object. The <code>flags</code> field is set to an empty Flags
      * object. The <code>modified</code> flag is set to true.
      *
-     * @param	session	the Sesssion
+     * @param session the Sesssion
      */
     public MimeMessage(Session session) {
-	super(session);
-	modified = true;
-	headers = new InternetHeaders();
-	flags = new Flags();	// empty flags object
-	initStrict();
+        super(session);
+        modified = true;
+        headers = new InternetHeaders();
+        flags = new Flags();    // empty flags object
+        initStrict();
     }
 
     /**
@@ -211,17 +212,17 @@ public class MimeMessage extends Message implements MimePart {
      * The input stream contains an entire MIME formatted message with
      * headers and data.
      *
-     * @param session	Session object for this message
-     * @param is	the message input stream
-     * @exception	MessagingException for failures
+     * @param session Session object for this message
+     * @param is      the message input stream
+     * @throws MessagingException for failures
      */
-    public MimeMessage(Session session, InputStream is) 
-			throws MessagingException {
-	super(session);
-	flags = new Flags(); // empty Flags object
-	initStrict();
-	parse(is);
-	saved = true;
+    public MimeMessage(Session session, InputStream is)
+            throws MessagingException {
+        super(session);
+        flags = new Flags(); // empty Flags object
+        initStrict();
+        parse(is);
+        saved = true;
     }
 
     /**
@@ -232,34 +233,34 @@ public class MimeMessage extends Message implements MimePart {
      * Note: The current implementation is rather inefficient, copying
      * the data more times than strictly necessary.
      *
-     * @param	source	the message to copy content from
-     * @exception	MessagingException for failures
-     * @since		JavaMail 1.2
+     * @param source the message to copy content from
+     * @throws MessagingException for failures
+     * @since JavaMail 1.2
      */
     public MimeMessage(MimeMessage source) throws MessagingException {
-	super(source.session);
-	flags = source.getFlags();
-	if (flags == null)	// make sure flags is always set
-	    flags = new Flags();
-	ByteArrayOutputStream bos;
-	int size = source.getSize();
-	if (size > 0)
-	    bos = new ByteArrayOutputStream(size);
-	else
-	    bos = new ByteArrayOutputStream();
-	try {
-	    strict = source.strict;
-	    source.writeTo(bos);
-	    bos.close();
-	    InputStream bis = session.getStreamProvider().inputSharedByteArray(bos.toByteArray());
-	    parse(bis);
-	    bis.close();
-	    saved = true;
-	} catch (IOException ex) {
-	    // should never happen, but just in case...
-	    throw new MessagingException("IOException while copying message",
-					    ex);
-	}
+        super(source.session);
+        flags = source.getFlags();
+        if (flags == null)    // make sure flags is always set
+            flags = new Flags();
+        ByteArrayOutputStream bos;
+        int size = source.getSize();
+        if (size > 0)
+            bos = new ByteArrayOutputStream(size);
+        else
+            bos = new ByteArrayOutputStream();
+        try {
+            strict = source.strict;
+            source.writeTo(bos);
+            bos.close();
+            try (InputStream bis = provider().inputSharedByteArray(bos.toByteArray())) {
+                parse(bis);
+            }
+            saved = true;
+        } catch (IOException ex) {
+            // should never happen, but just in case...
+            throw new MessagingException("IOException while copying message",
+                    ex);
+        }
     }
 
     /**
@@ -268,14 +269,14 @@ public class MimeMessage extends Message implements MimePart {
      *
      * This method is for providers subclassing <code>MimeMessage</code>.
      *
-     * @param	folder	the Folder this message is from
-     * @param	msgnum	the number of this message
+     * @param folder the Folder this message is from
+     * @param msgnum the number of this message
      */
     protected MimeMessage(Folder folder, int msgnum) {
-	super(folder, msgnum);
-	flags = new Flags();  // empty Flags object
-	saved = true;
-	initStrict();
+        super(folder, msgnum);
+        flags = new Flags();  // empty Flags object
+        saved = true;
+        initStrict();
     }
 
     /**
@@ -286,16 +287,16 @@ public class MimeMessage extends Message implements MimePart {
      *
      * This method is for providers subclassing <code>MimeMessage</code>.
      *
-     * @param folder	The containing folder.
-     * @param is	the message input stream
-     * @param msgnum	Message number of this message within its folder
-     * @exception	MessagingException for failures
+     * @param folder The containing folder.
+     * @param is     the message input stream
+     * @param msgnum Message number of this message within its folder
+     * @throws MessagingException for failures
      */
     protected MimeMessage(Folder folder, InputStream is, int msgnum)
-		throws MessagingException {
-	this(folder, msgnum);
-	initStrict();
-	parse(is);
+            throws MessagingException {
+        this(folder, msgnum);
+        initStrict();
+        parse(is);
     }
 
     /**
@@ -304,29 +305,29 @@ public class MimeMessage extends Message implements MimePart {
      *
      * This method is for providers subclassing <code>MimeMessage</code>.
      *
-     * @param folder	The containing folder.
-     * @param headers	The headers
-     * @param content	The message content
-     * @param msgnum	Message number of this message within its folder
-     * @exception	MessagingException for failures
+     * @param folder  The containing folder.
+     * @param headers The headers
+     * @param content The message content
+     * @param msgnum  Message number of this message within its folder
+     * @throws MessagingException for failures
      */
     protected MimeMessage(Folder folder, InternetHeaders headers,
-		byte[] content, int msgnum) throws MessagingException {
-	this(folder, msgnum);
-	this.headers = headers;
-	this.content = content;
-	initStrict();
+                          byte[] content, int msgnum) throws MessagingException {
+        this(folder, msgnum);
+        this.headers = headers;
+        this.content = content;
+        initStrict();
     }
 
     /**
      * Set the strict flag based on property.
      */
     private void initStrict() {
-	if (session != null) {
-	    Properties props = session.getProperties();
-	    strict = MimeUtility.getBooleanProperty(props, "mail.mime.address.strict", true);
-	    allowutf8 = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", false);
-	}
+        if (session != null) {
+            Properties props = session.getProperties();
+            strict = MimeUtility.getBooleanProperty(props, "mail.mime.address.strict", true);
+            allowutf8 = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", false);
+        }
     }
 
     /**
@@ -337,88 +338,88 @@ public class MimeMessage extends Message implements MimePart {
      * This method is intended for use by subclasses that need to
      * control when the InputStream is parsed.
      *
-     * @param is	The message input stream
-     * @exception	MessagingException for failures
+     * @param is The message input stream
+     * @throws MessagingException for failures
      */
     protected void parse(InputStream is) throws MessagingException {
 
-	if (!(is instanceof ByteArrayInputStream) &&
-	    !(is instanceof BufferedInputStream) &&
-	    !(is instanceof SharedInputStream))
-	    is = new BufferedInputStream(is);
-	
-	headers = createInternetHeaders(is);
+        if (!(is instanceof ByteArrayInputStream) &&
+                !(is instanceof BufferedInputStream) &&
+                !(is instanceof SharedInputStream))
+            is = new BufferedInputStream(is);
 
-	if (is instanceof SharedInputStream) {
-	    SharedInputStream sis = (SharedInputStream)is;
-	    contentStream = sis.newStream(sis.getPosition(), -1);
-	} else {
-	    try {
-		content = MimeUtility.getBytes(is);
-	    } catch (IOException ioex) {
-		throw new MessagingException("IOException", ioex);
-	    }
-	}
+        headers = createInternetHeaders(is);
 
-	modified = false;
+        if (is instanceof SharedInputStream) {
+            SharedInputStream sis = (SharedInputStream) is;
+            contentStream = sis.newStream(sis.getPosition(), -1);
+        } else {
+            try {
+                content = MimeUtility.getBytes(is);
+            } catch (IOException ioex) {
+                throw new MessagingException("IOException", ioex);
+            }
+        }
+
+        modified = false;
     }
 
-    /** 
-     * Returns the value of the RFC 822 "From" header fields. If this 
-     * header field is absent, the "Sender" header field is used. 
+    /**
+     * Returns the value of the RFC 822 "From" header fields. If this
+     * header field is absent, the "Sender" header field is used.
      * If the "Sender" header field is also absent, <code>null</code>
      * is returned.<p>
      *
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return		Address object
-     * @exception	MessagingException for failures
-     * @see	#headers
+     * @return Address object
+     * @throws MessagingException for failures
+     * @see #headers
      */
     @Override
     public Address[] getFrom() throws MessagingException {
-	Address[] a = getAddressHeader("From");
-	if (a == null)
-	    a = getAddressHeader("Sender");
-	
-	return a;
+        Address[] a = getAddressHeader("From");
+        if (a == null)
+            a = getAddressHeader("Sender");
+
+        return a;
     }
 
     /**
-     * Set the RFC 822 "From" header field. Any existing values are 
+     * Set the RFC 822 "From" header field. Any existing values are
      * replaced with the given address. If address is <code>null</code>,
      * this header is removed.
      *
-     * @param address	the sender of this message
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @param address the sender of this message
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setFrom(Address address) throws MessagingException {
         if (address == null)
             removeHeader("From");
         else
-            setAddressHeader("From", new Address[] { address });
+            setAddressHeader("From", new Address[]{address});
     }
 
     /**
-     * Set the RFC 822 "From" header field. Any existing values are 
+     * Set the RFC 822 "From" header field. Any existing values are
      * replaced with the given addresses. If address is <code>null</code>,
      * this header is removed.
      *
-     * @param address	the sender(s) of this message
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
-     * @since		JvaMail 1.5
+     * @param address the sender(s) of this message
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
+     * @since JvaMail 1.5
      */
     public void setFrom(String address) throws MessagingException {
         if (address == null)
@@ -431,47 +432,47 @@ public class MimeMessage extends Message implements MimePart {
      * Set the RFC 822 "From" header field using the value of the
      * <code>InternetAddress.getLocalAddress</code> method.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setFrom() throws MessagingException {
-	InternetAddress me = null;
-	try {
-	    me = InternetAddress._getLocalAddress(session);
-	} catch (Exception ex) {
-	    // if anything goes wrong (SecurityException, UnknownHostException),
-	    // chain the exception
-	    throw new MessagingException("No From address", ex);
-	}
-	if (me != null)
-	    setFrom(me);
-	else
-	    throw new MessagingException("No From address");
+        InternetAddress me = null;
+        try {
+            me = InternetAddress._getLocalAddress(session);
+        } catch (Exception ex) {
+            // if anything goes wrong (SecurityException, UnknownHostException),
+            // chain the exception
+            throw new MessagingException("No From address", ex);
+        }
+        if (me != null)
+            setFrom(me);
+        else
+            throw new MessagingException("No From address");
     }
 
     /**
      * Add the specified addresses to the existing "From" field. If
      * the "From" field does not already exist, it is created.
      *
-     * @param addresses	the senders of this message
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @param addresses the senders of this message
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void addFrom(Address[] addresses) throws MessagingException {
-	addAddressHeader("From", addresses);
+        addAddressHeader("From", addresses);
     }
 
-    /** 
+    /**
      * Returns the value of the RFC 822 "Sender" header field.
      * If the "Sender" header field is absent, <code>null</code>
      * is returned.<p>
@@ -479,37 +480,37 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return		Address object
-     * @exception	MessagingException for failures
-     * @see		#headers
-     * @since		JavaMail 1.3
+     * @return Address object
+     * @throws MessagingException for failures
+     * @see #headers
+     * @since JavaMail 1.3
      */
     public Address getSender() throws MessagingException {
-	Address[] a = getAddressHeader("Sender");
-	if (a == null || a.length == 0)
-	    return null;
-	return a[0];	// there can be only one
+        Address[] a = getAddressHeader("Sender");
+        if (a == null || a.length == 0)
+            return null;
+        return a[0];    // there can be only one
     }
 
     /**
-     * Set the RFC 822 "Sender" header field. Any existing values are 
+     * Set the RFC 822 "Sender" header field. Any existing values are
      * replaced with the given address. If address is <code>null</code>,
      * this header is removed.
      *
-     * @param address	the sender of this message
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
-     * @since		JavaMail 1.3
+     * @param address the sender of this message
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
+     * @since JavaMail 1.3
      */
     public void setSender(Address address) throws MessagingException {
         if (address == null)
             removeHeader("Sender");
         else
-            setAddressHeader("Sender", new Address[] { address });
+            setAddressHeader("Sender", new Address[]{address});
     }
 
     /**
@@ -521,24 +522,30 @@ public class MimeMessage extends Message implements MimePart {
      */
     public static class RecipientType extends Message.RecipientType {
 
-	private static final long serialVersionUID = -5468290701714395543L;
+        private static final long serialVersionUID = -5468290701714395543L;
 
-	/**
-	 * The "Newsgroup" (Usenet news) recipients.
-	 */
-	public static final RecipientType NEWSGROUPS =
-					new RecipientType("Newsgroups");
-	protected RecipientType(String type) {
-	    super(type);
-	}
+        /**
+         * The "Newsgroup" (Usenet news) recipients.
+         */
+        public static final RecipientType NEWSGROUPS =
+                new RecipientType("Newsgroups");
 
-	@Override
-	protected Object readResolve() throws ObjectStreamException {
-	    if (type.equals("Newsgroups"))
-		return NEWSGROUPS;
-	    else
-		return super.readResolve();
-	}
+        /**
+         * Constructor for use by subclasses.
+         *
+         * @param type the recipient type
+         */
+        protected RecipientType(String type) {
+            super(type);
+        }
+
+        @Override
+        protected Object readResolve() throws ObjectStreamException {
+            if (type.equals("Newsgroups"))
+                return NEWSGROUPS;
+            else
+                return super.readResolve();
+        }
     }
 
     /**
@@ -546,10 +553,10 @@ public class MimeMessage extends Message implements MimePart {
      * between the type and the corresponding RFC 822 header is
      * as follows:
      * <pre>
-     *		Message.RecipientType.TO		"To"
-     *		Message.RecipientType.CC		"Cc"
-     *		Message.RecipientType.BCC		"Bcc"
-     *		MimeMessage.RecipientType.NEWSGROUPS	"Newsgroups"
+     *          Message.RecipientType.TO                "To"
+     *          Message.RecipientType.CC                "Cc"
+     *          Message.RecipientType.BCC               "Bcc"
+     *          MimeMessage.RecipientType.NEWSGROUPS    "Newsgroups"
      * </pre><br>
      *
      * Returns null if the header specified by the type is not found
@@ -558,101 +565,101 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @param           type	Type of recepient
-     * @return          array of Address objects
-     * @exception       MessagingException if header could not
-     *                  be retrieved
-     * @exception       AddressException if the header is misformatted
-     * @see		#headers
-     * @see		jakarta.mail.Message.RecipientType#TO
-     * @see		jakarta.mail.Message.RecipientType#CC
-     * @see		jakarta.mail.Message.RecipientType#BCC
-     * @see		jakarta.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
+     * @param type Type of recepient
+     * @return array of Address objects
+     * @throws MessagingException if header could not
+     *                               be retrieved
+     * @throws AddressException   if the header is misformatted
+     * @see #headers
+     * @see jakarta.mail.Message.RecipientType#TO
+     * @see jakarta.mail.Message.RecipientType#CC
+     * @see jakarta.mail.Message.RecipientType#BCC
+     * @see jakarta.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
      */
     @Override
     public Address[] getRecipients(Message.RecipientType type)
-				throws MessagingException {
-	if (type == RecipientType.NEWSGROUPS) {
-	    String s = getHeader("Newsgroups", ",");
-	    return (s == null) ? null : NewsAddress.parse(s);
-	} else
-	    return getAddressHeader(getHeaderName(type));
+            throws MessagingException {
+        if (type == RecipientType.NEWSGROUPS) {
+            String s = getHeader("Newsgroups", ",");
+            return (s == null) ? null : NewsAddress.parse(s);
+        } else
+            return getAddressHeader(getHeaderName(type));
     }
 
     /**
      * Get all the recipient addresses for the message.
      * Extracts the TO, CC, BCC, and NEWSGROUPS recipients.
      *
-     * @return          array of Address objects
-     * @exception       MessagingException for failures
-     * @see		jakarta.mail.Message.RecipientType#TO
-     * @see		jakarta.mail.Message.RecipientType#CC
-     * @see		jakarta.mail.Message.RecipientType#BCC
-     * @see		jakarta.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
+     * @return array of Address objects
+     * @throws MessagingException for failures
+     * @see jakarta.mail.Message.RecipientType#TO
+     * @see jakarta.mail.Message.RecipientType#CC
+     * @see jakarta.mail.Message.RecipientType#BCC
+     * @see jakarta.mail.internet.MimeMessage.RecipientType#NEWSGROUPS
      */
     @Override
     public Address[] getAllRecipients() throws MessagingException {
-	Address[] all = super.getAllRecipients();
-	Address[] ng = getRecipients(RecipientType.NEWSGROUPS);
+        Address[] all = super.getAllRecipients();
+        Address[] ng = getRecipients(RecipientType.NEWSGROUPS);
 
-	if (ng == null)
-	    return all;		// the common case
-	if (all == null)
-	    return ng;		// a rare case
+        if (ng == null)
+            return all;        // the common case
+        if (all == null)
+            return ng;        // a rare case
 
-	Address[] addresses = new Address[all.length + ng.length];
-	System.arraycopy(all, 0, addresses, 0, all.length);
-	System.arraycopy(ng, 0, addresses, all.length, ng.length);
-	return addresses;
+        Address[] addresses = new Address[all.length + ng.length];
+        System.arraycopy(all, 0, addresses, 0, all.length);
+        System.arraycopy(ng, 0, addresses, all.length, ng.length);
+        return addresses;
     }
-	
+
     /**
      * Set the specified recipient type to the given addresses.
      * If the address parameter is <code>null</code>, the corresponding
      * recipient field is removed.
      *
-     * @param type	Recipient type
-     * @param addresses	Addresses
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
-     * @see		#getRecipients
+     * @param type      Recipient type
+     * @param addresses Addresses
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
+     * @see #getRecipients
      */
     @Override
     public void setRecipients(Message.RecipientType type, Address[] addresses)
-                                throws MessagingException {
-	if (type == RecipientType.NEWSGROUPS) {
-	    if (addresses == null || addresses.length == 0)
-		removeHeader("Newsgroups");
-	    else
-		setHeader("Newsgroups", NewsAddress.toString(addresses));
-	} else
-	    setAddressHeader(getHeaderName(type), addresses);
+            throws MessagingException {
+        if (type == RecipientType.NEWSGROUPS) {
+            if (addresses == null || addresses.length == 0)
+                removeHeader("Newsgroups");
+            else
+                setHeader("Newsgroups", NewsAddress.toString(addresses));
+        } else
+            setAddressHeader(getHeaderName(type), addresses);
     }
 
     /**
      * Set the specified recipient type to the given addresses.
      * If the address parameter is <code>null</code>, the corresponding
      * recipient field is removed.
-     *   
+     *
      * @param type      Recipient type
      * @param addresses Addresses
-     * @exception       AddressException if the attempt to parse the
-     *                  addresses String fails
-     * @exception       IllegalWriteException if the underlying
-     *                  implementation does not support modification
-     *                  of existing values
-     * @exception       IllegalStateException if this message is
-     *                  obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
-     * @see             #getRecipients
-     * @since           JavaMail 1.2
+     * @throws AddressException      if the attempt to parse the
+     *                                  addresses String fails
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
+     * @see #getRecipients
+     * @since JavaMail 1.2
      */
     public void setRecipients(Message.RecipientType type, String addresses)
-                                throws MessagingException {
+            throws MessagingException {
         if (type == RecipientType.NEWSGROUPS) {
             if (addresses == null || addresses.length() == 0)
                 removeHeader("Newsgroups");
@@ -660,57 +667,57 @@ public class MimeMessage extends Message implements MimePart {
                 setHeader("Newsgroups", addresses);
         } else
             setAddressHeader(getHeaderName(type),
-		addresses == null ? null : InternetAddress.parse(addresses));
+                    addresses == null ? null : InternetAddress.parse(addresses));
     }
 
     /**
      * Add the given addresses to the specified recipient type.
      *
-     * @param type	Recipient type
-     * @param addresses	Addresses
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @param type      Recipient type
+     * @param addresses Addresses
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void addRecipients(Message.RecipientType type, Address[] addresses)
-                                throws MessagingException {
-	if (type == RecipientType.NEWSGROUPS) {
-	    String s = NewsAddress.toString(addresses);
-	    if (s != null)
-		addHeader("Newsgroups", s);
-	} else
-	    addAddressHeader(getHeaderName(type), addresses);
+            throws MessagingException {
+        if (type == RecipientType.NEWSGROUPS) {
+            String s = NewsAddress.toString(addresses);
+            if (s != null)
+                addHeader("Newsgroups", s);
+        } else
+            addAddressHeader(getHeaderName(type), addresses);
     }
 
     /**
      * Add the given addresses to the specified recipient type.
-     * 
+     *
      * @param type      Recipient type
      * @param addresses Addresses
-     * @exception       AddressException if the attempt to parse the
-     *                  addresses String fails
-     * @exception       IllegalWriteException if the underlying
-     *                  implementation does not support modification
-     *                  of existing values
-     * @exception       IllegalStateException if this message is
-     *                  obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
-     * @since           JavaMail 1.2
+     * @throws AddressException      if the attempt to parse the
+     *                                  addresses String fails
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
+     * @since JavaMail 1.2
      */
     public void addRecipients(Message.RecipientType type, String addresses)
-                                throws MessagingException {
+            throws MessagingException {
         if (type == RecipientType.NEWSGROUPS) {
             if (addresses != null && addresses.length() != 0)
                 addHeader("Newsgroups", addresses);
         } else
             addAddressHeader(getHeaderName(type),
-		    InternetAddress.parse(addresses));
+                    InternetAddress.parse(addresses));
     }
- 
+
     /**
      * Return the value of the RFC 822 "Reply-To" header field. If
      * this header is unavailable or its value is absent, then
@@ -719,79 +726,79 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @exception	MessagingException for failures
-     * @see		#headers
+     * @throws MessagingException for failures
+     * @see #headers
      */
     @Override
     public Address[] getReplyTo() throws MessagingException {
-	Address[] a = getAddressHeader("Reply-To");
-	if (a == null || a.length == 0)
-	    a = getFrom();
-	return a;
+        Address[] a = getAddressHeader("Reply-To");
+        if (a == null || a.length == 0)
+            a = getFrom();
+        return a;
     }
 
     /**
-     * Set the RFC 822 "Reply-To" header field. If the address 
+     * Set the RFC 822 "Reply-To" header field. If the address
      * parameter is <code>null</code>, this header is removed.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setReplyTo(Address[] addresses) throws MessagingException {
-	setAddressHeader("Reply-To", addresses);
+        setAddressHeader("Reply-To", addresses);
     }
 
     // Convenience method to get addresses
-    private Address[] getAddressHeader(String name) 
-			throws MessagingException {
-	String s = getHeader(name, ",");
-	return (s == null) ? null : InternetAddress.parseHeader(s, strict);
+    private Address[] getAddressHeader(String name)
+            throws MessagingException {
+        String s = getHeader(name, ",");
+        return (s == null) ? null : InternetAddress.parseHeader(s, strict);
     }
 
     // Convenience method to set addresses
     private void setAddressHeader(String name, Address[] addresses)
-			throws MessagingException {
-	String s;
-	if (allowutf8)
-	    s = InternetAddress.toUnicodeString(addresses, name.length() + 2);
-	else
-	    s = InternetAddress.toString(addresses, name.length() + 2);
-	if (s == null)
-	    removeHeader(name);
-	else
-	    setHeader(name, s);
+            throws MessagingException {
+        String s;
+        if (allowutf8)
+            s = InternetAddress.toUnicodeString(addresses, name.length() + 2);
+        else
+            s = InternetAddress.toString(addresses, name.length() + 2);
+        if (s == null)
+            removeHeader(name);
+        else
+            setHeader(name, s);
     }
 
     private void addAddressHeader(String name, Address[] addresses)
-			throws MessagingException {
-	if (addresses == null || addresses.length == 0)
-	    return;
-	Address[] a = getAddressHeader(name);
-	Address[] anew;
-	if (a == null || a.length == 0)
-	    anew = addresses;
-	else {
-	    anew = new Address[a.length + addresses.length];
-	    System.arraycopy(a, 0, anew, 0, a.length);
-	    System.arraycopy(addresses, 0, anew, a.length, addresses.length);
-	}
-	String s;
-	if (allowutf8)
-	    s = InternetAddress.toUnicodeString(anew, name.length() + 2);
-	else
-	    s = InternetAddress.toString(anew, name.length() + 2);
-	if (s == null)
-	    return;
-	setHeader(name, s);
+            throws MessagingException {
+        if (addresses == null || addresses.length == 0)
+            return;
+        Address[] a = getAddressHeader(name);
+        Address[] anew;
+        if (a == null || a.length == 0)
+            anew = addresses;
+        else {
+            anew = new Address[a.length + addresses.length];
+            System.arraycopy(a, 0, anew, 0, a.length);
+            System.arraycopy(addresses, 0, anew, a.length, addresses.length);
+        }
+        String s;
+        if (allowutf8)
+            s = InternetAddress.toUnicodeString(anew, name.length() + 2);
+        else
+            s = InternetAddress.toString(anew, name.length() + 2);
+        if (s == null)
+            return;
+        setHeader(name, s);
     }
 
     /**
-     * Returns the value of the "Subject" header field. Returns null 
+     * Returns the value of the "Subject" header field. Returns null
      * if the subject field is unavailable or its value is absent. <p>
      *
      * If the subject is encoded as per RFC 2047, it is decoded and
@@ -801,29 +808,29 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return          Subject
-     * @exception	MessagingException for failures
-     * @see		#headers
+     * @return Subject
+     * @throws MessagingException for failures
+     * @see #headers
      */
     @Override
     public String getSubject() throws MessagingException {
-	String rawvalue = getHeader("Subject", null);
+        String rawvalue = getHeader("Subject", null);
 
-	if (rawvalue == null)
-	    return null;
+        if (rawvalue == null)
+            return null;
 
-	try {
-	    return MimeUtility.decodeText(MimeUtility.unfold(rawvalue));
-	} catch (UnsupportedEncodingException ex) {
-	    return rawvalue;
-	}
+        try {
+            return MimeUtility.decodeText(MimeUtility.unfold(rawvalue));
+        } catch (UnsupportedEncodingException ex) {
+            return rawvalue;
+        }
     }
 
     /**
-     * Set the "Subject" header field. If the subject contains 
-     * non US-ASCII characters, it will be encoded using the 
-     * platform's default charset. If the subject contains only 
-     * US-ASCII characters, no encoding is done and it is used 
+     * Set the "Subject" header field. If the subject contains
+     * non US-ASCII characters, it will be encoded using the
+     * platform's default charset. If the subject contains only
+     * US-ASCII characters, no encoding is done and it is used
      * as-is. If the subject is null, the existing "Subject" field
      * is removed. <p>
      *
@@ -835,24 +842,24 @@ public class MimeMessage extends Message implements MimePart {
      * is included in the chain of nested exceptions within the
      * MessagingException.
      *
-     * @param 	subject		The subject
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     *			of existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @param subject The subject
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setSubject(String subject) throws MessagingException {
-	setSubject(subject, null);
+        setSubject(subject, null);
     }
 
     /**
-     * Set the "Subject" header field. If the subject contains non 
+     * Set the "Subject" header field. If the subject contains non
      * US-ASCII characters, it will be encoded using the specified
-     * charset. If the subject contains only US-ASCII characters, no 
-     * encoding is done and it is used as-is. If the subject is null, 
+     * charset. If the subject contains only US-ASCII characters, no
+     * encoding is done and it is used as-is. If the subject is null,
      * the existing "Subject" header field is removed. <p>
      *
      * The application must ensure that the subject does not contain
@@ -863,77 +870,77 @@ public class MimeMessage extends Message implements MimePart {
      * is included in the chain of nested exceptions within the
      * MessagingException.
      *
-     * @param	subject		The subject
-     * @param	charset		The charset 
-     * @exception		IllegalWriteException if the underlying
-     *				implementation does not support modification
-     *				of existing values
-     * @exception		IllegalStateException if this message is
-     *				obtained from a READ_ONLY folder.
-     * @exception		MessagingException for other failures
+     * @param subject The subject
+     * @param charset The charset
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     *                                  of existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     public void setSubject(String subject, String charset)
-			throws MessagingException {
-	if (subject == null) {
-	    removeHeader("Subject");
-	} else {
-	    try {
-		setHeader("Subject", MimeUtility.fold(9,
-		    MimeUtility.encodeText(subject, charset, null)));
-	    } catch (UnsupportedEncodingException uex) {
-		throw new MessagingException("Encoding error", uex);
-	    }
-	}
+            throws MessagingException {
+        if (subject == null) {
+            removeHeader("Subject");
+        } else {
+            try {
+                setHeader("Subject", MimeUtility.fold(9,
+                        MimeUtility.encodeText(subject, charset, null)));
+            } catch (UnsupportedEncodingException uex) {
+                throw new MessagingException("Encoding error", uex);
+            }
+        }
     }
 
     /**
-     * Returns the value of the RFC 822 "Date" field. This is the date 
-     * on which this message was sent. Returns null if this field is 
+     * Returns the value of the RFC 822 "Date" field. This is the date
+     * on which this message was sent. Returns null if this field is
      * unavailable or its value is absent. <p>
-     * 
+     *
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return          The sent Date
-     * @exception	MessagingException for failures
+     * @return The sent Date
+     * @throws MessagingException for failures
      */
     @Override
     public Date getSentDate() throws MessagingException {
-	String s = getHeader("Date", null);
-	if (s != null) {
-	    try {
-	        return Date.from(Instant.from(mailDateFormat.parse(s)));
-	    } catch (RuntimeException pex) {
-		return null;
-	    }
-	}
-	
-	return null;
+        String s = getHeader("Date", null);
+        if (s != null) {
+            try {
+                return Date.from(Instant.from(mailDateFormat.parse(s)));
+            } catch (RuntimeException e) {
+                return null;
+            }
+        }
+
+        return null;
     }
 
     /**
      * Set the RFC 822 "Date" header field. This is the date on which the
      * creator of the message indicates that the message is complete
-     * and ready for delivery. If the date parameter is 
+     * and ready for delivery. If the date parameter is
      * <code>null</code>, the existing "Date" field is removed.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setSentDate(Date d) throws MessagingException {
-	if (d == null)
-	    removeHeader("Date");
-	else {
-	    setHeader("Date", mailDateFormat.format(d.toInstant()));
-	}
+        if (d == null)
+            removeHeader("Date");
+        else {
+            setHeader("Date", mailDateFormat.format(d.toInstant()));
+        }
     }
 
     /**
-     * Returns the Date on this message was received. Returns 
+     * Returns the Date on this message was received. Returns
      * <code>null</code> if this date cannot be obtained. <p>
      *
      * Note that RFC 822 does not define a field for the received
@@ -942,16 +949,16 @@ public class MimeMessage extends Message implements MimePart {
      *
      * This implementation returns <code>null</code>.
      *
-     * @return          the date this message was received
-     * @exception	MessagingException for failures
+     * @return the date this message was received
+     * @throws MessagingException for failures
      */
     @Override
     public Date getReceivedDate() throws MessagingException {
-	return null;	
+        return null;
     }
 
     /**
-     * Return the size of the content of this message in bytes. 
+     * Return the size of the content of this message in bytes.
      * Return -1 if the size cannot be determined. <p>
      *
      * Note that this number may not be an exact measure of the
@@ -964,70 +971,70 @@ public class MimeMessage extends Message implements MimePart {
      * number, it returns that number as the size.  Otherwise, it returns
      * -1.
      *
-     * @return          size of content in bytes
-     * @exception	MessagingException for failures
-     */  
+     * @return size of content in bytes
+     * @throws MessagingException for failures
+     */
     @Override
     public int getSize() throws MessagingException {
-	if (content != null)
-	    return content.length;
-	if (contentStream != null) {
-	    try {
-		int size = contentStream.available();
-		// only believe the size if it's greater than zero, since zero
-		// is the default returned by the InputStream class itself
-		if (size > 0)
-		    return size;
-	    } catch (IOException ex) {
-		// ignore it
-	    }
-	}
-	return -1;
+        if (content != null)
+            return content.length;
+        if (contentStream != null) {
+            try {
+                int size = contentStream.available();
+                // only believe the size if it's greater than zero, since zero
+                // is the default returned by the InputStream class itself
+                if (size > 0)
+                    return size;
+            } catch (IOException ex) {
+                // ignore it
+            }
+        }
+        return -1;
     }
 
     /**
      * Return the number of lines for the content of this message.
      * Return -1 if this number cannot be determined. <p>
      *
-     * Note that this number may not be an exact measure of the 
-     * content length and may or may not account for any transfer 
+     * Note that this number may not be an exact measure of the
+     * content length and may or may not account for any transfer
      * encoding of the content. <p>
      *
      * This implementation returns -1.
      *
-     * @return          number of lines in the content.
-     * @exception	MessagingException for failures
-     */  
+     * @return number of lines in the content.
+     * @throws MessagingException for failures
+     */
     @Override
     public int getLineCount() throws MessagingException {
-	return -1;
+        return -1;
     }
 
     /**
-     * Returns the value of the RFC 822 "Content-Type" header field. 
-     * This represents the content-type of the content of this 
-     * message. This value must not be null. If this field is 
+     * Returns the value of the RFC 822 "Content-Type" header field.
+     * This represents the content-type of the content of this
+     * message. This value must not be null. If this field is
      * unavailable, "text/plain" should be returned. <p>
      *
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return          The ContentType of this part
-     * @exception	MessagingException for failures
-     * @see             jakarta.activation.DataHandler
+     * @return The ContentType of this part
+     * @throws MessagingException for failures
+     * @see jakarta.activation.DataHandler
      */
     @Override
     public String getContentType() throws MessagingException {
-	String s = getHeader("Content-Type", null);
-	s = MimeUtil.cleanContentType(this, s);
-	if (s == null)
-	    return "text/plain";
-	return s;
+        String s = getHeader("Content-Type", null);
+        s = MimeUtil.cleanContentType(this, s);
+        if (s == null)
+            return "text/plain";
+        return s;
     }
 
     /**
      * Is this Part of the specified MIME type?  This method
-     * compares <strong>only the <code>primaryType</code> and 
+     * compares <strong>only the <code>primaryType</code> and
      * <code>subType</code></strong>.
      * The parameters of the content types are ignored. <p>
      *
@@ -1039,13 +1046,13 @@ public class MimeMessage extends Message implements MimePart {
      * special character '*', then the subtype is ignored during the
      * comparison.
      *
-     * @param	mimeType	the MIME type to check
-     * @return			true if it matches the MIME type
-     * @exception		MessagingException for failures
+     * @param mimeType the MIME type to check
+     * @return true if it matches the MIME type
+     * @throws MessagingException for failures
      */
     @Override
     public boolean isMimeType(String mimeType) throws MessagingException {
-	return MimeBodyPart.isMimeType(this, mimeType);
+        return MimeBodyPart.isMimeType(this, mimeType);
     }
 
     /**
@@ -1053,18 +1060,18 @@ public class MimeMessage extends Message implements MimePart {
      * This represents the disposition of this part. The disposition
      * describes how the part should be presented to the user. <p>
      *
-     * If the Content-Disposition field is unavailable, 
+     * If the Content-Disposition field is unavailable,
      * <code>null</code> is returned. <p>
      *
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return          disposition of this part, or null if unknown
-     * @exception	MessagingException for failures
+     * @return disposition of this part, or null if unknown
+     * @throws MessagingException for failures
      */
     @Override
     public String getDisposition() throws MessagingException {
-	return MimeBodyPart.getDisposition(this);
+        return MimeBodyPart.getDisposition(this);
     }
 
     /**
@@ -1072,15 +1079,15 @@ public class MimeMessage extends Message implements MimePart {
      * of this body part.  If the disposition is null, any existing
      * "Content-Disposition" header field is removed.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setDisposition(String disposition) throws MessagingException {
-	MimeBodyPart.setDisposition(this, disposition);
+        MimeBodyPart.setDisposition(this, disposition);
     }
 
     /**
@@ -1092,159 +1099,159 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return          content-transfer-encoding
-     * @exception	MessagingException for failures
+     * @return content-transfer-encoding
+     * @throws MessagingException for failures
      */
     @Override
     public String getEncoding() throws MessagingException {
-	return MimeBodyPart.getEncoding(this);
+        return MimeBodyPart.getEncoding(this);
     }
 
     /**
      * Returns the value of the "Content-ID" header field. Returns
-     * <code>null</code> if the field is unavailable or its value is 
+     * <code>null</code> if the field is unavailable or its value is
      * absent. <p>
      *
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return          content-ID
-     * @exception	MessagingException for failures
+     * @return content-ID
+     * @throws MessagingException for failures
      */
     @Override
     public String getContentID() throws MessagingException {
-	return getHeader("Content-Id", null);
+        return getHeader("Content-Id", null);
     }
 
     /**
      * Set the "Content-ID" header field of this Message.
-     * If the <code>cid</code> parameter is null, any existing 
+     * If the <code>cid</code> parameter is null, any existing
      * "Content-ID" is removed.
      *
-     * @param	cid	the content ID
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @param cid the content ID
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     public void setContentID(String cid) throws MessagingException {
-	if (cid == null)
-	    removeHeader("Content-ID");
-	else
-	    setHeader("Content-ID", cid);
+        if (cid == null)
+            removeHeader("Content-ID");
+        else
+            setHeader("Content-ID", cid);
     }
 
     /**
-     * Return the value of the "Content-MD5" header field. Returns 
+     * Return the value of the "Content-MD5" header field. Returns
      * <code>null</code> if this field is unavailable or its value
      * is absent. <p>
      *
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return          content-MD5
-     * @exception	MessagingException for failures
+     * @return content-MD5
+     * @throws MessagingException for failures
      */
     @Override
     public String getContentMD5() throws MessagingException {
-	return getHeader("Content-MD5", null);
+        return getHeader("Content-MD5", null);
     }
 
     /**
      * Set the "Content-MD5" header field of this Message.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setContentMD5(String md5) throws MessagingException {
-	setHeader("Content-MD5", md5);
+        setHeader("Content-MD5", md5);
     }
 
     /**
      * Returns the "Content-Description" header field of this Message.
-     * This typically associates some descriptive information with 
+     * This typically associates some descriptive information with
      * this part. Returns null if this field is unavailable or its
      * value is absent. <p>
      *
      * If the Content-Description field is encoded as per RFC 2047,
-     * it is decoded and converted into Unicode. If the decoding or 
+     * it is decoded and converted into Unicode. If the decoding or
      * conversion fails, the raw data is returned as-is <p>
      *
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
-     * 
-     * @return	content-description
-     * @exception	MessagingException for failures
+     *
+     * @return content-description
+     * @throws MessagingException for failures
      */
     @Override
     public String getDescription() throws MessagingException {
-	return MimeBodyPart.getDescription(this);
+        return MimeBodyPart.getDescription(this);
     }
 
     /**
      * Set the "Content-Description" header field for this Message.
-     * If the description parameter is <code>null</code>, then any 
+     * If the description parameter is <code>null</code>, then any
      * existing "Content-Description" fields are removed. <p>
      *
-     * If the description contains non US-ASCII characters, it will 
-     * be encoded using the platform's default charset. If the 
-     * description contains only US-ASCII characters, no encoding 
+     * If the description contains non US-ASCII characters, it will
+     * be encoded using the platform's default charset. If the
+     * description contains only US-ASCII characters, no encoding
      * is done and it is used as-is. <p>
      *
      * Note that if the charset encoding process fails, a
      * MessagingException is thrown, and an UnsupportedEncodingException
      * is included in the chain of nested exceptions within the
      * MessagingException.
-     * 
+     *
      * @param description content-description
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception	MessagingException An
-     * 			UnsupportedEncodingException may be included
-     *			in the exception chain if the charset
-     *			conversion fails.
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    An
+     *                                  UnsupportedEncodingException may be included
+     *                                  in the exception chain if the charset
+     *                                  conversion fails.
      */
     @Override
     public void setDescription(String description) throws MessagingException {
-	setDescription(description, null);
+        setDescription(description, null);
     }
 
     /**
      * Set the "Content-Description" header field for this Message.
-     * If the description parameter is <code>null</code>, then any 
+     * If the description parameter is <code>null</code>, then any
      * existing "Content-Description" fields are removed. <p>
      *
-     * If the description contains non US-ASCII characters, it will 
-     * be encoded using the specified charset. If the description 
-     * contains only US-ASCII characters, no encoding  is done and 
+     * If the description contains non US-ASCII characters, it will
+     * be encoded using the specified charset. If the description
+     * contains only US-ASCII characters, no encoding  is done and
      * it is used as-is. <p>
      *
      * Note that if the charset encoding process fails, a
      * MessagingException is thrown, and an UnsupportedEncodingException
      * is included in the chain of nested exceptions within the
      * MessagingException.
-     * 
-     * @param	description	Description
-     * @param	charset		Charset for encoding
-     * @exception		IllegalWriteException if the underlying
-     *				implementation does not support modification
-     * @exception		IllegalStateException if this message is
-     *				obtained from a READ_ONLY folder.
-     * @exception		MessagingException An
-     * 				UnsupportedEncodingException may be included
-     *				in the exception chain if the charset
-     *				conversion fails.
+     *
+     * @param description Description
+     * @param charset     Charset for encoding
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    An
+     *                                  UnsupportedEncodingException may be included
+     *                                  in the exception chain if the charset
+     *                                  conversion fails.
      */
-    public void setDescription(String description, String charset) 
-		throws MessagingException {
-	MimeBodyPart.setDescription(this, description, charset);
+    public void setDescription(String description, String charset)
+            throws MessagingException {
+        MimeBodyPart.setDescription(this, description, charset);
     }
 
     /**
@@ -1256,29 +1263,29 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation uses the <code>getHeader</code> method
      * to obtain the requisite header field.
      *
-     * @return			value of content-language header.
-     * @exception		MessagingException for failures
+     * @return value of content-language header.
+     * @throws MessagingException for failures
      */
     @Override
     public String[] getContentLanguage() throws MessagingException {
-	return MimeBodyPart.getContentLanguage(this);
+        return MimeBodyPart.getContentLanguage(this);
     }
 
     /**
      * Set the "Content-Language" header of this MimePart. The
      * Content-Language header is defined by RFC 1766.
      *
-     * @param languages 	array of language tags
-     * @exception		IllegalWriteException if the underlying
-     *				implementation does not support modification
-     * @exception		IllegalStateException if this message is
-     *				obtained from a READ_ONLY folder.
-     * @exception		MessagingException for other failures
+     * @param languages array of language tags
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setContentLanguage(String[] languages)
-			throws MessagingException {
-	MimeBodyPart.setContentLanguage(this, languages);
+            throws MessagingException {
+        MimeBodyPart.setContentLanguage(this, languages);
     }
 
     /**
@@ -1289,14 +1296,14 @@ public class MimeMessage extends Message implements MimePart {
      * <code>getHeader</code> method to return the value of the
      * "Message-ID" field.
      *
-     * @return     Message-ID
-     * @exception  MessagingException if the retrieval of this field
-     *			causes any exception.
-     * @see        jakarta.mail.search.MessageIDTerm
-     * @since 	   JavaMail 1.1
+     * @return Message-ID
+     * @throws MessagingException if the retrieval of this field
+     *                               causes any exception.
+     * @see jakarta.mail.search.MessageIDTerm
+     * @since JavaMail 1.1
      */
     public String getMessageID() throws MessagingException {
-	return getHeader("Message-ID", null);
+        return getHeader("Message-ID", null);
     }
 
     /**
@@ -1316,12 +1323,12 @@ public class MimeMessage extends Message implements MimePart {
      * characters in filenames.  The default value of this property
      * is false.
      *
-     * @return	filename
-     * @exception		MessagingException for failures
+     * @return filename
+     * @throws MessagingException for failures
      */
     @Override
     public String getFileName() throws MessagingException {
-	return MimeBodyPart.getFileName(this);
+        return MimeBodyPart.getFileName(this);
     }
 
     /**
@@ -1338,32 +1345,32 @@ public class MimeMessage extends Message implements MimePart {
      * characters in filenames.  The default value of this property
      * is false.
      *
-     * @exception		IllegalWriteException if the underlying
-     *				implementation does not support modification
-     * @exception		IllegalStateException if this message is
-     *				obtained from a READ_ONLY folder.
-     * @exception		MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setFileName(String filename) throws MessagingException {
-	MimeBodyPart.setFileName(this, filename);	
+        MimeBodyPart.setFileName(this, filename);
     }
 
     private String getHeaderName(Message.RecipientType type)
-				throws MessagingException {
-	String headerName;
+            throws MessagingException {
+        String headerName;
 
-	if (type == Message.RecipientType.TO)
-	    headerName = "To";
-	else if (type == Message.RecipientType.CC)
-	    headerName = "Cc";
-	else if (type == Message.RecipientType.BCC)
-	    headerName = "Bcc";
-	else if (type == MimeMessage.RecipientType.NEWSGROUPS)
-	    headerName = "Newsgroups";
-	else
-	    throw new MessagingException("Invalid Recipient Type");
-	return headerName;
+        if (type == Message.RecipientType.TO)
+            headerName = "To";
+        else if (type == Message.RecipientType.CC)
+            headerName = "Cc";
+        else if (type == Message.RecipientType.BCC)
+            headerName = "Bcc";
+        else if (type == MimeMessage.RecipientType.NEWSGROUPS)
+            headerName = "Newsgroups";
+        else
+            throw new MessagingException("Invalid Recipient Type");
+        return headerName;
     }
 
 
@@ -1373,25 +1380,24 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation obtains the input stream from the DataHandler,
      * that is, it invokes <code>getDataHandler().getInputStream()</code>.
      *
-     * @return 		an InputStream
-     * @exception       IOException this is typically thrown by the
-     *			DataHandler. Refer to the documentation for
-     *			jakarta.activation.DataHandler for more details.
-     * @exception	MessagingException for other failures
-     *
-     * @see	#getContentStream
-     * @see 	jakarta.activation.DataHandler#getInputStream
+     * @return an InputStream
+     * @throws IOException        this is typically thrown by the
+     *                               DataHandler. Refer to the documentation for
+     *                               jakarta.activation.DataHandler for more details.
+     * @throws MessagingException for other failures
+     * @see #getContentStream
+     * @see jakarta.activation.DataHandler#getInputStream
      */
     @Override
-    public InputStream getInputStream() 
-		throws IOException, MessagingException {
-	return getDataHandler().getInputStream();
+    public InputStream getInputStream()
+            throws IOException, MessagingException {
+        return getDataHandler().getInputStream();
     }
 
     /**
      * Produce the raw bytes of the content. This method is used during
      * parsing, to create a DataHandler object for the content. Subclasses
-     * that can provide a separate input stream for just the message 
+     * that can provide a separate input stream for just the message
      * content might want to override this method. <p>
      *
      * This implementation returns a SharedInputStream, if
@@ -1399,17 +1405,17 @@ public class MimeMessage extends Message implements MimePart {
      * returns a ByteArrayInputStream constructed
      * out of the <code>content</code> byte array.
      *
-     * @return	an InputStream containing the raw bytes
-     * @exception	MessagingException for failures
+     * @return an InputStream containing the raw bytes
+     * @throws MessagingException for failures
      * @see #content
      */
     protected InputStream getContentStream() throws MessagingException {
-	if (contentStream != null)
-	    return ((SharedInputStream)contentStream).newStream(0, -1);
-	if (content != null) {
-        return session.getStreamProvider().inputSharedByteArray(content);
-	}
-	throw new MessagingException("No MimeMessage content");
+        if (contentStream != null)
+            return ((SharedInputStream) contentStream).newStream(0, -1);
+        if (content != null) {
+            return provider().inputSharedByteArray(content);
+        }
+        throw new MessagingException("No MimeMessage content");
     }
 
     /**
@@ -1423,21 +1429,21 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation simply calls the <code>getContentStream</code>
      * method.
      *
-     * @return	an InputStream containing the raw bytes
-     * @exception	MessagingException for failures
-     * @see	#getInputStream
-     * @see	#getContentStream
-     * @since	JavaMail 1.2
+     * @return an InputStream containing the raw bytes
+     * @throws MessagingException for failures
+     * @see #getInputStream
+     * @see #getContentStream
+     * @since JavaMail 1.2
      */
     public InputStream getRawInputStream() throws MessagingException {
-	return getContentStream();
+        return getContentStream();
     }
 
-    /**                                                            
+    /**
      * Return a DataHandler for this Message's content. <p>
      *
      * The implementation provided here works approximately as follows.
-     * Note the use of the <code>getContentStream</code> method to 
+     * Note the use of the <code>getContentStream</code> method to
      * generate the byte stream for the content. Also note that
      * any transfer-decoding is done automatically within this method.
      *
@@ -1452,26 +1458,26 @@ public class MimeMessage extends Message implements MimePart {
      *  class MimePartDataSource implements DataSource {
      *      public getInputStream() {
      *          return MimeUtility.decode(
-     *		     getContentStream(), getEncoding());
+     *               getContentStream(), getEncoding());
      *      }
-     *	
-     *		.... &lt;other DataSource methods&gt;
-     *  }
-     * </pre></blockquote><p>
      *
-     * @exception	MessagingException for failures
+     *          .... &lt;other DataSource methods&gt;
+     *  }
+     * </pre></blockquote>
+     *
+     * @throws MessagingException for failures
      */
     @Override
-    public synchronized DataHandler getDataHandler() 
-		throws MessagingException {
-	if (dh == null)
-	    dh = new MimeBodyPart.MimePartDataHandler(this);
-	return dh;
+    public synchronized DataHandler getDataHandler()
+            throws MessagingException {
+        if (dh == null)
+            dh = new MimeBodyPart.MimePartDataHandler(this);
+        return dh;
     }
 
     /**
      * Return the content as a Java object. The type of this
-     * object is dependent on the content itself. For 
+     * object is dependent on the content itself. For
      * example, the native format of a "text/plain" content
      * is usually a String object. The native format for a "multipart"
      * message is always a Multipart subclass. For content types that are
@@ -1484,62 +1490,62 @@ public class MimeMessage extends Message implements MimePart {
      * parsing a stream, the object is cached and returned in subsequent
      * calls so that modifications to the content will not be lost.
      *
-     * @return          Object
-     * @see		jakarta.mail.Part
-     * @see 		jakarta.activation.DataHandler#getContent
-     * @exception       IOException this is typically thrown by the
-     *			DataHandler. Refer to the documentation for
-     *			jakarta.activation.DataHandler for more details.
-     * @exception       MessagingException for other failures
+     * @return Object
+     * @throws IOException        this is typically thrown by the
+     *                               DataHandler. Refer to the documentation for
+     *                               jakarta.activation.DataHandler for more details.
+     * @throws MessagingException for other failures
+     * @see jakarta.mail.Part
+     * @see jakarta.activation.DataHandler#getContent
      */
     @Override
     public Object getContent() throws IOException, MessagingException {
-	if (cachedContent != null)
-	    return cachedContent;
-	Object c;
-	try {
-	    c = getDataHandler().getContent();
-	} catch (IOException e) {
-		if (e.getCause() instanceof FolderClosedException) {
-			FolderClosedException fce = (FolderClosedException) e.getCause();
-			throw new FolderClosedException(fce.getFolder(), e.getMessage(), e);
-		} else if(e.getCause() instanceof MessagingException) {
-			throw new MessageRemovedException(e.getMessage(), e);
-		} else {
-			throw e;
-		}
-	}
-	if (MimeBodyPart.cacheMultipart &&
-		(c instanceof Multipart || c instanceof Message) &&
-		(content != null || contentStream != null)) {
-	    cachedContent = c;
-	    /*
-	     * We may abandon the input stream so make sure
-	     * the MimeMultipart has consumed the stream.
-	     */
-	    if (c instanceof MimeMultipart)
-		((MimeMultipart)c).parse();
-	}
-	return c;
+        if (cachedContent != null)
+            return cachedContent;
+        Object c;
+        try {
+            c = getDataHandler().getContent();
+        } catch (IOException e) {
+            if (e.getCause() instanceof FolderClosedException) {
+                FolderClosedException fce = (FolderClosedException) e.getCause();
+                throw new FolderClosedException(fce.getFolder(), e.getMessage(), e);
+            } else if (e.getCause() instanceof MessagingException) {
+                throw new MessageRemovedException(e.getMessage(), e);
+            } else {
+                throw e;
+            }
+        }
+        if (MimeBodyPart.cacheMultipart &&
+                (c instanceof Multipart || c instanceof Message) &&
+                (content != null || contentStream != null)) {
+            cachedContent = c;
+            /*
+             * We may abandon the input stream so make sure
+             * the MimeMultipart has consumed the stream.
+             */
+            if (c instanceof MimeMultipart)
+                ((MimeMultipart) c).parse();
+        }
+        return c;
     }
 
     /**
      * This method provides the mechanism to set this part's content.
      * The given DataHandler object should wrap the actual content.
      *
-     * @param   dh      The DataHandler for the content.
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
+     * @param dh The DataHandler for the content.
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
-    public synchronized void setDataHandler(DataHandler dh) 
-		throws MessagingException {
-	this.dh = dh;
-	cachedContent = null;
-	MimeBodyPart.invalidateContentHeaders(this);
+    public synchronized void setDataHandler(DataHandler dh)
+            throws MessagingException {
+        this.dh = dh;
+        cachedContent = null;
+        MimeBodyPart.invalidateContentHeaders(this);
     }
 
     /**
@@ -1552,22 +1558,22 @@ public class MimeMessage extends Message implements MimePart {
      * a DataContentHandler for "application/x-foobar" should be installed.
      * Refer to the Java Activation Framework for more information.
      *
-     * @param	o	the content object
-     * @param	type	Mime type of the object
-     * @exception       IllegalWriteException if the underlying
-     *			implementation does not support modification of
-     *			existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
+     * @param o    the content object
+     * @param type Mime type of the object
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification of
+     *                                  existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
-    public void setContent(Object o, String type) 
-			throws MessagingException {
-	if (o instanceof Multipart)
-	    setContent((Multipart)o);
-	else
-	    setDataHandler(new DataHandler(o, type));
+    public void setContent(Object o, String type)
+            throws MessagingException {
+        if (o instanceof Multipart)
+            setContent((Multipart) o);
+        else
+            setDataHandler(new DataHandler(o, type));
     }
 
     /**
@@ -1585,13 +1591,13 @@ public class MimeMessage extends Message implements MimePart {
      * If the charset is already known, use the
      * <code>setText</code> method that takes the charset parameter.
      *
-     * @param	text	the text content to set
-     * @exception	MessagingException	if an error occurs
-     * @see	#setText(String text, String charset)
+     * @param text the text content to set
+     * @throws MessagingException if an error occurs
+     * @see #setText(String text, String charset)
      */
     @Override
     public void setText(String text) throws MessagingException {
-	setText(text, null);
+        setText(text, null);
     }
 
     /**
@@ -1601,14 +1607,14 @@ public class MimeMessage extends Message implements MimePart {
      * using the specified charset. The charset is also used to set
      * the "charset" parameter.
      *
-     * @param	text	the text content to set
-     * @param	charset	the charset to use for the text
-     * @exception	MessagingException	if an error occurs
+     * @param text    the text content to set
+     * @param charset the charset to use for the text
+     * @throws MessagingException if an error occurs
      */
     @Override
     public void setText(String text, String charset)
-			throws MessagingException {
-	MimeBodyPart.setText(this, text, charset, "plain");
+            throws MessagingException {
+        MimeBodyPart.setText(this, text, charset, "plain");
     }
 
     /**
@@ -1618,38 +1624,38 @@ public class MimeMessage extends Message implements MimePart {
      * using the specified charset. The charset is also used to set
      * the "charset" parameter.
      *
-     * @param	text	the text content to set
-     * @param	charset	the charset to use for the text
-     * @param	subtype	the MIME subtype to use (e.g., "html")
-     * @exception	MessagingException	if an error occurs
-     * @since	JavaMail 1.4
+     * @param text    the text content to set
+     * @param charset the charset to use for the text
+     * @param subtype the MIME subtype to use (e.g., "html")
+     * @throws MessagingException if an error occurs
+     * @since JavaMail 1.4
      */
     @Override
     public void setText(String text, String charset, String subtype)
-                        throws MessagingException {
-	MimeBodyPart.setText(this, text, charset, subtype);
+            throws MessagingException {
+        MimeBodyPart.setText(this, text, charset, subtype);
     }
 
     /**
      * This method sets the Message's content to a Multipart object.
      *
-     * @param  mp      The multipart object that is the Message's content
-     * @exception       IllegalWriteException if the underlying
-     *			implementation does not support modification of
-     *			existing values
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
+     * @param mp The multipart object that is the Message's content
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification of
+     *                                  existing values
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void setContent(Multipart mp) throws MessagingException {
-	setDataHandler(new DataHandler(mp, mp.getContentType()));
-	mp.setParent(this);
+        setDataHandler(new DataHandler(mp, mp.getContentType()));
+        mp.setParent(this);
     }
 
     /**
      * Get a new Message suitable for a reply to this message.
-     * The new Message will have its attributes and headers 
+     * The new Message will have its attributes and headers
      * set up appropriately.  Note that this new message object
      * will be empty, i.e., it will <strong>not</strong> have a "content".
      * These will have to be suitably filled in by the client. <p>
@@ -1671,19 +1677,19 @@ public class MimeMessage extends Message implements MimePart {
      * plus the contents of the "Message-Id" header of this message,
      * as described in RFC 2822.
      *
-     * @param	replyToAll	reply should be sent to all recipients
-     *				of this message
-     * @return		the reply Message
-     * @exception	MessagingException for failures
+     * @param replyToAll reply should be sent to all recipients
+     *                   of this message
+     * @return the reply Message
+     * @throws MessagingException for failures
      */
     @Override
     public Message reply(boolean replyToAll) throws MessagingException {
-	return reply(replyToAll, true);
+        return reply(replyToAll, true);
     }
 
     /**
      * Get a new Message suitable for a reply to this message.
-     * The new Message will have its attributes and headers 
+     * The new Message will have its attributes and headers
      * set up appropriately.  Note that this new message object
      * will be empty, i.e., it will <strong>not</strong> have a "content".
      * These will have to be suitably filled in by the client. <p>
@@ -1708,110 +1714,110 @@ public class MimeMessage extends Message implements MimePart {
      * plus the contents of the "Message-Id" header of this message,
      * as described in RFC 2822.
      *
-     * @param	replyToAll	reply should be sent to all recipients
-     *				of this message
-     * @param	setAnswered	set the ANSWERED flag in this message?
-     * @return		the reply Message
-     * @exception	MessagingException for failures
-     * @since		JavaMail 1.5
+     * @param replyToAll  reply should be sent to all recipients
+     *                    of this message
+     * @param setAnswered set the ANSWERED flag in this message?
+     * @return the reply Message
+     * @throws MessagingException for failures
+     * @since JavaMail 1.5
      */
     public Message reply(boolean replyToAll, boolean setAnswered)
-				throws MessagingException {
-	MimeMessage reply = createMimeMessage(session);
-	/*
-	 * Have to manipulate the raw Subject header so that we don't lose
-	 * any encoding information.  This is safe because "Re:" isn't
-	 * internationalized and (generally) isn't encoded.  If the entire
-	 * Subject header is encoded, prefixing it with "Re: " still leaves
-	 * a valid and correct encoded header.
-	 */
-	String subject = getHeader("Subject", null);
-	if (subject != null) {
-	    if (!subject.regionMatches(true, 0, "Re: ", 0, 4))
-		subject = "Re: " + subject;
-	    reply.setHeader("Subject", subject);
-	}
-	Address a[] = getReplyTo();
-	reply.setRecipients(Message.RecipientType.TO, a);
-	if (replyToAll) {
-	    List<Address> v = new ArrayList<>();
-	    // add my own address to list
-	    InternetAddress me = InternetAddress.getLocalAddress(session);
-	    if (me != null)
-		v.add(me);
-	    // add any alternate names I'm known by
-	    String alternates = null;
-	    if (session != null)
-		alternates = session.getProperty("mail.alternates");
-	    if (alternates != null)
-		eliminateDuplicates(v,
-				InternetAddress.parse(alternates, false));
-	    // should we Cc all other original recipients?
-	    boolean replyallcc = false;
-	    if (session != null)
-		replyallcc = MimeUtility.getBooleanProperty(
-						session.getProperties(),
-						"mail.replyallcc", false);
-	    // add the recipients from the To field so far
-	    eliminateDuplicates(v, a);
-	    a = getRecipients(Message.RecipientType.TO);
-	    a = eliminateDuplicates(v, a);
-	    if (a != null && a.length > 0) {
-		if (replyallcc)
-		    reply.addRecipients(Message.RecipientType.CC, a);
-		else
-		    reply.addRecipients(Message.RecipientType.TO, a);
-	    }
-	    a = getRecipients(Message.RecipientType.CC);
-	    a = eliminateDuplicates(v, a);
-	    if (a != null && a.length > 0)
-		reply.addRecipients(Message.RecipientType.CC, a);
-	    // don't eliminate duplicate newsgroups
-	    a = getRecipients(RecipientType.NEWSGROUPS);
-	    if (a != null && a.length > 0)
-		reply.setRecipients(RecipientType.NEWSGROUPS, a);
-	}
+            throws MessagingException {
+        MimeMessage reply = createMimeMessage(session);
+        /*
+         * Have to manipulate the raw Subject header so that we don't lose
+         * any encoding information.  This is safe because "Re:" isn't
+         * internationalized and (generally) isn't encoded.  If the entire
+         * Subject header is encoded, prefixing it with "Re: " still leaves
+         * a valid and correct encoded header.
+         */
+        String subject = getHeader("Subject", null);
+        if (subject != null) {
+            if (!subject.regionMatches(true, 0, "Re: ", 0, 4))
+                subject = "Re: " + subject;
+            reply.setHeader("Subject", subject);
+        }
+        Address[] a = getReplyTo();
+        reply.setRecipients(Message.RecipientType.TO, a);
+        if (replyToAll) {
+            List<Address> v = new ArrayList<>();
+            // add my own address to list
+            InternetAddress me = InternetAddress.getLocalAddress(session);
+            if (me != null)
+                v.add(me);
+            // add any alternate names I'm known by
+            String alternates = null;
+            if (session != null)
+                alternates = session.getProperty("mail.alternates");
+            if (alternates != null)
+                eliminateDuplicates(v,
+                        InternetAddress.parse(alternates, false));
+            // should we Cc all other original recipients?
+            boolean replyallcc = false;
+            if (session != null)
+                replyallcc = MimeUtility.getBooleanProperty(
+                        session.getProperties(),
+                        "mail.replyallcc", false);
+            // add the recipients from the To field so far
+            eliminateDuplicates(v, a);
+            a = getRecipients(Message.RecipientType.TO);
+            a = eliminateDuplicates(v, a);
+            if (a != null && a.length > 0) {
+                if (replyallcc)
+                    reply.addRecipients(Message.RecipientType.CC, a);
+                else
+                    reply.addRecipients(Message.RecipientType.TO, a);
+            }
+            a = getRecipients(Message.RecipientType.CC);
+            a = eliminateDuplicates(v, a);
+            if (a != null && a.length > 0)
+                reply.addRecipients(Message.RecipientType.CC, a);
+            // don't eliminate duplicate newsgroups
+            a = getRecipients(RecipientType.NEWSGROUPS);
+            if (a != null && a.length > 0)
+                reply.setRecipients(RecipientType.NEWSGROUPS, a);
+        }
 
-	String msgId = getHeader("Message-Id", null);
-	if (msgId != null)
-	    reply.setHeader("In-Reply-To", msgId);
+        String msgId = getHeader("Message-Id", null);
+        if (msgId != null)
+            reply.setHeader("In-Reply-To", msgId);
 
-	/*
-	 * Set the References header as described in RFC 2822:
-	 *
-	 * The "References:" field will contain the contents of the parent's
-	 * "References:" field (if any) followed by the contents of the parent's
-	 * "Message-ID:" field (if any).  If the parent message does not contain
-	 * a "References:" field but does have an "In-Reply-To:" field
-	 * containing a single message identifier, then the "References:" field
-	 * will contain the contents of the parent's "In-Reply-To:" field
-	 * followed by the contents of the parent's "Message-ID:" field (if
-	 * any).  If the parent has none of the "References:", "In-Reply-To:",
-	 * or "Message-ID:" fields, then the new message will have no
-	 * "References:" field.
-	 */
-	String refs = getHeader("References", " ");
-	if (refs == null) {
-	    // XXX - should only use if it contains a single message identifier
-	    refs = getHeader("In-Reply-To", " ");
-	}
-	if (msgId != null) {
-	    if (refs != null)
-		refs = MimeUtility.unfold(refs) + " " + msgId;
-	    else
-		refs = msgId;
-	}
-	if (refs != null)
-	    reply.setHeader("References", MimeUtility.fold(12, refs));
+        /*
+         * Set the References header as described in RFC 2822:
+         *
+         * The "References:" field will contain the contents of the parent's
+         * "References:" field (if any) followed by the contents of the parent's
+         * "Message-ID:" field (if any).  If the parent message does not contain
+         * a "References:" field but does have an "In-Reply-To:" field
+         * containing a single message identifier, then the "References:" field
+         * will contain the contents of the parent's "In-Reply-To:" field
+         * followed by the contents of the parent's "Message-ID:" field (if
+         * any).  If the parent has none of the "References:", "In-Reply-To:",
+         * or "Message-ID:" fields, then the new message will have no
+         * "References:" field.
+         */
+        String refs = getHeader("References", " ");
+        if (refs == null) {
+            // XXX - should only use if it contains a single message identifier
+            refs = getHeader("In-Reply-To", " ");
+        }
+        if (msgId != null) {
+            if (refs != null)
+                refs = MimeUtility.unfold(refs) + " " + msgId;
+            else
+                refs = msgId;
+        }
+        if (refs != null)
+            reply.setHeader("References", MimeUtility.fold(12, refs));
 
-	if (setAnswered) {
-	    try {
-		setFlags(answeredFlag, true);
-	    } catch (MessagingException mex) {
-		// ignore it
-	    }
-	}
-	return reply;
+        if (setAnswered) {
+            try {
+                setFlags(answeredFlag, true);
+            } catch (MessagingException mex) {
+                // ignore it
+            }
+        }
+        return reply;
     }
 
     // used above in reply()
@@ -1823,39 +1829,39 @@ public class MimeMessage extends Message implements MimePart {
      * addresses to v.  Note that the input array may be modified.
      */
     private Address[] eliminateDuplicates(List<Address> v, Address[] addrs) {
-	if (addrs == null)
-	    return null;
-	int gone = 0;
-	for (int i = 0; i < addrs.length; i++) {
-	    boolean found = false;
-	    // search the list for this address
-	    for (int j = 0; j < v.size(); j++) {
-		if (((InternetAddress)v.get(j)).equals(addrs[i])) {
-		    // found it; count it and remove it from the input array
-		    found = true;
-		    gone++;
-		    addrs[i] = null;
-		    break;
-		}
-	    }
-	    if (!found)
-		v.add(addrs[i]);	// add new address to list
-	}
-	// if we found any duplicates, squish the array
-	if (gone != 0) {
-	    Address[] a;
-	    // new array should be same type as original array
-	    // XXX - there must be a better way, perhaps reflection?
-	    if (addrs instanceof InternetAddress[])
-		a = new InternetAddress[addrs.length - gone];
-	    else
-		a = new Address[addrs.length - gone];
-	    for (int i = 0, j = 0; i < addrs.length; i++)
-		if (addrs[i] != null)
-		    a[j++] = addrs[i];
-	    addrs = a;
-	}
-	return addrs;
+        if (addrs == null)
+            return null;
+        int gone = 0;
+        for (int i = 0; i < addrs.length; i++) {
+            boolean found = false;
+            // search the list for this address
+            for (int j = 0; j < v.size(); j++) {
+                if (v.get(j).equals(addrs[i])) {
+                    // found it; count it and remove it from the input array
+                    found = true;
+                    gone++;
+                    addrs[i] = null;
+                    break;
+                }
+            }
+            if (!found)
+                v.add(addrs[i]);    // add new address to list
+        }
+        // if we found any duplicates, squish the array
+        if (gone != 0) {
+            Address[] a;
+            // new array should be same type as original array
+            // XXX - there must be a better way, perhaps reflection?
+            if (addrs instanceof InternetAddress[])
+                a = new InternetAddress[addrs.length - gone];
+            else
+                a = new Address[addrs.length - gone];
+            for (int i = 0, j = 0; i < addrs.length; i++)
+                if (addrs[i] != null)
+                    a[j++] = addrs[i];
+            addrs = a;
+        }
+        return addrs;
     }
 
     /**
@@ -1872,16 +1878,16 @@ public class MimeMessage extends Message implements MimePart {
      * This implementation calls the <code>writeTo(OutputStream,
      * String[])</code> method with a null ignore list.
      *
-     * @exception IOException	if an error occurs writing to the stream
-     *				or if an error is generated by the
-     *				jakarta.activation layer.
-     * @exception MessagingException for other failures
+     * @throws IOException        if an error occurs writing to the stream
+     *                               or if an error is generated by the
+     *                               jakarta.activation layer.
+     * @throws MessagingException for other failures
      * @see jakarta.activation.DataHandler#writeTo
      */
     @Override
     public void writeTo(OutputStream os)
-				throws IOException, MessagingException {
-	writeTo(os, null);
+            throws IOException, MessagingException {
+        writeTo(os, null);
     }
 
     /**
@@ -1893,92 +1899,92 @@ public class MimeMessage extends Message implements MimePart {
      * <code>content</code> array is written directly, after
      * writing the appropriate message headers.
      *
-     * @param	os		the stream to write to
-     * @param	ignoreList	the headers to not include in the output
-     * @exception IOException	if an error occurs writing to the stream
-     *				or if an error is generated by the
-     *				jakarta.activation layer.
-     * @exception jakarta.mail.MessagingException for other failures
+     * @param os         the stream to write to
+     * @param ignoreList the headers to not include in the output
+     * @throws IOException                     if an error occurs writing to the stream
+     *                                            or if an error is generated by the
+     *                                            jakarta.activation layer.
+     * @throws jakarta.mail.MessagingException for other failures
      * @see jakarta.activation.DataHandler#writeTo
      */
     public void writeTo(OutputStream os, String[] ignoreList)
-				throws IOException, MessagingException {
-	if (!saved)
-	    saveChanges();
+            throws IOException, MessagingException {
+        if (!saved)
+            saveChanges();
 
-	if (modified) {
-	    MimeBodyPart.writeTo(this, os, ignoreList);
-	    return;
-	}
+        if (modified) {
+            MimeBodyPart.writeTo(this, os, ignoreList);
+            return;
+        }
 
-	// Else, the content is untouched, so we can just output it
-	// First, write out the header
-	Enumeration<String> hdrLines = getNonMatchingHeaderLines(ignoreList);
-    LineOutputStream los = session.getStreamProvider().outputLineStream(os, allowutf8);
-	while (hdrLines.hasMoreElements())
-	    los.writeln(hdrLines.nextElement());
+        // Else, the content is untouched, so we can just output it
+        // First, write out the header
+        Enumeration<String> hdrLines = getNonMatchingHeaderLines(ignoreList);
+        LineOutputStream los = provider().outputLineStream(os, allowutf8);
+        while (hdrLines.hasMoreElements())
+            los.writeln(hdrLines.nextElement());
 
-	// The CRLF separator between header and content
-	los.writeln();
+        // The CRLF separator between header and content
+        los.writeln();
 
-	// Finally, the content. 
-	if (content == null) {
-	    // call getContentStream to give subclass a chance to
-	    // provide the data on demand
-	    InputStream is = null;
-	    byte[] buf = new byte[8192];
-	    try {
-		is = getContentStream();
-		// now copy the data to the output stream
-		int len;
-		while ((len = is.read(buf)) > 0)
-		    os.write(buf, 0, len);
-	    } finally {
-		if (is != null)
-		    is.close();
-		buf = null;
-	    }
-	} else {
-	    os.write(content);
-	}
-	os.flush();
+        // Finally, the content.
+        if (content == null) {
+            // call getContentStream to give subclass a chance to
+            // provide the data on demand
+            InputStream is = null;
+            byte[] buf = new byte[8192];
+            try {
+                is = getContentStream();
+                // now copy the data to the output stream
+                int len;
+                while ((len = is.read(buf)) > 0)
+                    os.write(buf, 0, len);
+            } finally {
+                if (is != null)
+                    is.close();
+                buf = null;
+            }
+        } else {
+            os.write(content);
+        }
+        os.flush();
     }
 
     /**
      * Get all the headers for this header_name. Note that certain
-     * headers may be encoded as per RFC 2047 if they contain 
+     * headers may be encoded as per RFC 2047 if they contain
      * non US-ASCII characters and these should be decoded. <p>
      *
-     * This implementation obtains the headers from the 
+     * This implementation obtains the headers from the
      * <code>headers</code> InternetHeaders object.
      *
-     * @param	name	name of header
-     * @return	array of headers
-     * @exception       MessagingException for failures
-     * @see 	jakarta.mail.internet.MimeUtility
+     * @param name name of header
+     * @return array of headers
+     * @throws MessagingException for failures
+     * @see jakarta.mail.internet.MimeUtility
      */
     @Override
     public String[] getHeader(String name)
-			throws MessagingException {
-	return headers.getHeader(name);
+            throws MessagingException {
+        return headers.getHeader(name);
     }
 
     /**
      * Get all the headers for this header name, returned as a single
      * String, with headers separated by the delimiter. If the
-     * delimiter is <code>null</code>, only the first header is 
+     * delimiter is <code>null</code>, only the first header is
      * returned.
      *
-     * @param name		the name of this header
-     * @param delimiter		separator between values
-     * @return                  the value fields for all headers with 
-     *				this name
-     * @exception       	MessagingException for failures
+     * @param name      the name of this header
+     * @param delimiter separator between values
+     * @return the value fields for all headers with
+     * this name
+     * @throws MessagingException for failures
      */
     @Override
     public String getHeader(String name, String delimiter)
-				throws MessagingException {
-	return headers.getHeader(name, delimiter);
+            throws MessagingException {
+        return headers.getHeader(name, delimiter);
     }
 
     /**
@@ -1988,74 +1994,75 @@ public class MimeMessage extends Message implements MimePart {
      * contains non US-ASCII characters must have been encoded by the
      * caller as per the rules of RFC 2047.
      *
-     * @param	name 	header name
-     * @param	value	header value
-     * @see 	jakarta.mail.internet.MimeUtility
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
+     * @param name  header name
+     * @param value header value
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
+     * @see jakarta.mail.internet.MimeUtility
      */
     @Override
     public void setHeader(String name, String value)
-                                throws MessagingException {
-	headers.setHeader(name, value);	
+            throws MessagingException {
+        headers.setHeader(name, value);
     }
 
     /**
      * Add this value to the existing values for this header_name.
-     * Note that RFC 822 headers must contain only US-ASCII 
-     * characters, so a header that contains non US-ASCII characters 
+     * Note that RFC 822 headers must contain only US-ASCII
+     * characters, so a header that contains non US-ASCII characters
      * must have been encoded as per the rules of RFC 2047.
      *
-     * @param	name 	header name
-     * @param	value	header value
-     * @see 	jakarta.mail.internet.MimeUtility
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
+     * @param name  header name
+     * @param value header value
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
+     * @see jakarta.mail.internet.MimeUtility
      */
     @Override
     public void addHeader(String name, String value)
-                                throws MessagingException {
-	headers.addHeader(name, value);
+            throws MessagingException {
+        headers.addHeader(name, value);
     }
 
     /**
      * Remove all headers with this name.
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception       MessagingException for other failures
+     *
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void removeHeader(String name)
-                                throws MessagingException {
-	headers.removeHeader(name);
+            throws MessagingException {
+        headers.removeHeader(name);
     }
 
     /**
      * Return all the headers from this Message as an enumeration
      * of Header objects. <p>
      *
-     * Note that certain headers may be encoded as per RFC 2047 
-     * if they contain non US-ASCII characters and these should 
+     * Note that certain headers may be encoded as per RFC 2047
+     * if they contain non US-ASCII characters and these should
      * be decoded. <p>
      *
-     * This implementation obtains the headers from the 
+     * This implementation obtains the headers from the
      * <code>headers</code> InternetHeaders object.
      *
-     * @return	array of header objects
-     * @exception  MessagingException for failures
-     * @see 	jakarta.mail.internet.MimeUtility
+     * @return array of header objects
+     * @throws MessagingException for failures
+     * @see jakarta.mail.internet.MimeUtility
      */
     @Override
     public Enumeration<Header> getAllHeaders() throws MessagingException {
-	return headers.getAllHeaders();	
+        return headers.getAllHeaders();
     }
 
     /**
@@ -2063,118 +2070,118 @@ public class MimeMessage extends Message implements MimePart {
      * Header objects. This implementation obtains the headers from
      * the <code>headers</code> InternetHeaders object.
      *
-     * @exception  MessagingException for failures
+     * @throws MessagingException for failures
      */
     @Override
     public Enumeration<Header> getMatchingHeaders(String[] names)
-			throws MessagingException {
-	return headers.getMatchingHeaders(names);
+            throws MessagingException {
+        return headers.getMatchingHeaders(names);
     }
 
     /**
      * Return non-matching headers from this Message as an
-     * Enumeration of Header objects. This implementation 
+     * Enumeration of Header objects. This implementation
      * obtains the header from the <code>headers</code> InternetHeaders object.
      *
-     * @exception  MessagingException for failures
+     * @throws MessagingException for failures
      */
     @Override
     public Enumeration<Header> getNonMatchingHeaders(String[] names)
-			throws MessagingException {
-	return headers.getNonMatchingHeaders(names);
+            throws MessagingException {
+        return headers.getNonMatchingHeaders(names);
     }
 
     /**
-     * Add a raw RFC 822 header-line. 
+     * Add a raw RFC 822 header-line.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception  	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void addHeaderLine(String line) throws MessagingException {
-	headers.addHeaderLine(line);
+        headers.addHeaderLine(line);
     }
 
     /**
      * Get all header lines as an Enumeration of Strings. A Header
-     * line is a raw RFC 822 header-line, containing both the "name" 
-     * and "value" field. 
+     * line is a raw RFC 822 header-line, containing both the "name"
+     * and "value" field.
      *
-     * @exception  	MessagingException for failures
+     * @throws MessagingException for failures
      */
     @Override
     public Enumeration<String> getAllHeaderLines() throws MessagingException {
-	return headers.getAllHeaderLines();
+        return headers.getAllHeaderLines();
     }
 
     /**
-     * Get matching header lines as an Enumeration of Strings. 
-     * A Header line is a raw RFC 822 header-line, containing both 
+     * Get matching header lines as an Enumeration of Strings.
+     * A Header line is a raw RFC 822 header-line, containing both
      * the "name" and "value" field.
      *
-     * @exception  	MessagingException for failures
+     * @throws MessagingException for failures
      */
     @Override
     public Enumeration<String> getMatchingHeaderLines(String[] names)
-                                        throws MessagingException {
-	return headers.getMatchingHeaderLines(names);
+            throws MessagingException {
+        return headers.getMatchingHeaderLines(names);
     }
 
     /**
-     * Get non-matching header lines as an Enumeration of Strings. 
-     * A Header line is a raw RFC 822 header-line, containing both 
+     * Get non-matching header lines as an Enumeration of Strings.
+     * A Header line is a raw RFC 822 header-line, containing both
      * the "name" and "value" field.
      *
-     * @exception  	MessagingException for failures
+     * @throws MessagingException for failures
      */
     @Override
     public Enumeration<String> getNonMatchingHeaderLines(String[] names)
-                                        throws MessagingException {
-	return headers.getNonMatchingHeaderLines(names);
+            throws MessagingException {
+        return headers.getNonMatchingHeaderLines(names);
     }
 
     /**
-     * Return a <code>Flags</code> object containing the flags for 
+     * Return a <code>Flags</code> object containing the flags for
      * this message. <p>
      *
      * Note that a clone of the internal Flags object is returned, so
      * modifying the returned Flags object will not affect the flags
      * of this message.
      *
-     * @return          Flags object containing the flags for this message
-     * @exception  	MessagingException for failures
-     * @see 		jakarta.mail.Flags
+     * @return Flags object containing the flags for this message
+     * @throws MessagingException for failures
+     * @see jakarta.mail.Flags
      */
     @Override
     public synchronized Flags getFlags() throws MessagingException {
-	return (Flags)flags.clone();
+        return (Flags) flags.clone();
     }
 
     /**
      * Check whether the flag specified in the <code>flag</code>
      * argument is set in this message. <p>
      *
-     * This implementation checks this message's internal 
+     * This implementation checks this message's internal
      * <code>flags</code> object.
      *
-     * @param flag	the flag
-     * @return		value of the specified flag for this message
-     * @exception       MessagingException for failures
-     * @see 		jakarta.mail.Flags.Flag
-     * @see		jakarta.mail.Flags.Flag#ANSWERED
-     * @see		jakarta.mail.Flags.Flag#DELETED
-     * @see		jakarta.mail.Flags.Flag#DRAFT
-     * @see		jakarta.mail.Flags.Flag#FLAGGED
-     * @see		jakarta.mail.Flags.Flag#RECENT
-     * @see		jakarta.mail.Flags.Flag#SEEN
+     * @param flag the flag
+     * @return value of the specified flag for this message
+     * @throws MessagingException for failures
+     * @see jakarta.mail.Flags.Flag#ANSWERED
+     * @see jakarta.mail.Flags.Flag#DELETED
+     * @see jakarta.mail.Flags.Flag#DRAFT
+     * @see jakarta.mail.Flags.Flag#FLAGGED
+     * @see jakarta.mail.Flags.Flag#RECENT
+     * @see jakarta.mail.Flags.Flag#SEEN
+     * @see jakarta.mail.Flags.Flag
      */
     @Override
     public synchronized boolean isSet(Flags.Flag flag)
-				throws MessagingException {
-	return (flags.contains(flag));
+            throws MessagingException {
+        return (flags.contains(flag));
     }
 
     /**
@@ -2182,19 +2189,19 @@ public class MimeMessage extends Message implements MimePart {
      *
      * This implementation modifies the <code>flags</code> field.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception  	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public synchronized void setFlags(Flags flag, boolean set)
-			throws MessagingException {
-	if (set)
-	    flags.add(flag);
-	else
-	    flags.remove(flag);
+            throws MessagingException {
+        if (set)
+            flags.add(flag);
+        else
+            flags.remove(flag);
     }
 
     /**
@@ -2205,7 +2212,7 @@ public class MimeMessage extends Message implements MimePart {
      *
      * If any part of a message's headers or contents are changed,
      * <code>saveChanges</code> must be called to ensure that those
-     * changes are permanent. Otherwise, any such modifications may or 
+     * changes are permanent. Otherwise, any such modifications may or
      * may not be saved, depending on the folder implementation. <p>
      *
      * Messages obtained from folders opened READ_ONLY should not be
@@ -2215,17 +2222,17 @@ public class MimeMessage extends Message implements MimePart {
      * <code>save</code> flag to true, and then calls the
      * <code>updateHeaders</code> method.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception  	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     @Override
     public void saveChanges() throws MessagingException {
-	modified = true;
-	saved = true;
-	updateHeaders();
+        modified = true;
+        saved = true;
+        updateHeaders();
     }
 
     /**
@@ -2233,14 +2240,14 @@ public class MimeMessage extends Message implements MimePart {
      * by the <code>updateHeaders</code> and allows a subclass
      * to override only the algorithm for choosing a Message-ID.
      *
-     * @exception  	MessagingException for failures
-     * @since		JavaMail 1.4
+     * @throws MessagingException for failures
+     * @since JavaMail 1.4
      */
     protected void updateMessageID() throws MessagingException {
-	setHeader("Message-ID", 
-		  "<" + UniqueValue.getUniqueMessageIDValue(session) + ">");
-          
-    }	
+        setHeader("Message-ID",
+                "<" + UniqueValue.getUniqueMessageIDValue(session) + ">");
+
+    }
 
     /**
      * Called by the <code>saveChanges</code> method to actually
@@ -2258,30 +2265,31 @@ public class MimeMessage extends Message implements MimePart {
      * stream data used to create this object is discarded,
      * and the {@link #cachedContent} field is cleared.
      *
-     * @exception	IllegalWriteException if the underlying
-     *			implementation does not support modification
-     * @exception	IllegalStateException if this message is
-     *			obtained from a READ_ONLY folder.
-     * @exception  	MessagingException for other failures
+     * @throws IllegalWriteException if the underlying
+     *                                  implementation does not support modification
+     * @throws IllegalStateException if this message is
+     *                                  obtained from a READ_ONLY folder.
+     * @throws MessagingException    for other failures
      */
     protected synchronized void updateHeaders() throws MessagingException {
-	MimeBodyPart.updateHeaders(this);	
-	setHeader("MIME-Version", "1.0");
-	if (getHeader("Date") == null)
-	    setSentDate(new Date());
+        MimeBodyPart.updateHeaders(this);
+        setHeader("MIME-Version", "1.0");
+        if (getHeader("Date") == null)
+            setSentDate(new Date());
         updateMessageID();
 
-	if (cachedContent != null) {
-	    dh = new DataHandler(cachedContent, getContentType());
-	    cachedContent = null;
-	    content = null;
-	    if (contentStream != null) {
-		try {
-		    contentStream.close();
-		} catch (IOException ioex) { }	// nothing to do
-	    }
-	    contentStream = null;
-	}
+        if (cachedContent != null) {
+            dh = new DataHandler(cachedContent, getContentType());
+            cachedContent = null;
+            content = null;
+            if (contentStream != null) {
+                try {
+                    contentStream.close();
+                } catch (IOException ioex) {
+                }    // nothing to do
+            }
+            contentStream = null;
+        }
     }
 
     /**
@@ -2291,14 +2299,14 @@ public class MimeMessage extends Message implements MimePart {
      * necessary.  This implementation simply constructs and returns
      * an InternetHeaders object.
      *
-     * @return	an InternetHeaders object
-     * @param	is	the InputStream to read the headers from
-     * @exception  	MessagingException for failures
-     * @since		JavaMail 1.2
+     * @param is the InputStream to read the headers from
+     * @return an InternetHeaders object
+     * @throws MessagingException for failures
+     * @since JavaMail 1.2
      */
     protected InternetHeaders createInternetHeaders(InputStream is)
-				throws MessagingException {
-	return new InternetHeaders(is, allowutf8);
+            throws MessagingException {
+        return new InternetHeaders(is, allowutf8);
     }
 
     /**
@@ -2308,13 +2316,32 @@ public class MimeMessage extends Message implements MimePart {
      * a subclass of MimeMessage.  This implementation simply constructs
      * and returns a MimeMessage object using the supplied Session.
      *
-     * @param	session	the Session to use for the new message
-     * @return		the new MimeMessage object
-     * @exception  	MessagingException for failures
-     * @since		JavaMail 1.4
+     * @param session the Session to use for the new message
+     * @return the new MimeMessage object
+     * @throws MessagingException for failures
+     * @since JavaMail 1.4
      */
     protected MimeMessage createMimeMessage(Session session)
-				throws MessagingException {
-	return new MimeMessage(session);
+            throws MessagingException {
+        return new MimeMessage(session);
+    }
+
+    private StreamProvider provider() throws MessagingException {
+        try {
+            try {
+                final Session s = this.session;
+                if (s != null) {
+                    return s.getStreamProvider();
+                } else {
+                    return Session.getDefaultInstance(System.getProperties(),
+                        null).getStreamProvider();
+                }
+            } catch (ServiceConfigurationError sce) {
+                throw new IllegalStateException(sce);
+            }
+        } catch (RuntimeException re) {
+            throw new MessagingException("Unable to get "
+                    + StreamProvider.class.getName(), re);
+        }
     }
 }

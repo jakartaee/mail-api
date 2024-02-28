@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,31 +17,31 @@
 package jakarta.mail;
 
 /**
- * This exception is thrown when Session attempts to instantiate a  
+ * This exception is thrown when Session attempts to instantiate a
  * Provider that doesn't exist.
- * 
+ *
  * @author Max Spivak
  */
 
 public class NoSuchProviderException extends MessagingException {
 
     private static final long serialVersionUID = 8058319293154708827L;
-    
+
     /**
      * Constructs a NoSuchProviderException with no detail message.
      */
     public NoSuchProviderException() {
-	super();
+        super();
     }
 
     /**
      * Constructs a NoSuchProviderException with the specified
      * detail message.
      *
-     * @param message	The detailed error message
+     * @param message The detailed error message
      */
     public NoSuchProviderException(String message) {
-	super(message);
+        super(message);
     }
 
     /**
@@ -49,11 +49,11 @@ public class NoSuchProviderException extends MessagingException {
      * detail message and embedded exception.  The exception is chained
      * to this exception.
      *
-     * @param message	The detailed error message
-     * @param e		The embedded exception
-     * @since		JavaMail 1.5
+     * @param message The detailed error message
+     * @param e       The embedded exception
+     * @since JavaMail 1.5
      */
     public NoSuchProviderException(String message, Exception e) {
-	super(message, e);
+        super(message, e);
     }
 }

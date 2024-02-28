@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,13 +24,13 @@ package jakarta.mail;
  * @see jakarta.mail.MessageContext
  * @see jakarta.activation.DataSource
  * @see jakarta.activation.DataContentHandler
- * @since	JavaMail 1.1
+ * @since JavaMail 1.1
  */
 public interface MessageAware {
     /**
      * Return the message context.
      *
-     * @return	the message context
+     * @return the message context
      */
-    public MessageContext getMessageContext();
+    MessageContext getMessageContext();
 }

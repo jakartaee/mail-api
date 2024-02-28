@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,33 +31,33 @@ public final class SizeTerm extends IntegerComparisonTerm {
     /**
      * Constructor.
      *
-     * @param comparison	the Comparison type
-     * @param size		the size
+     * @param comparison the Comparison type
+     * @param size       the size
      */
     public SizeTerm(int comparison, int size) {
-	super(comparison, size);
+        super(comparison, size);
     }
 
     /**
      * The match method.
      *
-     * @param msg	the size comparator is applied to this Message's size
-     * @return		true if the size is equal, otherwise false 
+     * @param msg the size comparator is applied to this Message's size
+     * @return true if the size is equal, otherwise false
      */
     @Override
     public boolean match(Message msg) {
-	int size;
+        int size;
 
-	try {
-	    size = msg.getSize();
-	} catch (Exception e) {
-	    return false;
-	}
+        try {
+            size = msg.getSize();
+        } catch (Exception e) {
+            return false;
+        }
 
-	if (size == -1)
-	    return false;
+        if (size == -1)
+            return false;
 
-	return super.match(size);
+        return super.match(size);
     }
 
     /**
@@ -65,8 +65,8 @@ public final class SizeTerm extends IntegerComparisonTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof SizeTerm))
-	    return false;
-	return super.equals(obj);
+        if (!(obj instanceof SizeTerm))
+            return false;
+        return super.equals(obj);
     }
 }

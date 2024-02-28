@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,14 +16,16 @@
 
 package jakarta.mail;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import jakarta.mail.event.*;
+import jakarta.mail.event.FolderEvent;
+import jakarta.mail.event.FolderListener;
+import jakarta.mail.event.StoreEvent;
+import jakarta.mail.event.StoreListener;
+
+import java.util.Vector;
 
 /**
  * An abstract class that models a message store and its
- * access protocol, for storing and retrieving messages. 
+ * access protocol, for storing and retrieving messages.
  * Subclasses provide actual implementations. <p>
  *
  * Note that <code>Store</code> extends the <code>Service</code>
@@ -32,7 +34,6 @@ import jakarta.mail.event.*;
  *
  * @author John Mani
  * @author Bill Shannon
- *
  * @see jakarta.mail.Service
  * @see jakarta.mail.event.ConnectionEvent
  * @see jakarta.mail.event.StoreEvent
@@ -43,11 +44,11 @@ public abstract class Store extends Service {
     /**
      * Constructor.
      *
-     * @param	session Session object for this Store.
-     * @param	urlname	URLName object to be used for this Store
+     * @param session Session object for this Store.
+     * @param urlname URLName object to be used for this Store
      */
     protected Store(Session session, URLName urlname) {
-	super(session, urlname);
+        super(session, urlname);
     }
 
     /**
@@ -55,15 +56,15 @@ public abstract class Store extends Service {
      * the default namespace presented to the user by the Store.
      *
      * @return the root Folder
-     * @exception	IllegalStateException if this Store is not connected.
-     * @exception 	MessagingException for other failures
+     * @throws IllegalStateException if this Store is not connected.
+     * @throws MessagingException    for other failures
      */
     public abstract Folder getDefaultFolder() throws MessagingException;
 
     /**
      * Return the Folder object corresponding to the given name. Note
      * that a Folder object is returned even if the named folder does
-     * not physically exist on the Store. The <code>exists()</code> 
+     * not physically exist on the Store. The <code>exists()</code>
      * method on the folder object indicates whether this folder really
      * exists. <p>
      *
@@ -71,36 +72,36 @@ public abstract class Store extends Service {
      * method on the same name multiple times will return that many
      * distinct Folder objects.
      *
-     * @param name 	The name of the Folder. In some Stores, name can
-     *			be an absolute path if it starts with the
-     *			hierarchy delimiter. Else it is interpreted
-     *			relative to the 'root' of this namespace.
-     * @return		Folder object
-     * @exception 	IllegalStateException if this Store is not connected.
-     * @exception 	MessagingException for other failures
-     * @see 		Folder#exists
-     * @see		Folder#create
+     * @param name The name of the Folder. In some Stores, name can
+     *             be an absolute path if it starts with the
+     *             hierarchy delimiter. Else it is interpreted
+     *             relative to the 'root' of this namespace.
+     * @return Folder object
+     * @throws IllegalStateException if this Store is not connected.
+     * @throws MessagingException    for other failures
+     * @see Folder#create
+     * @see Folder#exists
      */
     public abstract Folder getFolder(String name)
-			throws MessagingException;
+            throws MessagingException;
 
     /**
-     * Return a closed Folder object, corresponding to the given 
+     * Return a closed Folder object, corresponding to the given
      * URLName. The store specified in the given URLName should
      * refer to this Store object. <p>
      *
      * Implementations of this method may obtain the name of the
      * actual folder using the <code>getFile()</code> method on
      * URLName, and use that name to create the folder.
-     * 
-     * @param url	URLName that denotes a folder
-     * @return		Folder object
-     * @exception 	IllegalStateException if this Store is not connected.
-     * @exception 	MessagingException for other failures
-     * @see 		URLName
+     *
+     * @param url URLName that denotes a folder
+     * @return Folder object
+     * @throws IllegalStateException if this Store is not connected.
+     * @throws MessagingException    for other failures
+     * @see URLName
      */
     public abstract Folder getFolder(URLName url)
-			throws MessagingException;
+            throws MessagingException;
 
     /**
      * Return a set of folders representing the <i>personal</i> namespaces
@@ -116,13 +117,13 @@ public abstract class Store extends Service {
      * the return value of the <code>getDefaultFolder</code> method.
      * Subclasses should override this method to return appropriate information.
      *
-     * @return		array of Folder objects
-     * @exception 	IllegalStateException if this Store is not connected.
-     * @exception 	MessagingException for other failures
-     * @since		JavaMail 1.2
+     * @return array of Folder objects
+     * @throws IllegalStateException if this Store is not connected.
+     * @throws MessagingException    for other failures
+     * @since JavaMail 1.2
      */
     public Folder[] getPersonalNamespaces() throws MessagingException {
-	return new Folder[] { getDefaultFolder() };
+        return new Folder[]{getDefaultFolder()};
     }
 
     /**
@@ -137,15 +138,15 @@ public abstract class Store extends Service {
      * This implementation returns an empty array.  Subclasses should
      * override this method to return appropriate information.
      *
-     * @param	user	the user name
-     * @return		array of Folder objects
-     * @exception 	IllegalStateException if this Store is not connected.
-     * @exception 	MessagingException for other failures
-     * @since		JavaMail 1.2
+     * @param user the user name
+     * @return array of Folder objects
+     * @throws IllegalStateException if this Store is not connected.
+     * @throws MessagingException    for other failures
+     * @since JavaMail 1.2
      */
     public Folder[] getUserNamespaces(String user)
-				throws MessagingException {
-	return new Folder[0];
+            throws MessagingException {
+        return new Folder[0];
     }
 
     /**
@@ -157,13 +158,13 @@ public abstract class Store extends Service {
      * This implementation returns an empty array.  Subclasses should
      * override this method to return appropriate information.
      *
-     * @exception 	IllegalStateException if this Store is not connected.
-     * @exception 	MessagingException for other failures
-     * @return		array of Folder objects
-     * @since		JavaMail 1.2
+     * @return array of Folder objects
+     * @throws IllegalStateException if this Store is not connected.
+     * @throws MessagingException    for other failures
+     * @since JavaMail 1.2
      */
     public Folder[] getSharedNamespaces() throws MessagingException {
-	return new Folder[0];
+        return new Folder[0];
     }
 
     // Vector of Store listeners
@@ -175,13 +176,13 @@ public abstract class Store extends Service {
      * The default implementation provided here adds this listener
      * to an internal list of StoreListeners.
      *
-     * @param l         the Listener for Store events
-     * @see             jakarta.mail.event.StoreEvent
+     * @param l the Listener for Store events
+     * @see jakarta.mail.event.StoreEvent
      */
     public synchronized void addStoreListener(StoreListener l) {
-	if (storeListeners == null)
-	    storeListeners = new Vector<>();
-	storeListeners.addElement(l);
+        if (storeListeners == null)
+            storeListeners = new Vector<>();
+        storeListeners.addElement(l);
     }
 
     /**
@@ -190,12 +191,12 @@ public abstract class Store extends Service {
      * The default implementation provided here removes this listener
      * from the internal list of StoreListeners.
      *
-     * @param l         the listener
-     * @see             #addStoreListener
+     * @param l the listener
+     * @see #addStoreListener
      */
     public synchronized void removeStoreListener(StoreListener l) {
-	if (storeListeners != null)
-	    storeListeners.removeElement(l);
+        if (storeListeners != null)
+            storeListeners.removeElement(l);
     }
 
     /**
@@ -208,36 +209,36 @@ public abstract class Store extends Service {
      * StoreListeners. Note that the event dispatching occurs
      * in a separate thread, thus avoiding potential deadlock problems.
      *
-     * @param	type	the StoreEvent type
-     * @param	message	a message for the StoreEvent
+     * @param type    the StoreEvent type
+     * @param message a message for the StoreEvent
      */
     protected void notifyStoreListeners(int type, String message) {
-   	if (storeListeners == null)
-	    return;
-	
-	StoreEvent e = new StoreEvent(this, type, message);
-	queueEvent(e, storeListeners);
+        if (storeListeners == null)
+            return;
+
+        StoreEvent e = new StoreEvent(this, type, message);
+        queueEvent(e, storeListeners);
     }
 
     // Vector of folder listeners
     private volatile Vector<FolderListener> folderListeners = null;
 
     /**
-     * Add a listener for Folder events on any Folder object 
+     * Add a listener for Folder events on any Folder object
      * obtained from this Store. FolderEvents are delivered to
-     * FolderListeners on the affected Folder as well as to 
+     * FolderListeners on the affected Folder as well as to
      * FolderListeners on the containing Store. <p>
      *
      * The default implementation provided here adds this listener
      * to an internal list of FolderListeners.
      *
-     * @param l         the Listener for Folder events
-     * @see             jakarta.mail.event.FolderEvent
+     * @param l the Listener for Folder events
+     * @see jakarta.mail.event.FolderEvent
      */
     public synchronized void addFolderListener(FolderListener l) {
-   	if (folderListeners == null)
-	    folderListeners = new Vector<>();
-	folderListeners.addElement(l);
+        if (folderListeners == null)
+            folderListeners = new Vector<>();
+        folderListeners.addElement(l);
     }
 
     /**
@@ -246,12 +247,12 @@ public abstract class Store extends Service {
      * The default implementation provided here removes this listener
      * from the internal list of FolderListeners.
      *
-     * @param l         the listener
-     * @see             #addFolderListener
+     * @param l the listener
+     * @see #addFolderListener
      */
     public synchronized void removeFolderListener(FolderListener l) {
-   	if (folderListeners != null)
-	    folderListeners.removeElement(l);
+        if (folderListeners != null)
+            folderListeners.removeElement(l);
     }
 
     /**
@@ -264,21 +265,21 @@ public abstract class Store extends Service {
      * FolderListeners. Note that the event dispatching occurs
      * in a separate thread, thus avoiding potential deadlock problems.
      *
-     * @param	type	type of FolderEvent
-     * @param	folder	affected Folder
-     * @see		#notifyFolderRenamedListeners
+     * @param type   type of FolderEvent
+     * @param folder affected Folder
+     * @see #notifyFolderRenamedListeners
      */
     protected void notifyFolderListeners(int type, Folder folder) {
-   	if (folderListeners == null) 
-	    return;
-	
-	FolderEvent e = new FolderEvent(this, folder, type);
-	queueEvent(e, folderListeners);
+        if (folderListeners == null)
+            return;
+
+        FolderEvent e = new FolderEvent(this, folder, type);
+        queueEvent(e, folderListeners);
     }
 
     /**
      * Notify all FolderListeners about the renaming of a folder.
-     * Store implementations are expected to use this method to broadcast 
+     * Store implementations are expected to use this method to broadcast
      * Folder events indicating the renaming of folders. <p>
      *
      * The provided default implementation queues the event into
@@ -287,15 +288,15 @@ public abstract class Store extends Service {
      * FolderListeners. Note that the event dispatching occurs
      * in a separate thread, thus avoiding potential deadlock problems.
      *
-     * @param	oldF	the folder being renamed
-     * @param	newF	the folder representing the new name.
-     * @since	JavaMail 1.1
+     * @param oldF the folder being renamed
+     * @param newF the folder representing the new name.
+     * @since JavaMail 1.1
      */
     protected void notifyFolderRenamedListeners(Folder oldF, Folder newF) {
-   	if (folderListeners == null) 
-	    return;
-	
-	FolderEvent e = new FolderEvent(this, oldF, newF,FolderEvent.RENAMED);
-	queueEvent(e, folderListeners);
+        if (folderListeners == null)
+            return;
+
+        FolderEvent e = new FolderEvent(this, oldF, newF, FolderEvent.RENAMED);
+        queueEvent(e, folderListeners);
     }
 }

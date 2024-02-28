@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,8 +16,6 @@
 
 package jakarta.mail.event;
 
-import java.util.*;
-
 /**
  * This is the Listener interface for Store Notifications.
  *
@@ -26,12 +24,12 @@ import java.util.*;
 
 public interface StoreListener extends java.util.EventListener {
 
-   /**
-    * Invoked when the Store generates a notification event.
-    *
-    * @param	e	the StoreEvent
-    * @see StoreEvent#ALERT
-    * @see StoreEvent#NOTICE
-    */
-   public void notification(StoreEvent e);
+    /**
+     * Invoked when the Store generates a notification event.
+     *
+     * @param e the StoreEvent
+     * @see StoreEvent#ALERT
+     * @see StoreEvent#NOTICE
+     */
+    void notification(StoreEvent e);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,7 +16,8 @@
 
 package jakarta.mail.internet;
 
-import org.junit.*;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -25,12 +26,12 @@ import static org.junit.Assert.assertEquals;
  * XXX - for now, just some simple regression tests for reported bugs.
  */
 public class NewsAddressTest {
- 
+
     @Test
     public void testReflexiveEquality() throws Exception {
-	NewsAddress a = new NewsAddress();
-	assertEquals(a, a);	// bug 6365
-	a = new NewsAddress("net.unix");
-	assertEquals(a, a);
+        NewsAddress a = new NewsAddress();
+        assertEquals(a, a);    // bug 6365
+        a = new NewsAddress("net.unix");
+        assertEquals(a, a);
     }
 }

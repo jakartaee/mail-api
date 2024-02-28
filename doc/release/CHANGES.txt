@@ -19,6 +19,22 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
+      CHANGES IN THE 2.1.3 RELEASE
+      ----------------------------
+E  631  Session.getService does not use proper classloader in OSGI environment
+E  665  Jakarta Mail erroneously assumes that classes can be loaded from Thread#getContextClassLoader
+E  695  SharedFileInputStream should comply with spec
+E  710  Cannot parse messages without a session
+
+
+		  CHANGES IN THE 2.1.2 RELEASE
+          ----------------------------
+E  629  jakarta.mail-api-2.1.0.jar does not work in OSGi environment (hk2servicelocator)
+E  635  The hk2 service loader is not used everywhere (where necessary)
+E  660  jakarta.mail-api is not a Multi Release JAR
+E  664  Typo in Session.setDebug Javadoc
+
+
 		  CHANGES IN THE 2.1.1 RELEASE
 		  ----------------------------
 E  594	Implement equals() and hashcode() on jakarta.mail.Header
@@ -126,7 +142,7 @@ GH  334	gimap set labels error with some non english characters
 The following bugs have been fixed in the 1.6.1 release.
 
 GH  262	Some IMAP servers send EXPUNGE responses for unknown messages
-GH  278	BODYSTRUCTURE Parser fails on specific IMAP Server response 
+GH  278	BODYSTRUCTURE Parser fails on specific IMAP Server response
 GH  283	clean up connections when closing IMAPStore
 GH  287	Allow relaxed Content-Disposition parsing
 GH  289	use a different IMAP tag prefix for each connection
@@ -847,7 +863,7 @@ The following bugs have been fixed in the 1.1.2 release.
 <no id>	fix bug in SMTP output that sometimes duplicated "."
 <no id>	close SMTP transport on I/O error
 4230541	don't send SMTP NOOP unnecessarily
-4216666 IMAP provider INTERNALDATE formatter error, causing 
+4216666 IMAP provider INTERNALDATE formatter error, causing
 	problems during appendMessages()
 4227888 IMAP provider does not honor the UID item in its FetchProfile
 

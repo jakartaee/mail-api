@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -26,20 +26,20 @@ package jakarta.mail;
  * could be created that forces all files to be base64 encoded:
  * <blockquote><pre>
  *  public class Base64FileDataSource extends FileDataSource
- *					implements EncodingAware {
- *	public Base64FileDataSource(File file) {
- *	    super(file);
- *	}
+ * 					implements EncodingAware {
+ * 	public Base64FileDataSource(File file) {
+ * 	    super(file);
+ *    }
  *
- *	// implements EncodingAware.getEncoding()
- *	public String getEncoding() {
- *	    return "base64";
- *	}
+ * 	// implements EncodingAware.getEncoding()
+ * 	public String getEncoding() {
+ * 	    return "base64";
+ *    }
  *  }
- * </pre></blockquote><p>
+ * </pre></blockquote>
  *
- * @since	JavaMail 1.5
- * @author	Bill Shannon
+ * @author Bill Shannon
+ * @since JavaMail 1.5
  */
 
 public interface EncodingAware {
@@ -49,7 +49,7 @@ public interface EncodingAware {
      * or null to indicate that an appropriate value should be chosen
      * by the caller.
      *
-     * @return		the Content-Transfer-Encoding value, or null
+     * @return the Content-Transfer-Encoding value, or null
      */
-    public String getEncoding();
+    String getEncoding();
 }

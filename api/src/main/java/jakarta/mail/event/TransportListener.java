@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,14 +16,11 @@
 
 package jakarta.mail.event;
 
-import java.util.*;
-
 /**
  * This is the Listener interface for Transport events
  *
  * @author John Mani
  * @author Max Spivak
- *
  * @see jakarta.mail.Transport
  * @see jakarta.mail.event.TransportEvent
  */
@@ -32,21 +29,24 @@ public interface TransportListener extends java.util.EventListener {
 
     /**
      * Invoked when a Message is succesfully delivered.
-     * @param	e TransportEvent
+     *
+     * @param e TransportEvent
      */
-    public void messageDelivered(TransportEvent e);
+    void messageDelivered(TransportEvent e);
 
     /**
      * Invoked when a Message is not delivered.
-     * @param	e TransportEvent
+     *
+     * @param e TransportEvent
      * @see TransportEvent
      */
-    public void messageNotDelivered(TransportEvent e);
+    void messageNotDelivered(TransportEvent e);
 
     /**
      * Invoked when a Message is partially delivered.
-     * @param	e TransportEvent
+     *
+     * @param e TransportEvent
      * @see TransportEvent
      */
-    public void messagePartiallyDelivered(TransportEvent e);
+    void messagePartiallyDelivered(TransportEvent e);
 }

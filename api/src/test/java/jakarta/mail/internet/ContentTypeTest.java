@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,9 +16,10 @@
 
 package jakarta.mail.internet;
 
-import org.junit.*;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test the ContentType class.
@@ -26,18 +27,18 @@ import static org.junit.Assert.assertFalse;
  * XXX - for now, just some simple regression tests for reported bugs.
  */
 public class ContentTypeTest {
- 
+
     @Test
     public void testMatch() throws Exception {
-	ContentType empty = new ContentType();
-	assertFalse(empty.match("text/plain"));
-	ContentType plain = new ContentType("text/plain");
-	assertTrue(plain.match("text/plain"));
-	assertFalse(empty.match(plain));
-	assertFalse(plain.match(empty));
-	assertTrue(plain.match("text/*"));
-	ContentType text = new ContentType("text/*");
-	assertTrue(text.match(plain));
-	assertTrue(plain.match(text));
+        ContentType empty = new ContentType();
+        assertFalse(empty.match("text/plain"));
+        ContentType plain = new ContentType("text/plain");
+        assertTrue(plain.match("text/plain"));
+        assertFalse(empty.match(plain));
+        assertFalse(plain.match(empty));
+        assertTrue(plain.match("text/*"));
+        ContentType text = new ContentType("text/*");
+        assertTrue(text.match(plain));
+        assertTrue(plain.match(text));
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,20 +16,21 @@
 
 package jakarta.mail.util;
 
-import java.io.*;
-
 import jakarta.mail.internet.SharedInputStream;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 /**
  * A ByteArrayInputStream that implements the SharedInputStream interface,
  * allowing the underlying byte array to be shared between multiple readers.
  *
- * @author  Bill Shannon
+ * @author Bill Shannon
  * @since JavaMail 1.4
  */
 
 public class SharedByteArrayInputStream extends ByteArrayInputStream
-				implements SharedInputStream {
+        implements SharedInputStream {
     /**
      * Position within shared buffer that this stream starts at.
      */
@@ -39,10 +40,10 @@ public class SharedByteArrayInputStream extends ByteArrayInputStream
      * Create a SharedByteArrayInputStream representing the entire
      * byte array.
      *
-     * @param	buf	the byte array
+     * @param buf the byte array
      */
     public SharedByteArrayInputStream(byte[] buf) {
-	super(buf);
+        super(buf);
     }
 
     /**
@@ -50,24 +51,24 @@ public class SharedByteArrayInputStream extends ByteArrayInputStream
      * of the byte array from <code>offset</code> for <code>length</code>
      * bytes.
      *
-     * @param	buf	the byte array
-     * @param	offset	offset in byte array to first byte to include
-     * @param	length	number of bytes to include
+     * @param buf    the byte array
+     * @param offset offset in byte array to first byte to include
+     * @param length number of bytes to include
      */
     public SharedByteArrayInputStream(byte[] buf, int offset, int length) {
-	super(buf, offset, length);
-	start = offset;
+        super(buf, offset, length);
+        start = offset;
     }
 
     /**
      * Return the current position in the InputStream, as an
      * offset from the beginning of the InputStream.
      *
-     * @return  the current position
+     * @return the current position
      */
     @Override
     public long getPosition() {
-	return pos - start;
+        return pos - start;
     }
 
     /**
@@ -78,17 +79,17 @@ public class SharedByteArrayInputStream extends ByteArrayInputStream
      * at the same place as this stream.  The returned InputStream
      * will also implement the SharedInputStream interface.
      *
-     * @param	start	the starting position
-     * @param	end	the ending position + 1
-     * @return		the new stream
+     * @param start the starting position
+     * @param end   the ending position + 1
+     * @return the new stream
      */
     @Override
     public InputStream newStream(long start, long end) {
-	if (start < 0)
-	    throw new IllegalArgumentException("start < 0");
-	if (end == -1)
-	    end = count - this.start;
-	return new SharedByteArrayInputStream(buf,
-				this.start + (int)start, (int)(end - start));
+        if (start < 0)
+            throw new IllegalArgumentException("start < 0");
+        if (end == -1)
+            end = count - this.start;
+        return new SharedByteArrayInputStream(buf,
+                this.start + (int) start, (int) (end - start));
     }
 }

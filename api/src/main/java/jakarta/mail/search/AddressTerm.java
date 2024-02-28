@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -35,27 +35,32 @@ public abstract class AddressTerm extends SearchTerm {
 
     private static final long serialVersionUID = 2005405551929769980L;
 
+    /**
+     * Constructor.
+     *
+     * @param address the address to match with.
+     */
     protected AddressTerm(Address address) {
-	this.address = address;
+        this.address = address;
     }
 
     /**
      * Return the address to match with.
      *
-     * @return	the adddress
+     * @return the adddress
      */
     public Address getAddress() {
-	return address;
+        return address;
     }
 
     /**
      * Match against the argument Address.
      *
-     * @param	a	the address to match
-     * @return	true if it matches
+     * @param a the address to match
+     * @return true if it matches
      */
     protected boolean match(Address a) {
-	return (a.equals(address));
+        return (a.equals(address));
     }
 
     /**
@@ -63,10 +68,10 @@ public abstract class AddressTerm extends SearchTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof AddressTerm))
-	    return false;
-	AddressTerm at = (AddressTerm)obj;
-	return at.address.equals(this.address);
+        if (!(obj instanceof AddressTerm))
+            return false;
+        AddressTerm at = (AddressTerm) obj;
+        return at.address.equals(this.address);
     }
 
     /**
@@ -74,6 +79,6 @@ public abstract class AddressTerm extends SearchTerm {
      */
     @Override
     public int hashCode() {
-	return address.hashCode();
+        return address.hashCode();
     }
 }

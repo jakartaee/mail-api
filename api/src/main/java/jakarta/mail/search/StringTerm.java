@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -45,50 +45,56 @@ public abstract class StringTerm extends SearchTerm {
      * Construct a StringTerm with the given pattern.
      * Case will be ignored.
      *
-     * @param	pattern		the pattern
+     * @param pattern the pattern
      */
     protected StringTerm(String pattern) {
-	this.pattern = pattern;
-	ignoreCase = true;
+        this.pattern = pattern;
+        ignoreCase = true;
     }
 
     /**
      * Construct a StringTerm with the given pattern and ignoreCase flag.
      *
-     * @param	pattern		the pattern
-     * @param	ignoreCase	should we ignore case?
+     * @param pattern    the pattern
+     * @param ignoreCase should we ignore case?
      */
     protected StringTerm(String pattern, boolean ignoreCase) {
-	this.pattern = pattern;
-	this.ignoreCase = ignoreCase;
+        this.pattern = pattern;
+        this.ignoreCase = ignoreCase;
     }
 
     /**
      * Return the string to match with.
      *
-     * @return	the string to match
+     * @return the string to match
      */
     public String getPattern() {
-	return pattern;
+        return pattern;
     }
 
     /**
      * Return true if we should ignore case when matching.
      *
-     * @return	true if we should ignore case
+     * @return true if we should ignore case
      */
     public boolean getIgnoreCase() {
-	return ignoreCase;
+        return ignoreCase;
     }
 
+    /**
+     * The match method.
+     *
+     * @param s The pattern search is applied on given String
+     * @return true if given string matches this pattern; otherwise false
+     */
     protected boolean match(String s) {
-	int len = s.length() - pattern.length();
-	for (int i=0; i <= len; i++) {
-	    if (s.regionMatches(ignoreCase, i, 
-				pattern, 0, pattern.length()))
-		return true;
-	}
-	return false;
+        int len = s.length() - pattern.length();
+        for (int i = 0; i <= len; i++) {
+            if (s.regionMatches(ignoreCase, i,
+                    pattern, 0, pattern.length()))
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -96,15 +102,15 @@ public abstract class StringTerm extends SearchTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof StringTerm))
-	    return false;
-	StringTerm st = (StringTerm)obj;
-	if (ignoreCase)
-	    return st.pattern.equalsIgnoreCase(this.pattern) &&
-		    st.ignoreCase == this.ignoreCase;
-	else
-	    return st.pattern.equals(this.pattern) &&
-		    st.ignoreCase == this.ignoreCase;
+        if (!(obj instanceof StringTerm))
+            return false;
+        StringTerm st = (StringTerm) obj;
+        if (ignoreCase)
+            return st.pattern.equalsIgnoreCase(this.pattern) &&
+                    st.ignoreCase == this.ignoreCase;
+        else
+            return st.pattern.equals(this.pattern) &&
+                    st.ignoreCase == this.ignoreCase;
     }
 
     /**
@@ -112,6 +118,6 @@ public abstract class StringTerm extends SearchTerm {
      */
     @Override
     public int hashCode() {
-	return ignoreCase ? pattern.hashCode() : ~pattern.hashCode();
+        return ignoreCase ? pattern.hashCode() : ~pattern.hashCode();
     }
 }

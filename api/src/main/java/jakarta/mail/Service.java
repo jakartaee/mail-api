@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,11 +16,15 @@
 
 package jakarta.mail;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import jakarta.mail.event.ConnectionEvent;
+import jakarta.mail.event.ConnectionListener;
+import jakarta.mail.event.MailEvent;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.EventListener;
+import java.util.Vector;
 import java.util.concurrent.Executor;
-import jakarta.mail.event.*;
 
 /**
  * An abstract class that contains the functionality
@@ -40,20 +44,20 @@ public abstract class Service implements AutoCloseable {
     /**
      * The session from which this service was created.
      */
-    protected Session	session;
+    protected Session session;
 
     /**
      * The <code>URLName</code> of this service.
      */
-    protected volatile URLName	url = null;
+    protected volatile URLName url = null;
 
     /**
      * Debug flag for this service.  Set from the session's debug
      * flag when this service is created.
      */
-    protected boolean	debug = false;
+    protected boolean debug = false;
 
-    private boolean	connected = false;
+    private boolean connected = false;
 
     /*
      * connectionListeners is a Vector, initialized here,
@@ -63,7 +67,7 @@ public abstract class Service implements AutoCloseable {
      * deadlocks when notifying listeners.)
      */
     private final Vector<ConnectionListener> connectionListeners
-	    = new Vector<>();
+            = new Vector<>();
 
     /**
      * The queue of events to be delivered.
@@ -73,76 +77,76 @@ public abstract class Service implements AutoCloseable {
     /**
      * Constructor.
      *
-     * @param	session Session object for this service
-     * @param	urlname	URLName object to be used for this service
+     * @param session Session object for this service
+     * @param urlname URLName object to be used for this service
      */
     protected Service(Session session, URLName urlname) {
-	this.session = session;
-	debug = session.getDebug();
-	url = urlname;
+        this.session = session;
+        debug = session.getDebug();
+        url = urlname;
 
-	/*
-	 * Initialize the URLName with default values.
-	 * The URLName will be updated when connect is called.
-	 */
-	String protocol = null;
-	String host = null;
-	int port = -1;
-	String user = null;
-	String password = null;
-	String file = null;
+        /*
+         * Initialize the URLName with default values.
+         * The URLName will be updated when connect is called.
+         */
+        String protocol = null;
+        String host = null;
+        int port = -1;
+        String user = null;
+        String password = null;
+        String file = null;
 
-	// get whatever information we can from the URL
-	// XXX - url should always be non-null here, Session
-	//       passes it into the constructor
-	if (url != null) {
-	    protocol = url.getProtocol();
-	    host = url.getHost();
-	    port = url.getPort();
-	    user = url.getUsername();
-	    password = url.getPassword();
-	    file = url.getFile();
-	}
+        // get whatever information we can from the URL
+        // XXX - url should always be non-null here, Session
+        //       passes it into the constructor
+        if (url != null) {
+            protocol = url.getProtocol();
+            host = url.getHost();
+            port = url.getPort();
+            user = url.getUsername();
+            password = url.getPassword();
+            file = url.getFile();
+        }
 
-	// try to get protocol-specific default properties
-	if (protocol != null) {
-	    if (host == null)
-		host = session.getProperty("mail." + protocol + ".host");
-	    if (user == null)
-		user = session.getProperty("mail." + protocol + ".user");
-	}
+        // try to get protocol-specific default properties
+        if (protocol != null) {
+            if (host == null)
+                host = session.getProperty("mail." + protocol + ".host");
+            if (user == null)
+                user = session.getProperty("mail." + protocol + ".user");
+        }
 
-	// try to get mail-wide default properties
-	if (host == null)
-	    host = session.getProperty("mail.host");
+        // try to get mail-wide default properties
+        if (host == null)
+            host = session.getProperty("mail.host");
 
-	if (user == null)
-	    user = session.getProperty("mail.user");
+        if (user == null)
+            user = session.getProperty("mail.user");
 
-	// try using the system username
-	if (user == null) {
-	    try {
-		user = System.getProperty("user.name");
-	    } catch (SecurityException sex) {
-		// XXX - it's not worth creating a MailLogger just for this
-		//logger.log(Level.CONFIG, "Can't get user.name property", sex);
-	    }
-	}
+        // try using the system username
+        if (user == null) {
+            try {
+                user = System.getProperty("user.name");
+            } catch (SecurityException sex) {
+                // XXX - it's not worth creating a MailLogger just for this
+                //logger.log(Level.CONFIG, "Can't get user.name property", sex);
+            }
+        }
 
-	url = new URLName(protocol, host, port, file, user, password);
+        url = new URLName(protocol, host, port, file, user, password);
 
-	// create or choose the appropriate event queue
-	String scope =
-	    session.getProperties().getProperty("mail.event.scope", "folder");
-	Executor executor =
-		(Executor)session.getProperties().get("mail.event.executor");
-	if (scope.equalsIgnoreCase("application"))
-	    q = EventQueue.getApplicationEventQueue(executor);
-	else if (scope.equalsIgnoreCase("session"))
-	    q = session.getEventQueue();
-	else // if (scope.equalsIgnoreCase("store") ||
-	     //     scope.equalsIgnoreCase("folder"))
-	    q = new EventQueue(executor);
+        // create or choose the appropriate event queue
+        String scope =
+                session.getProperties().getProperty("mail.event.scope", "folder");
+        Executor executor =
+                (Executor) session.getProperties().get("mail.event.executor");
+        if (scope.equalsIgnoreCase("application"))
+            q = EventQueue.getApplicationEventQueue(executor);
+        else if (scope.equalsIgnoreCase("session"))
+            q = session.getEventQueue();
+        else // if (scope.equalsIgnoreCase("store") ||
+            //     scope.equalsIgnoreCase("folder"))
+            q = new EventQueue(executor);
     }
 
     /**
@@ -161,14 +165,13 @@ public abstract class Service implements AutoCloseable {
      * The implementation provided here simply calls the following
      * <code>connect(String, String, String)</code> method with nulls.
      *
-     * @exception AuthenticationFailedException	for authentication failures
-     * @exception MessagingException	for other failures
-     * @exception IllegalStateException	if the service is already connected
-     *
+     * @throws AuthenticationFailedException for authentication failures
+     * @throws IllegalStateException         if the service is already connected
+     * @throws MessagingException            for other failures
      * @see jakarta.mail.event.ConnectionEvent
      */
     public void connect() throws MessagingException {
-	connect(null, null, null);
+        connect(null, null, null);
     }
 
     /**
@@ -208,18 +211,18 @@ public abstract class Service implements AutoCloseable {
      * password passed in is not null, it is not saved, on the assumption
      * that the application is managing passwords explicitly.
      *
-     * @param host 	the host to connect to
-     * @param user	the user name
-     * @param password	this user's password
-     * @exception AuthenticationFailedException	for authentication failures
-     * @exception MessagingException		for other failures
-     * @exception IllegalStateException	if the service is already connected
+     * @param host     the host to connect to
+     * @param user     the user name
+     * @param password this user's password
+     * @throws AuthenticationFailedException for authentication failures
+     * @throws IllegalStateException         if the service is already connected
+     * @throws MessagingException            for other failures
      * @see jakarta.mail.event.ConnectionEvent
      * @see jakarta.mail.Session#setPasswordAuthentication
      */
     public void connect(String host, String user, String password)
-			throws MessagingException {
-	connect(host, -1, user, password);
+            throws MessagingException {
+        connect(host, -1, user, password);
     }
 
     /**
@@ -228,18 +231,18 @@ public abstract class Service implements AutoCloseable {
      * <code>connect(host, user, password)</code> method with null
      * for the host name.
      *
-     * @param user      the user name
-     * @param password  this user's password
-     * @exception AuthenticationFailedException for authentication failures
-     * @exception MessagingException            for other failures
-     * @exception IllegalStateException if the service is already connected
+     * @param user     the user name
+     * @param password this user's password
+     * @throws AuthenticationFailedException for authentication failures
+     * @throws IllegalStateException         if the service is already connected
+     * @throws MessagingException            for other failures
      * @see jakarta.mail.event.ConnectionEvent
      * @see jakarta.mail.Session#setPasswordAuthentication
      * @see #connect(java.lang.String, java.lang.String, java.lang.String)
-     * @since           JavaMail 1.4
+     * @since JavaMail 1.4
      */
     public void connect(String user, String password)
-	    throws MessagingException {
+            throws MessagingException {
         connect(null, user, password);
     }
 
@@ -247,149 +250,149 @@ public abstract class Service implements AutoCloseable {
      * Similar to connect(host, user, password) except a specific port
      * can be specified.
      *
-     * @param host 	the host to connect to
-     * @param port	the port to connect to (-1 means the default port)
-     * @param user	the user name
-     * @param password	this user's password
-     * @exception AuthenticationFailedException	for authentication failures
-     * @exception MessagingException		for other failures
-     * @exception IllegalStateException	if the service is already connected
+     * @param host     the host to connect to
+     * @param port     the port to connect to (-1 means the default port)
+     * @param user     the user name
+     * @param password this user's password
+     * @throws AuthenticationFailedException for authentication failures
+     * @throws IllegalStateException         if the service is already connected
+     * @throws MessagingException            for other failures
      * @see #connect(java.lang.String, java.lang.String, java.lang.String)
      * @see jakarta.mail.event.ConnectionEvent
      */
     public synchronized void connect(String host, int port,
-		String user, String password) throws MessagingException {
+                                     String user, String password) throws MessagingException {
 
-	// see if the service is already connected
-	if (isConnected())
-	    throw new IllegalStateException("already connected");
+        // see if the service is already connected
+        if (isConnected())
+            throw new IllegalStateException("already connected");
 
-	PasswordAuthentication pw;
-	boolean connected = false;
-	boolean save = false;
-	String protocol = null;
-	String file = null;
+        PasswordAuthentication pw;
+        boolean connected = false;
+        boolean save = false;
+        String protocol = null;
+        String file = null;
 
-	// get whatever information we can from the URL
-	// XXX - url should always be non-null here, Session
-	//       passes it into the constructor
-	if (url != null) {
-	    protocol = url.getProtocol();
-	    if (host == null)
-		host = url.getHost();
-	    if (port == -1)
-		port = url.getPort();
+        // get whatever information we can from the URL
+        // XXX - url should always be non-null here, Session
+        //       passes it into the constructor
+        if (url != null) {
+            protocol = url.getProtocol();
+            if (host == null)
+                host = url.getHost();
+            if (port == -1)
+                port = url.getPort();
 
-	    if (user == null) {
-		user = url.getUsername();
-		if (password == null)	// get password too if we need it
-		    password = url.getPassword();
-	    } else {
-		if (password == null && user.equals(url.getUsername()))
-		    // only get the password if it matches the username
-		    password = url.getPassword();
-	    }
+            if (user == null) {
+                user = url.getUsername();
+                if (password == null)    // get password too if we need it
+                    password = url.getPassword();
+            } else {
+                if (password == null && user.equals(url.getUsername()))
+                    // only get the password if it matches the username
+                    password = url.getPassword();
+            }
 
-	    file = url.getFile();
-	}
+            file = url.getFile();
+        }
 
-	// try to get protocol-specific default properties
-	if (protocol != null) {
-	    if (host == null)
-		host = session.getProperty("mail." + protocol + ".host");
-	    if (user == null)
-		user = session.getProperty("mail." + protocol + ".user");
-	}
+        // try to get protocol-specific default properties
+        if (protocol != null) {
+            if (host == null)
+                host = session.getProperty("mail." + protocol + ".host");
+            if (user == null)
+                user = session.getProperty("mail." + protocol + ".user");
+        }
 
-	// try to get mail-wide default properties
-	if (host == null)
-	    host = session.getProperty("mail.host");
+        // try to get mail-wide default properties
+        if (host == null)
+            host = session.getProperty("mail.host");
 
-	if (user == null)
-	    user = session.getProperty("mail.user");
+        if (user == null)
+            user = session.getProperty("mail.user");
 
-	// try using the system username
-	if (user == null) {
-	    try {
-		user = System.getProperty("user.name");
-	    } catch (SecurityException sex) {
-		// XXX - it's not worth creating a MailLogger just for this
-		//logger.log(Level.CONFIG, "Can't get user.name property", sex);
-	    }
-	}
+        // try using the system username
+        if (user == null) {
+            try {
+                user = System.getProperty("user.name");
+            } catch (SecurityException sex) {
+                // XXX - it's not worth creating a MailLogger just for this
+                //logger.log(Level.CONFIG, "Can't get user.name property", sex);
+            }
+        }
 
-	// if we don't have a password, look for saved authentication info
-	if (password == null && url != null) {
-	    // canonicalize the URLName
-	    setURLName(new URLName(protocol, host, port, file, user, null));
-	    pw = session.getPasswordAuthentication(getURLName());
-	    if (pw != null) {
-		if (user == null) {
-		    user = pw.getUserName();
-		    password = pw.getPassword();
-		} else if (user.equals(pw.getUserName())) {
-		    password = pw.getPassword();
-		}
-	    } else
-		save = true;
-	}
+        // if we don't have a password, look for saved authentication info
+        if (password == null && url != null) {
+            // canonicalize the URLName
+            setURLName(new URLName(protocol, host, port, file, user, null));
+            pw = session.getPasswordAuthentication(getURLName());
+            if (pw != null) {
+                if (user == null) {
+                    user = pw.getUserName();
+                    password = pw.getPassword();
+                } else if (user.equals(pw.getUserName())) {
+                    password = pw.getPassword();
+                }
+            } else
+                save = true;
+        }
 
-	// try connecting, if the protocol needs some missing
-	// information (user, password) it will not connect.
-	// if it tries to connect and fails, remember why for later.
-	AuthenticationFailedException authEx = null;
-	try {
-	    connected = protocolConnect(host, port, user, password);
-	} catch (AuthenticationFailedException ex) {
-	    authEx = ex;
-	}
+        // try connecting, if the protocol needs some missing
+        // information (user, password) it will not connect.
+        // if it tries to connect and fails, remember why for later.
+        AuthenticationFailedException authEx = null;
+        try {
+            connected = protocolConnect(host, port, user, password);
+        } catch (AuthenticationFailedException ex) {
+            authEx = ex;
+        }
 
-	// if not connected, ask the user and try again
-	if (!connected) {
-	    InetAddress addr;
-	    try {
-		addr = InetAddress.getByName(host);
-	    } catch (UnknownHostException e) {
-		addr = null;
-	    }
-	    pw = session.requestPasswordAuthentication(
-			    addr, port,
-			    protocol,
-			    null, user);
-	    if (pw != null) {
-		user = pw.getUserName();
-		password = pw.getPassword();
+        // if not connected, ask the user and try again
+        if (!connected) {
+            InetAddress addr;
+            try {
+                addr = InetAddress.getByName(host);
+            } catch (UnknownHostException e) {
+                addr = null;
+            }
+            pw = session.requestPasswordAuthentication(
+                    addr, port,
+                    protocol,
+                    null, user);
+            if (pw != null) {
+                user = pw.getUserName();
+                password = pw.getPassword();
 
-		// have the service connect again
-		connected = protocolConnect(host, port, user, password);
-	    }
-	}
+                // have the service connect again
+                connected = protocolConnect(host, port, user, password);
+            }
+        }
 
-	// if we're not connected by now, we give up
-	if (!connected) {
-	    if (authEx != null)
-		throw authEx;
-	    else if (user == null)
-		throw new AuthenticationFailedException(
-			"failed to connect, no user name specified?");
-	    else if (password == null)
-		throw new AuthenticationFailedException(
-			"failed to connect, no password specified?");
-	    else
-		throw new AuthenticationFailedException("failed to connect");
-	}
+        // if we're not connected by now, we give up
+        if (!connected) {
+            if (authEx != null)
+                throw authEx;
+            else if (user == null)
+                throw new AuthenticationFailedException(
+                        "failed to connect, no user name specified?");
+            else if (password == null)
+                throw new AuthenticationFailedException(
+                        "failed to connect, no password specified?");
+            else
+                throw new AuthenticationFailedException("failed to connect");
+        }
 
-	setURLName(new URLName(protocol, host, port, file, user, password));
+        setURLName(new URLName(protocol, host, port, file, user, password));
 
-	if (save)
-	    session.setPasswordAuthentication(getURLName(),
-			    new PasswordAuthentication(user, password));
+        if (save)
+            session.setPasswordAuthentication(getURLName(),
+                    new PasswordAuthentication(user, password));
 
-	// set our connected state
-	setConnected(true);
+        // set our connected state
+        setConnected(true);
 
-	// finally, deliver the connection event
-	notifyConnectionListeners(ConnectionEvent.OPENED);
+        // finally, deliver the connection event
+        notifyConnectionListeners(ConnectionEvent.OPENED);
     }
 
 
@@ -416,33 +419,33 @@ public abstract class Service implements AutoCloseable {
      * connection during the authentication process, unavailability
      * of the server, etc.
      *
-     * @param	host		the name of the host to connect to
-     * @param	port		the port to use (-1 means use default port)
-     * @param	user		the name of the user to login as
-     * @param	password	the user's password
-     * @return	true if connection successful, false if authentication failed
-     * @exception AuthenticationFailedException	for authentication failures
-     * @exception MessagingException	for non-authentication failures
+     * @param host     the name of the host to connect to
+     * @param port     the port to use (-1 means use default port)
+     * @param user     the name of the user to login as
+     * @param password the user's password
+     * @return true if connection successful, false if authentication failed
+     * @throws AuthenticationFailedException for authentication failures
+     * @throws MessagingException            for non-authentication failures
      */
     protected boolean protocolConnect(String host, int port, String user,
-				String password) throws MessagingException {
-	return false;
+                                      String password) throws MessagingException {
+        return false;
     }
 
     /**
      * Is this service currently connected? <p>
      *
-     * This implementation uses a private boolean field to 
+     * This implementation uses a private boolean field to
      * store the connection state. This method returns the value
      * of that field. <p>
      *
      * Subclasses may want to override this method to verify that any
      * connection to the message store is still alive.
      *
-     * @return	true if the service is connected, false if it is not connected
+     * @return true if the service is connected, false if it is not connected
      */
     public synchronized boolean isConnected() {
-	return connected;
+        return connected;
     }
 
     /**
@@ -459,7 +462,7 @@ public abstract class Service implements AutoCloseable {
      *                  false if it is not connected
      */
     protected synchronized void setConnected(boolean connected) {
-	this.connected = connected;
+        this.connected = connected;
     }
 
     /**
@@ -478,12 +481,12 @@ public abstract class Service implements AutoCloseable {
      * notification, probably by including a call to <code>super.close()</code>
      * in a <code>finally</code> clause.
      *
+     * @throws MessagingException for errors while closing
      * @see jakarta.mail.event.ConnectionEvent
-     * @throws	MessagingException	for errors while closing
      */
     public synchronized void close() throws MessagingException {
-	setConnected(false);
-	notifyConnectionListeners(ConnectionEvent.CLOSED);
+        setConnected(false);
+        notifyConnectionListeners(ConnectionEvent.CLOSED);
     }
 
     /**
@@ -497,17 +500,17 @@ public abstract class Service implements AutoCloseable {
      * the <code>url</code> field with the password and file information
      * stripped out.
      *
-     * @return	the URLName representing this service
-     * @see	URLName
+     * @return the URLName representing this service
+     * @see URLName
      */
     public URLName getURLName() {
-	URLName url = this.url;	// snapshot
-	if (url != null && (url.getPassword() != null || url.getFile() != null))
-	    return new URLName(url.getProtocol(), url.getHost(),
-			url.getPort(), null /* no file */,
-			url.getUsername(), null /* no password */);
-	else
-	    return url;
+        URLName url = this.url;    // snapshot
+        if (url != null && (url.getPassword() != null || url.getFile() != null))
+            return new URLName(url.getProtocol(), url.getHost(),
+                    url.getPort(), null /* no file */,
+                    url.getUsername(), null /* no password */);
+        else
+            return url;
     }
 
     /**
@@ -525,11 +528,11 @@ public abstract class Service implements AutoCloseable {
      * The implementation in the Service class simply sets the
      * <code>url</code> field.
      *
-     * @param	url	the URLName
+     * @param url the URLName
      * @see URLName
      */
     protected void setURLName(URLName url) {
-	this.url = url;
+        this.url = url;
     }
 
     /**
@@ -538,11 +541,11 @@ public abstract class Service implements AutoCloseable {
      * The default implementation provided here adds this listener
      * to an internal list of ConnectionListeners.
      *
-     * @param l         the Listener for Connection events
-     * @see             jakarta.mail.event.ConnectionEvent
+     * @param l the Listener for Connection events
+     * @see jakarta.mail.event.ConnectionEvent
      */
     public void addConnectionListener(ConnectionListener l) {
-	connectionListeners.addElement(l);
+        connectionListeners.addElement(l);
     }
 
     /**
@@ -551,11 +554,11 @@ public abstract class Service implements AutoCloseable {
      * The default implementation provided here removes this listener
      * from the internal list of ConnectionListeners.
      *
-     * @param l         the listener
-     * @see             #addConnectionListener
+     * @param l the listener
+     * @see #addConnectionListener
      */
     public void removeConnectionListener(ConnectionListener l) {
-	connectionListeners.removeElement(l);
+        connectionListeners.removeElement(l);
     }
 
     /**
@@ -568,18 +571,18 @@ public abstract class Service implements AutoCloseable {
      * ConnectionListeners. Note that the event dispatching occurs
      * in a separate thread, thus avoiding potential deadlock problems.
      *
-     * @param	type	the ConnectionEvent type
+     * @param type the ConnectionEvent type
      */
     protected void notifyConnectionListeners(int type) {
-	/*
-	 * Don't bother queuing an event if there's no listeners.
-	 * Yes, listeners could be removed after checking, which
-	 * just makes this an expensive no-op.
-	 */
-	if (connectionListeners.size() > 0) {
-	    ConnectionEvent e = new ConnectionEvent(this, type);
-	    queueEvent(e, connectionListeners);
-	}
+        /*
+         * Don't bother queuing an event if there's no listeners.
+         * Yes, listeners could be removed after checking, which
+         * just makes this an expensive no-op.
+         */
+        if (connectionListeners.size() > 0) {
+            ConnectionEvent e = new ConnectionEvent(this, type);
+            queueEvent(e, connectionListeners);
+        }
 
         /* Fix for broken JDK1.1.x Garbage collector :
          *  The 'conservative' GC in JDK1.1.x occasionally fails to
@@ -601,22 +604,22 @@ public abstract class Service implements AutoCloseable {
      */
     @Override
     public String toString() {
-	URLName url = getURLName();
-	if (url != null)
-	    return url.toString();
-	else
-	    return super.toString();
+        URLName url = getURLName();
+        if (url != null)
+            return url.toString();
+        else
+            return super.toString();
     }
 
     /**
      * Add the event and vector of listeners to the queue to be delivered.
      *
-     * @param	event	the event
-     * @param	vector	the vector of listeners
+     * @param event  the event
+     * @param vector the vector of listeners
      */
     protected void queueEvent(MailEvent event,
-	    Vector<? extends EventListener> vector) {
-	/*
+                              Vector<? extends EventListener> vector) {
+        /*
          * Copy the vector in order to freeze the state of the set
          * of EventListeners the event should be delivered to prior
          * to delivery.  This ensures that any changes made to the
@@ -624,9 +627,9 @@ public abstract class Service implements AutoCloseable {
          * of this event will not take effect until after the event is
          * delivered.
          */
-	@SuppressWarnings("unchecked")
-	Vector<? extends EventListener> v = (Vector)vector.clone();
-	q.enqueue(event, v);
+        @SuppressWarnings("unchecked")
+        Vector<? extends EventListener> v = (Vector<? extends EventListener>) vector.clone();
+        q.enqueue(event, v);
     }
 
     /**
@@ -634,24 +637,24 @@ public abstract class Service implements AutoCloseable {
      */
     @Override
     protected void finalize() throws Throwable {
-	try {
-	    q.terminateQueue();
-	} finally {
-	    super.finalize();
-	}
+        try {
+            q.terminateQueue();
+        } finally {
+            super.finalize();
+        }
     }
 
     /**
      * Package private method to allow Folder to get the Session for a Store.
      */
     Session getSession() {
-	return session;
+        return session;
     }
 
     /**
      * Package private method to allow Folder to get the EventQueue for a Store.
      */
     EventQueue getEventQueue() {
-	return q;
+        return q;
     }
 }

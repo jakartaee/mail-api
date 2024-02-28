@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,12 +16,15 @@
 
 package jakarta.mail;
 
+import jakarta.mail.event.TransportEvent;
+import jakarta.mail.event.TransportListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import jakarta.mail.event.*;
 
 /**
  * An abstract class that models a message transport.
@@ -34,7 +37,6 @@ import jakarta.mail.event.*;
  * @author John Mani
  * @author Max Spivak
  * @author Bill Shannon
- * 
  * @see jakarta.mail.Service
  * @see jakarta.mail.event.ConnectionEvent
  * @see jakarta.mail.event.TransportEvent
@@ -45,11 +47,11 @@ public abstract class Transport extends Service {
     /**
      * Constructor.
      *
-     * @param	session Session object for this Transport.
-     * @param	urlname	URLName object to be used for this Transport
+     * @param session Session object for this Transport.
+     * @param urlname URLName object to be used for this Transport
      */
     public Transport(Session session, URLName urlname) {
-	super(session, urlname);
+        super(session, urlname);
     }
 
     /**
@@ -64,10 +66,10 @@ public abstract class Transport extends Service {
      * the Transport during message submission, a SendFailedException
      * is thrown.  Clients can get more detail about the failure by examining
      * the exception.  Whether or not the message is still sent successfully
-     * to any valid addresses depends on the Transport implementation.  See 
-     * SendFailedException for more details.  Note also that success does 
+     * to any valid addresses depends on the Transport implementation.  See
+     * SendFailedException for more details.  Note also that success does
      * not imply that the message was delivered to the ultimate recipient,
-     * as failures may occur in later stages of delivery.  Once a Transport 
+     * as failures may occur in later stages of delivery.  Once a Transport
      * accepts a message for delivery to a recipient, failures that occur later
      * should be reported to the user via another mechanism, such as
      * returning the undeliverable message. <p>
@@ -86,40 +88,40 @@ public abstract class Transport extends Service {
      * <code>Transport.send(msg);</code>, and should never be invoked
      * using an instance variable.
      *
-     * @param	msg	the message to send
-     * @exception	SendFailedException if the message could not
-     *			be sent to some or any of the recipients.
-     * @exception	MessagingException for other failures
-     * @see		Message#saveChanges
-     * @see		Message#getAllRecipients
-     * @see		#send(Message, Address[])
-     * @see		jakarta.mail.SendFailedException
+     * @param msg the message to send
+     * @throws SendFailedException if the message could not
+     *                                be sent to some or any of the recipients.
+     * @throws MessagingException  for other failures
+     * @see Message#saveChanges
+     * @see Message#getAllRecipients
+     * @see #send(Message, Address[])
+     * @see jakarta.mail.SendFailedException
      */
     public static void send(Message msg) throws MessagingException {
-	msg.saveChanges(); // do this first
-	send0(msg, msg.getAllRecipients(), null, null);
+        msg.saveChanges(); // do this first
+        send0(msg, msg.getAllRecipients(), null, null);
     }
 
     /**
      * Send the message to the specified addresses, ignoring any
      * recipients specified in the message itself. The
      * <code>send</code> method calls the <code>saveChanges</code>
-     * method on the message before sending it. <p>
+     * method on the message before sending it.
      *
-     * @param	msg	the message to send
-     * @param	addresses the addresses to which to send the message
-     * @exception	SendFailedException if the message could not
-     *			be sent to some or any of the recipients.
-     * @exception	MessagingException for other failures
-     * @see		Message#saveChanges
-     * @see             #send(Message)
-     * @see		jakarta.mail.SendFailedException
+     * @param msg       the message to send
+     * @param addresses the addresses to which to send the message
+     * @throws SendFailedException if the message could not
+     *                                be sent to some or any of the recipients.
+     * @throws MessagingException  for other failures
+     * @see Message#saveChanges
+     * @see jakarta.mail.SendFailedException
+     * @see #send(Message)
      */
-    public static void send(Message msg, Address[] addresses) 
-		throws MessagingException {
+    public static void send(Message msg, Address[] addresses)
+            throws MessagingException {
 
-	msg.saveChanges();
-	send0(msg, addresses, null, null);
+        msg.saveChanges();
+        send0(msg, addresses, null, null);
     }
 
     /**
@@ -132,22 +134,22 @@ public abstract class Transport extends Service {
      * Use the specified user name and password to authenticate to
      * the mail server.
      *
-     * @param	msg	the message to send
-     * @param	user	the user name
-     * @param	password this user's password
-     * @exception	SendFailedException if the message could not
-     *			be sent to some or any of the recipients.
-     * @exception	MessagingException for other failures
-     * @see		Message#saveChanges
-     * @see             #send(Message)
-     * @see		jakarta.mail.SendFailedException
-     * @since		JavaMail 1.5
+     * @param msg      the message to send
+     * @param user     the user name
+     * @param password this user's password
+     * @throws SendFailedException if the message could not
+     *                                be sent to some or any of the recipients.
+     * @throws MessagingException  for other failures
+     * @see Message#saveChanges
+     * @see jakarta.mail.SendFailedException
+     * @see #send(Message)
+     * @since JavaMail 1.5
      */
     public static void send(Message msg,
-		String user, String password) throws MessagingException {
+                            String user, String password) throws MessagingException {
 
-	msg.saveChanges();
-	send0(msg, msg.getAllRecipients(), user, password);
+        msg.saveChanges();
+        send0(msg, msg.getAllRecipients(), user, password);
     }
 
     /**
@@ -159,166 +161,162 @@ public abstract class Transport extends Service {
      * Use the specified user name and password to authenticate to
      * the mail server.
      *
-     * @param	msg	the message to send
-     * @param	addresses the addresses to which to send the message
-     * @param	user	the user name
-     * @param	password this user's password
-     * @exception	SendFailedException if the message could not
-     *			be sent to some or any of the recipients.
-     * @exception	MessagingException for other failures
-     * @see		Message#saveChanges
-     * @see             #send(Message)
-     * @see		jakarta.mail.SendFailedException
-     * @since		JavaMail 1.5
+     * @param msg       the message to send
+     * @param addresses the addresses to which to send the message
+     * @param user      the user name
+     * @param password  this user's password
+     * @throws SendFailedException if the message could not
+     *                                be sent to some or any of the recipients.
+     * @throws MessagingException  for other failures
+     * @see Message#saveChanges
+     * @see jakarta.mail.SendFailedException
+     * @see #send(Message)
+     * @since JavaMail 1.5
      */
     public static void send(Message msg, Address[] addresses,
-		String user, String password) throws MessagingException {
+                            String user, String password) throws MessagingException {
 
-	msg.saveChanges();
-	send0(msg, addresses, user, password);
+        msg.saveChanges();
+        send0(msg, addresses, user, password);
     }
 
     // send, but without the saveChanges
     private static void send0(Message msg, Address[] addresses,
-		String user, String password) throws MessagingException {
+                              String user, String password) throws MessagingException {
 
-	if (addresses == null || addresses.length == 0)
-	    throw new SendFailedException("No recipient addresses");
+        if (addresses == null || addresses.length == 0)
+            throw new SendFailedException("No recipient addresses");
 
-	/*
-	 * protocols is a map containing the addresses
-	 * indexed by address type
-	 */
-	Map<String, List<Address>> protocols
-		= new HashMap<>();
+        /*
+         * protocols is a map containing the addresses
+         * indexed by address type
+         */
+        Map<String, List<Address>> protocols
+                = new HashMap<>();
 
-	// Lists of addresses
-	List<Address> invalid = new ArrayList<>();
-	List<Address> validSent = new ArrayList<>();
-	List<Address> validUnsent = new ArrayList<>();
+        // Lists of addresses
+        List<Address> invalid = new ArrayList<>();
+        List<Address> validSent = new ArrayList<>();
+        List<Address> validUnsent = new ArrayList<>();
 
-	for (int i = 0; i < addresses.length; i++) {
-	    // is this address type already in the map?
-	    if (protocols.containsKey(addresses[i].getType())) {
-		List<Address> v = protocols.get(addresses[i].getType());
-		v.add(addresses[i]);
-	    } else {
-		// need to add a new protocol
-		List<Address> w = new ArrayList<>();
-		w.add(addresses[i]);
-		protocols.put(addresses[i].getType(), w);
-	    }
-	}
+        for (int i = 0; i < addresses.length; i++) {
+            // is this address type already in the map?
+            if (protocols.containsKey(addresses[i].getType())) {
+                List<Address> v = protocols.get(addresses[i].getType());
+                v.add(addresses[i]);
+            } else {
+                // need to add a new protocol
+                List<Address> w = new ArrayList<>();
+                w.add(addresses[i]);
+                protocols.put(addresses[i].getType(), w);
+            }
+        }
 
-	int dsize = protocols.size();
-	if (dsize == 0)
-	    throw new SendFailedException("No recipient addresses");
+        int dsize = protocols.size();
+        if (dsize == 0)
+            throw new SendFailedException("No recipient addresses");
 
-	Session s = (msg.session != null) ? msg.session :
-		     Session.getDefaultInstance(System.getProperties(), null);
-	Transport transport;
+        Session s = (msg.session != null) ? msg.session :
+                Session.getDefaultInstance(System.getProperties(), null);
+        Transport transport;
 
-	/*
-	 * Optimize the case of a single protocol.
-	 */
-	if (dsize == 1) {
-	    transport = s.getTransport(addresses[0]);
-	    try {
-		if (user != null)
-		    transport.connect(user, password);
-		else
-		    transport.connect();
-		transport.sendMessage(msg, addresses);
-	    } finally {
-		transport.close();
-	    }
-	    return;
-	}
+        /*
+         * Optimize the case of a single protocol.
+         */
+        if (dsize == 1) {
+            transport = s.getTransport(addresses[0]);
+            try {
+                if (user != null)
+                    transport.connect(user, password);
+                else
+                    transport.connect();
+                transport.sendMessage(msg, addresses);
+            } finally {
+                transport.close();
+            }
+            return;
+        }
 
-	/*
-	 * More than one protocol.  Have to do them one at a time
-	 * and collect addresses and chain exceptions.
-	 */
-	MessagingException chainedEx = null;
-	boolean sendFailed = false;
+        /*
+         * More than one protocol.  Have to do them one at a time
+         * and collect addresses and chain exceptions.
+         */
+        MessagingException chainedEx = null;
+        boolean sendFailed = false;
 
-	for(List<Address> v : protocols.values()) {
-	    Address[] protaddresses = new Address[v.size()];
-	    v.toArray(protaddresses);
+        for (List<Address> v : protocols.values()) {
+            Address[] protaddresses = new Address[v.size()];
+            v.toArray(protaddresses);
 
-	    // Get a Transport that can handle this address type.
-	    if ((transport = s.getTransport(protaddresses[0])) == null) {
-		// Could not find an appropriate Transport ..
-		// Mark these addresses invalid.
-		for (int j = 0; j < protaddresses.length; j++)
-		    invalid.add(protaddresses[j]);
-		continue;
-	    }
-	    try {
-		transport.connect();
-		transport.sendMessage(msg, protaddresses);
-	    } catch (SendFailedException sex) {
-		sendFailed = true;
-		// chain the exception we're catching to any previous ones
-		if (chainedEx == null)
-		    chainedEx = sex;
-		else
-		    chainedEx.setNextException(sex);
+            // Get a Transport that can handle this address type.
+            if ((transport = s.getTransport(protaddresses[0])) == null) {
+                // Could not find an appropriate Transport ..
+                // Mark these addresses invalid.
+                Collections.addAll(invalid, protaddresses);
+                continue;
+            }
+            try {
+                transport.connect();
+                transport.sendMessage(msg, protaddresses);
+            } catch (SendFailedException sex) {
+                sendFailed = true;
+                // chain the exception we're catching to any previous ones
+                if (chainedEx == null)
+                    chainedEx = sex;
+                else
+                    chainedEx.setNextException(sex);
 
-		// retrieve invalid addresses
-		Address[] a = sex.getInvalidAddresses();
-		if (a != null)
-		    for (int j = 0; j < a.length; j++) 
-			invalid.add(a[j]);
+                // retrieve invalid addresses
+                Address[] a = sex.getInvalidAddresses();
+                if (a != null)
+                    Collections.addAll(invalid, a);
 
-		// retrieve validSent addresses
-		a = sex.getValidSentAddresses();
-		if (a != null)
-		    for (int k = 0; k < a.length; k++) 
-			validSent.add(a[k]);
+                // retrieve validSent addresses
+                a = sex.getValidSentAddresses();
+                if (a != null)
+                    Collections.addAll(validSent, a);
 
-		// retrieve validUnsent addresses
-		Address[] c = sex.getValidUnsentAddresses();
-		if (c != null)
-		    for (int l = 0; l < c.length; l++) 
-			validUnsent.add(c[l]);
-	    } catch (MessagingException mex) {
-		sendFailed = true;
-		// chain the exception we're catching to any previous ones
-		if (chainedEx == null)
-		    chainedEx = mex;
-		else
-		    chainedEx.setNextException(mex);
-	    } finally {
-		transport.close();
-	    }
-	}
+                // retrieve validUnsent addresses
+                Address[] c = sex.getValidUnsentAddresses();
+                if (c != null)
+                    Collections.addAll(validUnsent, c);
+            } catch (MessagingException mex) {
+                sendFailed = true;
+                // chain the exception we're catching to any previous ones
+                if (chainedEx == null)
+                    chainedEx = mex;
+                else
+                    chainedEx.setNextException(mex);
+            } finally {
+                transport.close();
+            }
+        }
 
-	// done with all protocols. throw exception if something failed
-	if (sendFailed || invalid.size() != 0 || validUnsent.size() != 0) { 
-	    Address[] a = null, b = null, c = null;
+        // done with all protocols. throw exception if something failed
+        if (sendFailed || invalid.size() != 0 || validUnsent.size() != 0) {
+            Address[] a = null, b = null, c = null;
 
-	    // copy address lists into arrays
-	    if (validSent.size() > 0) {
-		a = new Address[validSent.size()];
-		validSent.toArray(a);
-	    }
-	    if (validUnsent.size() > 0) {
-		b = new Address[validUnsent.size()];
-		validUnsent.toArray(b);
-	    }
-	    if (invalid.size() > 0) {
-		c = new Address[invalid.size()];
-		invalid.toArray(c);
-	    }
-	    throw new SendFailedException("Sending failed", chainedEx, 
-					  a, b, c);
-	}
+            // copy address lists into arrays
+            if (validSent.size() > 0) {
+                a = new Address[validSent.size()];
+                validSent.toArray(a);
+            }
+            if (validUnsent.size() > 0) {
+                b = new Address[validUnsent.size()];
+                validUnsent.toArray(b);
+            }
+            if (invalid.size() > 0) {
+                c = new Address[invalid.size()];
+                invalid.toArray(c);
+            }
+            throw new SendFailedException("Sending failed", chainedEx,
+                    a, b, c);
+        }
     }
 
     /**
      * Send the Message to the specified list of addresses. An appropriate
-     * TransportEvent indicating the delivery status is delivered to any 
+     * TransportEvent indicating the delivery status is delivered to any
      * TransportListener registered on this Transport. Also, if any of
      * the addresses is invalid, a SendFailedException is thrown.
      * Whether or not the message is still sent succesfully to
@@ -328,16 +326,16 @@ public abstract class Transport extends Service {
      * method does <em>not</em> call the <code>saveChanges</code> method on
      * the message; the caller should do so.
      *
-     * @param msg	The Message to be sent
-     * @param addresses	array of addresses to send this message to
-     * @see 		jakarta.mail.event.TransportEvent
-     * @exception SendFailedException if the send failed because of
-     *			invalid addresses.
-     * @exception MessagingException if the connection is dead or not in the 
-     * 				connected state
+     * @param msg       The Message to be sent
+     * @param addresses array of addresses to send this message to
+     * @throws SendFailedException if the send failed because of
+     *                                invalid addresses.
+     * @throws MessagingException  if the connection is dead or not in the
+     *                                connected state
+     * @see jakarta.mail.event.TransportEvent
      */
-    public abstract void sendMessage(Message msg, Address[] addresses) 
-				throws MessagingException;
+    public abstract void sendMessage(Message msg, Address[] addresses)
+            throws MessagingException;
 
     // Vector of Transport listeners
     private volatile Vector<TransportListener> transportListeners = null;
@@ -348,13 +346,13 @@ public abstract class Transport extends Service {
      * The default implementation provided here adds this listener
      * to an internal list of TransportListeners.
      *
-     * @param l         the Listener for Transport events
-     * @see             jakarta.mail.event.TransportEvent
+     * @param l the Listener for Transport events
+     * @see jakarta.mail.event.TransportEvent
      */
     public synchronized void addTransportListener(TransportListener l) {
-	if (transportListeners == null)
-	    transportListeners = new Vector<>();
-	transportListeners.addElement(l);
+        if (transportListeners == null)
+            transportListeners = new Vector<>();
+        transportListeners.addElement(l);
     }
 
     /**
@@ -363,12 +361,12 @@ public abstract class Transport extends Service {
      * The default implementation provided here removes this listener
      * from the internal list of TransportListeners.
      *
-     * @param l         the listener
-     * @see             #addTransportListener
+     * @param l the listener
+     * @see #addTransportListener
      */
     public synchronized void removeTransportListener(TransportListener l) {
-	if (transportListeners != null)
-	    transportListeners.removeElement(l);
+        if (transportListeners != null)
+            transportListeners.removeElement(l);
     }
 
     /**
@@ -381,20 +379,20 @@ public abstract class Transport extends Service {
      * TransportListeners. Note that the event dispatching occurs
      * in a separate thread, thus avoiding potential deadlock problems.
      *
-     * @param	type	the TransportEvent type
-     * @param	validSent valid addresses to which message was sent
-     * @param	validUnsent valid addresses to which message was not sent
-     * @param	invalid the invalid addresses
-     * @param	msg	the message
+     * @param type        the TransportEvent type
+     * @param validSent   valid addresses to which message was sent
+     * @param validUnsent valid addresses to which message was not sent
+     * @param invalid     the invalid addresses
+     * @param msg         the message
      */
     protected void notifyTransportListeners(int type, Address[] validSent,
-					    Address[] validUnsent,
-					    Address[] invalid, Message msg) {
-	if (transportListeners == null)
-	    return;
-	
-	TransportEvent e = new TransportEvent(this, type, validSent, 
-					      validUnsent, invalid, msg);
-	queueEvent(e, transportListeners);
+                                            Address[] validUnsent,
+                                            Address[] invalid, Message msg) {
+        if (transportListeners == null)
+            return;
+
+        TransportEvent e = new TransportEvent(this, type, validSent,
+                validUnsent, invalid, msg);
+        queueEvent(e, transportListeners);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -61,17 +61,17 @@ final class MailLogger {
      * Construct a new MailLogger using the specified Logger name,
      * debug prefix (e.g., "DEBUG"), debug flag, and PrintStream.
      *
-     * @param	name	the Logger name
-     * @param	prefix	the prefix for debug output, or null for none
-     * @param	debug	if true, write to PrintStream
-     * @param	out	the PrintStream to write to
+     * @param name   the Logger name
+     * @param prefix the prefix for debug output, or null for none
+     * @param debug  if true, write to PrintStream
+     * @param out    the PrintStream to write to
      */
     public MailLogger(String name, String prefix, boolean debug,
-				PrintStream out) {
-	logger = Logger.getLogger(name);
-	this.prefix = prefix;
-	this.debug = debug;
-	this.out = out != null ? out : System.out;
+                      PrintStream out) {
+        logger = Logger.getLogger(name);
+        this.prefix = prefix;
+        this.debug = debug;
+        this.out = out != null ? out : System.out;
     }
 
     /**
@@ -79,18 +79,18 @@ final class MailLogger {
      * name as the Logger name,
      * debug prefix (e.g., "DEBUG"), debug flag, and PrintStream.
      *
-     * @param	clazz	the Logger name is the package name of this class
-     * @param	prefix	the prefix for debug output, or null for none
-     * @param	debug	if true, write to PrintStream
-     * @param	out	the PrintStream to write to
+     * @param clazz  the Logger name is the package name of this class
+     * @param prefix the prefix for debug output, or null for none
+     * @param debug  if true, write to PrintStream
+     * @param out    the PrintStream to write to
      */
     public MailLogger(Class<?> clazz, String prefix, boolean debug,
-				PrintStream out) {
-	String name = packageOf(clazz);
-	logger = Logger.getLogger(name);
-	this.prefix = prefix;
-	this.debug = debug;
-	this.out = out != null ? out : System.out;
+                      PrintStream out) {
+        String name = packageOf(clazz);
+        logger = Logger.getLogger(name);
+        this.prefix = prefix;
+        this.debug = debug;
+        this.out = out != null ? out : System.out;
     }
 
     /**
@@ -98,19 +98,19 @@ final class MailLogger {
      * name combined with the specified subname as the Logger name,
      * debug prefix (e.g., "DEBUG"), debug flag, and PrintStream.
      *
-     * @param	clazz	the Logger name is the package name of this class
-     * @param	subname	the Logger name relative to this Logger name
-     * @param	prefix	the prefix for debug output, or null for none
-     * @param	debug	if true, write to PrintStream
-     * @param	out	the PrintStream to write to
+     * @param clazz   the Logger name is the package name of this class
+     * @param subname the Logger name relative to this Logger name
+     * @param prefix  the prefix for debug output, or null for none
+     * @param debug   if true, write to PrintStream
+     * @param out     the PrintStream to write to
      */
     public MailLogger(Class<?> clazz, String subname, String prefix, boolean debug,
-				PrintStream out) {
-	String name = packageOf(clazz) + "." + subname;
-	logger = Logger.getLogger(name);
-	this.prefix = prefix;
-	this.debug = debug;
-	this.out = out != null ? out : System.out;
+                      PrintStream out) {
+        String name = packageOf(clazz) + "." + subname;
+        logger = Logger.getLogger(name);
+        this.prefix = prefix;
+        this.debug = debug;
+        this.out = out != null ? out : System.out;
     }
 
     /**
@@ -118,13 +118,13 @@ final class MailLogger {
      * debug prefix (e.g., "DEBUG").  Get the debug flag and PrintStream
      * from the Session.
      *
-     * @param	name	the Logger name
-     * @param	prefix	the prefix for debug output, or null for none
-     * @param	session	where to get the debug flag and PrintStream
+     * @param name    the Logger name
+     * @param prefix  the prefix for debug output, or null for none
+     * @param session where to get the debug flag and PrintStream
      */
     @Deprecated
     public MailLogger(String name, String prefix, Session session) {
-	this(name, prefix, session.getDebug(), session.getDebugOut());
+        this(name, prefix, session.getDebug(), session.getDebugOut());
     }
 
     /**
@@ -133,13 +133,13 @@ final class MailLogger {
      * debug prefix (e.g., "DEBUG").  Get the debug flag and PrintStream
      * from the Session.
      *
-     * @param	clazz	the Logger name is the package name of this class
-     * @param	prefix	the prefix for debug output, or null for none
-     * @param	session	where to get the debug flag and PrintStream
+     * @param clazz   the Logger name is the package name of this class
+     * @param prefix  the prefix for debug output, or null for none
+     * @param session where to get the debug flag and PrintStream
      */
     @Deprecated
     public MailLogger(Class<?> clazz, String prefix, Session session) {
-	this(clazz, prefix, session.getDebug(), session.getDebugOut());
+        this(clazz, prefix, session.getDebug(), session.getDebugOut());
     }
 
     /**
@@ -147,12 +147,12 @@ final class MailLogger {
      * and prefix.  The new MailLogger uses the same debug flag and
      * PrintStream as this MailLogger.
      *
-     * @param	name	the Logger name
-     * @param	prefix	the prefix for debug output, or null for none
+     * @param name   the Logger name
+     * @param prefix the prefix for debug output, or null for none
      * @return a MailLogger for the given name and prefix.
      */
     public MailLogger getLogger(String name, String prefix) {
-	return new MailLogger(name, prefix, debug, out);
+        return new MailLogger(name, prefix, debug, out);
     }
 
     /**
@@ -161,12 +161,12 @@ final class MailLogger {
      * The new MailLogger uses the same debug flag and
      * PrintStream as this MailLogger.
      *
-     * @param	clazz	the Logger name is the package name of this class
-     * @param	prefix	the prefix for debug output, or null for none
+     * @param clazz  the Logger name is the package name of this class
+     * @param prefix the prefix for debug output, or null for none
      * @return a MailLogger for the given name and prefix.
      */
     public MailLogger getLogger(Class<?> clazz, String prefix) {
-	return new MailLogger(clazz, prefix, debug, out);
+        return new MailLogger(clazz, prefix, debug, out);
     }
 
     /**
@@ -176,13 +176,13 @@ final class MailLogger {
      * This is used primarily by the protocol trace code that wants a
      * different prefix (none).
      *
-     * @param	subname	the Logger name relative to this Logger name
-     * @param	prefix	the prefix for debug output, or null for none
+     * @param subname the Logger name relative to this Logger name
+     * @param prefix  the prefix for debug output, or null for none
      * @return a MailLogger for the given name and prefix.
      */
     public MailLogger getSubLogger(String subname, String prefix) {
-	return new MailLogger(logger.getName() + "." + subname, prefix,
-				debug, out);
+        return new MailLogger(logger.getName() + "." + subname, prefix,
+                debug, out);
     }
 
     /**
@@ -192,181 +192,193 @@ final class MailLogger {
      * This is used primarily by the protocol trace code that wants a
      * different prefix (none).
      *
-     * @param	subname	the Logger name relative to this Logger name
-     * @param	prefix	the prefix for debug output, or null for none
-     * @param	debug	the debug flag for the sub-logger
+     * @param subname the Logger name relative to this Logger name
+     * @param prefix  the prefix for debug output, or null for none
+     * @param debug   the debug flag for the sub-logger
      * @return a MailLogger for the given name and prefix.
      */
     public MailLogger getSubLogger(String subname, String prefix,
-				boolean debug) {
-	return new MailLogger(logger.getName() + "." + subname, prefix,
-				debug, out);
+                                   boolean debug) {
+        return new MailLogger(logger.getName() + "." + subname, prefix,
+                debug, out);
     }
 
     /**
      * Log the message at the specified level.
+     *
      * @param level the log level.
-     * @param msg the message.
+     * @param msg   the message.
      */
     public void log(Level level, String msg) {
-	ifDebugOut(msg);
-	if (logger.isLoggable(level)) {
-	    final StackTraceElement frame = inferCaller();
-	    logger.logp(level, frame.getClassName(), frame.getMethodName(), msg);
-	}
+        ifDebugOut(msg);
+        if (logger.isLoggable(level)) {
+            final StackTraceElement frame = inferCaller();
+            logger.logp(level, frame.getClassName(), frame.getMethodName(), msg);
+        }
     }
 
     /**
      * Log the message at the specified level.
-     * @param level the log level.
-     * @param msg the message.
+     *
+     * @param level  the log level.
+     * @param msg    the message.
      * @param param1 the additional parameter.
      */
     public void log(Level level, String msg, Object param1) {
-	if (debug) {
-	    msg = MessageFormat.format(msg, new Object[] { param1 });
-	    debugOut(msg);
-	}
-	
-	if (logger.isLoggable(level)) {
-	    final StackTraceElement frame = inferCaller();
-	    logger.logp(level, frame.getClassName(), frame.getMethodName(), msg, param1);
-	}
+        if (debug) {
+            msg = MessageFormat.format(msg, param1);
+            debugOut(msg);
+        }
+
+        if (logger.isLoggable(level)) {
+            final StackTraceElement frame = inferCaller();
+            logger.logp(level, frame.getClassName(), frame.getMethodName(), msg, param1);
+        }
     }
 
     /**
      * Log the message at the specified level.
-     * @param level the log level.
-     * @param msg the message.
+     *
+     * @param level  the log level.
+     * @param msg    the message.
      * @param params the message parameters.
      */
     public void log(Level level, String msg, Object... params) {
-	if (debug) {
-	    msg = MessageFormat.format(msg, params);
-	    debugOut(msg);
-	}
-	
-	if (logger.isLoggable(level)) {
-	    final StackTraceElement frame = inferCaller();
-	    logger.logp(level, frame.getClassName(), frame.getMethodName(), msg, params);
-	}
+        if (debug) {
+            msg = MessageFormat.format(msg, params);
+            debugOut(msg);
+        }
+
+        if (logger.isLoggable(level)) {
+            final StackTraceElement frame = inferCaller();
+            logger.logp(level, frame.getClassName(), frame.getMethodName(), msg, params);
+        }
     }
 
     /**
      * Log the message at the specified level using a format string.
-     * @param level the log level.
-     * @param msg the message format string.
-     * @param params the message parameters.
      *
-     * @since	JavaMail 1.5.4
+     * @param level  the log level.
+     * @param msg    the message format string.
+     * @param params the message parameters.
+     * @since JavaMail 1.5.4
      */
     public void logf(Level level, String msg, Object... params) {
-	msg = String.format(msg, params);
-	ifDebugOut(msg);
-	logger.log(level, msg);
+        msg = String.format(msg, params);
+        ifDebugOut(msg);
+        logger.log(level, msg);
     }
 
     /**
      * Log the message at the specified level.
-     * @param level the log level.
-     * @param msg the message.
+     *
+     * @param level  the log level.
+     * @param msg    the message.
      * @param thrown the throwable to log.
      */
     public void log(Level level, String msg, Throwable thrown) {
-	if (debug) {
-	    if (thrown != null) {
-		debugOut(msg + ", THROW: ");
-		thrown.printStackTrace(out);
-	    } else {
-		debugOut(msg);
-	    }
-	}
- 
-	if (logger.isLoggable(level)) {
-	    final StackTraceElement frame = inferCaller();
-	    logger.logp(level, frame.getClassName(), frame.getMethodName(), msg, thrown);
-	}
+        if (debug) {
+            if (thrown != null) {
+                debugOut(msg + ", THROW: ");
+                thrown.printStackTrace(out);
+            } else {
+                debugOut(msg);
+            }
+        }
+
+        if (logger.isLoggable(level)) {
+            final StackTraceElement frame = inferCaller();
+            logger.logp(level, frame.getClassName(), frame.getMethodName(), msg, thrown);
+        }
     }
 
     /**
      * Log a message at the CONFIG level.
+     *
      * @param msg the message.
      */
     public void config(String msg) {
-	log(Level.CONFIG, msg);
+        log(Level.CONFIG, msg);
     }
 
     /**
      * Log a message at the FINE level.
+     *
      * @param msg the message.
      */
     public void fine(String msg) {
-	log(Level.FINE, msg);
+        log(Level.FINE, msg);
     }
 
     /**
      * Log a message at the FINER level.
+     *
      * @param msg the message.
      */
     public void finer(String msg) {
-	log(Level.FINER, msg);
+        log(Level.FINER, msg);
     }
 
     /**
      * Log a message at the FINEST level.
+     *
      * @param msg the message.
      */
     public void finest(String msg) {
-	log(Level.FINEST, msg);
+        log(Level.FINEST, msg);
     }
 
     /**
      * If "debug" is set, or our embedded Logger is loggable at the
      * given level, return true.
+     *
      * @param level the log level.
      * @return true if loggable.
      */
     public boolean isLoggable(Level level) {
-	return debug || logger.isLoggable(level);
+        return debug || logger.isLoggable(level);
     }
 
     /**
      * Common code to conditionally log debug statements.
+     *
      * @param msg the message to log.
      */
     private void ifDebugOut(String msg) {
-	if (debug)
-	    debugOut(msg);
+        if (debug)
+            debugOut(msg);
     }
 
     /**
      * Common formatting for debug output.
+     *
      * @param msg the message to log.
      */
     private void debugOut(String msg) {
-	if (prefix != null)
-	    out.println(prefix + ": " + msg);
-	else
-	    out.println(msg);
+        if (prefix != null)
+            out.println(prefix + ": " + msg);
+        else
+            out.println(msg);
     }
 
     /**
      * Return the package name of the class.
      * Sometimes there will be no Package object for the class,
      * e.g., if the class loader hasn't created one (see Class.getPackage()).
+     *
      * @param clazz the class source.
      * @return the package name or an empty string.
      */
     private String packageOf(Class<?> clazz) {
-	Package p = clazz.getPackage();
-	if (p != null)
-	    return p.getName();		// hopefully the common case
-	String cname = clazz.getName();
-	int i = cname.lastIndexOf('.');
-	if (i > 0)
-	    return cname.substring(0, i);
-	// no package name, now what?
-	return "";
+        Package p = clazz.getPackage();
+        if (p != null)
+            return p.getName();        // hopefully the common case
+        String cname = clazz.getName();
+        int i = cname.lastIndexOf('.');
+        if (i > 0)
+            return cname.substring(0, i);
+        // no package name, now what?
+        return "";
     }
 
     /**
@@ -376,43 +388,45 @@ final class MailLogger {
      * duplicates what Logger does to try to find *our* caller, so that
      * Logger doesn't have to do it (and get the wrong answer), and because
      * our caller is what's wanted.
+     *
      * @return StackTraceElement that logged the message.  Treat as read-only.
      */
     private StackTraceElement inferCaller() {
-	// Get the stack trace.
-	StackTraceElement stack[] = (new Throwable()).getStackTrace();
-	// First, search back to a method in the Logger class.
-	int ix = 0;
-	while (ix < stack.length) {
-	    StackTraceElement frame = stack[ix];
-	    String cname = frame.getClassName();
-	    if (isLoggerImplFrame(cname)) {
-		break;
-	    }
-	    ix++;
-	}
-	// Now search for the first frame before the "Logger" class.
-	while (ix < stack.length) {
-	    StackTraceElement frame = stack[ix];
-	    String cname = frame.getClassName();
-	    if (!isLoggerImplFrame(cname)) {
-		// We've found the relevant frame.
-		return frame;
-	    }
-	    ix++;
-	}
-	// We haven't found a suitable frame, so just punt.  This is
-	// OK as we are only committed to making a "best effort" here.
-	return new StackTraceElement(MailLogger.class.getName(), "log",
-                             MailLogger.class.getName(), -1);
+        // Get the stack trace.
+        StackTraceElement[] stack = (new Throwable()).getStackTrace();
+        // First, search back to a method in the Logger class.
+        int ix = 0;
+        while (ix < stack.length) {
+            StackTraceElement frame = stack[ix];
+            String cname = frame.getClassName();
+            if (isLoggerImplFrame(cname)) {
+                break;
+            }
+            ix++;
+        }
+        // Now search for the first frame before the "Logger" class.
+        while (ix < stack.length) {
+            StackTraceElement frame = stack[ix];
+            String cname = frame.getClassName();
+            if (!isLoggerImplFrame(cname)) {
+                // We've found the relevant frame.
+                return frame;
+            }
+            ix++;
+        }
+        // We haven't found a suitable frame, so just punt.  This is
+        // OK as we are only committed to making a "best effort" here.
+        return new StackTraceElement(MailLogger.class.getName(), "log",
+                MailLogger.class.getName(), -1);
     }
-    
+
     /**
      * Frames to ignore as part of the MailLogger to JUL bridge.
+     *
      * @param cname the class name.
      * @return true if the class name is part of the MailLogger bridge.
      */
     private boolean isLoggerImplFrame(String cname) {
-	return MailLogger.class.getName().equals(cname);
+        return MailLogger.class.getName().equals(cname);
     }
 }

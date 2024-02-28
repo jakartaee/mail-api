@@ -33,7 +33,7 @@
  * how the string is interpreted.  For example, use
  * </P>
  * <PRE>
- * 	session.setProperty("mail.mime.address.strict", "false");
+ * session.setProperty("mail.mime.address.strict", "false");
  * </PRE>
  * <P>
  * to set the <CODE>mail.mime.address.strict</CODE> property,
@@ -77,7 +77,7 @@
  * how the string is interpreted.  For example, use
  * </P>
  * <PRE>
- * 	System.setProperty("mail.mime.decodetext.strict", "false");
+ * System.setProperty("mail.mime.decodetext.strict", "false");
  * </PRE>
  * <P>
  * to set the <CODE>mail.mime.decodetext.strict</CODE> property,
@@ -512,7 +512,7 @@
  * With some network configurations, InetAddress.getCanonicalHostName may be
  * slow or may return an address instead of a host name.
  * In that case, setting this System property to false will cause the
- * {@link java.net.InetAddress#getHostName InetAddress.getHostName}
+ * {@link java.net.InetAddress#getHostName() InetAddress.getHostName()}
  * method to be used instead.
  * The default is true.
  * </TD>

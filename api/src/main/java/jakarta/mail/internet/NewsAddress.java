@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,11 +16,12 @@
 
 package jakarta.mail.internet;
 
+import jakarta.mail.Address;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.Locale;
-import jakarta.mail.*;
+import java.util.StringTokenizer;
 
 /**
  * This class models an RFC1036 newsgroup address.
@@ -31,36 +32,44 @@ import jakarta.mail.*;
 
 public class NewsAddress extends Address {
 
+    /**
+     * The newsgroup.
+     */
     protected String newsgroup;
-    protected String host;	// may be null
+
+    /**
+     * The host. May be {@code null}.
+     */
+    protected String host;
 
     private static final long serialVersionUID = -4203797299824684143L;
 
     /**
      * Default constructor.
      */
-    public NewsAddress() { }
+    public NewsAddress() {
+    }
 
     /**
      * Construct a NewsAddress with the given newsgroup.
      *
-     * @param newsgroup	the newsgroup
+     * @param newsgroup the newsgroup
      */
     public NewsAddress(String newsgroup) {
-	this(newsgroup, null);
+        this(newsgroup, null);
     }
 
     /**
      * Construct a NewsAddress with the given newsgroup and host.
      *
-     * @param newsgroup	the newsgroup
-     * @param host	the host
+     * @param newsgroup the newsgroup
+     * @param host      the host
      */
     public NewsAddress(String newsgroup, String host) {
-	// XXX - this method should throw an exception so we can report
-	// illegal addresses, but for now just remove whitespace
-	this.newsgroup = newsgroup.replaceAll("\\s+", "");
-	this.host = host;
+        // XXX - this method should throw an exception so we can report
+        // illegal addresses, but for now just remove whitespace
+        this.newsgroup = newsgroup.replaceAll("\\s+", "");
+        this.host = host;
     }
 
     /**
@@ -69,53 +78,53 @@ public class NewsAddress extends Address {
      */
     @Override
     public String getType() {
-	return "news";
+        return "news";
     }
 
     /**
      * Set the newsgroup.
      *
-     * @param	newsgroup	the newsgroup
+     * @param newsgroup the newsgroup
      */
     public void setNewsgroup(String newsgroup) {
-	this.newsgroup = newsgroup;
+        this.newsgroup = newsgroup;
     }
 
     /**
      * Get the newsgroup.
      *
-     * @return	newsgroup
+     * @return newsgroup
      */
     public String getNewsgroup() {
-	return newsgroup;
+        return newsgroup;
     }
 
     /**
      * Set the host.
      *
-     * @param	host	the host
+     * @param host the host
      */
     public void setHost(String host) {
-	this.host = host;
+        this.host = host;
     }
 
     /**
      * Get the host.
      *
-     * @return	host
+     * @return host
      */
     public String getHost() {
-	return host;
+        return host;
     }
 
     /**
      * Convert this address into a RFC 1036 address.
      *
-     * @return		newsgroup
+     * @return newsgroup
      */
     @Override
     public String toString() {
-	return newsgroup;
+        return newsgroup;
     }
 
     /**
@@ -123,14 +132,14 @@ public class NewsAddress extends Address {
      */
     @Override
     public boolean equals(Object a) {
-	if (!(a instanceof NewsAddress))
-	    return false;
+        if (!(a instanceof NewsAddress))
+            return false;
 
-	NewsAddress s = (NewsAddress)a;
-	return ((newsgroup == null && s.newsgroup == null) ||
-	     (newsgroup != null && newsgroup.equals(s.newsgroup))) &&
-	    ((host == null && s.host == null) ||
-	     (host != null && s.host != null && host.equalsIgnoreCase(s.host)));
+        NewsAddress s = (NewsAddress) a;
+        return ((newsgroup == null && s.newsgroup == null) ||
+                (newsgroup != null && newsgroup.equals(s.newsgroup))) &&
+                ((host == null && s.host == null) ||
+                        (host != null && s.host != null && host.equalsIgnoreCase(s.host)));
     }
 
     /**
@@ -138,12 +147,12 @@ public class NewsAddress extends Address {
      */
     @Override
     public int hashCode() {
-	int hash = 0;
-	if (newsgroup != null)
-	    hash += newsgroup.hashCode();
-	if (host != null)
-	    hash += host.toLowerCase(Locale.ENGLISH).hashCode();
-	return hash;
+        int hash = 0;
+        if (newsgroup != null)
+            hash += newsgroup.hashCode();
+        if (host != null)
+            hash += host.toLowerCase(Locale.ENGLISH).hashCode();
+        return hash;
     }
 
     /**
@@ -152,51 +161,51 @@ public class NewsAddress extends Address {
      * resulting string contains only US-ASCII characters, and
      * hence is mail-safe.
      *
-     * @param addresses	array of NewsAddress objects
-     * @exception   	ClassCastException if any address object in the
-     *              	given array is not a NewsAddress objects. Note
-     *              	that this is a RuntimeException.
-     * @return	    	comma separated address strings
+     * @param addresses array of NewsAddress objects
+     * @return comma separated address strings
+     * @throws ClassCastException if any address object in the
+     *                               given array is not a NewsAddress objects. Note
+     *                               that this is a RuntimeException.
      */
     public static String toString(Address[] addresses) {
-	if (addresses == null || addresses.length == 0)
-	    return null;
+        if (addresses == null || addresses.length == 0)
+            return null;
 
-	StringBuilder s =
-		new StringBuilder(((NewsAddress)addresses[0]).toString());
-	int used = s.length();
-	for (int i = 1; i < addresses.length; i++) {
-	    s.append(",");
-	    used++;
-	    String ng = ((NewsAddress)addresses[i]).toString();
-	    if (used + ng.length() > 76) {
-		s.append("\r\n\t");
-		used = 8;
-	    }
-	    s.append(ng);
-	    used += ng.length();
-	}
-	
-	return s.toString();
+        StringBuilder s =
+                new StringBuilder(addresses[0].toString());
+        int used = s.length();
+        for (int i = 1; i < addresses.length; i++) {
+            s.append(",");
+            used++;
+            String ng = addresses[i].toString();
+            if (used + ng.length() > 76) {
+                s.append("\r\n\t");
+                used = 8;
+            }
+            s.append(ng);
+            used += ng.length();
+        }
+
+        return s.toString();
     }
 
     /**
      * Parse the given comma separated sequence of newsgroups into
      * NewsAddress objects.
      *
-     * @param newsgroups	comma separated newsgroup string
-     * @return			array of NewsAddress objects
-     * @exception		AddressException if the parse failed
+     * @param newsgroups comma separated newsgroup string
+     * @return array of NewsAddress objects
+     * @throws AddressException if the parse failed
      */
-    public static NewsAddress[] parse(String newsgroups) 
-				throws AddressException {
-	// XXX - verify format of newsgroup name?
-	StringTokenizer st = new StringTokenizer(newsgroups, ",");
-	List<NewsAddress> nglist = new ArrayList<>();
-	while (st.hasMoreTokens()) {
-	    String ng = st.nextToken();
-	    nglist.add(new NewsAddress(ng));
-	}
-	return nglist.toArray(new NewsAddress[nglist.size()]);
+    public static NewsAddress[] parse(String newsgroups)
+            throws AddressException {
+        // XXX - verify format of newsgroup name?
+        StringTokenizer st = new StringTokenizer(newsgroups, ",");
+        List<NewsAddress> nglist = new ArrayList<>();
+        while (st.hasMoreTokens()) {
+            String ng = st.nextToken();
+            nglist.add(new NewsAddress(ng));
+        }
+        return nglist.toArray(new NewsAddress[0]);
     }
 }

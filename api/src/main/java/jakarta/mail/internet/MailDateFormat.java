@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -110,16 +110,16 @@ import java.util.logging.Logger;
  * the range -9959 through +9959.
  *
  * <h2><a id="synchronization">Synchronization</a></h2>
- * 
+ *
  * <p>
  * Date formats are not synchronized.
  * It is recommended to create separate format instances for each thread.
  * If multiple threads access a format concurrently, it must be synchronized
  * externally.
  *
- * @author	Anthony Vanelverdinghe
- * @author	Max Spivak
- * @since	JavaMail 1.2
+ * @author Anthony Vanelverdinghe
+ * @author Max Spivak
+ * @since JavaMail 1.2
  */
 public class MailDateFormat extends SimpleDateFormat {
 
@@ -145,7 +145,7 @@ public class MailDateFormat extends SimpleDateFormat {
      * previous implementation.
      *
      * @return the object to be serialized
-     * @throws ObjectStreamException	never
+     * @throws ObjectStreamException never
      */
     private Object writeReplace() throws ObjectStreamException {
         MailDateFormat fmt = new MailDateFormat();
@@ -159,8 +159,8 @@ public class MailDateFormat extends SimpleDateFormat {
      * implementation.
      *
      * @param in the stream containing the serialized object
-     * @throws IOException	on read failures
-     * @throws ClassNotFoundException	never
+     * @throws IOException            on read failures
+     * @throws ClassNotFoundException never
      */
     private void readObject(ObjectInputStream in)
             throws IOException, ClassNotFoundException {
@@ -180,18 +180,18 @@ public class MailDateFormat extends SimpleDateFormat {
     }
 
     /**
-     * Formats the given date in the format specified by 
+     * Formats the given date in the format specified by
      * RFC 2822 in the current TimeZone.
      *
-     * @param   date            the Date object
-     * @param   dateStrBuf      the formatted string
-     * @param   fieldPosition   the current field position
-     * @return	StringBuffer    the formatted String
-     * @since			JavaMail 1.2
+     * @param date          the Date object
+     * @param dateStrBuf    the formatted string
+     * @param fieldPosition the current field position
+     * @return StringBuffer the formatted String
+     * @since JavaMail 1.2
      */
     @Override
     public StringBuffer format(Date date, StringBuffer dateStrBuf,
-            FieldPosition fieldPosition) {
+                               FieldPosition fieldPosition) {
         return super.format(date, dateStrBuf, fieldPosition);
     }
 
@@ -208,10 +208,10 @@ public class MailDateFormat extends SimpleDateFormat {
      * uses the UTC time zone in this case.
      * </ul>
      *
-     * @param   text    the formatted date to be parsed
-     * @param   pos     the current parse position
-     * @return	Date    the parsed date. In case of error, returns null.
-     * @since		JavaMail 1.2
+     * @param text the formatted date to be parsed
+     * @param pos  the current parse position
+     * @return Date the parsed date. In case of error, returns null.
+     * @since JavaMail 1.2
      */
     @Override
     public Date parse(String text, ParsePosition pos) {
@@ -329,21 +329,13 @@ public class MailDateFormat extends SimpleDateFormat {
     /**
      * Returns the date, as specified by the parameters.
      *
-     * @param dayName
-     * @param day
-     * @param month
-     * @param year
-     * @param hour
-     * @param minute
-     * @param second
-     * @param zone
      * @return the date, as specified by the parameters
      * @throws IllegalArgumentException if this instance's Calendar is
-     * non-lenient and any of the parameters have invalid values, or if dayName
-     * is not consistent with day-month-year
+     *                                     non-lenient and any of the parameters have invalid values, or if dayName
+     *                                     is not consistent with day-month-year
      */
     private Date toDate(int dayName, int day, int month, int year,
-            int hour, int minute, int second, int zone) {
+                        int hour, int minute, int second, int zone) {
         if (second == LEAP_SECOND) {
             second = 59;
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -21,7 +21,7 @@ package jakarta.mail;
  * The {@link #getQuota getQuota} and {@link #setQuota setQuota} methods
  * support the quota model defined by the IMAP QUOTA extension.
  * Refer to <A HREF="http://www.ietf.org/rfc/rfc2087.txt">RFC 2087</A>
- * for more information. <p>
+ * for more information.
  *
  * @since JavaMail 1.4
  */
@@ -37,10 +37,10 @@ public interface QuotaAwareStore {
      * quota roots, perhaps controlling quotas for different
      * resources.
      *
-     * @param	folder	the name of the folder
-     * @return		array of Quota objects
-     * @exception MessagingException	if the server doesn't support the
-     *					QUOTA extension
+     * @param folder the name of the folder
+     * @return array of Quota objects
+     * @throws MessagingException if the server doesn't support the
+     *                               QUOTA extension
      */
     Quota[] getQuota(String folder) throws MessagingException;
 
@@ -49,9 +49,9 @@ public interface QuotaAwareStore {
      * Typically this will be one of the quota roots obtained from the
      * <code>getQuota</code> method, but it need not be.
      *
-     * @param	quota	the quota to set
-     * @exception MessagingException	if the server doesn't support the
-     *					QUOTA extension
+     * @param quota the quota to set
+     * @throws MessagingException if the server doesn't support the
+     *                               QUOTA extension
      */
     void setQuota(Quota quota) throws MessagingException;
 }

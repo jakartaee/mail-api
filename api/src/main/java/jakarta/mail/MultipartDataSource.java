@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,8 +31,8 @@ import jakarta.activation.DataSource;
  * This interface will typically be implemented by providers that
  * preparse multipart bodies, for example an IMAP provider.
  *
- * @author	John Mani
- * @see		jakarta.activation.DataSource
+ * @author John Mani
+ * @see jakarta.activation.DataSource
  */
 
 public interface MultipartDataSource extends DataSource {
@@ -40,19 +40,19 @@ public interface MultipartDataSource extends DataSource {
     /**
      * Return the number of enclosed BodyPart objects.
      *
-     * @return          number of parts
+     * @return number of parts
      */
-    public int getCount();
+    int getCount();
 
     /**
      * Get the specified Part.  Parts are numbered starting at 0.
      *
-     * @param index     the index of the desired Part
-     * @return          the Part
-     * @exception       IndexOutOfBoundsException if the given index
-     *			is out of range.
-     * @exception       MessagingException for other failures
+     * @param index the index of the desired Part
+     * @return the Part
+     * @throws IndexOutOfBoundsException if the given index
+     *                                      is out of range.
+     * @throws MessagingException        for other failures
      */
-    public BodyPart getBodyPart(int index) throws MessagingException;
+    BodyPart getBodyPart(int index) throws MessagingException;
 
 }

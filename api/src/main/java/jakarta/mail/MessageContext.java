@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,7 +28,7 @@ package jakarta.mail;
  * @see jakarta.mail.MessageAware
  * @see jakarta.activation.DataSource
  * @see jakarta.activation.DataContentHandler
- * @since	JavaMail 1.1
+ * @since JavaMail 1.1
  */
 public class MessageContext {
     private Part part;
@@ -36,19 +36,19 @@ public class MessageContext {
     /**
      * Create a MessageContext object describing the context of the given Part.
      *
-     * @param	part	the Part
+     * @param part the Part
      */
     public MessageContext(Part part) {
-	this.part = part;
+        this.part = part;
     }
 
     /**
      * Return the Part that contains the content.
      *
-     * @return	the containing Part, or null if not known
+     * @return the containing Part, or null if not known
      */
     public Part getPart() {
-	return part;
+        return part;
     }
 
     /**
@@ -56,14 +56,14 @@ public class MessageContext {
      * Follows the parent chain up through containing Multipart
      * objects until it comes to a Message object, or null.
      *
-     * @return	the containing Message, or null if not known
+     * @return the containing Message, or null if not known
      */
     public Message getMessage() {
-	try {
-	    return getMessage(part);
-	} catch (MessagingException ex) {
-	    return null;
-	}
+        try {
+            return getMessage(part);
+        } catch (MessagingException ex) {
+            return null;
+        }
     }
 
     /**
@@ -71,30 +71,30 @@ public class MessageContext {
      * Follows the parent chain up through containing Multipart
      * objects until it comes to a Message object, or null.
      *
-     * @return	the containing Message, or null if none
+     * @return the containing Message, or null if none
      * @see jakarta.mail.BodyPart#getParent
      * @see jakarta.mail.Multipart#getParent
      */
     private static Message getMessage(Part p) throws MessagingException {
-	while (p != null) {
-	    if (p instanceof Message)
-		return (Message)p;
-	    BodyPart bp = (BodyPart)p;
-	    Multipart mp = bp.getParent();
-	    if (mp == null)	// MimeBodyPart might not be in a MimeMultipart
-		return null;
-	    p = mp.getParent();
-	}
-	return null;
+        while (p != null) {
+            if (p instanceof Message)
+                return (Message) p;
+            BodyPart bp = (BodyPart) p;
+            Multipart mp = bp.getParent();
+            if (mp == null)    // MimeBodyPart might not be in a MimeMultipart
+                return null;
+            p = mp.getParent();
+        }
+        return null;
     }
 
     /**
      * Return the Session we're operating in.
      *
-     * @return	the Session, or null if not known
+     * @return the Session, or null if not known
      */
     public Session getSession() {
-	Message msg = getMessage();
-	return msg != null ? msg.getSession() : null;
+        Message msg = getMessage();
+        return msg != null ? msg.getSession() : null;
     }
 }

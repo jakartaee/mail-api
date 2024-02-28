@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,19 +16,18 @@
 
 package jakarta.mail.search;
 
-import jakarta.mail.Message;
 import jakarta.mail.Address;
 import jakarta.mail.internet.InternetAddress;
 
 /**
- * This abstract class implements string comparisons for Message 
+ * This abstract class implements string comparisons for Message
  * addresses. <p>
  *
  * Note that this class differs from the <code>AddressTerm</code> class
  * in that this class does comparisons on address strings rather than
  * Address objects.
  *
- * @since       JavaMail 1.1
+ * @since JavaMail 1.1
  */
 
 public abstract class AddressStringTerm extends StringTerm {
@@ -38,10 +37,10 @@ public abstract class AddressStringTerm extends StringTerm {
     /**
      * Constructor.
      *
-     * @param pattern   the address pattern to be compared.
+     * @param pattern the address pattern to be compared.
      */
     protected AddressStringTerm(String pattern) {
-	super(pattern, true); // we need case-insensitive comparison.
+        super(pattern, true); // we need case-insensitive comparison.
     }
 
     /**
@@ -50,22 +49,22 @@ public abstract class AddressStringTerm extends StringTerm {
      * object. <p>
      *
      * Note that if the string representation of the given Address object
-     * contains charset or transfer encodings, the encodings must be 
-     * accounted for, during the match process. <p>
+     * contains charset or transfer encodings, the encodings must be
+     * accounted for, during the match process.
      *
-     * @param   a 	The comparison is applied to this Address object.
-     * @return          true if the match succeeds, otherwise false.
+     * @param a The comparison is applied to this Address object.
+     * @return true if the match succeeds, otherwise false.
      */
     protected boolean match(Address a) {
-	if (a instanceof InternetAddress) {
-	    InternetAddress ia = (InternetAddress)a;
-	    // We dont use toString() to get "a"'s String representation,
-	    // because InternetAddress.toString() returns a RFC 2047 
-	    // encoded string, which isn't what we need here.
+        if (a instanceof InternetAddress) {
+            InternetAddress ia = (InternetAddress) a;
+            // We dont use toString() to get "a"'s String representation,
+            // because InternetAddress.toString() returns a RFC 2047
+            // encoded string, which isn't what we need here.
 
-	    return super.match(ia.toUnicodeString());
-	} else
-	    return super.match(a.toString());
+            return super.match(ia.toUnicodeString());
+        } else
+            return super.match(a.toString());
     }
 
     /**
@@ -73,8 +72,8 @@ public abstract class AddressStringTerm extends StringTerm {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof AddressStringTerm))
-	    return false;
-	return super.equals(obj);
+        if (!(obj instanceof AddressStringTerm))
+            return false;
+        return super.equals(obj);
     }
 }
