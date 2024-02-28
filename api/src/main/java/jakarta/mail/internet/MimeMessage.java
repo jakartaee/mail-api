@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -25,10 +25,14 @@ import java.io.ObjectStreamException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import jakarta.activation.DataHandler;
@@ -172,7 +176,10 @@ public class MimeMessage extends Message implements MimePart {
     protected Object cachedContent;
 
     // Used to parse dates
-    private static final MailDateFormat mailDateFormat = new MailDateFormat();
+    static final DateTimeFormatter mailDateFormat = DateTimeFormatter
+            .ofPattern("EEE, d MMM yyyy HH:mm:ss Z (z)")
+            .withLocale(Locale.US)
+            .withZone(ZoneOffset.systemDefault());
 
     // Should addresses in headers be parsed in "strict" mode?
     private boolean strict = true;
@@ -895,10 +902,8 @@ public class MimeMessage extends Message implements MimePart {
 	String s = getHeader("Date", null);
 	if (s != null) {
 	    try {
-		synchronized (mailDateFormat) {
-		    return mailDateFormat.parse(s);
-		}
-	    } catch (ParseException pex) {
+	        return Date.from(Instant.from(mailDateFormat.parse(s)));
+	    } catch (RuntimeException pex) {
 		return null;
 	    }
 	}
@@ -923,9 +928,7 @@ public class MimeMessage extends Message implements MimePart {
 	if (d == null)
 	    removeHeader("Date");
 	else {
-	    synchronized (mailDateFormat) {
-		setHeader("Date", mailDateFormat.format(d));
-	    }
+	    setHeader("Date", mailDateFormat.format(d.toInstant()));
 	}
     }
 
