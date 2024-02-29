@@ -83,6 +83,8 @@
 
         <!-- version identifier in jakarta.mail.Version -->
         <mail.version>${project.version}</mail.version>
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.testRelease>11</maven.compiler.testRelease>
     </properties>
 
     <dependencyManagement>
@@ -323,7 +325,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <release>11</release>
                     <createMissingPackageInfoClass>false</createMissingPackageInfoClass>
                     <compilerArgs>
                         <arg>-Xlint:all</arg>
@@ -364,8 +365,7 @@
                               cardinality:=multiple;resolution:=optional,
                           osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.mail.util.StreamProvider)";
                             osgi.serviceloader="jakarta.mail.util.StreamProvider";
-                              cardinality:=multiple;resolution:=optional,
-                          osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=11))"
+                              cardinality:=multiple;resolution:=optional
                             ]]>
                         </Require-Capability>
                     </instructions>
@@ -400,7 +400,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <release>11</release>
                     <quiet>true</quiet>
                     <nodeprecated>false</nodeprecated>
                     <notimestamp>true</notimestamp>
