@@ -19,6 +19,10 @@ Bug IDs that start with "G" can be found in the GlassFish Issue Tracker
 Seven digit bug numbers are from the old Sun bug database, which is no
 longer available.
 
+      CHANGES IN THE 2.2.0 RELEASE
+      ----------------------------
+E  714 Support minimum JDK of 11+ and minimum of Android API 33+
+
       CHANGES IN THE 2.1.5 RELEASE
       ----------------------------
 E  752 Inconsistent MailMessage contentId property
