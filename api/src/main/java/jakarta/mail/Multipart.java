@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -21,6 +21,8 @@ import jakarta.mail.util.StreamProvider;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Multipart is a container that holds multiple body parts. Multipart
@@ -42,6 +44,7 @@ import java.util.Vector;
 
 public abstract class Multipart {
 
+    private static final Logger LOGGER = Logger.getLogger(Multipart.class.getName());
     /**
      * Vector of BodyPart objects.
      */
@@ -64,9 +67,9 @@ public abstract class Multipart {
     /**
      * Instance of stream provider.
      *
-     * @since JavaMail 2.1
+     * @since JavaMail 2.2
      */
-    protected final StreamProvider streamProvider = StreamProvider.provider();
+    private volatile StreamProvider streamProvider;
 
     /**
      * Default constructor. An empty Multipart object is created.
@@ -266,4 +269,27 @@ public abstract class Multipart {
     public synchronized void setParent(Part parent) {
         this.parent = parent;
     }
+
+    protected StreamProvider provider() {
+        if (streamProvider == null) {
+            synchronized (this) {
+                if (streamProvider == null) {
+                    if (parent != null && parent instanceof Message) {
+                        try {
+                            streamProvider = ((Message)parent).provider();
+                        } catch (MessagingException e) {
+                            if (LOGGER.isLoggable(Level.FINE)) {
+                                LOGGER.log(Level.FINE, "Cannot reuse streamProvider", e);
+                            }
+                        }
+                    }
+                }
+                if (streamProvider == null) {
+                    streamProvider = StreamProvider.provider();
+                }
+            }
+        }
+        return streamProvider;
+    }
+
 }

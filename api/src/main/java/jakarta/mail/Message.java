@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,11 +17,13 @@
 package jakarta.mail;
 
 import jakarta.mail.search.SearchTerm;
+import jakarta.mail.util.StreamProvider;
 
 import java.io.InvalidObjectException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.ServiceConfigurationError;
 
 /**
  * This class models an email message. This is an abstract class.
@@ -704,5 +706,34 @@ public abstract class Message implements Part {
      */
     public boolean match(SearchTerm term) throws MessagingException {
         return term.match(this);
+    }
+
+    /**
+     * Obtains the {@link StreamProvider} from the session, if exists.
+     * Otherwise it obtains it from
+     * {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
+     *
+     * @return the StreamProvider implementation from the session.
+     * @throws MessagingException if errors.
+     *
+     * @since JavaMail 2.2
+     */
+    protected StreamProvider provider() throws MessagingException {
+        try {
+            try {
+                final Session s = this.session;
+                if (s != null) {
+                    return s.getStreamProvider();
+                } else {
+                    return Session.getDefaultInstance(System.getProperties(),
+                        null).getStreamProvider();
+                }
+            } catch (ServiceConfigurationError sce) {
+                throw new IllegalStateException(sce);
+            }
+        } catch (RuntimeException re) {
+            throw new MessagingException("Unable to get "
+                    + StreamProvider.class.getName(), re);
+        }
     }
 }

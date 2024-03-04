@@ -2322,23 +2322,4 @@ public class MimeMessage extends Message implements MimePart {
             throws MessagingException {
         return new MimeMessage(session);
     }
-
-    private StreamProvider provider() throws MessagingException {
-        try {
-            try {
-                final Session s = this.session;
-                if (s != null) {
-                    return s.getStreamProvider();
-                } else {
-                    return Session.getDefaultInstance(System.getProperties(),
-                        null).getStreamProvider();
-                }
-            } catch (ServiceConfigurationError sce) {
-                throw new IllegalStateException(sce);
-            }
-        } catch (RuntimeException re) {
-            throw new MessagingException("Unable to get "
-                    + StreamProvider.class.getName(), re);
-        }
-    }
 }
