@@ -29,7 +29,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Multipart;
 import jakarta.mail.Session;
 import jakarta.mail.util.LineOutputStream;
-import jakarta.mail.util.StreamProvider;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -45,8 +44,6 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
-import java.util.ServiceConfigurationError;
-
 
 /**
  * This class represents a MIME style email message. It implements
@@ -245,7 +242,7 @@ public class MimeMessage extends Message implements MimePart {
             strict = source.strict;
             source.writeTo(bos);
             bos.close();
-            try (InputStream bis = provider().inputSharedByteArray(bos.toByteArray())) {
+            try (InputStream bis = getStreamProvider().inputSharedByteArray(bos.toByteArray())) {
                 parse(bis);
             }
             saved = true;
@@ -1410,7 +1407,7 @@ public class MimeMessage extends Message implements MimePart {
         if (contentStream != null)
             return ((SharedInputStream) contentStream).newStream(0, -1);
         if (content != null) {
-            return provider().inputSharedByteArray(content);
+            return getStreamProvider().inputSharedByteArray(content);
         }
         throw new MessagingException("No MimeMessage content");
     }
@@ -1917,7 +1914,7 @@ public class MimeMessage extends Message implements MimePart {
         // Else, the content is untouched, so we can just output it
         // First, write out the header
         Enumeration<String> hdrLines = getNonMatchingHeaderLines(ignoreList);
-        LineOutputStream los = provider().outputLineStream(os, allowutf8);
+        LineOutputStream los = getStreamProvider().outputLineStream(os, allowutf8);
         while (hdrLines.hasMoreElements())
             los.writeln(hdrLines.nextElement());
 

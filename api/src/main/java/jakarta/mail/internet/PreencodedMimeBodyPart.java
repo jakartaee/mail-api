@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -78,7 +78,7 @@ public class PreencodedMimeBodyPart extends MimeBodyPart {
         if (os instanceof LineOutputStream) {
             los = (LineOutputStream) os;
         } else {
-            los = streamProvider.outputLineStream(os, false);
+            los = getStreamProvider().outputLineStream(os, false);
         }
 
         // First, write out the header

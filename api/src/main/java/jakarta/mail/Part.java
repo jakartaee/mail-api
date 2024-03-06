@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,6 +17,7 @@
 package jakarta.mail;
 
 import jakarta.activation.DataHandler;
+import jakarta.mail.util.StreamProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -453,4 +454,17 @@ public interface Part {
      */
     Enumeration<Header> getNonMatchingHeaders(String[] header_names)
             throws MessagingException;
+
+    /**
+     * Obtains the {@link StreamProvider}.
+     * It defaults to {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
+     *
+     * @return the StreamProvider.
+     * @throws MessagingException if errors.
+     *
+     * @since JavaMail 2.2
+     */
+    default StreamProvider getStreamProvider() throws MessagingException {
+        return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
+    }
 }

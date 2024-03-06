@@ -708,32 +708,21 @@ public abstract class Message implements Part {
         return term.match(this);
     }
 
-    /**
-     * Obtains the {@link StreamProvider} from the session, if exists.
-     * Otherwise it obtains it from
-     * {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
-     *
-     * @return the StreamProvider implementation from the session.
-     * @throws MessagingException if errors.
-     *
-     * @since JavaMail 2.2
-     */
-    protected StreamProvider provider() throws MessagingException {
+    @Override
+    public StreamProvider getStreamProvider() throws MessagingException {
         try {
             try {
                 final Session s = this.session;
                 if (s != null) {
                     return s.getStreamProvider();
                 } else {
-                    return Session.getDefaultInstance(System.getProperties(),
-                        null).getStreamProvider();
+                    return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
                 }
             } catch (ServiceConfigurationError sce) {
                 throw new IllegalStateException(sce);
             }
         } catch (RuntimeException re) {
-            throw new MessagingException("Unable to get "
-                    + StreamProvider.class.getName(), re);
+            throw new MessagingException("Unable to get " + StreamProvider.class.getName(), re);
         }
     }
 }

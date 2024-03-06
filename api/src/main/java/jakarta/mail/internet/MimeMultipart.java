@@ -520,7 +520,7 @@ public class MimeMultipart extends Multipart {
 
         String boundary = "--" +
                 (new ContentType(contentType)).getParameter("boundary");
-        LineOutputStream los = provider().outputLineStream(os, false);
+        LineOutputStream los = getStreamProvider().outputLineStream(os, false);
         // if there's a preamble, write it out
         if (preamble != null) {
             byte[] pb = MimeUtility.getBytes(preamble);
@@ -601,7 +601,7 @@ public class MimeMultipart extends Multipart {
 
         try {
             // Skip and save the preamble
-            LineInputStream lin = provider().inputLineStream(in, false);
+            LineInputStream lin = getStreamProvider().inputLineStream(in, false);
             StringBuilder preamblesb = null;
             String line;
             while ((line = lin.readLine()) != null) {

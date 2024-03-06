@@ -21,8 +21,6 @@ import jakarta.mail.util.StreamProvider;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Multipart is a container that holds multiple body parts. Multipart
@@ -44,7 +42,6 @@ import java.util.logging.Logger;
 
 public abstract class Multipart {
 
-    private static final Logger LOGGER = Logger.getLogger(Multipart.class.getName());
     /**
      * Vector of BodyPart objects.
      */
@@ -63,13 +60,6 @@ public abstract class Multipart {
      * @since JavaMail 1.1
      */
     protected Part parent;
-
-    /**
-     * Instance of stream provider.
-     *
-     * @since JavaMail 2.2
-     */
-    private volatile StreamProvider streamProvider;
 
     /**
      * Default constructor. An empty Multipart object is created.
@@ -270,26 +260,23 @@ public abstract class Multipart {
         this.parent = parent;
     }
 
-    protected StreamProvider provider() {
-        if (streamProvider == null) {
-            synchronized (this) {
-                if (streamProvider == null) {
-                    if (parent != null && parent instanceof Message) {
-                        try {
-                            streamProvider = ((Message)parent).provider();
-                        } catch (MessagingException e) {
-                            if (LOGGER.isLoggable(Level.FINE)) {
-                                LOGGER.log(Level.FINE, "Cannot reuse streamProvider", e);
-                            }
-                        }
-                    }
-                }
-                if (streamProvider == null) {
-                    streamProvider = StreamProvider.provider();
-                }
-            }
+    /**
+     * Obtains the {@link StreamProvider} from the parent, if possible.
+     * Otherwise it obtains it from
+     * {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
+     *
+     * @return the StreamProvider implementation from the session.
+     * @throws MessagingException if errors.
+     *
+     * @since JavaMail 2.2
+     */
+    protected StreamProvider getStreamProvider() throws MessagingException {
+        Part parent = this.parent;
+        if (parent != null) {
+            return parent.getStreamProvider();
+        } else {
+            return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
         }
-        return streamProvider;
     }
 
 }
