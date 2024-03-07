@@ -69,7 +69,7 @@ public abstract class BodyPart implements Part {
     }
 
     @Override
-    public StreamProvider getStreamProvider() throws MessagingException {
+    public StreamProvider getStreamProvider() throws NoSuchProviderException {
         if (parent != null) {
             return parent.getStreamProvider();
         } else {

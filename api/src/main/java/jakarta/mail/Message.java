@@ -709,7 +709,7 @@ public abstract class Message implements Part {
     }
 
     @Override
-    public StreamProvider getStreamProvider() throws MessagingException {
+    public StreamProvider getStreamProvider() throws NoSuchProviderException {
         try {
             try {
                 final Session s = this.session;
@@ -722,7 +722,7 @@ public abstract class Message implements Part {
                 throw new IllegalStateException(sce);
             }
         } catch (RuntimeException re) {
-            throw new MessagingException("Unable to get " + StreamProvider.class.getName(), re);
+            throw new NoSuchProviderException("Unable to get " + StreamProvider.class.getName(), re);
         }
     }
 }
