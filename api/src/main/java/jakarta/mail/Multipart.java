@@ -20,6 +20,7 @@ import jakarta.mail.util.StreamProvider;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ServiceConfigurationError;
 import java.util.Vector;
 
 /**
@@ -275,7 +276,15 @@ public abstract class Multipart {
         if (parent != null) {
             return parent.getStreamProvider();
         } else {
-            return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
+            try {
+                try {
+                    return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
+                } catch (ServiceConfigurationError sce) {
+                    throw new IllegalStateException(sce);
+                }
+            } catch (RuntimeException re) {
+                throw new MessagingException("Unable to get " + StreamProvider.class.getName(), re);
+            }
         }
     }
 

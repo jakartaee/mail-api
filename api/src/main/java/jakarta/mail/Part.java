@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.util.ServiceConfigurationError;
 
 /**
  * The <code>Part</code> interface is the common base interface for
@@ -465,6 +466,14 @@ public interface Part {
      * @since JavaMail 2.2
      */
     default StreamProvider getStreamProvider() throws MessagingException {
-        return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
+        try {
+            try {
+                return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
+            } catch (ServiceConfigurationError sce) {
+                throw new IllegalStateException(sce);
+            }
+        } catch (RuntimeException re) {
+            throw new MessagingException("Unable to get " + StreamProvider.class.getName(), re);
+        }
     }
 }
