@@ -78,6 +78,22 @@ public class PartTest {
         assertEquals(SESSION_2.getStreamProvider(), multipart.getStreamProvider());
     }
 
+    @Test
+    public void multipartBodyPart() throws Exception {
+        MimeMessage m = new MimeMessage(SESSION_2);
+        MimeMultipart mmp = new MimeMultipart("mixed");
+        MimeBodyPart mbp = new MimeBodyPart();
+        mbp.setDisposition(Part.INLINE);
+        mbp.setText("none");
+        mmp.addBodyPart(mbp);
+        m.setContent(mmp);
+        
+        StreamProvider root = SESSION_2.getStreamProvider();
+        assertEquals(root, m.getStreamProvider());
+        assertEquals(root, mmp.getStreamProvider());
+        assertEquals(root, mbp.getStreamProvider());
+    }
+
     public static class CustomStreamProvider implements StreamProvider {
 
         @Override
