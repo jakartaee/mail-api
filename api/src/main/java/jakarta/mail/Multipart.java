@@ -267,11 +267,11 @@ public abstract class Multipart {
      * {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
      *
      * @return the StreamProvider implementation from the session.
-     * @throws NoSuchProviderException if errors.
+     * @throws MessagingException if errors.
      *
      * @since JavaMail 2.2
      */
-    protected StreamProvider getStreamProvider() throws NoSuchProviderException {
+    protected StreamProvider getStreamProvider() throws MessagingException {
         Part parent = this.parent;
         if (parent != null) {
             return parent.getStreamProvider();

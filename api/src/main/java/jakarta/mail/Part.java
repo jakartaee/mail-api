@@ -461,11 +461,11 @@ public interface Part {
      * It defaults to {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
      *
      * @return the StreamProvider.
-     * @throws NoSuchProviderException if errors.
+     * @throws MessagingException if errors.
      *
      * @since JavaMail 2.2
      */
-    default StreamProvider getStreamProvider() throws NoSuchProviderException {
+    default StreamProvider getStreamProvider() throws MessagingException {
         try {
             try {
                 return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();

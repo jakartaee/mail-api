@@ -709,7 +709,7 @@ public abstract class Message implements Part {
     }
 
     @Override
-    public StreamProvider getStreamProvider() throws NoSuchProviderException {
+    public StreamProvider getStreamProvider() throws MessagingException {
         try {
             try {
                 final Session s = this.session;
