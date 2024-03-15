@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-import java.util.Objects;
 
 /**
  * A <code>SharedFileInputStream</code> is a
@@ -75,7 +74,7 @@ public class SharedFileInputStream extends BufferedInputStream
      * to a particular file so it can be closed when the
      * last reference is gone.
      */
-    static class SharedFile {
+    static class SharedFile implements AutoCloseable {
         private int cnt;
         private RandomAccessFile in;
 
@@ -92,18 +91,10 @@ public class SharedFileInputStream extends BufferedInputStream
             return in;
         }
 
+        @Override
         public synchronized void close() throws IOException {
             if (cnt > 0 && --cnt <= 0)
                 in.close();
-        }
-
-        @Override
-        protected synchronized void finalize() throws Throwable {
-            try {
-                in.close();
-            } finally {
-                super.finalize();
-            }
         }
     }
 
@@ -433,16 +424,10 @@ public class SharedFileInputStream extends BufferedInputStream
      */
     @Override
     public void close() throws IOException {
-        if (in == null)
-            return;
-        try {
-            sf.close();
-        } finally {
-            sf = null;
-            in = null;
-            buf = null;
-            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
-        }
+        sf.close();
+        sf = null;
+        in = null;
+        buf = null;
     }
 
     /**
@@ -474,19 +459,15 @@ public class SharedFileInputStream extends BufferedInputStream
      */
     @Override
     public synchronized InputStream newStream(long start, long end) {
-        try {
-            if (in == null)
-                throw new RuntimeException("Stream closed");
-            if (start < 0)
-                throw new IllegalArgumentException("start < 0");
-            if (end == -1)
-                end = datalen;
+        if (in == null)
+            throw new RuntimeException("Stream closed");
+        if (start < 0)
+            throw new IllegalArgumentException("start < 0");
+        if (end == -1)
+            end = datalen;
 
-            return new SharedFileInputStream(sf,
-                    this.start + start, end - start, bufsize);
-        } finally {
-            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
-        }
+        return new SharedFileInputStream(sf,
+                this.start + start, end - start, bufsize);
     }
 
     // for testing...
@@ -506,13 +487,4 @@ public class SharedFileInputStream extends BufferedInputStream
 	}
     }
     */
-
-    /**
-     * Force this stream to close.
-     */
-    @Override
-    protected synchronized void finalize() throws Throwable {
-        super.finalize();
-        close();
-    }
 }
