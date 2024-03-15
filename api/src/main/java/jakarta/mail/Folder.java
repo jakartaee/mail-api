@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -623,12 +623,16 @@ public abstract class Folder implements AutoCloseable {
      * if this method terminates abnormally by throwing a
      * MessagingException.
      *
+     * Implementations of this method must also invoke super.close(boolean expunge)
+     *
      * @param expunge expunges all deleted messages if this flag is true
      * @throws IllegalStateException if this folder is not opened
      * @throws MessagingException    for other failures
      * @see jakarta.mail.event.ConnectionEvent
      */
-    public abstract void close(boolean expunge) throws MessagingException;
+    public void close(boolean expunge) throws MessagingException {
+        q.terminateQueue();
+    }
 
     /**
      * Close this Folder and expunge deleted messages. <p>
@@ -1639,15 +1643,6 @@ public abstract class Folder implements AutoCloseable {
         @SuppressWarnings("unchecked")
         Vector<? extends EventListener> v = (Vector<? extends EventListener>) vector.clone();
         q.enqueue(event, v);
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            q.terminateQueue();
-        } finally {
-            super.finalize();
-        }
     }
 
     /**
