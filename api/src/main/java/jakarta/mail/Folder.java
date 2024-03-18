@@ -623,16 +623,12 @@ public abstract class Folder implements AutoCloseable {
      * if this method terminates abnormally by throwing a
      * MessagingException.
      *
-     * Implementations of this method must also invoke super.close(boolean expunge)
-     *
      * @param expunge expunges all deleted messages if this flag is true
      * @throws IllegalStateException if this folder is not opened
      * @throws MessagingException    for other failures
      * @see jakarta.mail.event.ConnectionEvent
      */
-    public void close(boolean expunge) throws MessagingException {
-        q.terminateQueue();
-    }
+    public abstract void close(boolean expunge) throws MessagingException;
 
     /**
      * Close this Folder and expunge deleted messages. <p>
@@ -655,6 +651,7 @@ public abstract class Folder implements AutoCloseable {
     @Override
     public void close() throws MessagingException {
         close(true);
+        q.terminateQueue();
     }
 
     /**
