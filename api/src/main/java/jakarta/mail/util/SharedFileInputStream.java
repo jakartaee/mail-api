@@ -76,7 +76,7 @@ public class SharedFileInputStream extends BufferedInputStream
      */
     static class SharedFile implements AutoCloseable {
         private int cnt;
-        private RandomAccessFile in;
+        RandomAccessFile in;
 
         SharedFile(String file) throws IOException {
             this.in = new RandomAccessFile(file, "r");
@@ -256,10 +256,10 @@ public class SharedFileInputStream extends BufferedInputStream
         int avail = count - pos;
         if (avail <= 0) {
             if (false) {
-	    /* If the requested length is at least as large as the buffer, and
-	       if there is no mark/reset activity, do not bother to copy the
-	       bytes into the local buffer.  In this way buffered streams will
-	       cascade harmlessly. */
+            /* If the requested length is at least as large as the buffer, and
+               if there is no mark/reset activity, do not bother to copy the
+               bytes into the local buffer.  In this way buffered streams will
+               cascade harmlessly. */
                 if (len >= buf.length && markpos < 0) {
                     // XXX - seek, update bufpos - how?
                     return in.read(b, off, len);
@@ -328,10 +328,10 @@ public class SharedFileInputStream extends BufferedInputStream
 
         if (avail <= 0) {
             // If no mark position set then don't keep in buffer
-	    /*
+            /*
             if (markpos <0) 
                 return in.skip(n);
-	    */
+            */
 
             // Fill in buffer to save bytes for reset
             fill();
@@ -424,6 +424,8 @@ public class SharedFileInputStream extends BufferedInputStream
      */
     @Override
     public void close() throws IOException {
+        if (in == null)
+            return;
         sf.close();
         sf = null;
         in = null;
@@ -439,7 +441,7 @@ public class SharedFileInputStream extends BufferedInputStream
     @Override
     public long getPosition() {
 //System.out.println("getPosition: start " + start + " pos " + pos 
-//	+ " bufpos " + bufpos + " = " + (bufpos + pos - start));
+//      + " bufpos " + bufpos + " = " + (bufpos + pos - start));
         if (in == null)
             throw new RuntimeException("Stream closed");
         return bufpos + pos - start;
@@ -473,18 +475,18 @@ public class SharedFileInputStream extends BufferedInputStream
     // for testing...
     /*
     public static void main(String[] argv) throws Exception {
-	SharedFileInputStream is = new SharedFileInputStream(argv[0]);
-	java.util.Random r = new java.util.Random();
-	int b;
-	while ((b = is.read()) >= 0) {
-	    System.out.write(b);
-	    if (r.nextDouble() < 0.3) {
-		InputStream is2 = is.newStream(is.getPosition(), -1);
-		int b2;
-		while ((b2 = is2.read()) >= 0)
-		    ;
-	    }
-	}
+        SharedFileInputStream is = new SharedFileInputStream(argv[0]);
+        java.util.Random r = new java.util.Random();
+        int b;
+        while ((b = is.read()) >= 0) {
+            System.out.write(b);
+            if (r.nextDouble() < 0.3) {
+                InputStream is2 = is.newStream(is.getPosition(), -1);
+                int b2;
+                while ((b2 = is2.read()) >= 0)
+                    ;
+            }
+        }
     }
     */
 }
