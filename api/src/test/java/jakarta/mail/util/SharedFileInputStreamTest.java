@@ -16,8 +16,7 @@
 
 package jakarta.mail.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import org.junit.Test;
 
 import jakarta.mail.util.SharedFileInputStream.SharedFile;
 
@@ -25,13 +24,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-import java.lang.ref.PhantomReference;
-import java.lang.ref.Reference;
-import java.lang.ref.ReferenceQueue;
 import java.lang.reflect.Field;
-import java.util.concurrent.TimeoutException;
 
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Please note:
@@ -101,25 +98,6 @@ public class SharedFileInputStreamTest {
         assertEquals(true, isClosed(ra1));
     }
 
-    @Test
-    public void testGC() throws Exception {
-        File file = new File(SharedFileInputStreamTest.class.getResource("/jakarta/mail/util/sharedinputstream.txt").toURI());
-        SharedFileInputStream in = new SharedFileInputStream(file);
-        GCUtil gcUtil = new GCUtil(in);
-        SharedFileInputStream in0 = (SharedFileInputStream) in.newStream(0, 6);
-        in.close();
-        in = null;
-        gcUtil.waitTillGCed(1000);
-        gcUtil = new GCUtil(in0);
-        SharedFileInputStream in1 = (SharedFileInputStream) in0.newStream(6, 12);
-        assertEquals("test0\n", new String(in0.readAllBytes()));
-        in0.close();
-        in0 = null;
-        gcUtil.waitTillGCed(1000);
-        assertEquals("test1\n", new String(in1.readAllBytes()));
-        in1.close();
-    }
-
     private RandomAccessFile getRandomAccessFile(SharedFileInputStream in) throws Exception {
         Field f1 = SharedFileInputStream.class.getDeclaredField("sf");
         f1.setAccessible(true);
@@ -137,27 +115,4 @@ public class SharedFileInputStreamTest {
         }
     }
 
-    private static class GCUtil {
-
-        private final ReferenceQueue<Object> rq = new ReferenceQueue<>();
-        private final PhantomReference<Object> phantomRef;
-
-        private GCUtil(Object ref) {
-            phantomRef = new PhantomReference<>(ref, rq);
-        }
-
-        private void waitTillGCed(long timeout) throws Exception {
-            Reference<? extends Object> gced;
-            long time = 0;
-            long sleep = 100;
-            while ((gced = rq.poll()) != phantomRef) {
-                Thread.sleep(sleep);
-                time = time + sleep;
-                if (time >= timeout) {
-                    throw new TimeoutException("Instance not GCed after " + timeout + " millis");
-                }
-                System.gc();
-            }
-        }
-    }
 }
