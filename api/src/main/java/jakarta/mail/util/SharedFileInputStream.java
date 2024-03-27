@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.util.Objects;
 
 /**
  * A <code>SharedFileInputStream</code> is a
@@ -426,10 +427,24 @@ public class SharedFileInputStream extends BufferedInputStream
     public void close() throws IOException {
         if (in == null)
             return;
-        sf.close();
-        sf = null;
-        in = null;
-        buf = null;
+        try {
+            sf.close();
+        } finally {
+            sf = null;
+            in = null;
+            buf = null;
+            /*
+             * This avoids that 'new SharedFileInputStream(file)'
+             * is GCed meanwhile #newStream is invoked, for example:
+             * new SharedFileInputStream(file).newStream(0, -1)
+             *
+             * That could be an issue if a subclass of this one invokes #close
+             * from #finalize (not a good practice anyway).
+             */
+            Objects.requireNonNull(this);
+            // TODO Replace it by the next
+//            Reference.reachabilityFence(this);
+        }
     }
 
     /**
