@@ -32,6 +32,7 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Folder is an abstract class that represents a folder for mail
@@ -102,6 +103,7 @@ import java.util.concurrent.Executor;
 
 public abstract class Folder implements AutoCloseable {
 
+    private final AtomicBoolean closed = new AtomicBoolean(false);
     /**
      * The parent store.
      */
@@ -650,8 +652,13 @@ public abstract class Folder implements AutoCloseable {
      */
     @Override
     public void close() throws MessagingException {
-        close(true);
-        q.terminateQueue();
+        if (!closed.getAndSet(true)) {
+            try {
+                close(true);
+            } finally {
+                q.terminateQueue();
+            }
+        }
     }
 
     /**
