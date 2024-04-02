@@ -476,15 +476,19 @@ public class SharedFileInputStream extends BufferedInputStream
      */
     @Override
     public synchronized InputStream newStream(long start, long end) {
-        if (in == null)
-            throw new RuntimeException("Stream closed");
-        if (start < 0)
-            throw new IllegalArgumentException("start < 0");
-        if (end == -1)
-            end = datalen;
-
-        return new SharedFileInputStream(sf,
-                this.start + start, end - start, bufsize);
+        try {
+            if (in == null)
+                throw new RuntimeException("Stream closed");
+            if (start < 0)
+                throw new IllegalArgumentException("start < 0");
+            if (end == -1)
+                end = datalen;
+    
+            return new SharedFileInputStream(sf,
+                    this.start + start, end - start, bufsize);
+        } finally {
+            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
+        }
     }
 
     // for testing...
