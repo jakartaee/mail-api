@@ -103,7 +103,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class Folder implements AutoCloseable {
 
-    private final AtomicBoolean closed = new AtomicBoolean(false);
     /**
      * The parent store.
      */
@@ -652,12 +651,14 @@ public abstract class Folder implements AutoCloseable {
      */
     @Override
     public void close() throws MessagingException {
-        if (!closed.getAndSet(true)) {
-            try {
-                close(true);
-            } finally {
-                q.terminateQueue();
+        try {
+            close(true);
+        } catch (IllegalStateException ise) {
+            if (isOpen()) {
+                 throw ise;
             }
+        } finally {
+            q.terminateQueue();
         }
     }
 
