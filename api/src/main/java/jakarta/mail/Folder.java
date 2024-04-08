@@ -32,7 +32,6 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Folder is an abstract class that represents a folder for mail
