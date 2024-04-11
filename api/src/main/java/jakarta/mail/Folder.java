@@ -643,7 +643,6 @@ public abstract class Folder implements AutoCloseable {
      *
      * This implementation calls <code>close(true)</code>.
      *
-     * @throws IllegalStateException if this folder is not opened
      * @throws MessagingException    for other failures
      * @see jakarta.mail.event.ConnectionEvent
      * @since JavaMail 1.6
