@@ -24,6 +24,7 @@ mail/src/test/resources/jakarta/mail/internet/paramdata
 mail/src/test/resources/jakarta/mail/internet/paramdatanostrict
 api/src/test/resources/jakarta/mail/internet/tokenlist
 api/src/test/resources/jakarta/mail/internet/addrlist
+api/src/test/resources/jakarta/mail/util/sharedinputstream.txt
 mail/src/test/resources/jakarta/mail/internet/MailDateFormat_old.ser
 mail/src/test/resources/jakarta/mail/internet/MailDateFormat_new.ser
 mail/src/test/resources/com/sun/mail/test/keystore.jks
