@@ -429,9 +429,8 @@ public class ParameterList {
                                 charset = vv.charset;
                             } else {
                                 if (charset == null) {
-                                    // Happened when some invalid string is used.
-                                    // Details in Issue#734
-                                    throw new ParseException("Invalid parameter list string.");
+                                    // should never happen
+                                    it.remove(name);
                                 }
                             }
                             decodeBytes(vv.value, bos);
