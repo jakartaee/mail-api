@@ -113,7 +113,7 @@ class EventQueue implements Runnable {
      * Application scoping is based on the thread's context class loader.
      */
     static synchronized EventQueue getApplicationEventQueue(Executor ex) {
-        ClassLoader cl = Session.getContextClassLoader();
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
         if (appq == null)
             appq = new WeakHashMap<>();
         EventQueue q = appq.get(cl);
