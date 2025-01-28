@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -608,7 +608,7 @@ public class InternetAddress extends Address implements Cloneable {
     public static InternetAddress getLocalAddress(Session session) {
         try {
             return _getLocalAddress(session);
-        } catch (SecurityException | AddressException sex) {    // ignore it
+        } catch (AddressException sex) {    // ignore it
         } catch (UnknownHostException ex) {
         }    // ignore it
         return null;
@@ -621,7 +621,7 @@ public class InternetAddress extends Address implements Cloneable {
      */
     // package-private
     static InternetAddress _getLocalAddress(Session session)
-            throws SecurityException, AddressException, UnknownHostException {
+            throws AddressException, UnknownHostException {
         String user = null, host = null, address = null;
         if (session == null) {
             user = System.getProperty("user.name");
