@@ -17,8 +17,6 @@
 package jakarta.mail.internet;
 
 import java.lang.reflect.Method;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 
 /**
  * General MIME-related utility methods.
@@ -35,7 +33,7 @@ class MimeUtil {
         try {
             String cth = System.getProperty("mail.mime.contenttypehandler");
             if (cth != null) {
-                ClassLoader cl = getContextClassLoader();
+                ClassLoader cl = Thread.currentThread().getContextClassLoader();
                 Class<?> clsHandler = null;
                 if (cl != null) {
                     try {
@@ -77,25 +75,5 @@ class MimeUtil {
             }
         } else
             return contentType;
-    }
-
-    /**
-     * Convenience method to get our context class loader.
-     * Assert any privileges we might have and then call the
-     * Thread.getContextClassLoader method.
-     */
-    private static ClassLoader getContextClassLoader() {
-        return
-                AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-                    @Override
-                    public ClassLoader run() {
-                        ClassLoader cl = null;
-                        try {
-                            cl = Thread.currentThread().getContextClassLoader();
-                        } catch (SecurityException ex) {
-                        }
-                        return cl;
-                    }
-                });
     }
 }
