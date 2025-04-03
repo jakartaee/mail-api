@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,10 +31,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -230,20 +226,11 @@ public final class Session {
     static {
         String dir = null;
         try {
-            dir = AccessController.doPrivileged(
-                    new PrivilegedAction<String>() {
-                        @Override
-                        public String run() {
-                            String home = System.getProperty("java.home");
-                            String newdir = home + File.separator + "conf";
-                            File conf = new File(newdir);
-                            if (conf.exists())
-                                return newdir + File.separator;
-                            else
-                                return home + File.separator +
-                                        "lib" + File.separator;
-                        }
-                    });
+            String home = System.getProperty("java.home");
+            String newdir = home + File.separator + "conf";
+            File conf = new File(newdir);
+            dir = conf.exists() ?  (newdir + File.separator) : (home + File.separator +
+                    "lib" + File.separator);
         } catch (Exception ex) {
             // ignore any exceptions
         }
@@ -354,13 +341,6 @@ public final class Session {
      * <code>getInstance</code> method to get a new Session object every
      * time the method is called. <p>
      *
-     * Additional security Permission objects may be used to
-     * control access to the default session. <p>
-     *
-     * In the current implementation, if a SecurityManager is set, the
-     * caller must have the <code>RuntimePermission("setFactory")</code>
-     * permission.
-     *
      * @param props         Properties object. Used only if a new Session
      *                      object is created.<br>
      *                      It is expected that the client supplies values
@@ -377,9 +357,6 @@ public final class Session {
      */
     public static synchronized Session getDefaultInstance(Properties props, Authenticator authenticator) {
         if (defaultSession == null) {
-            SecurityManager security = System.getSecurityManager();
-            if (security != null)
-                security.checkSetFactory();
             defaultSession = new Session(props, authenticator);
         } else {
             // have to check whether caller is allowed to see default session
@@ -968,11 +945,8 @@ public final class Session {
 
         // load system-wide javamail.providers from the
         // <java.home>/{conf,lib} directory
-        try {
-            if (confDir != null)
-                loadFile(confDir + "javamail.providers", loader);
-        } catch (SecurityException ex) {
-        }
+        if (confDir != null)
+            loadFile(confDir + "javamail.providers", loader);
 
         //Fetch classloader of given class, falling back to others if needed.
         ClassLoader gcl;
@@ -1145,11 +1119,8 @@ public final class Session {
 
         // load system-wide javamail.address.map from the
         // <java.home>/{conf,lib} directory
-        try {
-            if (confDir != null)
-                loadFile(confDir + "javamail.address.map", loader);
-        } catch (SecurityException ex) {
-        }
+        if (confDir != null)
+            loadFile(confDir + "javamail.address.map", loader);
 
         if (addressMap.isEmpty()) {
             logger.config("failed to load address map, using defaults");
@@ -1186,7 +1157,7 @@ public final class Session {
             logger.log(Level.CONFIG, "successfully loaded file: {0}", name);
         } catch (FileNotFoundException fex) {
             // ignore it
-        } catch (IOException | SecurityException e) {
+        } catch (IOException e) {
             if (logger.isLoggable(Level.CONFIG))
                 logger.log(Level.CONFIG, "not loading file: " + name, e);
         } finally {
@@ -1214,7 +1185,7 @@ public final class Session {
                     logger.log(Level.WARNING,
                             "expected resource not found: {0}", name);
             }
-        } catch (IOException | SecurityException e) {
+        } catch (IOException e) {
             logger.log(Level.CONFIG, "Exception loading resource", e);
         } finally {
             try {
@@ -1247,7 +1218,7 @@ public final class Session {
                     InputStream clis = null;
                     logger.log(Level.CONFIG, "URL {0}", url);
                     try {
-                        clis = openStream(url);
+                        clis = url.openStream();
                         if (clis != null) {
                             loader.load(clis);
                             anyLoaded = true;
@@ -1284,139 +1255,76 @@ public final class Session {
         }
     }
 
-    /*
-     * Following are security related methods that work on JDK 1.2 or newer.
-     */
-
     static ClassLoader getContextClassLoader() {
-        return AccessController.doPrivileged(
-                new PrivilegedAction<ClassLoader>() {
-                    @Override
-                    public ClassLoader run() {
-                        ClassLoader cl = null;
-                        try {
-                            cl = Thread.currentThread().getContextClassLoader();
-                        } catch (SecurityException ex) {
-                        }
-                        return cl;
-                    }
-                }
-        );
+        ClassLoader cl = null;
+        try {
+            cl = Thread.currentThread().getContextClassLoader();
+        } catch (SecurityException ex) {
+        }
+        return cl;
     }
 
     private static ClassLoader[] getClassLoaders(final Class<?>... classes) {
-        return AccessController.doPrivileged(
-                new PrivilegedAction<ClassLoader[]>() {
-                    @Override
-                    public ClassLoader[] run() {
-                        ClassLoader[] loaders = new ClassLoader[classes.length];
-                        int w = 0;
-                        for (Class<?> k : classes) {
-                            ClassLoader cl = null;
-                            if (k == Thread.class) {
-                                try {
-                                    cl = Thread.currentThread().getContextClassLoader();
-                                } catch (SecurityException ex) {
-                                }
-                            } else if (k == System.class) {
-                                try {
-                                    cl = ClassLoader.getSystemClassLoader();
-                                } catch (SecurityException ex) {
-                                }
-                            } else {
-                                try {
-                                    cl = k.getClassLoader();
-                                } catch (SecurityException ex) {
-                                }
-                            }
+        ClassLoader[] loaders = new ClassLoader[classes.length];
+        int w = 0;
+        for (Class<?> k : classes) {
+            ClassLoader cl = null;
+            if (k == Thread.class) {
+                cl = getContextClassLoader();
+            } else if (k == System.class) {
+                cl = ClassLoader.getSystemClassLoader();
+            } else {
+                cl = k.getClassLoader();
+            }
 
-                            if (cl != null) {
-                               loaders[w++] = cl;
-                            }
-                        }
+            if (cl != null) {
+               loaders[w++] = cl;
+            }
+        }
 
-                        if (loaders.length != w) {
-                            loaders = Arrays.copyOf(loaders, w);
-                        }
-                        return loaders;
-                    }
-                }
-        );
+        if (loaders.length != w) {
+            loaders = Arrays.copyOf(loaders, w);
+        }
+        return loaders;
     }
 
     private static InputStream getResourceAsStream(final Class<?> c, final String name) throws IOException {
         try {
-            return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<InputStream>() {
-                        @Override
-                        public InputStream run() throws IOException {
-                            try {
-                                return c.getResourceAsStream(name);
-                            } catch (RuntimeException e) {
-                                // gracefully handle ClassLoader bugs (Tomcat)
-                                IOException ioex = new IOException(
-                                        "ClassLoader.getResourceAsStream failed");
-                                ioex.initCause(e);
-                                throw ioex;
-                            }
-                        }
-                    }
-            );
-        } catch (PrivilegedActionException e) {
-            throw (IOException) e.getException();
+            return c.getResourceAsStream(name);
+        } catch (RuntimeException e) {
+            // gracefully handle ClassLoader bugs (Tomcat)
+            IOException ioex = new IOException(
+                    "ClassLoader.getResourceAsStream failed");
+            ioex.initCause(e);
+            throw ioex;
         }
     }
 
     private static URL[] getResources(final ClassLoader cl, final String name) {
-        return AccessController.doPrivileged(new PrivilegedAction<URL[]>() {
-            @Override
-            public URL[] run() {
-                URL[] ret = null;
-                try {
-                    List<URL> v = Collections.list(cl.getResources(name));
-                    if (!v.isEmpty()) {
-                        ret = new URL[v.size()];
-                        v.toArray(ret);
-                    }
-                } catch (IOException | SecurityException ioex) {
-                }
-                return ret;
+        URL[] ret = null;
+        try {
+            List<URL> v = Collections.list(cl.getResources(name));
+            if (!v.isEmpty()) {
+                ret = new URL[v.size()];
+                v.toArray(ret);
             }
-        });
+        } catch (IOException | SecurityException ioex) {
+        }
+        return ret;
     }
 
     private static URL[] getSystemResources(final String name) {
-        return AccessController.doPrivileged(new PrivilegedAction<URL[]>() {
-            @Override
-            public URL[] run() {
-                URL[] ret = null;
-                try {
-                    List<URL> v = Collections.list(
-                            ClassLoader.getSystemResources(name));
-                    if (!v.isEmpty()) {
-                        ret = new URL[v.size()];
-                        v.toArray(ret);
-                    }
-                } catch (IOException | SecurityException ioex) {
-                }
-                return ret;
-            }
-        });
-    }
-
-    private static InputStream openStream(final URL url) throws IOException {
+        URL[] ret = null;
         try {
-            return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<InputStream>() {
-                        @Override
-                        public InputStream run() throws IOException {
-                            return url.openStream();
-                        }
-                    }
-            );
-        } catch (PrivilegedActionException e) {
-            throw (IOException) e.getException();
+            List<URL> v = Collections.list(
+                    ClassLoader.getSystemResources(name));
+            if (!v.isEmpty()) {
+                ret = new URL[v.size()];
+                v.toArray(ret);
+            }
+        } catch (IOException ioex) {
         }
+        return ret;
     }
 
     EventQueue getEventQueue() {
