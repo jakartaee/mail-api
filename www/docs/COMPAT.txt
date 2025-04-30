@@ -3,6 +3,11 @@
 
 		    Jakarta Mail API 2.0.1 release
 		    ------------------------------
+-- Jakarta Mail 2.1.4 --
+
+    No arg close no longer hostile if closed.
+    No arg close is now required to be called to signal event thread to quit.
+    Obviously users must manage resources as the finalizers are removed.
 
 -- Jakarta Mail 2.1.4 --
 
