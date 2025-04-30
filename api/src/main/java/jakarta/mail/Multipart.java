@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,6 +20,7 @@ import jakarta.mail.util.StreamProvider;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ServiceConfigurationError;
 import java.util.Vector;
 
 /**
@@ -60,13 +61,6 @@ public abstract class Multipart {
      * @since JavaMail 1.1
      */
     protected Part parent;
-
-    /**
-     * Instance of stream provider.
-     *
-     * @since JavaMail 2.1
-     */
-    protected final StreamProvider streamProvider = StreamProvider.provider();
 
     /**
      * Default constructor. An empty Multipart object is created.
@@ -266,4 +260,32 @@ public abstract class Multipart {
     public synchronized void setParent(Part parent) {
         this.parent = parent;
     }
+
+    /**
+     * Obtains the {@link StreamProvider} from the parent, if possible.
+     * Otherwise it obtains it from
+     * {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
+     *
+     * @return the StreamProvider implementation from the session.
+     * @throws MessagingException if errors.
+     *
+     * @since JavaMail 2.2
+     */
+    protected StreamProvider getStreamProvider() throws MessagingException {
+        Part parent = this.parent;
+        if (parent != null) {
+            return parent.getStreamProvider();
+        } else {
+            try {
+                try {
+                    return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
+                } catch (ServiceConfigurationError sce) {
+                    throw new IllegalStateException(sce);
+                }
+            } catch (RuntimeException re) {
+                throw new NoSuchProviderException("Unable to get " + StreamProvider.class.getName(), re);
+            }
+        }
+    }
+
 }

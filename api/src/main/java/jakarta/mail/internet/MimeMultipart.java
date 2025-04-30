@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -520,7 +520,7 @@ public class MimeMultipart extends Multipart {
 
         String boundary = "--" +
                 (new ContentType(contentType)).getParameter("boundary");
-        LineOutputStream los = streamProvider.outputLineStream(os, false);
+        LineOutputStream los = getStreamProvider().outputLineStream(os, false);
         // if there's a preamble, write it out
         if (preamble != null) {
             byte[] pb = MimeUtility.getBytes(preamble);
@@ -601,7 +601,7 @@ public class MimeMultipart extends Multipart {
 
         try {
             // Skip and save the preamble
-            LineInputStream lin = streamProvider.inputLineStream(in, false);
+            LineInputStream lin = getStreamProvider().inputLineStream(in, false);
             StringBuilder preamblesb = null;
             String line;
             while ((line = lin.readLine()) != null) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -40,13 +40,6 @@ public abstract class BodyPart implements Part {
     protected Multipart parent;
 
     /**
-     * Instance of stream provider.
-     *
-     * @since JavaMail 2.1
-     */
-    protected final StreamProvider streamProvider = StreamProvider.provider();
-
-    /**
      * Creates a default {@code BodyPart}.
      */
     public BodyPart() {
@@ -74,4 +67,14 @@ public abstract class BodyPart implements Part {
     void setParent(Multipart parent) {
         this.parent = parent;
     }
+
+    @Override
+    public StreamProvider getStreamProvider() throws MessagingException {
+        if (parent != null) {
+            return parent.getStreamProvider();
+        } else {
+            return Part.super.getStreamProvider();
+        }
+    }
+
 }
