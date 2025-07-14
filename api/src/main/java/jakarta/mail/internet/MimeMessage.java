@@ -190,7 +190,7 @@ public class MimeMessage extends Message implements MimePart {
         modified = true;
         headers = new InternetHeaders();
         flags = new Flags();    // empty flags object
-        initStrict();
+        initConfiguration();
     }
 
     /**
@@ -210,7 +210,7 @@ public class MimeMessage extends Message implements MimePart {
             throws MessagingException {
         super(session);
         flags = new Flags(); // empty Flags object
-        initStrict();
+        initConfiguration();
         parse(is);
         saved = true;
     }
@@ -240,6 +240,7 @@ public class MimeMessage extends Message implements MimePart {
             bos = new ByteArrayOutputStream();
         try {
             strict = source.strict;
+            allowutf8 = source.allowutf8;
             source.writeTo(bos);
             bos.close();
             try (InputStream bis = getStreamProvider().inputSharedByteArray(bos.toByteArray())) {
@@ -266,7 +267,7 @@ public class MimeMessage extends Message implements MimePart {
         super(folder, msgnum);
         flags = new Flags();  // empty Flags object
         saved = true;
-        initStrict();
+        initConfiguration();
     }
 
     /**
@@ -285,7 +286,7 @@ public class MimeMessage extends Message implements MimePart {
     protected MimeMessage(Folder folder, InputStream is, int msgnum)
             throws MessagingException {
         this(folder, msgnum);
-        initStrict();
+        initConfiguration();
         parse(is);
     }
 
@@ -306,18 +307,16 @@ public class MimeMessage extends Message implements MimePart {
         this(folder, msgnum);
         this.headers = headers;
         this.content = content;
-        initStrict();
+        initConfiguration();
     }
 
     /**
-     * Set the strict flag based on property.
+     * Set the configuration based on the session properties or system properties if no session is set.
      */
-    private void initStrict() {
-        if (session != null) {
-            Properties props = session.getProperties();
-            strict = MimeUtility.getBooleanProperty(props, "mail.mime.address.strict", true);
-            allowutf8 = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", false);
-        }
+    private void initConfiguration() {
+        Properties props = session != null ? session.getProperties() : System.getProperties();
+        strict = MimeUtility.getBooleanProperty(props, "mail.mime.address.strict", true);
+        allowutf8 = MimeUtility.getBooleanProperty(props, "mail.mime.allowutf8", false);
     }
 
     /**
