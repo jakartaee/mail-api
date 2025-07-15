@@ -91,7 +91,7 @@ the Jakarta Mail classes.  I've added jakarta.mail.jar to the server's CLASSPATH
 </A>
 <BR>
     <LI><A HREF="#dupcp">I'm sure I've set my CLASSPATH correctly, but I'm still getting
-complaints about classes that can't be found, such as <code>com.sun.mail</code>
+complaints about classes that can't be found, such as <code>org.eclipse.angus.mail</code>
 classes.
 </A>
 <BR>
@@ -454,14 +454,17 @@ Enterprise Edition (Java EE)</A>.
 </P>
 
 <P>
-<A NAME="getJM">
 <strong>Q:</strong> How do I get an implementation of the Jakarta Mail API?</A><BR>
 <strong>A:</strong> Eclipse provides an open source
 implementation that developers may use and ship.
-The implementation 
-includes the core Jakarta Mail packages and IMAP, POP3, and SMTP service providers. 
+The implementation
+includes the core Jakarta Mail packages and IMAP, POP3, and SMTP service providers.
 The implementation may be downloaded
 <A href="https://eclipse-ee4j.github.io/mail">here</A>.
+</P>
+
+<P>
+<strong>Note:</strong> Starting with Jakarta Mail 2.1.0, the implementation has been moved to the Eclipse Angus project. For Jakarta Mail 2.1+ use the org.eclipse.angus:angus-mail Maven coordinates instead of com.sun.mail:jakarta.mail.
 </P>
 
 <P>
@@ -619,9 +622,9 @@ provider-specific features.  Note that use of these properties,
 classes, and methods renders a program <b>non-portable</b>; it may
 only work with Oracle's implementation of the Jakarta Mail API.
 See the
-<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/imap/package-summary.html">IMAP</A>,
-<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/pop3/package-summary.html">POP3</A>, and
-<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/smtp/package-summary.html">SMTP</A> package
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//org/eclipse/angus/mail/imap/package-summary.html">IMAP</A>,
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//org/eclipse/angus/mail/pop3/package-summary.html">POP3</A>, and
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//org/eclipse/angus/mail/smtp/package-summary.html">SMTP</A> package
 javadocs for details.
 </P>
 
@@ -644,7 +647,7 @@ implementation?</A>
 <BR>
 <strong>A:</strong> Starting with Jakarta Mail 1.4.2, the source code for the
 Jakarta Mail API
-Reference Implementation is available under the CDDL or GPL open source licenses
+Compatible Implementation is available under the CDDL or GPL open source licenses
 in the <A HREF="https://eclipse-ee4j.github.io/mail">Jakarta Mail project</A>.
 </P>
 
@@ -927,8 +930,8 @@ and allows anonymous connections, and
 you're using JDK 1.5 or newer and Jakarta Mail 1.4.5 or newer, you can
 configure a SOCKS proxy on a per-session, per-protocol basis by setting the
 "mail.smtp.socks.host" property as described in the javadocs for the
-<A HREF="https://eclipse-ee4j.github.io/mail/docs/api/com/sun/mail/smtp/package-summary.html">
-com.sun.mail.smtp package</A>.
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api/org/eclipse/angus/mail/smtp/package-summary.html">
+org.eclipse.angus.mail.smtp package</A>.
 Similar properties exist for the "imap" and "pop3" protocols.
 Authentication for SOCKS servers is supported by the JDK by setting the
 "java.net.socks.username" and "java.net.socks.password" System properties
@@ -2960,8 +2963,8 @@ authentication information.
 <BR>
 <strong>A:</strong> You need to authenticate to your SMTP server.  The package
 javadocs for the
-<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//com/sun/mail/smtp/package-summary.html">
-com.sun.mail.smtp package</A> describe several methods to do this.
+<A HREF="https://eclipse-ee4j.github.io/mail/docs/api//org/eclipse/angus/mail/smtp/package-summary.html">
+org.eclipse.angus.mail.smtp package</A> describe several methods to do this.
 The easiest is to replace the call <code>Transport.send(msg);</code> with
 <code>Transport.send(msg, username, password);</code>.
 </P>
@@ -3081,7 +3084,7 @@ to set the From attribute, each thread should use its own Session object
 with its own Properties object.  The <code>mail.smtp.from</code> property
 can then be set on each Properties object for each Session (and thus
 each thread) independently.
-Alternatively, each thread can use the <code>com.sun.mail.SMTPMessage</code>
+Alternatively, each thread can use the <code>org.eclipse.angus.mail.smtp.SMTPMessage</code>
 class.  The <code>setEnvelopeFrom</code> method on that class can be used
 to set this value.  With this approach, all threads can use the same Session.
 </P>
@@ -3304,7 +3307,7 @@ the expunge flag set to true. That is, invoke <code>folder.close(true)</code>.
 <strong>Q:</strong> How can I retrieve POP3 UIDLs in messages obtained from the POP3
 provider?</A><BR>
 <strong>A:</strong> This is possible with the POP3 provider. See
-the <CODE>com.sun.mail.pop3</CODE> package documentation for details.
+the <CODE>org.eclipse.angus.mail.pop3</CODE> package documentation for details.
 </P>
 
 <P>
