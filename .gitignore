@@ -4,3 +4,8 @@ nbproject/private/
 .m2/
 webrev
 mbox/.ccls-cache/
+bin/
+
+*.project
+*.settings
+*.classpath
