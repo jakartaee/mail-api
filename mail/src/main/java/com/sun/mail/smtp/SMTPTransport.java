@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -2424,12 +2424,23 @@ public class SMTPTransport extends Transport {
 	    //logger.fine("SENT: " + new String(cmdBytes, 0));
 
         try {
+	    validateCommand(cmdBytes);
 	    serverOutput.write(cmdBytes);
 	    serverOutput.write(CRLF);
 	    serverOutput.flush();
-	} catch (IOException ex) {
+	} catch (IOException | RuntimeException ex) {
 	    throw new MessagingException("Can't send command to SMTP host", ex);
 	}
+    }
+
+    private void validateCommand(byte[] cmdBytes) throws MessagingException {
+        final byte CR = '\r';
+        final byte LF = '\n';
+        for (byte b : cmdBytes) {
+            if (b == LF || b == CR) {
+                throw new IllegalArgumentException("Command contains illegal character: " + String.format("0x%02x",b));
+            }
+        }
     }
 
     /**
