@@ -395,12 +395,12 @@ public class InternetAddressTest {
         for (String addr : invalidAddresses) {
             assertThrows(AddressException.class, () -> {
                 new InternetAddress(addr, true);
-            });
+            }, "Expected AddressException for strict constructor with address: " + addr);
 
             assertThrows(AddressException.class, () -> {
                 InternetAddress address = new InternetAddress(addr);
                 address.validate();
-            });
+            }, "Expected AddressException for validate() with address: " + addr);
         }
     }
 
