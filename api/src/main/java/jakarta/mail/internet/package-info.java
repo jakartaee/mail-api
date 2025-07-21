@@ -29,6 +29,8 @@
  * The Jakarta Mail API supports the following standard properties,
  * which may be set in the <code>Session</code> object, or in the
  * <code>Properties</code> object used to create the <code>Session</code> object.
+ * The {@link jakarta.mail.internet.MimeMessage MimeMessage} falls back to
+ * System properties when created without a <code>Session</code> object.
  * The properties are always set as strings; the Type column describes
  * how the string is interpreted.  For example, use
  * </P>
@@ -51,7 +53,7 @@
  * <TD><A ID="mail.mime.address.strict">mail.mime.address.strict</A></TD>
  * <TD>boolean</TD>
  * <TD>
- * The <code>mail.mime.address.strict</code> session property controls
+ * The <code>mail.mime.address.strict</code> property controls
  * the parsing of address headers.  By default, strict parsing of address
  * headers is done.  If this property is set to <code>"false"</code>,
  * strict parsing is not done and many illegal addresses that sometimes
