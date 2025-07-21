@@ -63,9 +63,9 @@ import java.util.Properties;
  * MimeMessage uses the <code>InternetHeaders</code> class to parse and
  * store the top level RFC 822 headers of a message. <p>
  *
- * The <code>mail.mime.address.strict</code> session property controls
- * the parsing of address headers.  By default, strict parsing of address
- * headers is done.  If this property is set to <code>"false"</code>,
+ * The <code>mail.mime.address.strict</code> session or system property
+ * controls the parsing of address headers.  By default, strict parsing
+ * of address headers is done. If this property is set to <code>"false"</code>,
  * strict parsing is not done and many illegal addresses that sometimes
  * occur in real messages are allowed.  See the <code>InternetAddress</code>
  * class for details.
