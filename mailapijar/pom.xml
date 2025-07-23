@@ -45,11 +45,50 @@
     <packaging>jar</packaging>
     <name>Jakarta Mail API jar</name>
 
+<!--	required for the new release process-->
+	<description>${project.name}</description>
+	<url>http://eclipse-ee4j.github.io/mail</url>
+	<scm>
+		<connection>scm:git:ssh://git@github.com/eclipse-ee4j/mail.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/mail.git</developerConnection>
+		<url>https://github.com/eclipse-ee4j/mail</url>
+	</scm>
+	<licenses>
+		<license>
+			<name>EPL 2.0</name>
+			<url>http://www.eclipse.org/legal/epl-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+		<license>
+			<name>GPL2 w/ CPE</name>
+			<url>https://www.gnu.org/software/classpath/license.html</url>
+			<distribution>repo</distribution>
+		</license>
+		<license>
+			<name>EDL 1.0</name>
+			<url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>shannon</id>
+			<name>Bill Shannon</name>
+			<email>bill.shannon@oracle.com</email>
+			<organization>Oracle</organization>
+			<roles>
+				<role>lead</role>
+			</roles>
+		</developer>
+	</developers>
+<!--	-->
+
     <!-- for build to succeed -->
     <dependencies>
         <dependency>
             <groupId>com.sun.activation</groupId>
             <artifactId>jakarta.activation</artifactId>
+			<version>${activation.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
