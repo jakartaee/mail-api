@@ -69,6 +69,32 @@
 	<url>http://www.oracle.com</url>
     </organization>
 
+	<repositories>
+		<repository>
+			<name>Central Portal Snapshots</name>
+			<id>central-portal-snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+		</snapshotRepository>
+		<site>
+			<id>oracle.com</id>
+			<url>file:/tmp</url> <!-- not used -->
+		</site>
+	</distributionManagement>
+
     <properties>
 	<mail.version>${project.version}</mail.version>
 	<mail.spec.version>1.6</mail.spec.version>
@@ -139,14 +165,6 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
 	    </roles>
 	</developer>
     </developers>
-
-    <!-- following to enable use of "mvn site:stage" -->
-    <distributionManagement>
-	<site>
-	    <id>oracle.com</id>
-	    <url>file:/tmp</url> <!-- not used -->
-	</site>
-    </distributionManagement>
 
     <modules>
 	<module>mail</module>
