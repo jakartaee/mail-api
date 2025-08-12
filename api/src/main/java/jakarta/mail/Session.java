@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -204,7 +204,7 @@ import java.util.logging.Level;
 public final class Session {
 
     // Support legacy @DefaultProvider
-    private static final String DEFAULT_PROVIDER = "com.sun.mail.util.DefaultProvider";
+    private static final String DEFAULT_PROVIDER = "org.eclipse.angus.mail.util.DefaultProvider";
 
     private final StreamProvider streamProvider;
     private final Properties props;
