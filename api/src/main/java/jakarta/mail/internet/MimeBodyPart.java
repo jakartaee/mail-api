@@ -366,7 +366,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
      */
     @Override
     public String getContentID() throws MessagingException {
-        return getHeader("Content-Id", null);
+        return getHeader("Content-ID", null);
     }
 
     /**
