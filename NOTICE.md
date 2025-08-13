@@ -2,7 +2,7 @@
 
 This content is produced and maintained by the Jakarta Mail project.
 
-* Project home: https://projects.eclipse.org/projects/ee4j.mail
+* Project home: [https://projects.eclipse.org/projects/ee4j.mail](https://projects.eclipse.org/projects/ee4j.mail)
 
 ## Trademarks
 
@@ -18,11 +18,11 @@ source code repository logs.
 
 This program and the accompanying materials are made available under the terms
 of the Eclipse Public License v. 2.0 which is available at
-https://www.eclipse.org/legal/epl-2.0. This Source Code may also be made
+[https://www.eclipse.org/legal/epl-2.0](https://www.eclipse.org/legal/epl-2.0). This Source Code may also be made
 available under the following Secondary Licenses when the conditions for such
 availability set forth in the Eclipse Public License v. 2.0 are satisfied:
 (secondary) GPL-2.0 with Classpath-exception-2.0 which is available at
-https://openjdk.java.net/legal/gplv2+ce.html.
+[https://openjdk.java.net/legal/gplv2+ce.html](https://openjdk.java.net/legal/gplv2+ce.html).
 
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0
 
@@ -30,9 +30,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0
 
 The project maintains the following source code repositories:
 
-* https://github.com/jakartaee/mail-api
-* https://github.com/jakartaee/mail-tck
-* https://github.com/jakartaee/mail-spec
+* [https://github.com/jakartaee/mail-api](https://github.com/jakartaee/mail-api)
+* [https://github.com/jakartaee/mail-tck](https://github.com/jakartaee/mail-tck)
+* [https://github.com/jakartaee/mail-spec](https://github.com/jakartaee/mail-spec)
 
 ## Third-party Content
 
@@ -65,8 +65,8 @@ normalize.css (3.0.2)
 SigTest (4.0)
 
 * License: (GPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)
-* Project: https://wiki.openjdk.java.net/display/CodeTools/sigtest
-* Source: http://hg.openjdk.java.net/code-tools/sigtest/file/c57f97e2ac2f
+* Project: [https://wiki.openjdk.java.net/display/CodeTools/sigtest](https://wiki.openjdk.java.net/display/CodeTools/sigtest)
+* Source: [http://hg.openjdk.java.net/code-tools/sigtest/file/c57f97e2ac2f](http://hg.openjdk.java.net/code-tools/sigtest/file/c57f97e2ac2f)
 
 ## Cryptography
 
