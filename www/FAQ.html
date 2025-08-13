@@ -408,19 +408,6 @@ the user specifies, but my application can't find the file.
 </UL>
 <BR>
 <BR>
-<H2><STRONG>Jakarta Mail in applets</STRONG></H2>
-<UL>
-    <LI><A HREF="#applets">Can I use Jakarta Mail in applets?
-</A>
-<BR>
-    <LI><A HREF="#appletsecurity">What are the security implications of using Jakarta Mail in an applet?
-</A>
-<BR>
-    <LI><A HREF="#appletalt">Ok, maybe I really don't want to use an applet, what should I
-do instead?
-</A>
-<BR>
-</UL>
 <!-- END INDEX -->
 </P>
 
@@ -451,6 +438,13 @@ The Jakarta Mail API is also a required part of the
 <A HREF="http://www.oracle.com/technetwork/java/javaee/overview/javaee-135128.html">
 Java Platform,
 Enterprise Edition (Java EE)</A>.
+</P>
+
+<P>
+<strong>Note:</strong> As of this version, applet-related documentation has been removed.
+Java applets were deprecated in Java SE 9 and removed in Java SE 11.
+Modern Jakarta Mail applications should use server-side components such as
+servlets, web applications, or standalone Java applications.
 </P>
 
 <P>
@@ -508,11 +502,7 @@ No special version is needed for different operating systems.
 <P>
 <A NAME="browsers">
 <strong>Q:</strong> Do the Jakarta Mail APIs work in web browsers?</A><BR>
-<strong>A:</strong> Jakarta Mail will work in any browser that supports the
-required JDK version.
-The <A HREF="http://docs.oracle.com/javase/7/docs/technotes/guides/jweb/applet/a
-pplet_dev_guide.html">
-Java Plug-in</A> may be required to provide such support.
+<strong>A:</strong> Jakarta Mail is a server-side Java API and is not designed to run directly in web browsers. For web-based email functionality, use Jakarta Mail in server-side components such as servlets, JSP pages, or web applications that run on a Java application server.
 </P>
 
 <P>
@@ -3458,40 +3448,6 @@ the server.  The file will need to be uploaded to the server before
 Jakarta Mail can access it.
 The <A HREF="http://jakarta.apache.org/commons/fileupload/">
 Apache Jakarta Commons FileUpload package</A> can help.
-</P>
-
-<BR>
-<BR>
-<H2><STRONG>Jakarta Mail in applets</STRONG></H2>
-<BR />
-<BR />
-
-<P>
-<A NAME="applets">
-<strong>Q:</strong> Can I use Jakarta Mail in applets?
-</A>
-<BR>
-<strong>A:</strong> 
-Yes, Jakarta Mail will work in applets in browsers that support the
-required JDK version.
-The <A HREF="http://docs.oracle.com/javase/7/docs/technotes/guides/jweb/applet/applet_dev_guide.html">
-Java Plug-in</A> may be required to provide such support.
-</P>
-
-<P>
-<A NAME="appletsecurity">
-<strong>Q:</strong> What are the security implications of using Jakarta Mail in an applet?
-</A>
-<BR>
-<strong>A:</strong> One of the biggest
-issues with using Jakarta Mail in applets is the default applet security
-restrictions.  These restrictions only allow applets to connect to the
-host from which they were loaded.  Thus, for such applets to use Jakarta Mail,
-the mail server will need to be located on the same machine as the web
-server from which the applet is loaded.  You can find more information
-on the applet security model
-<A HREF="http://docs.oracle.com/javase/tutorial/deployment/applet/security.html">
-here</A>.
 </P>
 
 <P>
