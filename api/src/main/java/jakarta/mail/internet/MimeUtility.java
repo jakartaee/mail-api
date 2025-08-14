@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -140,6 +140,9 @@ public class MimeUtility {
     }
 
     public static final int ALL = -1;
+
+    // This is for backwards compatibility. Eventually we have to remove the second value of the next array.
+    private static final String[] CHARSET_MAP_RESOURCES = new String[] {"/META-INF/jakarta.charset.map", "/META-INF/javamail.charset.map"};
 
     // cached map of whether a charset is compatible with ASCII
     // Map<String,Boolean>
@@ -1369,9 +1372,7 @@ public class MimeUtility {
         try {
             // Use this class's classloader to load the mapping file
             // XXX - we should use SecuritySupport, but it's in another package
-            InputStream is =
-                    jakarta.mail.internet.MimeUtility.class.getResourceAsStream(
-                            "/META-INF/javamail.charset.map");
+            InputStream is = resource(CHARSET_MAP_RESOURCES);
 
             if (is != null) {
                 try {
@@ -1395,7 +1396,7 @@ public class MimeUtility {
 
         // If we didn't load the tables, e.g., because we didn't have
         // permission, load them manually.  The entries here should be
-        // the same as the default javamail.charset.map.
+        // the same as the default jakarta.charset.map.
         if (java2mime.isEmpty()) {
             java2mime.put("8859_1", "ISO-8859-1");
             java2mime.put("iso8859_1", "ISO-8859-1");
@@ -1460,6 +1461,16 @@ public class MimeUtility {
         }
     }
 
+    private static InputStream resource(String[] resources) {
+        for (String resource : resources) {
+            InputStream is = MimeUtility.class.getResourceAsStream(resource);
+            if (is != null) {
+                return is;
+            }
+        }
+        return null;
+    }
+    
     private static void loadMappings(LineInputStream is,
                                      Map<String, String> table) {
         String currLine;
