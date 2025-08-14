@@ -38,10 +38,10 @@ into mail.jar.
     mail/src/main/java/javax/mail/util/package.html
     mail/src/main/java/overview.html
     mail/src/main/resources/META-INF/MANIFEST.MF
-    mail/src/main/resources/META-INF/javamail.charset.map
-    mail/src/main/resources/META-INF/javamail.default.address.map
-    mail/src/main/resources/META-INF/javamail.default.providers
-    mail/src/main/resources/META-INF/mailcap
+    mail/src/main/resources/META-INF/jakarta.charset.map
+    mail/src/main/resources/META-INF/jakarta.default.address.map
+    mail/src/main/resources/META-INF/jakarta.default.providers
+    mail/src/main/resources/META-INF/jakarta.mailcap
     mail/src/oldtest/java/javax/mail/internet/addrlist
     ...
     mail/src/oldtest/java/javax/mail/internet/tokenlist
@@ -136,14 +136,14 @@ all the source code in one place, but it's probably less maven-like.
     mailapi/pom.xml
     imap/pom.xml
     imap/src/main/resources/META-INF/MANIFEST.MF
-    imap/src/main/resources/META-INF/javamail.providers
+    imap/src/main/resources/META-INF/jakarta.providers
     pop3/pom.xml
     pop3/src/main/resources/META-INF/MANIFEST.MF
-    pop3/src/main/resources/META-INF/javamail.providers
+    pop3/src/main/resources/META-INF/jakarta.providers
     smtp/pom.xml
     smtp/src/main/resources/META-INF/MANIFEST.MF
-    smtp/src/main/resources/META-INF/javamail.address.map
-    smtp/src/main/resources/META-INF/javamail.providers
+    smtp/src/main/resources/META-INF/jakarta.address.map
+    smtp/src/main/resources/META-INF/jakarta.providers
     mailhandler/pom.xml
 
 A module to act as parent of the imap, pop3, and smtp modules to allow
@@ -164,7 +164,7 @@ mail.jar.
     dsn/src/main/java/com/sun/mail/dsn/package.html
     dsn/src/main/java/com/sun/mail/dsn/text_rfc822headers.java
     dsn/src/main/resources/META-INF/MANIFEST.MF
-    dsn/src/main/resources/META-INF/mailcap
+    dsn/src/main/resources/META-INF/jakarta.mailcap
 
 The mbox protocol provider module. Again, source code moved here
 because none of this appears in mail.jar. Also includes a submodule to
@@ -182,7 +182,7 @@ upper module; is that too weird?)
     mbox/src/main/java/com/sun/mail/remote/RemoteInbox.java
     mbox/src/main/java/com/sun/mail/remote/RemoteStore.java
     mbox/src/main/resources/META-INF/MANIFEST.MF
-    mbox/src/main/resources/META-INF/javamail.providers
+    mbox/src/main/resources/META-INF/jakarta.providers
     mbox/native/pom.xml
 
 A module just for building the javadocs. Putting these rules in the
