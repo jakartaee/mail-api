@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,7 +19,7 @@ package jakarta.mail;
 /**
  * The Provider is a class that describes a protocol
  * implementation.  The values typically come from the
- * javamail.providers and javamail.default.providers
+ * jakarta.providers and jakarta.default.providers
  * resource files.  An application may also create and
  * register a Provider object to dynamically add support
  * for a new provider.
