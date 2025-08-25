@@ -4,6 +4,20 @@
 		    Jakarta Mail API 2.0.1 release
 		    ------------------------------
 
+-- Jakarta Mail 2.1.4 --
+
+- Resource Loading Order
+
+    In this release, resource loading has been refined to handle the coexistence
+    of legacy resources and the new Jakarta-prefixed resources. The Mail API
+    will now attempt to load resources whose names start with the prefix
+    `jakarta.` first. If no such resource is found, it will fall back to
+    the older resource files without the prefix.
+
+    This ensures smooth transition and backward compatibility while allowing
+    Jakarta-specific resources to take precedence. Over time, the legacy
+    (non-prefixed) resources may be removed once migration is complete.
+
 -- Jakarta Mail 2.1.3 --
 
 - SharedFileInputStream should comply with spec
