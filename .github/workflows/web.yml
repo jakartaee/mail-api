@@ -52,7 +52,7 @@ jobs:
           cp -Rfv doc/spec/* doc/release/* ./www/docs/
           cp -Rfv CONTRIBUTING.md ./www/
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v5
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
@@ -71,4 +71,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
