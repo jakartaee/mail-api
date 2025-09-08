@@ -1114,7 +1114,7 @@ public class MimeMessage extends Message implements MimePart {
      */
     @Override
     public String getContentID() throws MessagingException {
-        return getHeader("Content-Id", null);
+        return getHeader("Content-ID", null);
     }
 
     /**
