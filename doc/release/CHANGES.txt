@@ -22,6 +22,7 @@ longer available.
       CHANGES IN THE 2.1.5 RELEASE
       ----------------------------
 E  752 Inconsistent MailMessage contentId property
+E  789 Only one META-INF/javamail.providers resource file is processed
 
       CHANGES IN THE 2.1.4 RELEASE
       ----------------------------

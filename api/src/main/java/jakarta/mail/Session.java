@@ -1265,7 +1265,6 @@ public final class Session {
                                 anyLoaded = true;
                                 logger.log(Level.CONFIG,
                                         "successfully loaded resource: {0}", url);
-                                break;
                             } else {
                                 logger.log(Level.CONFIG,
                                         "not loading resource: {0}", url);
@@ -1282,6 +1281,9 @@ public final class Session {
                             } catch (IOException cex) {
                             }
                         }
+                    }
+                    if (anyLoaded) {
+                        break;
                     }
                 }
             }
