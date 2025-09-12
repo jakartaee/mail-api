@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -75,9 +75,9 @@ public class SharedFileInputStream extends BufferedInputStream
      * to a particular file so it can be closed when the
      * last reference is gone.
      */
-    static class SharedFile {
+    static class SharedFile implements AutoCloseable {
         private int cnt;
-        private RandomAccessFile in;
+        RandomAccessFile in;
 
         SharedFile(String file) throws IOException {
             this.in = new RandomAccessFile(file, "r");
@@ -92,18 +92,10 @@ public class SharedFileInputStream extends BufferedInputStream
             return in;
         }
 
+        @Override
         public synchronized void close() throws IOException {
             if (cnt > 0 && --cnt <= 0)
                 in.close();
-        }
-
-        @Override
-        protected synchronized void finalize() throws Throwable {
-            try {
-                in.close();
-            } finally {
-                super.finalize();
-            }
         }
     }
 
@@ -265,10 +257,10 @@ public class SharedFileInputStream extends BufferedInputStream
         int avail = count - pos;
         if (avail <= 0) {
             if (false) {
-	    /* If the requested length is at least as large as the buffer, and
-	       if there is no mark/reset activity, do not bother to copy the
-	       bytes into the local buffer.  In this way buffered streams will
-	       cascade harmlessly. */
+            /* If the requested length is at least as large as the buffer, and
+               if there is no mark/reset activity, do not bother to copy the
+               bytes into the local buffer.  In this way buffered streams will
+               cascade harmlessly. */
                 if (len >= buf.length && markpos < 0) {
                     // XXX - seek, update bufpos - how?
                     return in.read(b, off, len);
@@ -337,10 +329,10 @@ public class SharedFileInputStream extends BufferedInputStream
 
         if (avail <= 0) {
             // If no mark position set then don't keep in buffer
-	    /*
+            /*
             if (markpos <0) 
                 return in.skip(n);
-	    */
+            */
 
             // Fill in buffer to save bytes for reset
             fill();
@@ -441,7 +433,17 @@ public class SharedFileInputStream extends BufferedInputStream
             sf = null;
             in = null;
             buf = null;
-            Objects.requireNonNull(this); //TODO: replace with Reference.reachabilityFence
+            /*
+             * This avoids that 'new SharedFileInputStream(file)'
+             * is GCed meanwhile #newStream is invoked, for example:
+             * new SharedFileInputStream(file).newStream(0, -1)
+             *
+             * That could be an issue if a subclass of this one invokes #close
+             * from #finalize (not a good practice anyway).
+             */
+            Objects.requireNonNull(this);
+            // TODO Replace it by the next
+//            Reference.reachabilityFence(this);
         }
     }
 
@@ -454,7 +456,7 @@ public class SharedFileInputStream extends BufferedInputStream
     @Override
     public long getPosition() {
 //System.out.println("getPosition: start " + start + " pos " + pos 
-//	+ " bufpos " + bufpos + " = " + (bufpos + pos - start));
+//      + " bufpos " + bufpos + " = " + (bufpos + pos - start));
         if (in == null)
             throw new RuntimeException("Stream closed");
         return bufpos + pos - start;
@@ -481,7 +483,7 @@ public class SharedFileInputStream extends BufferedInputStream
                 throw new IllegalArgumentException("start < 0");
             if (end == -1)
                 end = datalen;
-
+    
             return new SharedFileInputStream(sf,
                     this.start + start, end - start, bufsize);
         } finally {
@@ -492,27 +494,18 @@ public class SharedFileInputStream extends BufferedInputStream
     // for testing...
     /*
     public static void main(String[] argv) throws Exception {
-	SharedFileInputStream is = new SharedFileInputStream(argv[0]);
-	java.util.Random r = new java.util.Random();
-	int b;
-	while ((b = is.read()) >= 0) {
-	    System.out.write(b);
-	    if (r.nextDouble() < 0.3) {
-		InputStream is2 = is.newStream(is.getPosition(), -1);
-		int b2;
-		while ((b2 = is2.read()) >= 0)
-		    ;
-	    }
-	}
+        SharedFileInputStream is = new SharedFileInputStream(argv[0]);
+        java.util.Random r = new java.util.Random();
+        int b;
+        while ((b = is.read()) >= 0) {
+            System.out.write(b);
+            if (r.nextDouble() < 0.3) {
+                InputStream is2 = is.newStream(is.getPosition(), -1);
+                int b2;
+                while ((b2 = is2.read()) >= 0)
+                    ;
+            }
+        }
     }
     */
-
-    /**
-     * Force this stream to close.
-     */
-    @Override
-    protected synchronized void finalize() throws Throwable {
-        super.finalize();
-        close();
-    }
 }

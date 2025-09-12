@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -18,10 +18,16 @@ package jakarta.mail.util;
 
 import org.junit.Test;
 
+import jakarta.mail.util.SharedFileInputStream.SharedFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.lang.reflect.Field;
 
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
@@ -62,4 +68,51 @@ public class SharedFileInputStreamTest {
             file.delete();
         }
     }
+
+    @Test
+    public void testCloseMultipleTimes() throws Exception {
+        File file = new File(SharedFileInputStreamTest.class.getResource("/jakarta/mail/util/sharedinputstream.txt").toURI());
+        SharedFileInputStream in = new SharedFileInputStream(file);
+        in.close();
+        in.close();
+    }
+
+    @Test
+    public void testOpenIfOneOpened() throws Exception {
+        File file = new File(SharedFileInputStreamTest.class.getResource("/jakarta/mail/util/sharedinputstream.txt").toURI());
+        SharedFileInputStream in0 = null;
+        SharedFileInputStream in1 = null;
+        try (SharedFileInputStream in = new SharedFileInputStream(file)) {
+            in0 = (SharedFileInputStream) in.newStream(0, 6);
+            in1 = (SharedFileInputStream) in.newStream(6, 12);
+        }
+        RandomAccessFile ra0 = getRandomAccessFile(in0);
+        RandomAccessFile ra1 = getRandomAccessFile(in1);
+        // It is the same instance
+        assertEquals(ra0, ra1);
+        // RandomAccessFile still be open
+        in1.close();
+        assertEquals(false, isClosed(ra1));
+        in0.close();
+        // All SharedFileInputStream are closed, so RandomAccessFile gets closed too
+        assertEquals(true, isClosed(ra1));
+    }
+
+    private RandomAccessFile getRandomAccessFile(SharedFileInputStream in) throws Exception {
+        Field f1 = SharedFileInputStream.class.getDeclaredField("sf");
+        f1.setAccessible(true);
+        SharedFile rin = (SharedFile) f1.get(in);
+        RandomAccessFile rf = rin.in;
+        return rf;
+    }
+    
+    private boolean isClosed(RandomAccessFile rf) throws Exception {
+        try {
+            rf.readByte();
+            return false;
+        } catch (IOException e) {
+            return true;
+        }
+    }
+
 }

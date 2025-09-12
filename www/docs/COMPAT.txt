@@ -1,8 +1,22 @@
 			COMPATIBILITY NOTES
 			===================
 
-		    Jakarta Mail API 2.0.1 release
-		    ------------------------------
+-- Jakarta Mail 2.2.0 --
+
+    Removal of finalize()
+
+    The finalize() methods have been removed throughout the Mail API. 
+
+    This has several implications:
+
+    1. No-arg close() behavior
+    Calling the no-argument close() method on objects that are already closed is no longer considered "hostile" (i.e. it no longer throws or behaves unexpectedly if the resource is already closed). 
+
+    2. Event thread shutdown
+    The no-arg close() is now required to signal internal event threads to stop. In other words, previously finalize() might have been relied on to clean up or shut down threads; that is no longer the case. Users must call close() explicitly to ensure proper shutdown. 
+
+    3. Resource / memory management
+    Because finalizers are removed, users must more explicitly manage resources: ensure streams, folders, other resources are closed properly. Do not rely on garbage collection / finalization to clean up.
 
 -- Jakarta Mail 2.1.4 --
 
