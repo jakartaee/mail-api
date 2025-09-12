@@ -18,14 +18,18 @@ package jakarta.mail;
 
 /**
  * The Provider is a class that describes a protocol
- * implementation.  The values typically come from the
- * jakarta.providers and jakarta.default.providers
+ * implementation.  The {@link Session} supports
+ * configuring providers using the Java SE
+ * {@link java.util.ServiceLoader ServiceLoader} mechanism.
+ * As an alternative the values could come from the
+ * javamail.providers and javamail.default.providers
  * resource files.  An application may also create and
  * register a Provider object to dynamically add support
  * for a new provider.
  *
  * @author Max Spivak
  * @author Bill Shannon
+ * @see Session
  */
 public class Provider {
 
