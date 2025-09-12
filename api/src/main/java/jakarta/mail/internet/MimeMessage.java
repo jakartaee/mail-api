@@ -435,7 +435,7 @@ public class MimeMessage extends Message implements MimePart {
         try {
             me = InternetAddress._getLocalAddress(session);
         } catch (Exception ex) {
-            // if anything goes wrong (SecurityException, UnknownHostException),
+            // if anything goes wrong (UnknownHostException),
             // chain the exception
             throw new MessagingException("No From address", ex);
         }

@@ -1319,27 +1319,14 @@ public class MimeUtility {
              * If mail.mime.charset is set, it controls the default
              * Java charset as well.
              */
-            String mimecs = null;
-            try {
-                mimecs = System.getProperty("mail.mime.charset");
-            } catch (SecurityException ex) {
-            }    // ignore it
+            String mimecs = mimecs = System.getProperty("mail.mime.charset");
             if (mimecs != null && mimecs.length() > 0) {
                 defaultJavaCharset = javaCharset(mimecs);
                 return defaultJavaCharset;
             }
 
-            try {
-                defaultJavaCharset = System.getProperty("file.encoding",
-                        "8859_1");
-            } catch (final SecurityException sex) {
-                // fall back to ISO-Latin-1
-                // don't use actual system encoding, because this might be
-                // something completely different, like EBCDIC (IBM-037)
-                if (defaultJavaCharset == null) {
-                    defaultJavaCharset = "8859_1";
-                }
-            }
+            defaultJavaCharset = System.getProperty("file.encoding",
+                    "8859_1");
         }
 
         return defaultJavaCharset;
@@ -1350,10 +1337,7 @@ public class MimeUtility {
      */
     static String getDefaultMIMECharset() {
         if (defaultMIMECharset == null) {
-            try {
-                defaultMIMECharset = System.getProperty("mail.mime.charset");
-            } catch (SecurityException ex) {
-            }    // ignore it
+            defaultMIMECharset = System.getProperty("mail.mime.charset");
         }
         if (defaultMIMECharset == null)
             defaultMIMECharset = mimeCharset(getDefaultJavaCharset());
@@ -1720,27 +1704,10 @@ public class MimeUtility {
      * @return the property value
      */
     static boolean getBooleanSystemProperty(String name, boolean def) {
-        try {
-            return getBoolean(getProp(System.getProperties(), name), def);
-        } catch (SecurityException sex) {
-            // fall through...
-        }
-
-        /*
-         * If we can't get the entire System Properties object because
-         * of a SecurityException, just ask for the specific property.
-         */
-        try {
-            String value = System.getProperty(name);
-            if (value == null)
-                return def;
-            if (def)
-                return !value.equalsIgnoreCase("false");
-            else
-                return value.equalsIgnoreCase("true");
-        } catch (SecurityException sex) {
+        String value = System.getProperty(name);
+        if (value == null)
             return def;
-        }
+        return def ? !value.equalsIgnoreCase("false") : value.equalsIgnoreCase("true");
     }
 
     /**

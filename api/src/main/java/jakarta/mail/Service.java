@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -125,12 +125,7 @@ public abstract class Service implements AutoCloseable {
 
         // try using the system username
         if (user == null) {
-            try {
-                user = System.getProperty("user.name");
-            } catch (SecurityException sex) {
-                // XXX - it's not worth creating a MailLogger just for this
-                //logger.log(Level.CONFIG, "Can't get user.name property", sex);
-            }
+            user = System.getProperty("user.name");
         }
 
         url = new URLName(protocol, host, port, file, user, password);
@@ -313,12 +308,7 @@ public abstract class Service implements AutoCloseable {
 
         // try using the system username
         if (user == null) {
-            try {
-                user = System.getProperty("user.name");
-            } catch (SecurityException sex) {
-                // XXX - it's not worth creating a MailLogger just for this
-                //logger.log(Level.CONFIG, "Can't get user.name property", sex);
-            }
+            user = System.getProperty("user.name");
         }
 
         // if we don't have a password, look for saved authentication info

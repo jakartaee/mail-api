@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -88,7 +88,6 @@ class FactoryFinder {
     }
 
     private static <T> T newInstance(String className, Class<T> factoryClass, ClassLoader classLoader) throws RuntimeException {
-        checkPackageAccess(className);
         try {
             Class<?> clazz;
             if (classLoader == null) { //Match behavior of ServiceLoader
@@ -168,17 +167,6 @@ class FactoryFinder {
         } catch (Throwable t) {
             // For example, ServiceConfigurationError can be thrown if the factory class is not declared with 'uses' in module-info
             throw new IllegalStateException("Cannot load " + factory + " as ServiceLoader", t);
-        }
-    }
-
-    private static void checkPackageAccess(String className) {
-        // make sure that the current thread has an access to the package of the given name.
-        SecurityManager s = System.getSecurityManager();
-        if (s != null) {
-            int i = className.lastIndexOf('.');
-            if (i != -1) {
-                s.checkPackageAccess(className.substring(0, i));
-            }
         }
     }
 }
