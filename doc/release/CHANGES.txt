@@ -21,11 +21,19 @@ longer available.
 
       CHANGES IN THE 2.2.0 RELEASE
       ----------------------------
+E  714 Support minimum JDK of 11+ and minimum of Android API 33+
 E  744  Remove SecurityManager reference from API
+
+      CHANGES IN THE 2.1.5 RELEASE
+      ----------------------------
+E  752 Inconsistent MailMessage contentId property
+E  789 Only one META-INF/javamail.providers resource file is processed
 
       CHANGES IN THE 2.1.4 RELEASE
       ----------------------------
+E  777 services/jakarta.mail.Provider override not working
 E  699 Multipart performs blocking call in every instantiation
+E  527 Using Jakarta mail and Javamail in the same runtime
 
       CHANGES IN THE 2.1.3 RELEASE
       ----------------------------

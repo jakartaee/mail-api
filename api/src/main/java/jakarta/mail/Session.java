@@ -55,18 +55,18 @@ import java.util.logging.Level;
  * implement the <code>Store</code>, <code>Transport</code>, and related
  * classes.  The protocol providers are configured using the following files:
  * <ul>
- *  <li> <code>javamail.providers</code> and
- * 	<code>javamail.default.providers</code> </li>
- *  <li> <code>javamail.address.map</code> and
- * 	<code>javamail.default.address.map</code> </li>
+ *  <li> <code>jakarta.providers</code> and
+ * 	<code>jakarta.default.providers</code> </li>
+ *  <li> <code>jakarta.address.map</code> and
+ * 	<code>jakarta.default.address.map</code> </li>
  * </ul>
  * <p>
- * Each <code>javamail.</code><i>X</i> resource file is searched for using
+ * Each <code>jakarta.</code><i>X</i> resource file is searched for using
  * three methods in the following order:
  * <ol>
- *  <li> <code><i>java.home</i>/<i>conf</i>/javamail.</code><i>X</i> </li>
- *  <li> <code>META-INF/javamail.</code><i>X</i> </li>
- *  <li> <code>META-INF/javamail.default.</code><i>X</i> </li>
+ *  <li> <code><i>java.home</i>/<i>conf</i>/jakarta.</code><i>X</i> </li>
+ *  <li> <code>META-INF/jakarta.</code><i>X</i> </li>
+ *  <li> <code>META-INF/jakarta.default.</code><i>X</i> </li>
  * </ol>
  * <p>
  * (Where <i>java.home</i> is the value of the "java.home" System property
@@ -79,7 +79,7 @@ import java.util.logging.Level;
  * <code>java.home</code> property points.  The second method allows an
  * application that uses the Jakarta Mail APIs to include their own resource
  * files in their application's or jar file's <code>META-INF</code>
- * directory.  The <code>javamail.default.</code><i>X</i> default files
+ * directory.  The <code>jakarta.default.</code><i>X</i> default files
  * are part of the Jakarta Mail <code>mail.jar</code> file and should not be
  * supplied by users. <p>
  *
@@ -96,8 +96,8 @@ import java.util.logging.Level;
  * do not override, the default files included with the Jakarta Mail APIs.
  * This means that all entries in all files loaded will be available. <p>
  *
- * <b><code>javamail.providers</code></b> and
- * <b><code>javamail.default.providers</code></b><p>
+ * <b><code>jakarta.providers</code></b> and
+ * <b><code>jakarta.default.providers</code></b><p>
  *
  * These resource files specify the stores and transports that are
  * available on the system, allowing an application to "discover" what
@@ -138,7 +138,7 @@ import java.util.logging.Level;
  * </tr>
  * </table><p>
  *
- * Here's an example of <code>META-INF/javamail.default.providers</code>
+ * Here's an example of <code>META-INF/jakarta.default.providers</code>
  * file contents:
  * <pre>
  * protocol=imap; type=store; class=com.sun.mail.imap.IMAPStore; vendor=Oracle;
@@ -168,13 +168,13 @@ import java.util.logging.Level;
  * </pre>
  * <p>
  *
- * <b><code>javamail.address.map</code></b> and
- * <b><code>javamail.default.address.map</code></b><p>
+ * <b><code>jakarta.address.map</code></b> and
+ * <b><code>jakarta.default.address.map</code></b><p>
  *
  * These resource files map transport address types to the transport
  * protocol.  The <code>getType</code> method of
  * <code>jakarta.mail.Address</code> returns the address type.  The
- * <code>javamail.address.map</code> file maps the transport type to the
+ * <code>jakarta.address.map</code> file maps the transport type to the
  * protocol.  The file format is a series of name-value pairs.  Each key
  * name should correspond to an address type that is currently installed
  * on the system; there should also be an entry for each
@@ -186,7 +186,7 @@ import java.util.logging.Level;
  * the client should install a Transport provider supporting the nntp
  * protocol. <p>
  *
- * Here are the typical contents of a <code>javamail.address.map</code> file:
+ * Here are the typical contents of a <code>jakarta.address.map</code> file:
  * <pre>
  * rfc822=smtp
  * news=nntp
@@ -200,7 +200,13 @@ import java.util.logging.Level;
 public final class Session {
 
     // Support legacy @DefaultProvider
-    private static final String DEFAULT_PROVIDER = "com.sun.mail.util.DefaultProvider";
+    private static final String DEFAULT_PROVIDER = "org.eclipse.angus.mail.util.DefaultProvider";
+
+    // This is for backwards compatibility. Eventually we have to remove the second value of the next arrays.
+    private static final String[] DEFAULT_ADDRESS_MAP_RESOURCES = new String[] {"/META-INF/jakarta.default.address.map", "/META-INF/javamail.default.address.map"};
+    private static final String[] ADDRESS_MAP_RESOURCES = new String[] {"META-INF/jakarta.address.map", "META-INF/javamail.address.map"};
+    private static final String[] DEFAULT_PROVIDER_RESOURCES = new String[] {"/META-INF/jakarta.default.providers", "/META-INF/javamail.default.providers"};
+    private static final String[] PROVIDER_RESOURCES = new String[] {"META-INF/jakarta.providers", "META-INF/javamail.providers"};
 
     private final StreamProvider streamProvider;
     private final Properties props;
@@ -461,7 +467,7 @@ public final class Session {
 
     /**
      * This method returns an array of all the implementations installed
-     * via the javamail.[default.]providers files that can
+     * via the jakarta.[default.]providers files that can
      * be loaded using the ClassLoader available to this application.
      *
      * @return Array of configured providers
@@ -943,7 +949,7 @@ public final class Session {
             }
         };
 
-        // load system-wide javamail.providers from the
+        // load system-wide jakarta.providers from the
         // <java.home>/{conf,lib} directory
         if (confDir != null)
             loadFile(confDir + "javamail.providers", loader);
@@ -972,11 +978,11 @@ public final class Session {
                 addProvider(p);
         }
 
-        // load the META-INF/javamail.providers file supplied by an application
-        loadAllResources("META-INF/javamail.providers", cl, loader);
+        // load the META-INF/jakarta.providers file supplied by an application
+        loadAllResources(cl, loader, PROVIDER_RESOURCES);
 
-        // load default META-INF/javamail.default.providers from mail.jar file
-        loadResource("/META-INF/javamail.default.providers", cl, loader, false);
+        // load default META-INF/jakarta.default.providers from mail.jar file
+        loadResource(cl, loader, false, DEFAULT_PROVIDER_RESOURCES);
 
         // finally, add all the default services
         sl = ServiceLoader.load(Provider.class, gcl);
@@ -1111,13 +1117,13 @@ public final class Session {
             }
         };
 
-        // load default META-INF/javamail.default.address.map from mail.jar
-        loadResource("/META-INF/javamail.default.address.map", cl, loader, true);
+        // load default META-INF/jakarta.default.address.map from mail.jar
+        loadResource(cl, loader, true, DEFAULT_ADDRESS_MAP_RESOURCES);
 
-        // load the META-INF/javamail.address.map file supplied by an app
-        loadAllResources("META-INF/javamail.address.map", cl, loader);
+        // load the META-INF/jakarta.address.map file supplied by an app
+        loadAllResources(cl, loader, ADDRESS_MAP_RESOURCES);
 
-        // load system-wide javamail.address.map from the
+        // load system-wide jakarta.address.map from the
         // <java.home>/{conf,lib} directory
         if (confDir != null)
             loadFile(confDir + "javamail.address.map", loader);
@@ -1131,8 +1137,8 @@ public final class Session {
     /**
      * Set the default transport protocol to use for addresses of
      * the specified type.  Normally the default is set by the
-     * <code>javamail.default.address.map</code> or
-     * <code>javamail.address.map</code> files or resources.
+     * <code>jakarta.default.address.map</code> or
+     * <code>jakarta.address.map</code> files or resources.
      *
      * @param addresstype type of address
      * @param protocol    name of protocol
@@ -1149,41 +1155,46 @@ public final class Session {
     /**
      * Load from the named file.
      */
-    private void loadFile(String name, StreamLoader loader) {
+    private void loadFile(StreamLoader loader, String ... names) {
         InputStream clis = null;
-        try {
-            clis = new BufferedInputStream(new FileInputStream(name));
-            loader.load(clis);
-            logger.log(Level.CONFIG, "successfully loaded file: {0}", name);
-        } catch (FileNotFoundException fex) {
-            // ignore it
-        } catch (IOException e) {
-            if (logger.isLoggable(Level.CONFIG))
-                logger.log(Level.CONFIG, "not loading file: " + name, e);
-        } finally {
+        for (String name : names) {
             try {
-                if (clis != null)
-                    clis.close();
-            } catch (IOException ex) {
-            }    // ignore it
+                clis = new BufferedInputStream(new FileInputStream(name));
+                loader.load(clis);
+                logger.log(Level.CONFIG, "successfully loaded file: {0}", name);
+                break;
+            } catch (FileNotFoundException fex) {
+                // ignore it
+            } catch (IOException e) {
+                if (logger.isLoggable(Level.CONFIG))
+                    logger.log(Level.CONFIG, "not loading file: " + name, e);
+            } finally {
+                try {
+                    if (clis != null)
+                        clis.close();
+                } catch (IOException ex) {
+                }    // ignore it
+            }
         }
     }
 
     /**
      * Load from the named resource.
      */
-    private void loadResource(String name, Class<?> cl, StreamLoader loader, boolean expected) {
+    private void loadResource(Class<?> cl, StreamLoader loader, boolean expected, String ... names) {
         InputStream clis = null;
         try {
-            clis = getResourceAsStream(cl, name);
-            if (clis != null) {
-                loader.load(clis);
-                logger.log(Level.CONFIG, "successfully loaded resource: {0}",
-                        name);
-            } else {
+            for (String name : names) {
+                clis = getResourceAsStream(cl, name);
+                if (clis != null) {
+                    loader.load(clis);
+                    logger.log(Level.CONFIG, "successfully loaded resource: {0}", name);
+                    break;
+                }
+            }
+            if (clis == null) {
                 if (expected)
-                    logger.log(Level.WARNING,
-                            "expected resource not found: {0}", name);
+                    logger.log(Level.WARNING, "expected resource not found: {0}", Arrays.asList(names));
             }
         } catch (IOException e) {
             logger.log(Level.CONFIG, "Exception loading resource", e);
@@ -1199,46 +1210,51 @@ public final class Session {
     /**
      * Load all of the named resource.
      */
-    private void loadAllResources(String name, Class<?> cl, StreamLoader loader) {
+    private void loadAllResources(Class<?> cl, StreamLoader loader, String ... names) {
         boolean anyLoaded = false;
         try {
-            URL[] urls;
-            ClassLoader cld = null;
-            // First try the "application's" class loader.
-            cld = getContextClassLoader();
-            if (cld == null)
-                cld = cl.getClassLoader();
-            if (cld != null)
-                urls = getResources(cld, name);
-            else
-                urls = getSystemResources(name);
-            if (urls != null) {
-                for (int i = 0; i < urls.length; i++) {
-                    URL url = urls[i];
-                    InputStream clis = null;
-                    logger.log(Level.CONFIG, "URL {0}", url);
-                    try {
-                        clis = url.openStream();
-                        if (clis != null) {
-                            loader.load(clis);
-                            anyLoaded = true;
-                            logger.log(Level.CONFIG,
-                                    "successfully loaded resource: {0}", url);
-                        } else {
-                            logger.log(Level.CONFIG,
-                                    "not loading resource: {0}", url);
-                        }
-                    } catch (FileNotFoundException fex) {
-                        // ignore it
-                    } catch (IOException | SecurityException ioex) {
-                        logger.log(Level.CONFIG, "Exception loading resource",
-                                ioex);
-                    } finally {
+            for (String name : names) {
+                URL[] urls;
+                ClassLoader cld = null;
+                // First try the "application's" class loader.
+                cld = getContextClassLoader();
+                if (cld == null)
+                    cld = cl.getClassLoader();
+                if (cld != null)
+                    urls = getResources(cld, name);
+                else
+                    urls = getSystemResources(name);
+                if (urls != null) {
+                    for (int i = 0; i < urls.length; i++) {
+                        URL url = urls[i];
+                        InputStream clis = null;
+                        logger.log(Level.CONFIG, "URL {0}", url);
                         try {
-                            if (clis != null)
-                                clis.close();
-                        } catch (IOException cex) {
+                            clis = openStream(url);
+                            if (clis != null) {
+                                loader.load(clis);
+                                anyLoaded = true;
+                                logger.log(Level.CONFIG,
+                                        "successfully loaded resource: {0}", url);
+                            } else {
+                                logger.log(Level.CONFIG,
+                                        "not loading resource: {0}", url);
+                            }
+                        } catch (FileNotFoundException fex) {
+                            // ignore it
+                        } catch (IOException ioex) {
+                            logger.log(Level.CONFIG, "Exception loading resource",
+                                    ioex);
+                        } finally {
+                            try {
+                                if (clis != null)
+                                    clis.close();
+                            } catch (IOException cex) {
+                            }
                         }
+                    }
+                    if (anyLoaded) {
+                        break;
                     }
                 }
             }
@@ -1248,10 +1264,11 @@ public final class Session {
 
         // if failed to load anything, fall back to old technique, just in case
         if (!anyLoaded) {
-		    /*
-		    logger.config("!anyLoaded");
-		    */
-            loadResource("/" + name, cl, loader, false);
+            String[] resources = new String[names.length];
+            for (int i = 0; i < names.length; i++) {
+                resources[i] = "/" + names[i];
+            }
+            loadResource(cl, loader, false, resources);
         }
     }
 

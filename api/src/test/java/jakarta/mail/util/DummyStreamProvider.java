@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,9 +16,12 @@
 
 package jakarta.mail.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 public class DummyStreamProvider implements StreamProvider {
     
@@ -63,9 +66,13 @@ public class DummyStreamProvider implements StreamProvider {
     @Override
     public LineInputStream inputLineStream(InputStream in, boolean allowutf8) {
         return new LineInputStream() {
+            private final BufferedReader reader = new BufferedReader(
+                new InputStreamReader(in, StandardCharsets.UTF_8)
+            );
+
             @Override
             public String readLine() throws IOException {
-                return null;
+                return reader.readLine();
             }
         };
     }

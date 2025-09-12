@@ -26,8 +26,12 @@ import jakarta.mail.util.LineInputStream;
 import jakarta.mail.util.LineOutputStream;
 import jakarta.mail.util.StreamProvider;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 import org.junit.Test;
@@ -133,7 +137,16 @@ public class PartTest {
 
         @Override
         public LineInputStream inputLineStream(InputStream in, boolean allowutf8) {
-            return null;
+            return new LineInputStream() {
+                private final BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(in, StandardCharsets.UTF_8)
+                );
+
+                @Override
+                public String readLine() throws IOException {
+                    return reader.readLine();
+                }
+            };
         }
 
         @Override
