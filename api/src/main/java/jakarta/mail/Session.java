@@ -952,7 +952,7 @@ public final class Session {
         // load system-wide jakarta.providers from the
         // <java.home>/{conf,lib} directory
         if (confDir != null)
-            loadFile(confDir + "javamail.providers", loader);
+            loadFile(loader, confDir + "jakarta.providers", confDir + "javamail.providers");
 
         //Fetch classloader of given class, falling back to others if needed.
         ClassLoader gcl;
@@ -1126,7 +1126,7 @@ public final class Session {
         // load system-wide jakarta.address.map from the
         // <java.home>/{conf,lib} directory
         if (confDir != null)
-            loadFile(confDir + "javamail.address.map", loader);
+            loadFile(loader, confDir + "jakarta.address.map", confDir + "javamail.address.map");
 
         if (addressMap.isEmpty()) {
             logger.config("failed to load address map, using defaults");
@@ -1230,7 +1230,7 @@ public final class Session {
                         InputStream clis = null;
                         logger.log(Level.CONFIG, "URL {0}", url);
                         try {
-                            clis = openStream(url);
+                            clis = url.openStream();
                             if (clis != null) {
                                 loader.load(clis);
                                 anyLoaded = true;
