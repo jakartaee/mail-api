@@ -22,6 +22,7 @@ longer available.
       CHANGES IN THE 2.2.0 RELEASE
       ----------------------------
 E  714 Support minimum JDK of 11+ and minimum of Android API 33+
+E  720 finalize() in java.lang.Object has been deprecated
 E  744  Remove SecurityManager reference from API
 
       CHANGES IN THE 2.1.5 RELEASE

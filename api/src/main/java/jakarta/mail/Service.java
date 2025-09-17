@@ -623,18 +623,6 @@ public abstract class Service implements AutoCloseable {
     }
 
     /**
-     * Stop the event dispatcher thread so the queue can be garbage collected.
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            q.terminateQueue();
-        } finally {
-            super.finalize();
-        }
-    }
-
-    /**
      * Package private method to allow Folder to get the Session for a Store.
      */
     Session getSession() {

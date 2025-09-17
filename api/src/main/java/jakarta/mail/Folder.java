@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -643,14 +643,21 @@ public abstract class Folder implements AutoCloseable {
      *
      * This implementation calls <code>close(true)</code>.
      *
-     * @throws IllegalStateException if this folder is not opened
      * @throws MessagingException    for other failures
      * @see jakarta.mail.event.ConnectionEvent
      * @since JavaMail 1.6
      */
     @Override
     public void close() throws MessagingException {
-        close(true);
+        try {
+            close(true);
+        } catch (IllegalStateException ise) {
+            if (isOpen()) {
+                 throw ise;
+            }
+        } finally {
+            q.terminateQueue();
+        }
     }
 
     /**
@@ -1639,15 +1646,6 @@ public abstract class Folder implements AutoCloseable {
         @SuppressWarnings("unchecked")
         Vector<? extends EventListener> v = (Vector<? extends EventListener>) vector.clone();
         q.enqueue(event, v);
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            q.terminateQueue();
-        } finally {
-            super.finalize();
-        }
     }
 
     /**
