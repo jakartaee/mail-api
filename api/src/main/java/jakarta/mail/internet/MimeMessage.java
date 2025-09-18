@@ -2318,4 +2318,13 @@ public class MimeMessage extends Message implements MimePart {
             throws MessagingException {
         return new MimeMessage(session);
     }
+
+    boolean isStrict() {
+        return strict;
+    }
+
+    boolean isAllowutf8() {
+        return allowutf8;
+    }
+
 }
