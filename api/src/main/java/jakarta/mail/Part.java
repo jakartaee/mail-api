@@ -17,13 +17,11 @@
 package jakarta.mail;
 
 import jakarta.activation.DataHandler;
-import jakarta.mail.util.StreamProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
-import java.util.ServiceConfigurationError;
 
 /**
  * The <code>Part</code> interface is the common base interface for
@@ -455,25 +453,4 @@ public interface Part {
      */
     Enumeration<Header> getNonMatchingHeaders(String[] header_names)
             throws MessagingException;
-
-    /**
-     * Obtains the {@link StreamProvider}.
-     * It defaults to {@link Session#getDefaultInstance(java.util.Properties, Authenticator)}.
-     *
-     * @return the StreamProvider.
-     * @throws MessagingException if errors.
-     *
-     * @since JavaMail 2.2
-     */
-    default StreamProvider getStreamProvider() throws MessagingException {
-        try {
-            try {
-                return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
-            } catch (ServiceConfigurationError sce) {
-                throw new IllegalStateException(sce);
-            }
-        } catch (RuntimeException re) {
-            throw new NoSuchProviderException("Unable to get " + StreamProvider.class.getName(), re);
-        }
-    }
 }

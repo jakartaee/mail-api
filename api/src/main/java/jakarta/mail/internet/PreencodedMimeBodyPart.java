@@ -78,7 +78,7 @@ public class PreencodedMimeBodyPart extends MimeBodyPart {
         if (os instanceof LineOutputStream) {
             los = (LineOutputStream) os;
         } else {
-            los = getStreamProvider().outputLineStream(os, false);
+            los = streamProvider.outputLineStream(os, false);
         }
 
         // First, write out the header

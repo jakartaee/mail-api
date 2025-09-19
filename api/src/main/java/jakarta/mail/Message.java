@@ -17,13 +17,11 @@
 package jakarta.mail;
 
 import jakarta.mail.search.SearchTerm;
-import jakarta.mail.util.StreamProvider;
 
 import java.io.InvalidObjectException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.ServiceConfigurationError;
 
 /**
  * This class models an email message. This is an abstract class.
@@ -706,23 +704,5 @@ public abstract class Message implements Part {
      */
     public boolean match(SearchTerm term) throws MessagingException {
         return term.match(this);
-    }
-
-    @Override
-    public StreamProvider getStreamProvider() throws MessagingException {
-        try {
-            try {
-                final Session s = this.session;
-                if (s != null) {
-                    return s.getStreamProvider();
-                } else {
-                    return Session.getDefaultInstance(System.getProperties(), null).getStreamProvider();
-                }
-            } catch (ServiceConfigurationError sce) {
-                throw new IllegalStateException(sce);
-            }
-        } catch (RuntimeException re) {
-            throw new NoSuchProviderException("Unable to get " + StreamProvider.class.getName(), re);
-        }
     }
 }
