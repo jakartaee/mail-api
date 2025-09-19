@@ -885,6 +885,22 @@ public class InternetAddress extends Address implements Cloneable {
                             case '"':
                                 inquote = !inquote;
                                 break;
+                            case '(':
+                                if (!inquote) {
+                                    // Skip comment inside angled address (same logic as main parser)
+                                    for (index++, nesting = 1; index < length && nesting > 0; index++) {
+                                        char cc = s.charAt(index);
+                                        if (cc == '\\') {
+                                            index++; // skip escaped char
+                                        } else if (cc == '(') {
+                                            nesting++;
+                                        } else if (cc == ')') {
+                                            nesting--;
+                                        }
+                                    }
+                                    index--; // point to closing paren
+                                }
+                                break;
                             case '>':
                                 if (inquote)
                                     continue;
