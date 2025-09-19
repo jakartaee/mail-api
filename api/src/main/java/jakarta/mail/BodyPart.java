@@ -40,6 +40,13 @@ public abstract class BodyPart implements Part {
     protected Multipart parent;
 
     /**
+     * Instance of stream provider.
+     *
+     * @since JavaMail 2.1
+     */
+    protected final StreamProvider streamProvider = StreamProvider.provider();
+
+    /**
      * Creates a default {@code BodyPart}.
      */
     public BodyPart() {
@@ -67,14 +74,4 @@ public abstract class BodyPart implements Part {
     void setParent(Multipart parent) {
         this.parent = parent;
     }
-
-    @Override
-    public StreamProvider getStreamProvider() throws MessagingException {
-        if (parent != null) {
-            return parent.getStreamProvider();
-        } else {
-            return Part.super.getStreamProvider();
-        }
-    }
-
 }

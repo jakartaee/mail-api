@@ -28,7 +28,6 @@ E  789 Only one META-INF/javamail.providers resource file is processed
       CHANGES IN THE 2.1.4 RELEASE
       ----------------------------
 E  777 services/jakarta.mail.Provider override not working
-E  699 Multipart performs blocking call in every instantiation
 E  527 Using Jakarta mail and Javamail in the same runtime
 
       CHANGES IN THE 2.1.3 RELEASE
