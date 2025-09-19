@@ -16,6 +16,12 @@
 
 package jakarta.mail;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.logging.Logger;
+
+import jakarta.mail.util.LineInputStream;
+import jakarta.mail.util.LineOutputStream;
 import jakarta.mail.util.StreamProvider;
 
 /**
@@ -38,6 +44,17 @@ public abstract class BodyPart implements Part {
      * @since JavaMail 1.1
      */
     protected Multipart parent;
+
+    /**
+     * Instance of stream provider.
+     *
+     * @deprecated This field will be removed in a future release.
+     *             Use {@link #getStreamProvider()} instead.
+     *
+     * @since JavaMail 2.1
+     */
+    @Deprecated(forRemoval = true, since = "2.2.0")
+    protected final StreamProvider streamProvider = new DeprecatedStreamProviderWrapper(this.getClass(), StreamProvider.provider());
 
     /**
      * Creates a default {@code BodyPart}.
@@ -77,4 +94,112 @@ public abstract class BodyPart implements Part {
         }
     }
 
+    /**
+     * Wrapper around StreamProvider that logs a deprecation warning
+     * whenever its methods are used.
+     */
+    @Deprecated
+    static final class DeprecatedStreamProviderWrapper implements StreamProvider {
+
+        private static final Logger LOGGER = Logger.getLogger(DeprecatedStreamProviderWrapper.class.getName());
+        private final StreamProvider delegate;
+        private final Class<?> owner;
+
+        public DeprecatedStreamProviderWrapper(Class<?> owner, StreamProvider delegate) {
+            this.owner = owner;
+            this.delegate = delegate;
+        }
+
+        private void warn() {
+            LOGGER.warning(
+                    "[DEPRECATED] Accessing deprecated field 'streamProvider'. " +
+                    "Use " + owner.getName() + "#getStreamProvider() instead."
+                );
+        }
+
+        @Override
+        public InputStream inputBase64(InputStream in) {
+            warn();
+            return delegate.inputBase64(in);
+        }
+
+        @Override
+        public OutputStream outputBase64(OutputStream out) {
+            warn();
+            return delegate.outputBase64(out);
+        }
+
+        @Override
+        public InputStream inputBinary(InputStream in) {
+            warn();
+            return delegate.inputBinary(in);
+        }
+
+        @Override
+        public OutputStream outputBinary(OutputStream out) {
+            warn();
+            return delegate.outputBinary(out);
+        }
+
+        @Override
+        public OutputStream outputB(OutputStream out) {
+            warn();
+            return delegate.outputB(out);
+        }
+
+        @Override
+        public InputStream inputQ(InputStream in) {
+            warn();
+            return delegate.inputQ(in);
+        }
+
+        @Override
+        public OutputStream outputQ(OutputStream out, boolean encodingWord) {
+            warn();
+            return delegate.outputQ(out, encodingWord);
+        }
+
+        @Override
+        public LineInputStream inputLineStream(InputStream in, boolean allowutf8) {
+            warn();
+            return delegate.inputLineStream(in, allowutf8);
+        }
+
+        @Override
+        public LineOutputStream outputLineStream(OutputStream out, boolean allowutf8) {
+            warn();
+            return delegate.outputLineStream(out, allowutf8);
+        }
+
+        @Override
+        public InputStream inputQP(InputStream in) {
+            warn();
+            return delegate.inputQP(in);
+        }
+
+        @Override
+        public OutputStream outputQP(OutputStream out) {
+            warn();
+            return delegate.outputQP(out);
+        }
+
+        @Override
+        public InputStream inputSharedByteArray(byte[] buff) {
+            warn();
+            return delegate.inputSharedByteArray(buff);
+        }
+
+        @Override
+        public InputStream inputUU(InputStream in) {
+            warn();
+            return delegate.inputUU(in);
+        }
+
+        @Override
+        public OutputStream outputUU(OutputStream out, String filename) {
+            warn();
+            return delegate.outputUU(out, filename);
+        }
+
+    }
 }
