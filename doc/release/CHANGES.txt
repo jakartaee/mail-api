@@ -25,6 +25,7 @@ E  714 Support minimum JDK of 11+ and minimum of Android API 33+
 E  720 finalize() in java.lang.Object has been deprecated
 E  744 Remove SecurityManager reference from API
 E  758 Improve MimeMessage UTF8 handling
+E  804 Restore streamProvider fields for backwards compatibility
 
       CHANGES IN THE 2.1.5 RELEASE
       ----------------------------

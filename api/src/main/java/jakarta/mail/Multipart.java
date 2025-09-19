@@ -16,12 +16,14 @@
 
 package jakarta.mail;
 
+import jakarta.mail.BodyPart.DeprecatedStreamProviderWrapper;
 import jakarta.mail.util.StreamProvider;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ServiceConfigurationError;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 /**
  * Multipart is a container that holds multiple body parts. Multipart
@@ -61,6 +63,17 @@ public abstract class Multipart {
      * @since JavaMail 1.1
      */
     protected Part parent;
+
+    /**
+     * Instance of stream provider.
+     *
+     * @deprecated This field will be removed in a future release.
+     *             Use {@link #getStreamProvider()} instead.
+     *
+     * @since JavaMail 2.1
+     */
+    @Deprecated(forRemoval = true, since = "2.2.0")
+    protected final StreamProvider streamProvider = new DeprecatedStreamProviderWrapper(this.getClass(), StreamProvider.provider());
 
     /**
      * Default constructor. An empty Multipart object is created.
