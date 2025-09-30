@@ -24,6 +24,12 @@ Jakarta Mail/JavaMail, is available [here](README-JakartaMail)
 
 # <a name="Latest_News"></a>Latest News
 
+## September 19, 2025 - Jakarta Mail 2.1.5 Final Release ##
+
+The 2.1.5 release is a bug fix release of the Jakarta Mail project
+in the 2.1.x line, and includes several bug fixes and enhancements.
+See [the changelog](docs/CHANGES.txt) for details.
+
 ## August 26, 2025 - Jakarta Mail 2.1.4 Final Release ##
 
 The 2.1.4 release is a bug fix release of the Jakarta Mail project
