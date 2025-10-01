@@ -26,6 +26,7 @@ E  720 finalize() in java.lang.Object has been deprecated
 E  744 Remove SecurityManager reference from API
 E  758 Improve MimeMessage UTF8 handling
 E  804 Restore streamProvider fields for backwards compatibility
+E  810 InternetHeaders.InternetHeader toString()
 
       CHANGES IN THE 2.1.5 RELEASE
       ----------------------------
