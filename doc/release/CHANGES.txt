@@ -27,6 +27,7 @@ E  744 Remove SecurityManager reference from API
 E  758 Improve MimeMessage UTF8 handling
 E  804 Restore streamProvider fields for backwards compatibility
 E  810 InternetHeaders.InternetHeader toString()
+E  812 Custom mail providers distributed under META-INF/javamail.properties are no longer loaded with Jakarta Mail 2.1.5
 
       CHANGES IN THE 2.1.5 RELEASE
       ----------------------------

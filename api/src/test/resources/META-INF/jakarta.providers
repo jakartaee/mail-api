@@ -15,3 +15,5 @@
 #
 
 protocol=test; type=store; class=jakarta.mail.SessionTest$Jakarta; vendor=Oracle;
+protocol=test2; type=store; class=jakarta.mail.SessionTest$Jakarta; vendor=Oracle;
+protocol=test4; type=store; class=jakarta.mail.SessionTest$Jakarta; vendor=OracleJakarta;

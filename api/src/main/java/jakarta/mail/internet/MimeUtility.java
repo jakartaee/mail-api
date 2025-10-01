@@ -40,6 +40,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This is a utility class that provides various MIME related
@@ -139,9 +141,13 @@ public class MimeUtility {
     private MimeUtility() {
     }
 
+    private static final Logger LOGGER = Logger.getLogger(MimeUtility.class.getName());
+
     public static final int ALL = -1;
 
     // This is for backwards compatibility. Eventually we have to remove the second value of the next array.
+    // Note this order is different than in Session arrays. This is because here the key-value pair is overwritten meanwhile in Session
+    // it checks whether the value was inserted or not already, to avoid @DefaultProvider overrides it.
     private static final String[] CHARSET_MAP_RESOURCES = new String[] {"/META-INF/jakarta.charset.map", "/META-INF/javamail.charset.map"};
 
     // cached map of whether a charset is compatible with ASCII
@@ -1353,13 +1359,12 @@ public class MimeUtility {
         java2mime = new HashMap<>(40);
         mime2java = new HashMap<>(14);
 
-        try {
-            // Use this class's classloader to load the mapping file
-            // XXX - we should use SecuritySupport, but it's in another package
-            InputStream is = resource(CHARSET_MAP_RESOURCES);
-
-            if (is != null) {
-                try {
+        // Use this class's classloader to load the mapping file
+        // XXX - we should use SecuritySupport, but it's in another package
+        for (int i = 0; i < CHARSET_MAP_RESOURCES.length; i++) {
+            String charsetResource = CHARSET_MAP_RESOURCES[i];
+            try (InputStream is = MimeUtility.class.getResourceAsStream(charsetResource)) {
+                if (is != null) {
                     LineInputStream lineInput = StreamProvider.provider().inputLineStream(is, false);
 
                     // Load the JDK-to-MIME charset mapping table
@@ -1367,15 +1372,14 @@ public class MimeUtility {
 
                     // Load the MIME-to-JDK charset mapping table
                     loadMappings(lineInput, mime2java);
-                } finally {
-                    try {
-                        is.close();
-                    } catch (Exception cex) {
-                        // ignore
-                    }
                 }
+                // We already know size is two, but just in case, we don't want to fail here for a logger reason
+                if (i == 0 && CHARSET_MAP_RESOURCES.length == 2) {
+                    LOGGER.log(Level.WARNING, "[DEPRECATED] {0} is deprecated and will be removed. Future versions will require {1}.",
+                            new Object[]{CHARSET_MAP_RESOURCES[0], CHARSET_MAP_RESOURCES[1]});
+                }
+            } catch (Exception ex) {
             }
-        } catch (Exception ex) {
         }
 
         // If we didn't load the tables, e.g., because we didn't have
@@ -1443,16 +1447,6 @@ public class MimeUtility {
             mime2java.put("ms936", "GB18030");
             mime2java.put("gbk", "GB18030");
         }
-    }
-
-    private static InputStream resource(String[] resources) {
-        for (String resource : resources) {
-            InputStream is = MimeUtility.class.getResourceAsStream(resource);
-            if (is != null) {
-                return is;
-            }
-        }
-        return null;
     }
     
     private static void loadMappings(LineInputStream is,
