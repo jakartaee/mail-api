@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-protocol=test; type=store; class=jakarta.mail.SessionTest$JavaMail; vendor=Oracle;
-protocol=test3; type=store; class=jakarta.mail.SessionTest$JavaMail; vendor=Oracle;
-protocol=test4; type=store; class=jakarta.mail.SessionTest$Jakarta; vendor=OracleMail;
+8859_1		ISO-8859-1
+iso8859_1	ISO-8859-2
+8859_4		ISO-8859-4

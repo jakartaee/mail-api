@@ -16,7 +16,11 @@
 
 package jakarta.mail;
 
+import java.util.Arrays;
 import java.util.Properties;
+import java.util.stream.Stream;
+
+import jakarta.mail.Provider.Type;
 
 import org.junit.Test;
 
@@ -25,12 +29,31 @@ import static org.junit.Assert.assertEquals;
 public class SessionTest {
 
     @Test
-    public void issue527() throws NoSuchProviderException {
+    public void issue527And812() throws NoSuchProviderException {
         Session session = Session.getInstance(new Properties());
+        Stream<Provider> providerStream = Arrays.stream(session.getProviders());
+        // test exists in both jakarta.providers and javamail.providers
+        long count = providerStream.filter(p -> "test".equals(p.getProtocol())).count();
+        assertEquals(2, count);
         Provider provider = session.getProvider("test");
+        // javamail.providers one has precedence in case of conflict
+        assertEquals(JavaMail.class.getName(), provider.getClassName());
+        provider = session.getProvider("test2");
         assertEquals(Jakarta.class.getName(), provider.getClassName());
+        provider = session.getProvider("test3");
+        assertEquals(JavaMail.class.getName(), provider.getClassName());
     }
 
+    @Test
+    public void byProperty() throws NoSuchProviderException {
+        Properties prop = new Properties();
+        prop.put("mail.test4.class", Jakarta.class.getName());
+        Session session = Session.getInstance(prop);
+        // protocol test4 exists in both with same class, but javamail.providers has precedence
+        Provider provider = session.getProvider("test4");
+        assertEquals("OracleMail", provider.getVendor());
+    }
+    
     public static class Jakarta extends Store {
 
         protected Jakarta(Session session, URLName urlname) {

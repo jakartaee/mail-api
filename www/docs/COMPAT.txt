@@ -3,7 +3,7 @@
 
 -- Jakarta Mail 2.2.0 --
 
-    Removal of finalize()
+- Removal of finalize()
 
     The finalize() methods have been removed throughout the Mail API. 
 
@@ -17,6 +17,20 @@
 
     3. Resource / memory management
     Because finalizers are removed, users must more explicitly manage resources: ensure streams, folders, other resources are closed properly. Do not rely on garbage collection / finalization to clean up.
+
+- Resource Loading Order Update
+
+    In 2.1.4 we introduced a change to prioritize Jakarta-prefixed resources over the legacy ones. However, this unintentionally caused some legacy resources to be skipped entirely.
+
+    As of 2.2.0, the loading logic has been corrected:
+
+    Both legacy and Jakarta-prefixed resources are now loaded.
+
+    Legacy resources take precedence to preserve compatibility.
+
+    Jakarta-prefixed resources remain supported and will take over fully once migration is complete.
+
+    This ensures backward compatibility while still allowing a smooth transition to the Jakarta-based resources.
 
 -- Jakarta Mail 2.1.4 --
 
