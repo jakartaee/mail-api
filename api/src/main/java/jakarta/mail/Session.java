@@ -55,15 +55,33 @@ import java.util.logging.Level;
  * implement the <code>Store</code>, <code>Transport</code>, and related
  * classes.  The protocol providers are configured using the following files:
  * <ul>
- *  <li> <code>jakarta.providers</code> and
- * 	<code>jakarta.default.providers</code> </li>
- *  <li> <code>jakarta.address.map</code> and
- * 	<code>jakarta.default.address.map</code> </li>
+ *  <li> <code>javamail.providers</code> <b>(deprecated)</b>,
+ *       <code>javamail.default.providers</code> <b>(deprecated)</b>,
+ *       <code>jakarta.providers</code> and
+ *       <code>jakarta.default.providers</code> </li>
+ *  <li> <code>javamail.address.map</code> <b>(deprecated)</b>,
+ *       <code>javamail.default.address.map</code> <b>(deprecated)</b>,
+ *       <code>jakarta.address.map</code> and
+ *       <code>jakarta.default.address.map</code> </li>
  * </ul>
- * <p>
- * Each <code>jakarta.</code><i>X</i> resource file is searched for using
- * three methods in the following order:
+ *
+ * <p><b>Compatibility note:</b> Both <code>javamail.*</code> and
+ * <code>jakarta.*</code> resource files are currently supported. For
+ * backwards compatibility, <code>javamail.*</code> entries take precedence
+ * over equivalent <code>jakarta.*</code> entries when conflicts occur.
+ * This ensures existing applications depending on the legacy JavaMail
+ * configuration continue to work. <br>
+ * <b>Future note:</b> Support for <code>javamail.*</code> resources is
+ * deprecated and will be removed in a future release. Applications should
+ * migrate to the <code>jakarta.*</code> resource files.
+ * </p>
+ *
+ * Each <code>javamail.</code><i>X</i> or <code>jakarta.</code><i>X</i>
+ * resource file is searched for using three methods in the following order:
  * <ol>
+ *  <li> <code><i>java.home</i>/<i>conf</i>/javamail.</code><i>X</i> <b>(deprecated)</b></li>
+ *  <li> <code>META-INF/javamail.</code><i>X</i> <b>(deprecated)</b></li>
+ *  <li> <code>META-INF/javamail.default.</code><i>X</i> <b>(deprecated)</b></li>
  *  <li> <code><i>java.home</i>/<i>conf</i>/jakarta.</code><i>X</i> </li>
  *  <li> <code>META-INF/jakarta.</code><i>X</i> </li>
  *  <li> <code>META-INF/jakarta.default.</code><i>X</i> </li>
@@ -79,7 +97,8 @@ import java.util.logging.Level;
  * <code>java.home</code> property points.  The second method allows an
  * application that uses the Jakarta Mail APIs to include their own resource
  * files in their application's or jar file's <code>META-INF</code>
- * directory.  The <code>jakarta.default.</code><i>X</i> default files
+ * directory.  The <code>javamail.default.</code><i>X</i> <b>(deprecated)</b> and
+ * <code>jakarta.default.</code><i>X</i> default files
  * are part of the Jakarta Mail <code>mail.jar</code> file and should not be
  * supplied by users. <p>
  *
@@ -96,6 +115,8 @@ import java.util.logging.Level;
  * do not override, the default files included with the Jakarta Mail APIs.
  * This means that all entries in all files loaded will be available. <p>
  *
+ * <b><code>javamail.providers</code> (deprecated),</b>
+ * <b><code>javamail.default.providers</code> (deprecated),</b>
  * <b><code>jakarta.providers</code></b> and
  * <b><code>jakarta.default.providers</code></b><p>
  *
@@ -168,18 +189,20 @@ import java.util.logging.Level;
  * </pre>
  * <p>
  *
+ * <b><code>javamail.address.map</code> (deprecated),</b>
+ * <b><code>javamail.default.address.map</code> (deprecated),</b>
  * <b><code>jakarta.address.map</code></b> and
  * <b><code>jakarta.default.address.map</code></b><p>
  *
  * These resource files map transport address types to the transport
  * protocol.  The <code>getType</code> method of
  * <code>jakarta.mail.Address</code> returns the address type.  The
- * <code>jakarta.address.map</code> file maps the transport type to the
- * protocol.  The file format is a series of name-value pairs.  Each key
- * name should correspond to an address type that is currently installed
- * on the system; there should also be an entry for each
- * <code>jakarta.mail.Address</code> implementation that is present if it is
- * to be used.  For example, the
+ * <code>javamail.address.map</code> (deprecated) and <code>jakarta.address.map</code>
+ * files map the transport type to the protocol.  The file format is a series
+ * of name-value pairs.  Each key name should correspond to an address type
+ * that is currently installed on the system; there should also be an entry
+ * for each <code>jakarta.mail.Address</code> implementation that is present
+ * if it is to be used.  For example, the
  * <code>jakarta.mail.internet.InternetAddress</code> method
  * <code>getType</code> returns "rfc822". Each referenced protocol should
  * be installed on the system.  For the case of <code>news</code>, below,
@@ -202,11 +225,12 @@ public final class Session {
     // Support legacy @DefaultProvider
     private static final String DEFAULT_PROVIDER = "org.eclipse.angus.mail.util.DefaultProvider";
 
-    // This is for backwards compatibility. Eventually we have to remove the second value of the next arrays.
-    private static final String[] DEFAULT_ADDRESS_MAP_RESOURCES = new String[] {"/META-INF/jakarta.default.address.map", "/META-INF/javamail.default.address.map"};
-    private static final String[] ADDRESS_MAP_RESOURCES = new String[] {"META-INF/jakarta.address.map", "META-INF/javamail.address.map"};
-    private static final String[] DEFAULT_PROVIDER_RESOURCES = new String[] {"/META-INF/jakarta.default.providers", "/META-INF/javamail.default.providers"};
-    private static final String[] PROVIDER_RESOURCES = new String[] {"META-INF/jakarta.providers", "META-INF/javamail.providers"};
+    // This is for backwards compatibility. javamail has more precedence than jakarta to not break compatibility
+    // Eventually we have to remove the first value of the next arrays.
+    private static final String[] DEFAULT_ADDRESS_MAP_RESOURCES = new String[] {"/META-INF/javamail.default.address.map", "/META-INF/jakarta.default.address.map"};
+    private static final String[] ADDRESS_MAP_RESOURCES = new String[] {"META-INF/javamail.address.map", "META-INF/jakarta.address.map"};
+    private static final String[] DEFAULT_PROVIDER_RESOURCES = new String[] {"/META-INF/javamail.default.providers", "/META-INF/jakarta.default.providers"};
+    private static final String[] PROVIDER_RESOURCES = new String[] {"META-INF/javamail.providers", "META-INF/jakarta.providers"};
 
     private final StreamProvider streamProvider;
     private final Properties props;
@@ -466,9 +490,16 @@ public final class Session {
     }
 
     /**
-     * This method returns an array of all the implementations installed
-     * via the jakarta.[default.]providers files that can
-     * be loaded using the ClassLoader available to this application.
+     * This method returns an array of all the provider implementations installed
+     * via the <code>javamail.[default.]providers</code> <b>(deprecated)</b> and
+     * <code>jakarta.[default.]providers</code> files that can
+     * be loaded using the <code>ClassLoader</code> available to this application.
+     * <p>
+     * For backwards compatibility, providers defined in
+     * <code>javamail.*</code> files take precedence over equivalent
+     * <code>jakarta.*</code> entries when conflicts occur. Applications are
+     * encouraged to migrate to the <code>jakarta.*</code> resource files, as
+     * support for <code>javamail.*</code> will be removed in a future release.
      *
      * @return Array of configured providers
      */
@@ -949,10 +980,10 @@ public final class Session {
             }
         };
 
-        // load system-wide jakarta.providers from the
+        // load system-wide javamail.providers and jakarta.providers from the
         // <java.home>/{conf,lib} directory
         if (confDir != null)
-            loadFile(loader, confDir + "jakarta.providers", confDir + "javamail.providers");
+            loadFile(loader, confDir + "javamail.providers", confDir + "jakarta.providers");
 
         //Fetch classloader of given class, falling back to others if needed.
         ClassLoader gcl;
@@ -978,10 +1009,10 @@ public final class Session {
                 addProvider(p);
         }
 
-        // load the META-INF/jakarta.providers file supplied by an application
+        // load the META-INF/javamail.providers and META-INF/jakarta.providers file supplied by an application
         loadAllResources(cl, loader, PROVIDER_RESOURCES);
 
-        // load default META-INF/jakarta.default.providers from mail.jar file
+        // load default META-INF/javamail.providers and META-INF/jakarta.default.providers from mail.jar file
         loadResource(cl, loader, false, DEFAULT_PROVIDER_RESOURCES);
 
         // finally, add all the default services
@@ -1102,7 +1133,8 @@ public final class Session {
      */
     public synchronized void addProvider(Provider provider) {
         providers.add(provider);
-        providersByClassName.put(provider.getClassName(), provider);
+        if (!providersByClassName.containsKey(provider.getClassName()))
+            providersByClassName.put(provider.getClassName(), provider);
         if (!providersByProtocol.containsKey(provider.getProtocol()))
             providersByProtocol.put(provider.getProtocol(), provider);
     }
@@ -1117,16 +1149,16 @@ public final class Session {
             }
         };
 
-        // load default META-INF/jakarta.default.address.map from mail.jar
+        // load default META-INF/javamail.default.address.map and META-INF/jakarta.default.address.map from mail.jar
         loadResource(cl, loader, true, DEFAULT_ADDRESS_MAP_RESOURCES);
 
-        // load the META-INF/jakarta.address.map file supplied by an app
+        // load the META-INF/javamail.address.map and META-INF/jakarta.address.map files supplied by an app
         loadAllResources(cl, loader, ADDRESS_MAP_RESOURCES);
 
-        // load system-wide jakarta.address.map from the
+        // load system-wide javamail.address.map and jakarta.address.map from the
         // <java.home>/{conf,lib} directory
         if (confDir != null)
-            loadFile(loader, confDir + "jakarta.address.map", confDir + "javamail.address.map");
+            loadFile(loader, confDir + "javamail.address.map", confDir + "jakarta.address.map");
 
         if (addressMap.isEmpty()) {
             logger.config("failed to load address map, using defaults");
@@ -1156,24 +1188,20 @@ public final class Session {
      * Load from the named file.
      */
     private void loadFile(StreamLoader loader, String ... names) {
-        InputStream clis = null;
-        for (String name : names) {
-            try {
-                clis = new BufferedInputStream(new FileInputStream(name));
+        for (int i = 0; i < names.length; i++) {
+            String name = names[i];
+            try (InputStream clis = new BufferedInputStream(new FileInputStream(name))) {
                 loader.load(clis);
                 logger.log(Level.CONFIG, "successfully loaded file: {0}", name);
-                break;
+                // We already know size is two, but just in case, we don't want to fail here for a logger reason
+                if (i == 0 && names.length == 2) {
+                    logger.log(Level.WARNING, "[DEPRECATED] {0} is deprecated and will be removed. Future versions will require {1}.", names[0], names[1]);
+                }
             } catch (FileNotFoundException fex) {
                 // ignore it
             } catch (IOException e) {
                 if (logger.isLoggable(Level.CONFIG))
                     logger.log(Level.CONFIG, "not loading file: " + name, e);
-            } finally {
-                try {
-                    if (clis != null)
-                        clis.close();
-                } catch (IOException ex) {
-                }    // ignore it
             }
         }
     }
@@ -1182,28 +1210,27 @@ public final class Session {
      * Load from the named resource.
      */
     private void loadResource(Class<?> cl, StreamLoader loader, boolean expected, String ... names) {
-        InputStream clis = null;
-        try {
-            for (String name : names) {
-                clis = getResourceAsStream(cl, name);
+        boolean loaded = false;
+        for (int i = 0; i < names.length; i++) {
+            String name = names[i];
+            try (InputStream clis = getResourceAsStream(cl, name)) {
                 if (clis != null) {
+                    loaded = true;
                     loader.load(clis);
                     logger.log(Level.CONFIG, "successfully loaded resource: {0}", name);
-                    break;
+                    // We already know size is two, but just in case, we don't want to fail here for a logger reason
+                    if (i == 0 && names.length == 2) {
+                        logger.log(Level.WARNING, "[DEPRECATED] {0} is deprecated and will be removed. Future versions will require {1}.", names[0], names[1]);
+                    }
                 }
+            } catch (IOException e) {
+                logger.log(Level.CONFIG, "Exception loading resource", e);
             }
-            if (clis == null) {
-                if (expected)
-                    logger.log(Level.WARNING, "expected resource not found: {0}", Arrays.asList(names));
-            }
-        } catch (IOException e) {
-            logger.log(Level.CONFIG, "Exception loading resource", e);
-        } finally {
-            try {
-                if (clis != null)
-                    clis.close();
-            } catch (IOException ex) {
-            }    // ignore it
+            
+        }
+        if (!loaded) {
+            if (expected)
+                logger.log(Level.WARNING, "expected resource not found: {0}", Arrays.asList(names));
         }
     }
 
@@ -1213,7 +1240,8 @@ public final class Session {
     private void loadAllResources(Class<?> cl, StreamLoader loader, String ... names) {
         boolean anyLoaded = false;
         try {
-            for (String name : names) {
+            for (int j = 0; j < names.length; j++) {
+                String name = names[j];
                 URL[] urls;
                 ClassLoader cld = null;
                 // First try the "application's" class loader.
@@ -1227,10 +1255,8 @@ public final class Session {
                 if (urls != null) {
                     for (int i = 0; i < urls.length; i++) {
                         URL url = urls[i];
-                        InputStream clis = null;
                         logger.log(Level.CONFIG, "URL {0}", url);
-                        try {
-                            clis = url.openStream();
+                        try (InputStream clis = url.openStream()) {
                             if (clis != null) {
                                 loader.load(clis);
                                 anyLoaded = true;
@@ -1245,16 +1271,11 @@ public final class Session {
                         } catch (IOException ioex) {
                             logger.log(Level.CONFIG, "Exception loading resource",
                                     ioex);
-                        } finally {
-                            try {
-                                if (clis != null)
-                                    clis.close();
-                            } catch (IOException cex) {
-                            }
                         }
                     }
-                    if (anyLoaded) {
-                        break;
+                    // We already know size is two, but just in case, we don't want to fail here for a logger reason
+                    if (j == 0 && names.length == 2) {
+                        logger.log(Level.WARNING, "[DEPRECATED] {0} is deprecated and will be removed. Future versions will require {1}.", names[0], names[1]);
                     }
                 }
             }
