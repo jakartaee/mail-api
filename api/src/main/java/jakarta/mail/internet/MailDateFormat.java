@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -124,7 +124,7 @@ import java.util.logging.Logger;
 public class MailDateFormat extends SimpleDateFormat {
 
     private static final long serialVersionUID = -8148227605210628779L;
-    private static final String PATTERN = "EEE, d MMM yyyy HH:mm:ss Z (z)";
+    private static final String PATTERN = "EEE, d MMM yyyy HH:mm:ss Z";
 
     private static final Logger LOGGER = Logger.getLogger(MailDateFormat.class.getName());
 
@@ -149,7 +149,7 @@ public class MailDateFormat extends SimpleDateFormat {
      */
     private Object writeReplace() throws ObjectStreamException {
         MailDateFormat fmt = new MailDateFormat();
-        fmt.superApplyPattern("EEE, d MMM yyyy HH:mm:ss 'XXXXX' (z)");
+        fmt.superApplyPattern(PATTERN);
         fmt.setTimeZone(getTimeZone());
         return fmt;
     }
