@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,6 +19,8 @@ package jakarta.mail.internet;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayInputStream;
+import java.util.Base64;
 import java.util.Properties;
 import jakarta.mail.Session;
 import org.junit.Test;
@@ -82,5 +84,14 @@ public class MimeMessageTest {
             System.clearProperty("mail.mime.address.strict");
             System.clearProperty("mail.mime.allowutf8");
         }
+    }
+
+    @Test
+    public void testEmptyHeaders() throws Exception {
+        String base64Input = "ICAgIAogICAKCg==";
+        byte[] input = Base64.getDecoder().decode(base64Input);
+        Session session = Session.getDefaultInstance(new Properties());
+        ByteArrayInputStream is = new ByteArrayInputStream(input);
+        new MimeMessage(session, is);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -660,8 +660,10 @@ public class InternetHeaders {
         try {
             char c = line.charAt(0);
             if (c == ' ' || c == '\t') {
-                InternetHeader h = headers.get(headers.size() - 1);
-                h.line += "\r\n" + line;
+                if (!headers.isEmpty()) {
+                    InternetHeader h = headers.get(headers.size() - 1);
+                    h.line += "\r\n" + line;
+                }
             } else
                 headers.add(new InternetHeader(line));
         } catch (StringIndexOutOfBoundsException e) {
