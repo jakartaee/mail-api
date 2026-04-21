@@ -1385,6 +1385,7 @@ public class InternetAddress extends Address implements Cloneable {
         if (addr.charAt(start) == '.')
             throw new AddressException("Domain starts with dot", addr);
         boolean inliteral = false;
+        boolean idnCheck = false;
         for (i = start; i < len; i++) {
             c = addr.charAt(i);
             if (c == '[') {
@@ -1400,6 +1401,12 @@ public class InternetAddress extends Address implements Cloneable {
             } else if (c <= 040 || c == 0177) {
                 throw new AddressException(
                         "Domain contains control or whitespace", addr);
+            } else if (c == '。' || c == '．' || c == '｡') {
+                // Dot-like code points that java.net.IDN treats as label
+                // separators but which are not RFC 5321 dots. Reject so
+                // the IDN fallback below can't silently accept them.
+                throw new AddressException(
+                        "Domain contains non-ASCII dot", addr);
             } else {
                 // RFC 2822 rule
                 //if (specialsNoDot.indexOf(c) >= 0)
@@ -1415,9 +1422,16 @@ public class InternetAddress extends Address implements Cloneable {
                  * <let-dig> ::= <letter> | <digit>
                  */
                 if (!inliteral) {
-                    if (!(Character.isLetterOrDigit(c) || c == '-' || c == '.'))
-                        throw new AddressException(
-                                "Domain contains illegal character", addr);
+                    if (!(Character.isLetterOrDigit(c) || c == '-' || c == '.')) {
+                        if (c < 0x80)
+                            // ASCII punctuation / specials are genuinely
+                            // illegal in a domain; IDN can't rescue them.
+                            throw new AddressException(
+                                    "Domain contains illegal character", addr);
+                        // Non-ASCII: maybe a combining mark or other IDN
+                        // letter class. Defer to java.net.IDN below.
+                        idnCheck = true;
+                    }
                     if (c == '.' && lastc == '.')
                         throw new AddressException(
                                 "Domain contains dot-dot", addr);
@@ -1427,6 +1441,21 @@ public class InternetAddress extends Address implements Cloneable {
         }
         if (lastc == '.')
             throw new AddressException("Domain ends with dot", addr);
+        if (idnCheck) {
+            // The fast path rejected a character the RFC 1034 rule doesn't
+            // cover, but Unicode domain labels legitimately contain code
+            // points like combining marks. Ask java.net.IDN for a second
+            // opinion: if the domain Punycode-encodes cleanly (IDNA2003 +
+            // Nameprep), accept it. The address itself is left byte-for-
+            // byte unchanged.
+            try {
+                java.net.IDN.toASCII(addr.substring(start),
+                        java.net.IDN.ALLOW_UNASSIGNED);
+            } catch (IllegalArgumentException e) {
+                throw new AddressException(
+                        "Domain contains illegal character", addr);
+            }
+        }
     }
 
     /**
