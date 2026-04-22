@@ -3,20 +3,46 @@
 
 -- Jakarta Mail 2.2.0 --
 
-    Removal of finalize()
+- Removal of finalize()
 
     The finalize() methods have been removed throughout the Mail API. 
 
     This has several implications:
 
     1. No-arg close() behavior
-    Calling the no-argument close() method on objects that are already closed is no longer considered "hostile" (i.e. it no longer throws or behaves unexpectedly if the resource is already closed). 
+    Calling the no-argument close() method on objects that are already
+    closed is no longer considered "hostile" (i.e. it no longer throws
+    or behaves unexpectedly if the resource is already closed). 
 
     2. Event thread shutdown
-    The no-arg close() is now required to signal internal event threads to stop. In other words, previously finalize() might have been relied on to clean up or shut down threads; that is no longer the case. Users must call close() explicitly to ensure proper shutdown. 
+    The no-arg close() is now required to signal internal event threads
+    to stop. In other words, previously finalize() might have been
+    relied on to clean up or shut down threads; that is no longer the
+    case. Users must call close() explicitly to ensure proper shutdown. 
 
     3. Resource / memory management
-    Because finalizers are removed, users must more explicitly manage resources: ensure streams, folders, other resources are closed properly. Do not rely on garbage collection / finalization to clean up.
+    Because finalizers are removed, users must more explicitly manage
+    resources: ensure streams, folders, other resources are closed
+    properly. Do not rely on garbage collection / finalization to
+    clean up.
+
+- MailDateFormat pattern change
+
+    The default date format pattern used by MailDateFormat has been
+    updated. The legacy pattern:
+
+        "EEE, d MMM yyyy HH:mm:ss Z (z)"
+
+    has been changed to:
+
+        "EEE, d MMM yyyy HH:mm:ss Z"
+
+    The optional parenthesized time zone name was removed to improve
+    consistency with RFC 2822–style header formatting and to align with
+    the behavior of modern Java time formatters. Applications that rely
+    on the presence of the "(z)" suffix in generated Date headers should
+    update their expectations accordingly.
+
 
 -- Jakarta Mail 2.1.4 --
 
