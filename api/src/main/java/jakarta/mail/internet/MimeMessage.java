@@ -169,9 +169,6 @@ public class MimeMessage extends Message implements MimePart {
      */
     protected Object cachedContent;
 
-    // Used to parse dates
-    private static final MailDateFormat mailDateFormat = new MailDateFormat();
-
     // Should addresses in headers be parsed in "strict" mode?
     private boolean strict = true;
     // Is UTF-8 allowed in headers?
@@ -897,10 +894,9 @@ public class MimeMessage extends Message implements MimePart {
     public Date getSentDate() throws MessagingException {
         String s = getHeader("Date", null);
         if (s != null) {
+            MailDateFormat mailDateFormat = new MailDateFormat();
             try {
-                synchronized (mailDateFormat) {
-                    return mailDateFormat.parse(s);
-                }
+                return mailDateFormat.parse(s);
             } catch (ParseException pex) {
                 return null;
             }
@@ -926,9 +922,8 @@ public class MimeMessage extends Message implements MimePart {
         if (d == null)
             removeHeader("Date");
         else {
-            synchronized (mailDateFormat) {
-                setHeader("Date", mailDateFormat.format(d));
-            }
+            MailDateFormat mailDateFormat = new MailDateFormat();
+            setHeader("Date", mailDateFormat.format(d));
         }
     }
 
