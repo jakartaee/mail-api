@@ -14,10 +14,14 @@ name: Jakarta Mail API CI
 
 on:
   pull_request:
+    branches:
+      - main
     paths-ignore:
       - 'doc/**'
       - 'www/**'
   push:
+    branches:
+      - main
     paths-ignore:
       - 'doc/**'
       - 'www/**'
@@ -29,7 +33,7 @@ jobs:
 
     strategy:
       matrix:
-        java_version: [ 11, 17, 21 ]
+        java_version: [ 17, 25 ]
 
     steps:
     - name: Checkout for build
