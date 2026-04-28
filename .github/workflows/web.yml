@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Add static content
         run: |
           export VERSION=`curl -s https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/maven-metadata.xml | tac | grep -o -m 1 "<version>[[:digit:]]\.[[:digit:]]\.[[:digit:]]</version" | cut -f 2 -d ">" | cut -f 1 -d "<"`
@@ -52,14 +52,14 @@ jobs:
           cp -Rfv doc/spec/* doc/release/* ./www/docs/
           cp -Rfv CONTRIBUTING.md ./www/
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./www/
           destination: ./_site
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
 
   # Deployment job
   deploy:
@@ -71,4 +71,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
