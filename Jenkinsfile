@@ -70,11 +70,10 @@ spec:
       steps {
         container('mail-ci') {
           sh """
-            wget 'https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz' -O openjdk-11.tar.gz -q
-            tar -xzf openjdk-11.tar.gz
-            cd jdk-11
-            export JAVA_HOME=`pwd`
-            cd ..
+            wget -q 'https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk' -O jdk.tgz
+            mkdir jdk && tar -xzf jdk.tgz -C jdk --strip-components=1
+            export JAVA_HOME=${WORKSPACE}/jdk
+            export MAVEN_OPTS="-Dfile.encoding=UTF-8 \${MAVEN_OPTS:-}"
             bash -x ${WORKSPACE}/docker/build_jakartamail.sh
           """
           archiveArtifacts artifacts: '**/target/*.jar'
