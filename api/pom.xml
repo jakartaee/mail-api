@@ -79,7 +79,7 @@
         <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.exclude>${project.basedir}/../spotbugs-exclude.xml</spotbugs.exclude>
         <!--Maven plugins version-->
-        <spotbugs.version>4.9.8.3</spotbugs.version>
+        <spotbugs.version>4.10.2.0</spotbugs.version>
 
         <!-- version identifier in jakarta.mail.Version -->
         <mail.version>${project.version}</mail.version>
@@ -140,7 +140,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.5</version>
+                    <version>3.5.6</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -166,7 +166,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.6.2</version>
+                    <version>3.6.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -457,7 +457,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.10.0</version>
+                        <version>0.11.0</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
@@ -477,7 +477,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         <plugin>
                             <groupId>org.jacoco</groupId>
                             <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.8.14</version>
+                            <version>0.8.15</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
