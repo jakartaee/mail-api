@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Add static content
         run: |
           export VERSION=`curl -s https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/maven-metadata.xml | tac | grep -o -m 1 "<version>[[:digit:]]\.[[:digit:]]\.[[:digit:]]</version" | cut -f 2 -d ">" | cut -f 1 -d "<"`
