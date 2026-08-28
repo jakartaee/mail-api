@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -79,7 +79,7 @@ public class MailDateFormatTest {
     @Test
     public void mustFormatRfc2822WithOptionalCfws() {
         Date date = mustPass(getDefault(), "1 Jan 2015 00:00 +0000");
-        assertThatDate(date, "Thu, 1 Jan 2015 00:00:00 +0000 (UTC)");
+        assertThatDate(date, "Thu, 1 Jan 2015 00:00:00 +0000");
     }
 
     @Test
@@ -89,7 +89,7 @@ public class MailDateFormatTest {
         Date date = mustPass(fmt, input);
         fmt.setTimeZone(TimeZone.getTimeZone("Etc/GMT+8"));
         assertThat(fmt.format(date),
-                is("Wed, 31 Dec 2014 15:00:00 -0800 (GMT-08:00)"));
+                is("Wed, 31 Dec 2014 15:00:00 -0800"));
     }
 
     /*
@@ -239,7 +239,7 @@ public class MailDateFormatTest {
             // NOTE this test fails with getLenient(),
             // since lenient parsing must remain backward compatible
             Date date = getStrict().parse(input);
-            assertThatDate(date, "Thu, 1 Jan 2015 00:00:00 +0000 (UTC)");
+            assertThatDate(date, "Thu, 1 Jan 2015 00:00:00 +0000");
         } catch (ParseException ignored) {
             assertTrue("Not supporting CFWS is allowed", true);
         }
@@ -309,7 +309,7 @@ public class MailDateFormatTest {
     @Test
     public void lenientMustAdd1900To3DigitYear() {
         Date date = mustPass(getLenient(), "1 Jul 900 00:00 +0000");
-        assertThatDate(date, "Sat, 1 Jul 2800 00:00:00 +0000 (UTC)");
+        assertThatDate(date, "Sat, 1 Jul 2800 00:00:00 +0000");
     }
 
     @Test
@@ -338,13 +338,13 @@ public class MailDateFormatTest {
     @Test
     public void mustParseNegativeZeroesZoneAsUtc() {
         Date date = mustPass(getDefault(), "1 Jan 2015 00:00 -0000");
-        assertThatDate(date, "Thu, 1 Jan 2015 00:00:00 +0000 (UTC)");
+        assertThatDate(date, "Thu, 1 Jan 2015 00:00:00 +0000");
     }
 
     @Test
     public void mustCorrectlyParseInputWithTrailingDigits() {
         Date date = mustPass(getStrict(), "1 Jan 2015 00:00 -001530");
-        assertThatDate(date, "Thu, 1 Jan 2015 00:15:00 +0000 (UTC)");
+        assertThatDate(date, "Thu, 1 Jan 2015 00:15:00 +0000");
     }
 
     @Test
@@ -424,7 +424,7 @@ public class MailDateFormatTest {
         SimpleDateFormat fmt = getStrict();
         fmt.setDateFormatSymbols(new DateFormatSymbols(Locale.FRENCH));
         Date date = mustPass(fmt, "1 Jan 2015 00:00:00 +0000");
-        assertThatDate(date, "jeu., 1 janv. 2015 00:00:00 +0000 (UTC)");
+        assertThatDate(date, "jeu., 1 janv. 2015 00:00:00 +0000");
     }
 
     /*

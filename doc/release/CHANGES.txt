@@ -29,6 +29,8 @@ E  758 Improve MimeMessage UTF8 handling
 E  804 Restore streamProvider fields for backwards compatibility
 E  810 InternetHeaders.InternetHeader toString()
 E  818 Change getSize() return type from int to long
+E  590 move from MailDateFormat (not thread safe) to DateTimeFormatter
+E  820 Default MailDateFormat pattern might not be compatible with RFC 2822?
 
       CHANGES IN THE 2.1.5 RELEASE
       ----------------------------
