@@ -430,8 +430,7 @@ public class ParameterList {
                             } else {
                                 if (charset == null) {
                                     // should never happen
-                                    multisegmentNames.remove(name);
-                                    break;
+                                    it.remove(name);
                                 }
                             }
                             decodeBytes(vv.value, bos);
