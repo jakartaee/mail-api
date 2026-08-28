@@ -79,7 +79,7 @@
         <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.exclude>${project.basedir}/../spotbugs-exclude.xml</spotbugs.exclude>
         <!--Maven plugins version-->
-        <spotbugs.version>4.10.3.0</spotbugs.version>
+        <spotbugs.version>4.10.4.0</spotbugs.version>
 
         <!-- version identifier in jakarta.mail.Version -->
         <mail.version>${project.version}</mail.version>
