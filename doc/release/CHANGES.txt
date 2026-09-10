@@ -29,6 +29,7 @@ E  758 Improve MimeMessage UTF8 handling
 E  804 Restore streamProvider fields for backwards compatibility
 E  810 InternetHeaders.InternetHeader toString()
 E  818 Change getSize() return type from int to long
+E  842 Handle Devanagari and other Indic code points in domains
 
       CHANGES IN THE 2.1.5 RELEASE
       ----------------------------

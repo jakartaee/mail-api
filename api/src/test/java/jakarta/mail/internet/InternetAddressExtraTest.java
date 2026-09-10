@@ -18,6 +18,8 @@ package jakarta.mail.internet;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 /**
@@ -56,5 +58,26 @@ public class InternetAddressExtraTest {
                 new InternetAddress("\"test\r\n foo\"@example.com", "test");
         ia.validate();
         // success!
+    }
+
+    @Test
+    public void testIdnRejectionChainsCause() throws Exception {
+        // U+FDD0 is a Unicode noncharacter — not letter-or-digit, so the
+        // fast-path domain check defers to java.net.IDN, which rejects it
+        // as a prohibited code point. The IAE from IDN should travel along
+        // as the chained cause.
+        System.setProperty("mail.mime.allowutf8", "true");
+        try {
+            InternetAddress ia =
+                    new InternetAddress("arnt@foo﷐.example", true);
+            fail("expected rejection, got " + ia);
+        } catch (AddressException ex) {
+            Throwable cause = ex.getCause();
+            assertNotNull("AddressException should carry IDN's IAE as cause",
+                    cause);
+            assertSame(IllegalArgumentException.class, cause.getClass());
+        } finally {
+            System.clearProperty("mail.mime.allowutf8");
+        }
     }
 }
