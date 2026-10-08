@@ -1860,7 +1860,7 @@ public class MimeMessage extends Message implements MimePart {
     /**
      * Output the message as an RFC 822 format stream. <p>
      *
-     * Note that, depending on how the messag was constructed, it may
+     * Note that, depending on how the message was constructed, it may
      * use a variety of line termination conventions.  Generally the
      * output should be sent through an appropriate FilterOutputStream
      * that converts the line terminators to the desired form, either
