@@ -1200,8 +1200,17 @@ public class InternetAddress extends Address implements Cloneable {
                     checkAddress(addr, route_addr, false);
                 ma = new InternetAddress();
                 ma.setAddress(addr);
-                if (pers != null)
-                    ma.encodedPersonal = pers;
+                if (pers != null) {
+                    if(parseHdr) {
+                        ma.encodedPersonal = pers;
+                    }else {
+                        try {
+                            ma.setPersonal(pers);
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
                 v.add(ma);
             } else {
                 // maybe we passed over more than one space-separated addr
