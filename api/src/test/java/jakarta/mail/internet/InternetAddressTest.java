@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static org.junit.Assert.assertThrows;
+
 /**
  * Test Internet address parsing.
  *
@@ -379,4 +381,28 @@ public class InternetAddressTest {
     private static final String n(String s) {
         return s == null ? "<null>" : s;
     }
+
+    @Test
+    public void testNonASCIICharacterValidation() {
+        // Test cases that should throw AddressException
+        String[] invalidAddresses = {
+                "testächar@something.com",     // ä = 228
+                "tëst@example.com",            // ë = 235
+                "用户@example.com",             // Chinese characters
+                "test@examplé.com"             // é = 233
+        };
+
+        for (String addr : invalidAddresses) {
+            assertThrows(AddressException.class, () -> {
+                new InternetAddress(addr, true);
+            }, "Expected AddressException for strict constructor with address: " + addr);
+
+            assertThrows(AddressException.class, () -> {
+                InternetAddress address = new InternetAddress(addr);
+                address.validate();
+            }, "Expected AddressException for validate() with address: " + addr);
+        }
+    }
+
+
 }

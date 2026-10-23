@@ -1348,7 +1348,7 @@ public class InternetAddress extends Address implements Cloneable {
                             "Local address ends with dot", addr);
                 break;        // done with local part
             }
-            if (c <= 040 || c == 0177)
+            if (c <= 040 || c >= 0177)
                 throw new AddressException(
                         "Local address contains control or whitespace", addr);
             if (specialsNoDot.indexOf(c) >= 0)
