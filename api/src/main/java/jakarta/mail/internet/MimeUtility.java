@@ -1107,11 +1107,12 @@ public class MimeUtility {
 
         // have to actually fold the string
         StringBuilder sb = new StringBuilder(s.length() + 4);
+        int currentIndex = 0;
         char lastc = 0;
-        while (used + s.length() > 76) {
+        while (used + (s.length() - currentIndex) > 76) {
             int lastspace = -1;
-            for (int i = 0; i < s.length(); i++) {
-                if (lastspace != -1 && used + i > 76)
+            for (int i = currentIndex; i < s.length(); i++) {
+                if (lastspace != -1 && used + (i - currentIndex) > 76)
                     break;
                 c = s.charAt(i);
                 if (c == ' ' || c == '\t')
@@ -1121,19 +1122,19 @@ public class MimeUtility {
             }
             if (lastspace == -1) {
                 // no space, use the whole thing
-                sb.append(s);
-                s = "";
-                used = 0;
+                sb.append(s, currentIndex, s.length());
+                currentIndex = s.length();
                 break;
             }
-            sb.append(s, 0, lastspace);
+            sb.append(s, currentIndex, lastspace);
             sb.append("\r\n");
             lastc = s.charAt(lastspace);
             sb.append(lastc);
-            s = s.substring(lastspace + 1);
+            currentIndex = lastspace + 1;
             used = 1;
         }
-        sb.append(s);
+        if (currentIndex < s.length())
+            sb.append(s, currentIndex, s.length());
         return makesafe(sb);
     }
 

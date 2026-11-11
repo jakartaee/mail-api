@@ -54,6 +54,19 @@ public class FoldTest {
         testData = new ArrayList<>();
         parse(new BufferedReader(new InputStreamReader(
                 FoldTest.class.getResourceAsStream("folddata"))));
+
+        String[] repeatedLines = {
+                "a".repeat(40),
+                "b".repeat(40),
+                "c".repeat(40),
+                "d".repeat(40)
+        };
+        testData.add(new Object[]{
+                "FOLD",
+                String.join(" ", repeatedLines),
+                String.join("\r\n ", repeatedLines)
+        });
+
         return testData;
     }
 
