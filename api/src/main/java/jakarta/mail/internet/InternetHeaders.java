@@ -286,8 +286,9 @@ public class InternetHeaders {
      * order of headers.  Headers are never actually removed from
      * the list, they're converted into placeholder entries.
      * New headers are added after existing headers of the same name
-     * (or before in the case of <code>Received</code> and
-     * <code>Return-Path</code> headers).  If no existing header
+     * (or before in the case of <code>Received</code>,
+     * <code>Delivered-To</code> and <code>Return-Path</code> headers).
+     * If no existing header
      * or placeholder for the header is found, new headers are
      * added after the special placeholder with the name ":".
      *
@@ -566,8 +567,10 @@ public class InternetHeaders {
      *
      * The current implementation knows about the preferred order of most
      * well-known headers and will insert headers in that order.  In
-     * addition, it knows that <code>Received</code> headers should be
-     * inserted in reverse order (newest before oldest), and that they
+     * addition, it knows that <code>Received</code> and
+     * <code>Delivered-To</code> (RFC 9228) headers are trace headers
+     * that should be inserted in reverse order (newest before oldest),
+     * above any existing trace header of either name, and that they
      * should appear at the beginning of the headers, preceeded only by
      * a possible <code>Return-Path</code> header.  <p>
      *
@@ -578,14 +581,14 @@ public class InternetHeaders {
      */
     public void addHeader(String name, String value) {
         int pos = headers.size();
-        boolean addReverse =
-                name.equalsIgnoreCase("Received") ||
-                        name.equalsIgnoreCase("Return-Path");
+        boolean trace = isTraceHeader(name);
+        boolean addReverse = trace || name.equalsIgnoreCase("Return-Path");
         if (addReverse)
             pos = 0;
         for (int i = headers.size() - 1; i >= 0; i--) {
             InternetHeader h = headers.get(i);
-            if (name.equalsIgnoreCase(h.getName())) {
+            if (name.equalsIgnoreCase(h.getName()) ||
+                    (trace && isTraceHeader(h.getName()))) {
                 if (addReverse) {
                     pos = i;
                 } else {
@@ -598,6 +601,17 @@ public class InternetHeaders {
                 pos = i;
         }
         headers.add(pos, new InternetHeader(name, value));
+    }
+
+    /**
+     * Is this a trace header that is prepended to the current top of
+     * the trace headers?  The relative order of these headers records
+     * the handling sequence of the message, so they must never be
+     * reordered with respect to each other (RFC 5321, RFC 9228).
+     */
+    private static boolean isTraceHeader(String name) {
+        return name.equalsIgnoreCase("Received") ||
+                name.equalsIgnoreCase("Delivered-To");
     }
 
     /**
